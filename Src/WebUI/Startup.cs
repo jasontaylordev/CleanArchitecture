@@ -23,12 +23,19 @@ namespace CleanArchitecture.WebUI
             services.AddApplication();
             services.AddInfrastructure(Configuration);
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson();
+
             services.AddRazorPages();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
+            });
+
+            services.AddOpenApiDocument(configure =>
+            {
+                configure.Title = "CleanArchitecture API";
             });
         }
 
@@ -53,6 +60,14 @@ namespace CleanArchitecture.WebUI
             {
                 app.UseSpaStaticFiles();
             }
+
+            app.UseOpenApi();
+
+            app.UseSwaggerUi3(settings =>
+            {
+                settings.Path = "/api";
+                settings.DocumentPath = "/api/specification.json";
+            });
 
             app.UseRouting();
 
