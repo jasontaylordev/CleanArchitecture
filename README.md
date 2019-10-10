@@ -1,3 +1,3 @@
 # Clean Architecture
 
-Clean Architecture Solution Template for Angular 8 and .NET Core 3.0.
+This is a solution template for creating a Single Page App (SPA) with Angular 8 and ASP.NET Core 3 following the principles of Clean Architecture.
