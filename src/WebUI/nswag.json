@@ -109,7 +109,7 @@
       "enumNameGeneratorType": null,
       "serviceHost": null,
       "serviceSchemes": null,
-      "output": "ClientApp/src/app/cleanarchitecture-api.ts"
+      "output": "ClientApp/src/app/CleanArchitecture-api.ts"
     }
   }
 }
