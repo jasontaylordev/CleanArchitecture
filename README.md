@@ -2,7 +2,6 @@
  
  # Clean Architecture Solution Template
 [![Clean.Architecture.Solution.Template NuGet Package](https://img.shields.io/badge/nuget-1.0.1-blue)](https://www.nuget.org/packages/Clean.Architecture.Solution.Template)
-[![Twitter URL](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/jasongtau) 
 [![Twitter Follow](https://img.shields.io/twitter/follow/jasongtau.svg?style=social&label=Follow)](https://twitter.com/jasongtau)
 
 <br/>
