@@ -1,4 +1,6 @@
 using CleanArchitecture.Application;
+using CleanArchitecture.Application.Common.Interfaces;
+using CleanArchitecture.WebUI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
@@ -25,6 +27,8 @@ namespace CleanArchitecture.WebUI
         {
             services.AddApplication();
             services.AddInfrastructure(Configuration);
+
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
 
             services.AddControllersWithViews()
                 .AddNewtonsoftJson();
