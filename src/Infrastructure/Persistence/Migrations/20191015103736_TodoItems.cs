@@ -12,7 +12,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 200, nullable: false),
                     IsComplete = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>

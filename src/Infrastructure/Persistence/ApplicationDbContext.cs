@@ -16,5 +16,12 @@ namespace CleanArchitecture.Infrastructure.Persistence
         }
 
         public DbSet<TodoItem> TodoItems { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+        }
     }
 }
