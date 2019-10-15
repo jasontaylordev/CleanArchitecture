@@ -1,5 +1,7 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
+using CleanArchitecture.Domain.Interfaces;
 using CleanArchitecture.Infrastructure.Persistence;
+using CleanArchitecture.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -26,6 +28,8 @@ namespace CleanArchitecture.Application
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
+
+            services.AddTransient<IDateTime, DateTimeService>();
 
             return services;
         }
