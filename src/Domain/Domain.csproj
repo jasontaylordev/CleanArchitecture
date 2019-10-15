@@ -6,4 +6,8 @@
     <AssemblyName>CleanArchitecture.Domain</AssemblyName>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Common\" />
+  </ItemGroup>
+
 </Project>

@@ -10,7 +10,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Configurations
         {
             builder.Property(t => t.Name)
                 .HasMaxLength(200)
-                .IsRequired(true);
+                .IsRequired();
         }
     }
 }
