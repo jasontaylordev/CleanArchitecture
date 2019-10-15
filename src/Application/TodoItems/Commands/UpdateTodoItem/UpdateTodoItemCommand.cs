@@ -1,4 +1,6 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
+﻿using CleanArchitecture.Application.Common.Exceptions;
+using CleanArchitecture.Application.Common.Interfaces;
+using CleanArchitecture.Domain.Entities;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,7 +28,10 @@ namespace CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItem
             {
                 var entity = await _context.TodoItems.FindAsync(request.Id);
 
-                // TODO: Check for null
+                if (entity == null)
+                {
+                    throw new NotFoundException(nameof(TodoItem), request.Id);
+                }
 
                 entity.Name = request.Name;
                 entity.IsComplete = request.IsComplete;

@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using CleanArchitecture.Application.Common.Exceptions;
 using CleanArchitecture.Application.Common.Interfaces;
+using CleanArchitecture.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -31,7 +33,10 @@ namespace CleanArchitecture.Application.TodoItems.Queries.GetTodoItem
                     .ProjectTo<TodoItemVm>(_mapper.ConfigurationProvider)
                     .FirstOrDefaultAsync(cancellationToken);
 
-                // TODO: Check for null
+                if (vm == null)
+                {
+                    throw new NotFoundException(nameof(TodoItem), request.Id);
+                }
 
                 return vm;
             }
