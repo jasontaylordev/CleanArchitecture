@@ -30,6 +30,8 @@ namespace CleanArchitecture.WebUI
 
             services.AddScoped<ICurrentUserService, CurrentUserService>();
 
+            services.AddHttpContextAccessor();
+
             services.AddControllersWithViews()
                 .AddNewtonsoftJson();
 
