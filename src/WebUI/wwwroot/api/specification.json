@@ -11,7 +11,7 @@
         "tags": [
           "TodoItems"
         ],
-        "operationId": "TodoItems_GetList",
+        "operationId": "TodoItems_GetAll",
         "responses": {
           "200": {
             "description": "",
@@ -162,23 +162,12 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer",
+              "format": "int64"
             },
-            "x-position": 2
+            "x-position": 1
           }
         ],
-        "requestBody": {
-          "x-name": "command",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeleteTodoItemCommand"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
         "responses": {
           "200": {
             "description": "",
@@ -301,16 +290,6 @@
           },
           "isComplete": {
             "type": "boolean"
-          }
-        }
-      },
-      "DeleteTodoItemCommand": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
           }
         }
       },

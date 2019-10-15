@@ -15,11 +15,11 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angula
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 export interface ITodoItemsClient {
-    getList(): Observable<TodoItemsListVm>;
+    getAll(): Observable<TodoItemsListVm>;
     create(command: CreateTodoItemCommand): Observable<number>;
     get(id: number): Observable<TodoItemVm>;
     update(id: number, command: UpdateTodoItemCommand): Observable<FileResponse>;
-    delete(id: string, command: DeleteTodoItemCommand): Observable<FileResponse>;
+    delete(id: number): Observable<FileResponse>;
 }
 
 @Injectable()
@@ -33,7 +33,7 @@ export class TodoItemsClient implements ITodoItemsClient {
         this.baseUrl = baseUrl ? baseUrl : "";
     }
 
-    getList(): Observable<TodoItemsListVm> {
+    getAll(): Observable<TodoItemsListVm> {
         let url_ = this.baseUrl + "/api/TodoItems";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -46,11 +46,11 @@ export class TodoItemsClient implements ITodoItemsClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetList(response_);
+            return this.processGetAll(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetList(<any>response_);
+                    return this.processGetAll(<any>response_);
                 } catch (e) {
                     return <Observable<TodoItemsListVm>><any>_observableThrow(e);
                 }
@@ -59,7 +59,7 @@ export class TodoItemsClient implements ITodoItemsClient {
         }));
     }
 
-    protected processGetList(response: HttpResponseBase): Observable<TodoItemsListVm> {
+    protected processGetAll(response: HttpResponseBase): Observable<TodoItemsListVm> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -237,21 +237,17 @@ export class TodoItemsClient implements ITodoItemsClient {
         return _observableOf<FileResponse>(<any>null);
     }
 
-    delete(id: string, command: DeleteTodoItemCommand): Observable<FileResponse> {
+    delete(id: number): Observable<FileResponse> {
         let url_ = this.baseUrl + "/api/TodoItems/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
         url_ = url_.replace("{id}", encodeURIComponent("" + id)); 
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(command);
-
         let options_ : any = {
-            body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json", 
                 "Accept": "application/octet-stream"
             })
         };
@@ -569,42 +565,6 @@ export interface IUpdateTodoItemCommand {
     id?: number;
     name?: string | undefined;
     isComplete?: boolean;
-}
-
-export class DeleteTodoItemCommand implements IDeleteTodoItemCommand {
-    id?: number;
-
-    constructor(data?: IDeleteTodoItemCommand) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.id = data["id"];
-        }
-    }
-
-    static fromJS(data: any): DeleteTodoItemCommand {
-        data = typeof data === 'object' ? data : {};
-        let result = new DeleteTodoItemCommand();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        return data; 
-    }
-}
-
-export interface IDeleteTodoItemCommand {
-    id?: number;
 }
 
 export class WeatherForecast implements IWeatherForecast {
