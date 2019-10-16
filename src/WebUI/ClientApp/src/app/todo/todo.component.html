@@ -1,0 +1,35 @@
+<h1>Todo</h1>
+
+<p>This is a simple todo list component.</p>
+
+<p *ngIf="!vm"><em>Loading...</em></p>
+
+<div *ngIf="vm">
+    <ul class="list-group mb-2">
+        <li class="list-group-item" *ngFor="let item of vm.todoItems">
+            <div class="clearfix">
+                <div class="float-left">
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="item.isComplete" (change)="updateTodo(item)" />
+                        <label class="form-check-label"
+                            [ngClass]="{ 'done-todo': item.isComplete }">{{ item.name }}</label>
+                    </div>
+                </div>
+                <div class="float-right">
+                    <a (click)="deleteTodo(item.id)" class="text-danger" role="button">
+                        <fa-icon [icon]="faTimes"></fa-icon>
+                    </a>
+                </div>
+            </div>
+        </li>
+        <li class="list-group-item add-todo">
+            <form class="mb-2" (ngSubmit)="addTodo()" #addTodoForm="ngForm">
+                <input type="text" class="form-control no-border" name="name" [(ngModel)]="newTodo"
+                    placeholder="Add todo..." />
+            </form>
+        </li>
+    </ul>
+
+    <p>{{ remainingItems() }} item(s) remaining.</p>
+</div>

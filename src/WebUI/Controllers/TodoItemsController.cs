@@ -27,9 +27,7 @@ namespace CleanArchitecture.WebUI.Controllers
         [HttpPost]
         public async Task<ActionResult<long>> Create(CreateTodoItemCommand command)
         {
-            var id = await Mediator.Send(command);
-
-            return Created(nameof(Get), id);
+            return await Mediator.Send(command);
         }
 
         [HttpPut("{id}")]

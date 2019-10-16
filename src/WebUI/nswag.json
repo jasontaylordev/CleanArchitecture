@@ -63,7 +63,7 @@
       "template": "Angular",
       "promiseType": "Promise",
       "httpClass": "HttpClient",
-      "useSingletonProvider": false,
+      "useSingletonProvider": true,
       "injectionTokenType": "InjectionToken",
       "rxJsVersion": 6.0,
       "dateTimeType": "Date",

@@ -22,7 +22,9 @@ export interface ITodoItemsClient {
     delete(id: number): Observable<FileResponse>;
 }
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class TodoItemsClient implements ITodoItemsClient {
     private http: HttpClient;
     private baseUrl: string;
@@ -291,7 +293,9 @@ export interface IWeatherForecastClient {
     get(): Observable<WeatherForecast[]>;
 }
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class WeatherForecastClient implements IWeatherForecastClient {
     private http: HttpClient;
     private baseUrl: string;

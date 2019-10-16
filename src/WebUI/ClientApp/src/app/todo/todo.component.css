@@ -1,0 +1,17 @@
+.no-border {
+    border: 0;
+    box-shadow: none; /* You may want to include this as bootstrap applies these styles too */
+}
+
+.add-todo {
+    padding: 0;
+    padding-left: 28px;
+}
+
+.add-todo input {
+    padding-bottom: 0;
+}
+
+.done-todo {
+    text-decoration: line-through;
+}
