@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.Application;
+﻿using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.TodoItems.Queries.GetTodoItemsFile;
 using CleanArchitecture.Infrastructure.Files.Maps;
 using CsvHelper;
