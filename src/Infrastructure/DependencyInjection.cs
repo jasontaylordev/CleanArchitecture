@@ -1,5 +1,6 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Domain.Interfaces;
+using CleanArchitecture.Infrastructure.Files;
 using CleanArchitecture.Infrastructure.Identity;
 using CleanArchitecture.Infrastructure.Persistence;
 using CleanArchitecture.Infrastructure.Services;
@@ -64,6 +65,7 @@ namespace CleanArchitecture.Application
 
                 services.AddTransient<IDateTime, DateTimeService>();
                 services.AddTransient<IIdentityService, IdentityService>();
+                services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
             }
 
             services.AddAuthentication()

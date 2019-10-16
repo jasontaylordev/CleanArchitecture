@@ -188,6 +188,32 @@
         ]
       }
     },
+    "/api/TodoItems/Download": {
+      "get": {
+        "tags": [
+          "TodoItems"
+        ],
+        "operationId": "TodoItems_Download",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/WeatherForecast": {
       "get": {
         "tags": [
