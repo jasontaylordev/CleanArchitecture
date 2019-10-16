@@ -1,7 +1,7 @@
  <img align="left" width="116" height="116" src="https://raw.githubusercontent.com/JasonGT/CleanArchitecture/master/.github/icon.png" />
  
  # Clean Architecture Solution Template
-[![Clean.Architecture.Solution.Template NuGet Package](https://img.shields.io/badge/nuget-1.0.1-blue)](https://www.nuget.org/packages/Clean.Architecture.Solution.Template)
+[![Clean.Architecture.Solution.Template NuGet Package](https://img.shields.io/badge/nuget-1.0.2-blue)](https://www.nuget.org/packages/Clean.Architecture.Solution.Template)
 [![Twitter Follow](https://img.shields.io/twitter/follow/jasongtau.svg?style=social&label=Follow)](https://twitter.com/jasongtau)
 
 <br/>
