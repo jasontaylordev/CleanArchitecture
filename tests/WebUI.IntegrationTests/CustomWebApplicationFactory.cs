@@ -1,4 +1,5 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
+﻿using CleanArchitecture.Application;
+using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Interfaces;
 using CleanArchitecture.Infrastructure.Persistence;
@@ -38,6 +39,7 @@ namespace CleanArchitecture.WebUI.IntegrationTests
 
                     services.AddScoped<ICurrentUserService, TestCurrentUserService>();
                     services.AddScoped<IDateTime, TestDateTimeService>();
+                    services.AddScoped<IIdentityService, TestIdentityService>();
 
                     var sp = services.BuildServiceProvider();
 
@@ -122,15 +124,5 @@ namespace CleanArchitecture.WebUI.IntegrationTests
 
             context.SaveChanges();
         }
-    }
-
-    public class TestCurrentUserService : ICurrentUserService
-    {
-        public string UserId => "f26da293-02fb-4c90-be75-e4aa51e0bb17";
-    }
-
-    public class TestDateTimeService : IDateTime
-    {
-        public DateTime Now => DateTime.Now;
     }
 }

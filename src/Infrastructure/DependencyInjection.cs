@@ -1,5 +1,6 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Domain.Interfaces;
+using CleanArchitecture.Infrastructure.Identity;
 using CleanArchitecture.Infrastructure.Persistence;
 using CleanArchitecture.Infrastructure.Services;
 using IdentityModel;
@@ -60,12 +61,13 @@ namespace CleanArchitecture.Application
             {
                 services.AddIdentityServer()
                     .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+
+                services.AddTransient<IDateTime, DateTimeService>();
+                services.AddTransient<IIdentityService, IdentityService>();
             }
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
-
-            services.AddTransient<IDateTime, DateTimeService>();
 
             return services;
         }
