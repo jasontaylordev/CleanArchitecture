@@ -1,5 +1,6 @@
 using CleanArchitecture.Application;
 using CleanArchitecture.Application.Common.Interfaces;
+using CleanArchitecture.Infrastructure.Persistence;
 using CleanArchitecture.WebUI.Common;
 using CleanArchitecture.WebUI.Services;
 using FluentValidation.AspNetCore;
@@ -36,6 +37,9 @@ namespace CleanArchitecture.WebUI
             services.AddScoped<ICurrentUserService, CurrentUserService>();
 
             services.AddHttpContextAccessor();
+
+            services.AddHealthChecks()
+                .AddDbContextCheck<ApplicationDbContext>();
 
             services.AddControllersWithViews()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IApplicationDbContext>())
@@ -86,6 +90,7 @@ namespace CleanArchitecture.WebUI
             }
 
             app.UseCustomExceptionHandler();
+            app.UseHealthChecks("/health");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             if (!env.IsDevelopment())
