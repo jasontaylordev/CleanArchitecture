@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CleanArchitecture.Domain.Interfaces
+namespace CleanArchitecture.Application.Common.Interfaces
 {
     public interface IDateTime
     {

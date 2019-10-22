@@ -1,7 +1,6 @@
 ﻿using CleanArchitecture.Application;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Domain.Entities;
-using CleanArchitecture.Domain.Interfaces;
 using CleanArchitecture.Infrastructure.Persistence;
 using IdentityModel.Client;
 using Microsoft.AspNetCore.Hosting;

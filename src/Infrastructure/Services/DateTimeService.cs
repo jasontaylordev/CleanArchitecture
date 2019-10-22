@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.Domain.Interfaces;
+﻿using CleanArchitecture.Application.Common.Interfaces;
 using System;
 
 namespace CleanArchitecture.Infrastructure.Services

@@ -1,6 +1,5 @@
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Domain.Entities;
-using CleanArchitecture.Domain.Interfaces;
 using CleanArchitecture.Infrastructure.Persistence;
 using IdentityServer4.EntityFramework.Options;
 using Microsoft.EntityFrameworkCore;
