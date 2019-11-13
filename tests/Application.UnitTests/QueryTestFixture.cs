@@ -29,6 +29,6 @@ namespace CleanArchitecture.Application.UnitTests.Common
         }
     }
 
-    [CollectionDefinition("QueryCollection")]
+    [CollectionDefinition("QueryTests")]
     public class QueryCollection : ICollectionFixture<QueryTestFixture> { }
 }

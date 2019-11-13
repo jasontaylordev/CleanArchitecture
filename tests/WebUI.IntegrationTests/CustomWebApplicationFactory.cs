@@ -115,10 +115,10 @@ namespace CleanArchitecture.WebUI.IntegrationTests
         public static void SeedSampleData(ApplicationDbContext context)
         {
             context.TodoItems.AddRange(
-                new TodoItem { Id = 1, Name = "Do this thing." },
-                new TodoItem { Id = 2, Name = "Do this thing too." },
-                new TodoItem { Id = 3, Name = "Do many, many things." },
-                new TodoItem { Id = 4, Name = "This thing is done!", IsComplete = true }
+                new TodoItem { Id = 1, Title = "Do this thing." },
+                new TodoItem { Id = 2, Title = "Do this thing too." },
+                new TodoItem { Id = 3, Title = "Do many, many things." },
+                new TodoItem { Id = 4, Title = "This thing is done!", Done = true }
             );
 
             context.SaveChanges();

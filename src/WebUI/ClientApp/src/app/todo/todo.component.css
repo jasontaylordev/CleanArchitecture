@@ -1,17 +1,38 @@
-.no-border {
+#listOptions {
+    margin-right: 10px;
+}
+
+#todo-items .item-input-control {
     border: 0;
-    box-shadow: none; /* You may want to include this as bootstrap applies these styles too */
+    box-shadow: none;
+    background-color: transparent;
 }
 
-.add-todo {
-    padding: 0;
-    padding-left: 28px;
-}
-
-.add-todo input {
-    padding-bottom: 0;
-}
-
-.done-todo {
+#todo-items .done-todo {
     text-decoration: line-through;
+}
+
+#todo-items .todo-item-title {
+    padding-top: 8px;
+}
+
+#todo-items .list-group-item {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+#todo-items .list-group-item .btn-xs {
+    padding: 0;
+}
+
+#todo-items .todo-item-checkbox {
+    padding-top: 8px;
+}
+
+#todo-items .todo-item-commands {
+    padding-top: 4px;
+}
+
+.modal-footer {
+    display: block;
 }

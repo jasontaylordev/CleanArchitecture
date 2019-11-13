@@ -18,9 +18,9 @@ namespace CleanArchitecture.Application.UnitTests.TodoItems.Commands.DeleteTodoI
                 Id = 1
             };
 
-            var sut = new DeleteTodoItemCommand.DeleteTodoItemCommandHandler(Context);
+            var handler = new DeleteTodoItemCommand.DeleteTodoItemCommandHandler(Context);
 
-            await sut.Handle(command, CancellationToken.None);
+            await handler.Handle(command, CancellationToken.None);
 
             var entity = Context.TodoItems.Find(command.Id);
 
@@ -35,10 +35,10 @@ namespace CleanArchitecture.Application.UnitTests.TodoItems.Commands.DeleteTodoI
                 Id = 99
             };
 
-            var sut = new DeleteTodoItemCommand.DeleteTodoItemCommandHandler(Context);
+            var handler = new DeleteTodoItemCommand.DeleteTodoItemCommandHandler(Context);
 
             Should.ThrowAsync<NotFoundException>(() => 
-                sut.Handle(command, CancellationToken.None));
+                handler.Handle(command, CancellationToken.None));
         }
     }
 }

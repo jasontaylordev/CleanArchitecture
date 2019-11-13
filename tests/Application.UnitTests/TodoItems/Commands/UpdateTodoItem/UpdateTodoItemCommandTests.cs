@@ -16,19 +16,19 @@ namespace CleanArchitecture.Application.UnitTests.TodoItems.Commands.UpdateTodoI
             var command = new UpdateTodoItemCommand
             {
                 Id = 1,
-                Name = "This thing is also done.",
-                IsComplete = true
+                Title = "This thing is also done.",
+                Done = true
             };
 
-            var sut = new UpdateTodoItemCommand.UpdateTodoItemCommandHandler(Context);
+            var handler = new UpdateTodoItemCommand.UpdateTodoItemCommandHandler(Context);
 
-            await sut.Handle(command, CancellationToken.None);
+            await handler.Handle(command, CancellationToken.None);
 
             var entity = Context.TodoItems.Find(command.Id);
 
             entity.ShouldNotBeNull();
-            entity.Name.ShouldBe(command.Name);
-            entity.IsComplete.ShouldBeTrue();
+            entity.Title.ShouldBe(command.Title);
+            entity.Done.ShouldBeTrue();
         }
 
         [Fact]
@@ -37,8 +37,8 @@ namespace CleanArchitecture.Application.UnitTests.TodoItems.Commands.UpdateTodoI
             var command = new UpdateTodoItemCommand
             {
                 Id = 99,
-                Name = "This item doesn't exist.",
-                IsComplete = false
+                Title = "This item doesn't exist.",
+                Done = false
             };
 
             var sut = new UpdateTodoItemCommand.UpdateTodoItemCommandHandler(Context);

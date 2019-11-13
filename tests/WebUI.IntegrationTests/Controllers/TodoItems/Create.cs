@@ -22,7 +22,7 @@ namespace CleanArchitecture.WebUI.IntegrationTests.Controllers.TodoItems
 
             var command = new CreateTodoItemCommand
             {
-                Name = "Do yet another thing."
+                Title = "Do yet another thing."
             };
 
             var content = IntegrationTestHelper.GetRequestContent(command);
@@ -39,7 +39,7 @@ namespace CleanArchitecture.WebUI.IntegrationTests.Controllers.TodoItems
 
             var command = new CreateTodoItemCommand
             {
-                Name = "This description of this thing will exceed the maximum length. This description of this thing will exceed the maximum length. This description of this thing will exceed the maximum length. This description of this thing will exceed the maximum length."
+                Title = "This description of this thing will exceed the maximum length. This description of this thing will exceed the maximum length. This description of this thing will exceed the maximum length. This description of this thing will exceed the maximum length."
             };
 
             var content = IntegrationTestHelper.GetRequestContent(command);

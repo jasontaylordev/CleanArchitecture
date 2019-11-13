@@ -21,8 +21,8 @@ namespace CleanArchitecture.WebUI.IntegrationTests.Controllers.TodoItems
             var command = new UpdateTodoItemCommand
             { 
                 Id = 1, 
-                Name = "Do this thing.",
-                IsComplete = true
+                Title = "Do this thing.",
+                Done = true
             };
 
             var content = IntegrationTestHelper.GetRequestContent(command);

@@ -1,5 +1,4 @@
-﻿using CleanArchitecture.Application.TodoItems.Queries.GetTodoItem;
-using Shouldly;
+﻿using Shouldly;
 using System.Net;
 using System.Threading.Tasks;
 using Xunit;

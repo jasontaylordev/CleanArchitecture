@@ -14,18 +14,17 @@ namespace CleanArchitecture.Application.UnitTests.TodoItems.Commands.CreateTodoI
         {
             var command = new CreateTodoItemCommand
             {
-                Name = "Do yet another thing."
+                Title = "Do yet another thing."
             };
 
-            var sut = new CreateTodoItemCommand.CreateTodoItemCommandHandler(Context);
+            var handler = new CreateTodoItemCommand.CreateTodoItemCommandHandler(Context);
 
-            var result = await sut.Handle(command, CancellationToken.None);
+            var result = await handler.Handle(command, CancellationToken.None);
 
             var entity = Context.TodoItems.Find(result);
 
             entity.ShouldNotBeNull();
-            entity.Name.ShouldBe(command.Name);
-            entity.IsComplete.ShouldBeFalse();
+            entity.Title.ShouldBe(command.Title);
         }
     }
 }

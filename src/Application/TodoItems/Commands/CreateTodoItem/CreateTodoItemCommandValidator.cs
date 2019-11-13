@@ -6,7 +6,7 @@ namespace CleanArchitecture.Application.TodoItems.Commands.CreateTodoItem
     {
         public CreateTodoItemCommandValidator()
         {
-            RuleFor(v => v.Name)
+            RuleFor(v => v.Title)
                 .MaximumLength(200)
                 .NotEmpty();
         }

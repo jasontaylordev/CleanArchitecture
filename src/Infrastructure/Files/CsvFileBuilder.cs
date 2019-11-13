@@ -1,5 +1,5 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Application.TodoItems.Queries.GetTodoItemsFile;
+using CleanArchitecture.Application.TodoLists.Queries.ExportTodos;
 using CleanArchitecture.Infrastructure.Files.Maps;
 using CsvHelper;
 using System.Collections.Generic;
@@ -9,14 +9,14 @@ namespace CleanArchitecture.Infrastructure.Files
 {
     public class CsvFileBuilder : ICsvFileBuilder
     {
-        public byte[] BuildTodoItemsFile(IEnumerable<TodoItemFileRecord> records)
+        public byte[] BuildTodoItemsFile(IEnumerable<TodoItemRecord> records)
         {
             using var memoryStream = new MemoryStream();
             using (var streamWriter = new StreamWriter(memoryStream))
             {
                 using var csvWriter = new CsvWriter(streamWriter);
 
-                csvWriter.Configuration.RegisterClassMap<TodoItemFileRecordMap>();
+                csvWriter.Configuration.RegisterClassMap<TodoItemRecordMap>();
                 csvWriter.WriteRecords(records);
             }
 

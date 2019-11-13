@@ -33,8 +33,8 @@ namespace CleanArchitecture.Application.UnitTests.Common
                 .Returns("00000000-0000-0000-0000-000000000000");
 
             var context = new ApplicationDbContext(
-                options, operationalStoreOptions, 
-                currentUserServiceMock.Object, dateTimeMock.Object );
+                options, operationalStoreOptions,
+                currentUserServiceMock.Object, dateTimeMock.Object);
 
             context.Database.EnsureCreated();
 
@@ -45,11 +45,16 @@ namespace CleanArchitecture.Application.UnitTests.Common
 
         public static void SeedSampleData(ApplicationDbContext context)
         {
+            context.TodoLists.AddRange(
+                new TodoList { Id = 1, Title = "Shopping" }
+            );
+
             context.TodoItems.AddRange(
-                new TodoItem { Id = 1, Name = "Do this thing." },
-                new TodoItem { Id = 2, Name = "Do this thing too." },
-                new TodoItem { Id = 3, Name = "Do many, many things." },
-                new TodoItem { Id = 4, Name = "This thing is done!", IsComplete = true }
+                new TodoItem { Id = 1, ListId = 1, Title = "Bread", Done = true },
+                new TodoItem { Id = 2, ListId = 1, Title = "Butter", Done = true },
+                new TodoItem { Id = 3, ListId = 1, Title = "Milk" },
+                new TodoItem { Id = 4, ListId = 1, Title = "Sugar" },
+                new TodoItem { Id = 5, ListId = 1, Title = "Coffee" }
             );
 
             context.SaveChanges();

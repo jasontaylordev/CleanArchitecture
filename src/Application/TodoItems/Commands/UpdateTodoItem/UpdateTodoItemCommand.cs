@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItem
 {
-    public class UpdateTodoItemCommand : IRequest
+    public partial class UpdateTodoItemCommand : IRequest
     {
         public long Id { get; set; }
 
-        public string Name { get; set; }
+        public string Title { get; set; }
 
-        public bool IsComplete { get; set; }
+        public bool Done { get; set; }
 
         public class UpdateTodoItemCommandHandler : IRequestHandler<UpdateTodoItemCommand>
         {
@@ -33,8 +33,8 @@ namespace CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItem
                     throw new NotFoundException(nameof(TodoItem), request.Id);
                 }
 
-                entity.Name = request.Name;
-                entity.IsComplete = request.IsComplete;
+                entity.Title = request.Title;
+                entity.Done = request.Done;
 
                 await _context.SaveChangesAsync(cancellationToken);
 

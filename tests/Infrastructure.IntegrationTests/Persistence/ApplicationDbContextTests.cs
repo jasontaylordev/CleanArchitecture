@@ -46,20 +46,20 @@ namespace CleanArchitecture.Infrastructure.IntegrationTests.Persistence
             _sut.TodoItems.Add(new TodoItem
             {
                 Id = 1,
-                Name = "Do this thing."
+                Title = "Do this thing."
             });
 
             _sut.SaveChanges();
         }
 
         [Fact]
-        public async Task SaveChangesAsync_GivenNewProduct_ShouldSetCreatedProperties()
+        public async Task SaveChangesAsync_GivenNewTodoItem_ShouldSetCreatedProperties()
         {
             var item = new TodoItem
             {
                 Id = 2,
-                Name = "This thing is done.",
-                IsComplete = true
+                Title = "This thing is done.",
+                Done = true
             };
 
             _sut.TodoItems.Add(item);
@@ -71,19 +71,19 @@ namespace CleanArchitecture.Infrastructure.IntegrationTests.Persistence
         }
 
         [Fact]
-        public async Task SaveChangesAsync_GivenExistingProduct_ShouldSetLastModifiedProperties()
+        public async Task SaveChangesAsync_GivenExistingTodoItem_ShouldSetLastModifiedProperties()
         {
             long id = 1;
 
-            var product = await _sut.TodoItems.FindAsync(id);
+            var item = await _sut.TodoItems.FindAsync(id);
 
-            product.IsComplete = true;
+            item.Done = true;
 
             await _sut.SaveChangesAsync();
 
-            product.LastModified.ShouldNotBeNull();
-            product.LastModified.ShouldBe(_dateTime);
-            product.LastModifiedBy.ShouldBe(_userId);
+            item.LastModified.ShouldNotBeNull();
+            item.LastModified.ShouldBe(_dateTime);
+            item.LastModifiedBy.ShouldBe(_userId);
         }
 
         public void Dispose()

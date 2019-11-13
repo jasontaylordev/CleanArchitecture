@@ -8,7 +8,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<TodoItem> builder)
         {
-            builder.Property(t => t.Name)
+            builder.Property(t => t.Title)
                 .HasMaxLength(200)
                 .IsRequired();
         }

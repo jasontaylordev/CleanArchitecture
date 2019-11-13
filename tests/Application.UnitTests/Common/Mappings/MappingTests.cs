@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
-using CleanArchitecture.Application.TodoItems.Queries.GetTodoItem;
-using CleanArchitecture.Application.TodoItems.Queries.GetTodoItemsList;
+using CleanArchitecture.Application.TodoLists.Queries.GetTodos;
 using CleanArchitecture.Domain.Entities;
 using System;
 using Xunit;
@@ -25,8 +24,8 @@ namespace CleanArchitecture.Application.UnitTests.Common.Mappings
         }
         
         [Theory]
+        [InlineData(typeof(TodoList), typeof(TodoListDto))]
         [InlineData(typeof(TodoItem), typeof(TodoItemDto))]
-        [InlineData(typeof(TodoItem), typeof(TodoItemVm))]
         public void ShouldSupportMappingFromSourceToDestination(Type source, Type destination)
         {
             var instance = Activator.CreateInstance(source);

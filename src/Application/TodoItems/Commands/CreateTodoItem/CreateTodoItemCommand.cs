@@ -8,7 +8,9 @@ namespace CleanArchitecture.Application.TodoItems.Commands.CreateTodoItem
 {
     public class CreateTodoItemCommand : IRequest<long>
     {
-        public string Name { get; set; }
+        public int ListId { get; set; }
+
+        public string Title { get; set; }
 
         public class CreateTodoItemCommandHandler : IRequestHandler<CreateTodoItemCommand, long>
         {
@@ -23,8 +25,9 @@ namespace CleanArchitecture.Application.TodoItems.Commands.CreateTodoItem
             {
                 var entity = new TodoItem
                 {
-                    Name = request.Name,
-                    IsComplete = false
+                    ListId = request.ListId,
+                    Title = request.Title,
+                    Done = false
                 };
 
                 _context.TodoItems.Add(entity);
