@@ -99,8 +99,6 @@ namespace CleanArchitecture.WebUI
                 app.UseSpaStaticFiles();
             }
 
-            // app.UseOpenApi();
-
             app.UseSwaggerUi3(settings =>
             {
                 settings.Path = "/api";
@@ -129,7 +127,6 @@ namespace CleanArchitecture.WebUI
 
                 if (env.IsDevelopment())
                 {
-                    //spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
