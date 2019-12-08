@@ -19,8 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Src\Application\Application.csproj" />
-    <ProjectReference Include="..\..\Src\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Application\Application.csproj" />
+    <ProjectReference Include="..\..\src\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
