@@ -10,9 +10,9 @@ This is a solution template for creating a Single Page App (SPA) with Angular 8 
 
 
 ## Technologies
-* .NET Core 3
-* ASP .NET Core 3
-* Entity Framework Core 3
+* .NET Core 3.1
+* ASP .NET Core 3.1
+* Entity Framework Core 3.1
 * Angular 8
 
 ## Getting Started
