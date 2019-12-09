@@ -14,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using NSwag;
 using NSwag.Generation.Processors.Security;
 using System.Linq;
+using CleanArchitecture.Infrastructure;
 
 namespace CleanArchitecture.WebUI
 {
