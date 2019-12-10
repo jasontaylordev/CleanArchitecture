@@ -16,16 +16,13 @@ namespace CleanArchitecture.Application.Common.Exceptions
         public ValidationException(List<ValidationFailure> failures)
             : this()
         {
-            var propertyNames = failures
-                .Select(e => e.PropertyName)
-                .Distinct();
+            var failureGroups = failures
+                .GroupBy(e => e.PropertyName, e => e.ErrorMessage);
 
-            foreach (var propertyName in propertyNames)
+            foreach (var failureGroup in failureGroups)
             {
-                var propertyFailures = failures
-                    .Where(e => e.PropertyName == propertyName)
-                    .Select(e => e.ErrorMessage)
-                    .ToArray();
+                var propertyName = failureGroup.Key;
+                var propertyFailures = failureGroup.ToArray();
 
                 Failures.Add(propertyName, propertyFailures);
             }

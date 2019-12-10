@@ -1,7 +1,7 @@
  <img align="left" width="116" height="116" src="https://raw.githubusercontent.com/JasonGT/CleanArchitecture/master/.github/icon.png" />
  
  # Clean Architecture Solution Template
-[![Clean.Architecture.Solution.Template NuGet Package](https://img.shields.io/badge/nuget-1.0.4-blue)](https://www.nuget.org/packages/Clean.Architecture.Solution.Template)
+[![Clean.Architecture.Solution.Template NuGet Package](https://img.shields.io/badge/nuget-1.0.5-blue)](https://www.nuget.org/packages/Clean.Architecture.Solution.Template)
 [![Twitter Follow](https://img.shields.io/twitter/follow/jasongtau.svg?style=social&label=Follow)](https://twitter.com/jasongtau)
 
 <br/>
@@ -10,9 +10,9 @@ This is a solution template for creating a Single Page App (SPA) with Angular 8 
 
 
 ## Technologies
-* .NET Core 3
-* ASP .NET Core 3
-* Entity Framework Core 3
+* .NET Core 3.1
+* ASP .NET Core 3.1
+* Entity Framework Core 3.1
 * Angular 8
 
 ## Getting Started

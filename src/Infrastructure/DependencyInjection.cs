@@ -1,4 +1,5 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
+﻿using CleanArchitecture.Application;
+using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Infrastructure.Files;
 using CleanArchitecture.Infrastructure.Identity;
 using CleanArchitecture.Infrastructure.Persistence;
@@ -15,7 +16,7 @@ using Microsoft.Extensions.Hosting;
 using System.Collections.Generic;
 using System.Security.Claims;
 
-namespace CleanArchitecture.Application
+namespace CleanArchitecture.Infrastructure
 {
     public static class DependencyInjection
     {
