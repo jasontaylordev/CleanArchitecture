@@ -52,7 +52,7 @@ To use `dotnet-ef` for your migrations please add the following flags to your co
 
 - `--project src/Infrastructure` (optional if in this folder)
 - `--startup-project src/WebUI`
-- `--output-dir Persistance/Migrations`
+- `--output-dir Persistence/Migrations`
 
 ## Support
 
