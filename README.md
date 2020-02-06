@@ -44,6 +44,20 @@ This layer contains classes for accessing external resources such as file system
 
 This layer is a single page application based on Angular 8 and ASP.NET Core 3. This layer depends on both the Application and Infrastructure layers, however, the dependency on Infrastructure is only to support dependency injection. Therefore only *Startup.cs* should reference Infrastructure.
 
+## Notes
+
+### Database Migrations
+
+To use `dotnet-ef` for your migrations please add the following flags to your command (values assume you are executing from repository root)
+
+- `--project src/Infrastructure` (optional if in this folder)
+- `--startup-project src/WebUI`
+- `--output-dir Persistence/Migrations`
+
+For example, to add a new migration from the root folder:
+
+ `dotnet ef migrations add "SampleMigration" --project src\Infrastructure --startup-project src\WebUI`
+
 ## Support
 
 If you are having problems, please let us know by [raising a new issue](https://github.com/jasontaylordev/CleanArchitecture/issues/new/choose).
