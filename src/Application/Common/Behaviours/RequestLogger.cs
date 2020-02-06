@@ -22,7 +22,7 @@ namespace CleanArchitecture.Application.Common.Behaviours
         public async Task Process(TRequest request, CancellationToken cancellationToken)
         {
             var requestName = typeof(TRequest).Name;
-            var userId = _currentUserService.UserId??string.Empty;
+            var userId = _currentUserService.UserId ?? string.Empty;
             string userName = string.Empty;
 
             if (!string.IsNullOrEmpty(userId))
@@ -31,7 +31,7 @@ namespace CleanArchitecture.Application.Common.Behaviours
             }
 
             _logger.LogInformation("CleanArchitecture Request: {Name} {@UserId} {@UserName} {@Request}",
-                requestName, userId, userName ,request);
+                requestName, userId, userName, request);
         }
     }
 }
