@@ -13,7 +13,7 @@ namespace CleanArchitecture.Application.Common.Exceptions
             Failures = new Dictionary<string, string[]>();
         }
 
-        public ValidationException(List<ValidationFailure> failures)
+        public ValidationException(IEnumerable<ValidationFailure> failures)
             : this()
         {
             var failureGroups = failures
