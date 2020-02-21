@@ -29,8 +29,16 @@ namespace CleanArchitecture.Infrastructure
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 
-            services.AddDefaultIdentity<ApplicationUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddDefaultIdentity<ApplicationUser>(options =>
+            {
+                // Basic built in validations
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 6;
+            })
+            .AddEntityFrameworkStores<ApplicationDbContext>();
 
             if (environment.IsEnvironment("Test"))
             {
