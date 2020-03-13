@@ -56,7 +56,9 @@ namespace CleanArchitecture.Domain.UnitTests.ValueObjects
         [Fact]
         public void ShouldThrowAdAccountInvalidExceptionForInvalidAdAccount()
         {
-            Assert.Throws<AdAccountInvalidException>(() => (AdAccount)"SSWJason");
+            var exception = Assert.Throws<AdAccountInvalidException>(() => (AdAccount)"SSWJason");
+
+            Assert.Equal("AD Account \"SSWJason\" is invalid.", exception.Message);
         }
     }
 }
