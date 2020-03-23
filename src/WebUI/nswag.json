@@ -1,5 +1,5 @@
 ﻿{
-  "runtime": "NetCore30",
+  "runtime": "NetCore31",
   "defaultVariables": null,
   "documentGenerator": {
     "aspNetCoreToOpenApi": {
@@ -63,6 +63,7 @@
       "template": "Angular",
       "promiseType": "Promise",
       "httpClass": "HttpClient",
+      "withCredentials": false,
       "useSingletonProvider": true,
       "injectionTokenType": "InjectionToken",
       "rxJsVersion": 6.0,
