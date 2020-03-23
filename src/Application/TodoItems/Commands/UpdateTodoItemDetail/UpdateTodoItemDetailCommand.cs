@@ -17,33 +17,33 @@ namespace CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItemDetail
         public PriorityLevel Priority { get; set; }
 
         public string Note { get; set; }
+    }
 
-        public class UpdateTodoItemDetailCommandHandler : IRequestHandler<UpdateTodoItemDetailCommand>
+    public class UpdateTodoItemDetailCommandHandler : IRequestHandler<UpdateTodoItemDetailCommand>
+    {
+        private readonly IApplicationDbContext _context;
+
+        public UpdateTodoItemDetailCommandHandler(IApplicationDbContext context)
         {
-            private readonly IApplicationDbContext _context;
+            _context = context;
+        }
 
-            public UpdateTodoItemDetailCommandHandler(IApplicationDbContext context)
+        public async Task<Unit> Handle(UpdateTodoItemDetailCommand request, CancellationToken cancellationToken)
+        {
+            var entity = await _context.TodoItems.FindAsync(request.Id);
+
+            if (entity == null)
             {
-                _context = context;
+                throw new NotFoundException(nameof(TodoItem), request.Id);
             }
 
-            public async Task<Unit> Handle(UpdateTodoItemDetailCommand request, CancellationToken cancellationToken)
-            {
-                var entity = await _context.TodoItems.FindAsync(request.Id);
+            entity.ListId = request.ListId;
+            entity.Priority = request.Priority;
+            entity.Note = request.Note;
 
-                if (entity == null)
-                {
-                    throw new NotFoundException(nameof(TodoItem), request.Id);
-                }
+            await _context.SaveChangesAsync(cancellationToken);
 
-                entity.ListId = request.ListId;
-                entity.Priority = request.Priority;
-                entity.Note = request.Note;
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return Unit.Value;
-            }
+            return Unit.Value;
         }
     }
 }

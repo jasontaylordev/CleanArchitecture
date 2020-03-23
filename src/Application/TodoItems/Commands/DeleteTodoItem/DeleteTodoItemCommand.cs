@@ -10,31 +10,31 @@ namespace CleanArchitecture.Application.TodoItems.Commands.DeleteTodoItem
     public class DeleteTodoItemCommand : IRequest
     {
         public long Id { get; set; }
+    }
 
-        public class DeleteTodoItemCommandHandler : IRequestHandler<DeleteTodoItemCommand>
+    public class DeleteTodoItemCommandHandler : IRequestHandler<DeleteTodoItemCommand>
+    {
+        private readonly IApplicationDbContext _context;
+
+        public DeleteTodoItemCommandHandler(IApplicationDbContext context)
         {
-            private readonly IApplicationDbContext _context;
+            _context = context;
+        }
 
-            public DeleteTodoItemCommandHandler(IApplicationDbContext context)
+        public async Task<Unit> Handle(DeleteTodoItemCommand request, CancellationToken cancellationToken)
+        {
+            var entity = await _context.TodoItems.FindAsync(request.Id);
+
+            if (entity == null)
             {
-                _context = context;
+                throw new NotFoundException(nameof(TodoItem), request.Id);
             }
 
-            public async Task<Unit> Handle(DeleteTodoItemCommand request, CancellationToken cancellationToken)
-            {
-                var entity = await _context.TodoItems.FindAsync(request.Id);
+            _context.TodoItems.Remove(entity);
 
-                if (entity == null)
-                {
-                    throw new NotFoundException(nameof(TodoItem), request.Id);
-                }
+            await _context.SaveChangesAsync(cancellationToken);
 
-                _context.TodoItems.Remove(entity);
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return Unit.Value;
-            }
+            return Unit.Value;
         }
     }
 }

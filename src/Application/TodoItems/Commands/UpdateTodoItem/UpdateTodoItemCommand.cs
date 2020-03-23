@@ -14,32 +14,32 @@ namespace CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItem
         public string Title { get; set; }
 
         public bool Done { get; set; }
+    }
 
-        public class UpdateTodoItemCommandHandler : IRequestHandler<UpdateTodoItemCommand>
+    public class UpdateTodoItemCommandHandler : IRequestHandler<UpdateTodoItemCommand>
+    {
+        private readonly IApplicationDbContext _context;
+
+        public UpdateTodoItemCommandHandler(IApplicationDbContext context)
         {
-            private readonly IApplicationDbContext _context;
+            _context = context;
+        }
 
-            public UpdateTodoItemCommandHandler(IApplicationDbContext context)
+        public async Task<Unit> Handle(UpdateTodoItemCommand request, CancellationToken cancellationToken)
+        {
+            var entity = await _context.TodoItems.FindAsync(request.Id);
+
+            if (entity == null)
             {
-                _context = context;
+                throw new NotFoundException(nameof(TodoItem), request.Id);
             }
 
-            public async Task<Unit> Handle(UpdateTodoItemCommand request, CancellationToken cancellationToken)
-            {
-                var entity = await _context.TodoItems.FindAsync(request.Id);
+            entity.Title = request.Title;
+            entity.Done = request.Done;
 
-                if (entity == null)
-                {
-                    throw new NotFoundException(nameof(TodoItem), request.Id);
-                }
+            await _context.SaveChangesAsync(cancellationToken);
 
-                entity.Title = request.Title;
-                entity.Done = request.Done;
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return Unit.Value;
-            }
+            return Unit.Value;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace CleanArchitecture.Application.UnitTests.TodoLists.Commands.CreateTodoL
                 Title = "Bucket List"
             };
 
-            var handler = new CreateTodoListCommand.CreateTodoListCommandHandler(Context);
+            var handler = new CreateTodoListCommandHandler(Context);
 
             var result = await handler.Handle(command, CancellationToken.None);
 

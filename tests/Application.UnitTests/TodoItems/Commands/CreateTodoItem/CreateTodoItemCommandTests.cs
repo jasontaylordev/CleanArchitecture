@@ -17,7 +17,7 @@ namespace CleanArchitecture.Application.UnitTests.TodoItems.Commands.CreateTodoI
                 Title = "Do yet another thing."
             };
 
-            var handler = new CreateTodoItemCommand.CreateTodoItemCommandHandler(Context);
+            var handler = new CreateTodoItemCommandHandler(Context);
 
             var result = await handler.Handle(command, CancellationToken.None);
 

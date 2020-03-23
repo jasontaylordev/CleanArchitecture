@@ -27,7 +27,7 @@ namespace CleanArchitecture.Application.UnitTests.TodoLists.Queries.GetTodos
         {
             var query = new GetTodosQuery();
 
-            var handler = new GetTodosQuery.GetTodosQueryHandler(_context, _mapper);
+            var handler = new GetTodosQueryHandler(_context, _mapper);
 
             var result = await handler.Handle(query, CancellationToken.None);
 

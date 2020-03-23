@@ -20,7 +20,7 @@ namespace CleanArchitecture.Application.UnitTests.TodoItems.Commands.UpdateTodoI
                 Done = true
             };
 
-            var handler = new UpdateTodoItemCommand.UpdateTodoItemCommandHandler(Context);
+            var handler = new UpdateTodoItemCommandHandler(Context);
 
             await handler.Handle(command, CancellationToken.None);
 
@@ -41,7 +41,7 @@ namespace CleanArchitecture.Application.UnitTests.TodoItems.Commands.UpdateTodoI
                 Done = false
             };
 
-            var sut = new UpdateTodoItemCommand.UpdateTodoItemCommandHandler(Context);
+            var sut = new UpdateTodoItemCommandHandler(Context);
 
             Should.ThrowAsync<NotFoundException>(() => 
                 sut.Handle(command, CancellationToken.None));

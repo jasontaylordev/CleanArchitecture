@@ -18,7 +18,7 @@ namespace CleanArchitecture.Application.UnitTests.TodoItems.Commands.DeleteTodoI
                 Id = 1
             };
 
-            var handler = new DeleteTodoItemCommand.DeleteTodoItemCommandHandler(Context);
+            var handler = new DeleteTodoItemCommandHandler(Context);
 
             await handler.Handle(command, CancellationToken.None);
 
@@ -35,7 +35,7 @@ namespace CleanArchitecture.Application.UnitTests.TodoItems.Commands.DeleteTodoI
                 Id = 99
             };
 
-            var handler = new DeleteTodoItemCommand.DeleteTodoItemCommandHandler(Context);
+            var handler = new DeleteTodoItemCommandHandler(Context);
 
             Should.ThrowAsync<NotFoundException>(() => 
                 handler.Handle(command, CancellationToken.None));

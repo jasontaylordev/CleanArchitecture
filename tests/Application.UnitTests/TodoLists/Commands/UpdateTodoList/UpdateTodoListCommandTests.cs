@@ -19,7 +19,7 @@ namespace CleanArchitecture.Application.UnitTests.TodoLists.Commands.UpdateTodoL
                 Title = "Shopping",
             };
 
-            var handler = new UpdateTodoListCommand.UpdateTodoListCommandHandler(Context);
+            var handler = new UpdateTodoListCommandHandler(Context);
 
             await handler.Handle(command, CancellationToken.None);
 
@@ -38,7 +38,7 @@ namespace CleanArchitecture.Application.UnitTests.TodoLists.Commands.UpdateTodoL
                 Title = "Bucket List",
             };
 
-            var handler = new UpdateTodoListCommand.UpdateTodoListCommandHandler(Context);
+            var handler = new UpdateTodoListCommandHandler(Context);
 
             Should.ThrowAsync<NotFoundException>(() =>
                 handler.Handle(command, CancellationToken.None));
