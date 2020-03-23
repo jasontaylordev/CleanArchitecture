@@ -66,14 +66,14 @@ interface ApplicationPathsType {
   readonly LogOut: string;
   readonly LoggedOut: string;
   readonly LogOutCallback: string;
-  readonly LoginPathComponents: string [];
-  readonly LoginFailedPathComponents: string [];
-  readonly LoginCallbackPathComponents: string [];
-  readonly RegisterPathComponents: string [];
-  readonly ProfilePathComponents: string [];
-  readonly LogOutPathComponents: string [];
-  readonly LoggedOutPathComponents: string [];
-  readonly LogOutCallbackPathComponents: string [];
+  readonly LoginPathComponents: string[];
+  readonly LoginFailedPathComponents: string[];
+  readonly LoginCallbackPathComponents: string[];
+  readonly RegisterPathComponents: string[];
+  readonly ProfilePathComponents: string[];
+  readonly LogOutPathComponents: string[];
+  readonly LoggedOutPathComponents: string[];
+  readonly LogOutCallbackPathComponents: string[];
   readonly IdentityRegisterPath: string;
   readonly IdentityManagePath: string;
 }
