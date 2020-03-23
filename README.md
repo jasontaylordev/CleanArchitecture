@@ -24,7 +24,7 @@ The easiest way to get started is to install the [NuGet package](https://www.nug
 3. Run `dotnet new ca-sln` to create a new project
 4. Navigate to `src/WebUI` and run `dotnet run` to launch the project
 
-Check out my [blog article](https://jasontaylor.dev/clean-architecture-getting-started/) for more information
+Check out my [blog post](https://jasontaylor.dev/clean-architecture-getting-started/) for more information.
 
 ## Overview
 
@@ -62,7 +62,7 @@ For example, to add a new migration from the root folder:
  
 ## Angular 9 Upgrade
 
-Check out my [blog article](https://jasontaylor.dev/asp-net-core-angular-9-upgrade/) for instructions
+Check out my [blog post](https://jasontaylor.dev/asp-net-core-angular-9-upgrade/) for instructions.
 
 ## Support
 
