@@ -6,7 +6,7 @@ using Xunit;
 
 namespace CleanArchitecture.Application.UnitTests.TodoLists.Commands.CreateTodoList
 {
-    public class UpdateTodoListCommandValidatorTests : CommandTestBase
+    public class CreateTodoListCommandValidatorTests : CommandTestBase
     {
         [Fact]
         public void IsValid_ShouldBeTrue_WhenListTitleIsUnique()
