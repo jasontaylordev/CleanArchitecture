@@ -6,14 +6,14 @@
 
 <br/>
 
-This is a solution template for creating a Single Page App (SPA) with Angular 8 and ASP.NET Core 3 following the principles of Clean Architecture. Create a new project based on this template by clicking the above **Use this template** button or by installing and running the associated NuGet package (see Getting Started for full details). 
+This is a solution template for creating a Single Page App (SPA) with Angular and ASP.NET Core following the principles of Clean Architecture. Create a new project based on this template by clicking the above **Use this template** button or by installing and running the associated NuGet package (see Getting Started for full details). 
 
 
 ## Technologies
 * .NET Core 3.1
 * ASP .NET Core 3.1
 * Entity Framework Core 3.1
-* Angular 8
+* Angular 9
 
 ## Getting Started
 
@@ -61,10 +61,6 @@ To use `dotnet-ef` for your migrations please add the following flags to your co
 For example, to add a new migration from the root folder:
 
  `dotnet ef migrations add "SampleMigration" --project src\Infrastructure --startup-project src\WebUI`
- 
-## Angular 9 Upgrade
-
-Check out my [blog post](https://jasontaylor.dev/asp-net-core-angular-9-upgrade/) for instructions.
 
 ## Support
 
