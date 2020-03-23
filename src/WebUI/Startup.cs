@@ -1,5 +1,6 @@
 using CleanArchitecture.Application;
 using CleanArchitecture.Application.Common.Interfaces;
+using CleanArchitecture.Infrastructure;
 using CleanArchitecture.Infrastructure.Persistence;
 using CleanArchitecture.WebUI.Common;
 using CleanArchitecture.WebUI.Services;
@@ -14,7 +15,6 @@ using Microsoft.Extensions.Hosting;
 using NSwag;
 using NSwag.Generation.Processors.Security;
 using System.Linq;
-using CleanArchitecture.Infrastructure;
 
 namespace CleanArchitecture.WebUI
 {
