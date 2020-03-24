@@ -3,6 +3,7 @@ using CleanArchitecture.Application.TodoLists.Queries.ExportTodos;
 using CleanArchitecture.Infrastructure.Files.Maps;
 using CsvHelper;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 
 namespace CleanArchitecture.Infrastructure.Files
@@ -14,7 +15,7 @@ namespace CleanArchitecture.Infrastructure.Files
             using var memoryStream = new MemoryStream();
             using (var streamWriter = new StreamWriter(memoryStream))
             {
-                using var csvWriter = new CsvWriter(streamWriter);
+                using var csvWriter = new CsvWriter(streamWriter, CultureInfo.InvariantCulture);
 
                 csvWriter.Configuration.RegisterClassMap<TodoItemRecordMap>();
                 csvWriter.WriteRecords(records);

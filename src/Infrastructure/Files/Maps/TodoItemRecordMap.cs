@@ -1,5 +1,6 @@
 ﻿using CleanArchitecture.Application.TodoLists.Queries.ExportTodos;
 using CsvHelper.Configuration;
+using System.Globalization;
 
 namespace CleanArchitecture.Infrastructure.Files.Maps
 {
@@ -7,7 +8,7 @@ namespace CleanArchitecture.Infrastructure.Files.Maps
     {
         public TodoItemRecordMap()
         {
-            AutoMap();
+            AutoMap(CultureInfo.InvariantCulture);
             Map(m => m.Done).ConvertUsing(c => c.Done ? "Yes" : "No");
         }
     }
