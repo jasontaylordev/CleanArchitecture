@@ -1,5 +1,4 @@
-﻿using CleanArchitecture.Application;
-using CleanArchitecture.Application.Common.Interfaces;
+﻿using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Infrastructure.Files;
 using CleanArchitecture.Infrastructure.Identity;
 using CleanArchitecture.Infrastructure.Persistence;
@@ -23,7 +22,7 @@ namespace CleanArchitecture.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment environment)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
+                options.UseSqlite(
                     configuration.GetConnectionString("DefaultConnection"), 
                     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
