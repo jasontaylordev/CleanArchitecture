@@ -66,6 +66,10 @@
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
   </Target>
 
+  <Target Name="BuildMigrationsScript" AfterTargets="PostBuildEvent" Condition=" '$(Configuration)' == 'Release' ">
+    <Exec Command="dotnet ef migrations script --configuration $(Configuration) --idempotent --no-build --output $(TargetDir)migrations.sql"/>
+  </Target>
+
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
