@@ -10,7 +10,7 @@ namespace CleanArchitecture.Application.Common.Exceptions
         public ValidationException()
             : base("One or more validation failures have occurred.")
         {
-            Failures = new Dictionary<string, string[]>();
+            Errors = new Dictionary<string, string[]>();
         }
 
         public ValidationException(IEnumerable<ValidationFailure> failures)
@@ -24,10 +24,10 @@ namespace CleanArchitecture.Application.Common.Exceptions
                 var propertyName = failureGroup.Key;
                 var propertyFailures = failureGroup.ToArray();
 
-                Failures.Add(propertyName, propertyFailures);
+                Errors.Add(propertyName, propertyFailures);
             }
         }
 
-        public IDictionary<string, string[]> Failures { get; }
+        public IDictionary<string, string[]> Errors { get; }
     }
 }
