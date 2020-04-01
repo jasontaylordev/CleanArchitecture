@@ -2,6 +2,7 @@ using CleanArchitecture.Infrastructure.Identity;
 using CleanArchitecture.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -23,6 +24,11 @@ namespace CleanArchitecture.WebUI
                 try
                 {
                     var context = services.GetRequiredService<ApplicationDbContext>();
+
+                    if (context.Database.IsSqlServer())
+                    {
+                        context.Database.Migrate();
+                    }                   
 
                     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
 
