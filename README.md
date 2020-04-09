@@ -59,11 +59,11 @@ To use `dotnet-ef` for your migrations please add the following flags to your co
 
 - `--project src/Infrastructure` (optional if in this folder)
 - `--startup-project src/WebUI`
-- `--output-dir Persistence/Migrations`
+- `--output-dir Migrations`
 
 For example, to add a new migration from the root folder:
 
- `dotnet ef migrations add "SampleMigration" --project src\Infrastructure --startup-project src\WebUI --output-dir Persistence\Migrations`
+ `dotnet ef migrations add "SampleMigration" --project src\Infrastructure --startup-project src\WebUI --output-dir Migrations`
 
 ## Overview
 
