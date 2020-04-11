@@ -19,21 +19,18 @@ namespace CleanArchitecture.WebUI
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
+        public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            Environment = environment;
         }
 
         public IConfiguration Configuration { get; }
-
-        public IWebHostEnvironment Environment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplication();
-            services.AddInfrastructure(Configuration, Environment);
+            services.AddInfrastructure(Configuration);
 
             services.AddScoped<ICurrentUserService, CurrentUserService>();
 
@@ -42,8 +39,8 @@ namespace CleanArchitecture.WebUI
             services.AddHealthChecks()
                 .AddDbContextCheck<ApplicationDbContext>();
 
-            services.AddControllersWithViews(options => options.Filters.Add(new ApiExceptionFilter()))
-                .AddNewtonsoftJson();
+            services.AddControllersWithViews(options => 
+                options.Filters.Add(new ApiExceptionFilter()));
 
             services.AddRazorPages();
 

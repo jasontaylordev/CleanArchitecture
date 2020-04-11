@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.TodoItems.Commands.CreateTodoItem
 {
-    public class CreateTodoItemCommand : IRequest<long>
+    public class CreateTodoItemCommand : IRequest<int>
     {
         public int ListId { get; set; }
 
         public string Title { get; set; }
     }
 
-    public class CreateTodoItemCommandHandler : IRequestHandler<CreateTodoItemCommand, long>
+    public class CreateTodoItemCommandHandler : IRequestHandler<CreateTodoItemCommand, int>
     {
         private readonly IApplicationDbContext _context;
 
@@ -22,7 +22,7 @@ namespace CleanArchitecture.Application.TodoItems.Commands.CreateTodoItem
             _context = context;
         }
 
-        public async Task<long> Handle(CreateTodoItemCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateTodoItemCommand request, CancellationToken cancellationToken)
         {
             var entity = new TodoItem
             {

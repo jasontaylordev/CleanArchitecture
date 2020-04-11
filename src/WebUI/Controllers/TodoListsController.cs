@@ -27,13 +27,13 @@ namespace CleanArchitecture.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<long>> Create(CreateTodoListCommand command)
+        public async Task<ActionResult<int>> Create(CreateTodoListCommand command)
         {
             return await Mediator.Send(command);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> Update(long id, UpdateTodoListCommand command)
+        public async Task<ActionResult> Update(int id, UpdateTodoListCommand command)
         {
             if (id != command.Id)
             {

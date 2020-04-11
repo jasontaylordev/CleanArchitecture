@@ -8,7 +8,17 @@ namespace CleanArchitecture.Infrastructure.Persistence
 {
     public static class ApplicationDbContextSeed
     {
-        public static async Task SeedAsync(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public static async Task SeedDefaultUserAsync(UserManager<ApplicationUser> userManager)
+        {
+            var defaultUser = new ApplicationUser { UserName = "administrator@localhost", Email = "administrator@localhost" };
+
+            if (userManager.Users.All(u => u.UserName != defaultUser.UserName))
+            {
+                await userManager.CreateAsync(defaultUser, "Administrator1!");
+            }
+        }
+
+        public static async Task SeedSampleDataAsync(ApplicationDbContext context)
         {
             // Seed, if necessary
             if (!context.TodoLists.Any())
@@ -28,14 +38,8 @@ namespace CleanArchitecture.Infrastructure.Persistence
                         new TodoItem { Title = "Water" }
                     }
                 });
-            }
 
-            // Create default administrator
-            var defaultUser = new ApplicationUser { UserName = "administrator@localhost", Email = "administrator@localhost" };
-
-            if (userManager.Users.All(u => u.Id != defaultUser.Id))
-            {
-                await userManager.CreateAsync(defaultUser, "Administrator1!");
+                await context.SaveChangesAsync();
             }
         }
     }

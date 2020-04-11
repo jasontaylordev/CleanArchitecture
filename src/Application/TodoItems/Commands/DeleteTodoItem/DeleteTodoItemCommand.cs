@@ -9,7 +9,7 @@ namespace CleanArchitecture.Application.TodoItems.Commands.DeleteTodoItem
 {
     public class DeleteTodoItemCommand : IRequest
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
     }
 
     public class DeleteTodoItemCommandHandler : IRequestHandler<DeleteTodoItemCommand>

@@ -6,7 +6,7 @@ namespace CleanArchitecture.Domain.Entities
 {
     public class TodoItem : AuditableEntity
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public int ListId { get; set; }
 

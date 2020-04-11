@@ -9,7 +9,7 @@ namespace CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItem
 {
     public partial class UpdateTodoItemCommand : IRequest
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public string Title { get; set; }
 

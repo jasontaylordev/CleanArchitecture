@@ -10,7 +10,7 @@ namespace CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItemDetail
 {
     public class UpdateTodoItemDetailCommand : IRequest
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public int ListId { get; set; }
 

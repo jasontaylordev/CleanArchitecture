@@ -6,7 +6,7 @@ namespace CleanArchitecture.Application.TodoLists.Queries.GetTodos
 {
     public class TodoItemDto : IMapFrom<TodoItem>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public int ListId { get; set; }
 
