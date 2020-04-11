@@ -10,6 +10,16 @@ namespace CleanArchitecture.Application.NUnitTests.TodoLists.Com
     public class GetTodosTests : TestBase
     {
         [Test]
+        public async Task ShouldIncludePriorityLevels()
+        {
+            var query = new GetTodosQuery();
+
+            var result = await SendAsync(query);
+
+            result.PriorityLevels.Should().NotBeEmpty();
+        }
+
+        [Test]
         public async Task ShouldGetAllListsAndItems()
         {
             var query = new GetTodosQuery();
