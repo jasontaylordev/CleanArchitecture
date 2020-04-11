@@ -3,7 +3,7 @@ using FluentAssertions;
 using NUnit.Framework;
 using System.Threading.Tasks;
 
-namespace CleanArchitecture.Application.NUnitTests.TodoLists.Com
+namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Queries
 {
     using static Testing;
 

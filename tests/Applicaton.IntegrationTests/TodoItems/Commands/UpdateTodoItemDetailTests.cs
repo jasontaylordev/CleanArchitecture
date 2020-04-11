@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using System;
 
-namespace CleanArchitecture.Application.NUnitTests.TodoItems.Commands
+namespace CleanArchitecture.Application.IntegrationTests.TodoItems.Commands
 {
     using static Testing;
 

@@ -23,7 +23,7 @@ public class Testing
     private static Checkpoint _checkpoint;
 
     [OneTimeSetUp]
-    public async Task RunBeforeAnyTests()
+    public void RunBeforeAnyTests()
     {
         var builder = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
@@ -80,7 +80,7 @@ public class Testing
         return await mediator.Send(request);
     }
 
-    public class CurrentUserService : ICurrentUserService
+    private class CurrentUserService : ICurrentUserService
     {
         public string UserId => _currentUserId;
     }

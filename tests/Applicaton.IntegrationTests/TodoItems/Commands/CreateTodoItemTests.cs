@@ -7,7 +7,7 @@ using NUnit.Framework;
 using System;
 using System.Threading.Tasks;
 
-namespace CleanArchitecture.Application.NUnitTests.TodoItems.Commands
+namespace CleanArchitecture.Application.IntegrationTests.TodoItems.Commands
 {
     using static Testing;
 
