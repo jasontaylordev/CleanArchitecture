@@ -5,12 +5,12 @@ using CleanArchitecture.WebUI;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using NUnit.Framework;
 using Respawn;
-using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -53,7 +53,19 @@ public class Testing
         services.AddTransient<ICurrentUserService, CurrentUserService>();
 
         _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
+        
         _checkpoint = new Checkpoint();
+
+        EnsureDatabase();
+    }
+
+    private static void EnsureDatabase()
+    {
+        using var scope = _scopeFactory.CreateScope();
+
+        var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+
+        context.Database.Migrate();
     }
 
     public static async Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request)
@@ -82,7 +94,6 @@ public class Testing
         using var scope = _scopeFactory.CreateScope();
 
         var userManager = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
-        var currentUserService = scope.ServiceProvider.GetService<ICurrentUserService>();
 
         var user = new ApplicationUser { UserName = userName, Email = userName };
 
