@@ -1,24 +1,24 @@
 ﻿using CleanArchitecture.Domain.Exceptions;
 using CleanArchitecture.Domain.ValueObjects;
-using Shouldly;
-using Xunit;
+using FluentAssertions;
+using NUnit.Framework;
 
 namespace CleanArchitecture.Domain.UnitTests.ValueObjects
 {
     public class AdAccountTests
     {
-        [Fact]
+        [Test]
         public void ShouldHaveCorrectDomainAndName()
         {
             const string accountString = "SSW\\Jason";
 
             var account = AdAccount.For(accountString);
 
-            account.Domain.ShouldBe("SSW");
-            account.Name.ShouldBe("Jason");
+            account.Domain.Should().Be("SSW");
+            account.Name.Should().Be("Jason");
         }
 
-        [Fact]
+        [Test]
         public void ToStringReturnsCorrectFormat()
         {
             const string accountString = "SSW\\Jason";
@@ -27,10 +27,10 @@ namespace CleanArchitecture.Domain.UnitTests.ValueObjects
 
             var result = account.ToString();
 
-            result.ShouldBe(accountString);
+            result.Should().Be(accountString);
         }
 
-        [Fact]
+        [Test]
         public void ImplicitConversionToStringResultsInCorrectString()
         {
             const string accountString = "SSW\\Jason";
@@ -39,24 +39,25 @@ namespace CleanArchitecture.Domain.UnitTests.ValueObjects
 
             string result = account;
 
-            result.ShouldBe(accountString);
+            result.Should().Be(accountString);
         }
 
-        [Fact]
+        [Test]
         public void ExplicitConversionFromStringSetsDomainAndName()
         {
             const string accountString = "SSW\\Jason";
 
             var account = (AdAccount)accountString;
 
-            account.Domain.ShouldBe("SSW");
-            account.Name.ShouldBe("Jason");
+            account.Domain.Should().Be("SSW");
+            account.Name.Should().Be("Jason");
         }
 
-        [Fact]
+        [Test]
         public void ShouldThrowAdAccountInvalidExceptionForInvalidAdAccount()
         {
-            Assert.Throws<AdAccountInvalidException>(() => (AdAccount)"SSWJason");
+            FluentActions.Invoking(() => (AdAccount)"SSWJason")
+                .Should().Throw<AdAccountInvalidException>();
         }
     }
 }
