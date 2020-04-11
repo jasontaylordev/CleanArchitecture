@@ -31,7 +31,7 @@
               "application/json": {
                 "schema": {
                   "type": "integer",
-                  "format": "int64"
+                  "format": "int32"
                 }
               }
             }
@@ -57,7 +57,7 @@
             "required": true,
             "schema": {
               "type": "integer",
-              "format": "int64"
+              "format": "int32"
             },
             "x-position": 1
           }
@@ -105,7 +105,7 @@
             "required": true,
             "schema": {
               "type": "integer",
-              "format": "int64"
+              "format": "int32"
             },
             "x-position": 1
           }
@@ -142,7 +142,7 @@
             "in": "query",
             "schema": {
               "type": "integer",
-              "format": "int64"
+              "format": "int32"
             },
             "x-position": 1
           }
@@ -227,7 +227,7 @@
               "application/json": {
                 "schema": {
                   "type": "integer",
-                  "format": "int64"
+                  "format": "int32"
                 }
               }
             }
@@ -289,7 +289,7 @@
             "required": true,
             "schema": {
               "type": "integer",
-              "format": "int64"
+              "format": "int32"
             },
             "x-position": 1
           }
@@ -408,7 +408,7 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int64"
+            "format": "int32"
           },
           "title": {
             "type": "string",
@@ -425,7 +425,7 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int64"
+            "format": "int32"
           },
           "listId": {
             "type": "integer",
@@ -517,7 +517,7 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int64"
+            "format": "int32"
           },
           "listId": {
             "type": "integer",
