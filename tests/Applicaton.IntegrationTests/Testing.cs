@@ -54,7 +54,10 @@ public class Testing
 
         _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
         
-        _checkpoint = new Checkpoint();
+        _checkpoint = new Checkpoint
+        {
+            TablesToIgnore = new [] { "__EFMigrationsHistory" }
+        };
 
         EnsureDatabase();
     }
