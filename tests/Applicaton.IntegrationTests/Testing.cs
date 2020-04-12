@@ -113,14 +113,26 @@ public class Testing
         _currentUserId = null;
     }
 
-    public static async Task<T> FindAsync<T>(int id)
-        where T : class
+    public static async Task<TEntity> FindAsync<TEntity>(int id)
+        where TEntity : class
     {
         using var scope = _scopeFactory.CreateScope();
 
         var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
-        return await context.FindAsync<T>(id);
+        return await context.FindAsync<TEntity>(id);
+    }
+
+    public static async Task InsertAsync<TEntity>(TEntity entity)
+        where TEntity : class
+    {
+        using var scope = _scopeFactory.CreateScope();
+
+        var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+
+        context.Add(entity);
+
+        await context.SaveChangesAsync();
     }
 
     [OneTimeTearDown]

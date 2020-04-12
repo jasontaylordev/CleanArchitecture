@@ -1,6 +1,8 @@
 ﻿using CleanArchitecture.Application.TodoLists.Queries.GetTodos;
+using CleanArchitecture.Domain.Entities;
 using FluentAssertions;
 using NUnit.Framework;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Queries
@@ -10,7 +12,7 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Queries
     public class GetTodosTests : TestBase
     {
         [Test]
-        public async Task ShouldIncludePriorityLevels()
+        public async Task ShouldReturnPriorityLevels()
         {
             var query = new GetTodosQuery();
 
@@ -20,13 +22,29 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Queries
         }
 
         [Test]
-        public async Task ShouldGetAllListsAndItems()
+        public async Task ShouldReturnAllListsAndItems()
         {
+            await InsertAsync(new TodoList
+            {
+                Title = "Shopping",
+                Items =
+                    {
+                        new TodoItem { Title = "Apples", Done = true },
+                        new TodoItem { Title = "Milk", Done = true },
+                        new TodoItem { Title = "Bread", Done = true },
+                        new TodoItem { Title = "Toilet paper" },
+                        new TodoItem { Title = "Pasta" },
+                        new TodoItem { Title = "Tissues" },
+                        new TodoItem { Title = "Tuna" }
+                    }
+            });
+
             var query = new GetTodosQuery();
 
             var result = await SendAsync(query);
 
-            result.Lists.Should().HaveCount(0);
+            result.Lists.Should().HaveCount(1);
+            result.Lists.First().Items.Should().HaveCount(7);
         }
     }
 }
