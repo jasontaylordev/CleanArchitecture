@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.WebUI
 {
-    public static class Program
+    public class Program
     {
         public async static Task Main(string[] args)
         {
@@ -37,7 +37,7 @@ namespace CleanArchitecture.WebUI
                 }
                 catch (Exception ex)
                 {
-                    var logger = scope.ServiceProvider.GetRequiredService<ILogger>();
+                    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
 
                     logger.LogError(ex, "An error occurred while migrating or seeding the database.");
 
