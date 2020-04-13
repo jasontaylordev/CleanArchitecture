@@ -120,7 +120,7 @@ public class Testing
         return await context.FindAsync<TEntity>(id);
     }
 
-    public static async Task InsertAsync<TEntity>(TEntity entity)
+    public static async Task AddAsync<TEntity>(TEntity entity)
         where TEntity : class
     {
         using var scope = _scopeFactory.CreateScope();

@@ -24,7 +24,7 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Queries
         [Test]
         public async Task ShouldReturnAllListsAndItems()
         {
-            await InsertAsync(new TodoList
+            await AddAsync(new TodoList
             {
                 Title = "Shopping",
                 Items =
