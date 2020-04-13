@@ -17,10 +17,11 @@ using System.Threading.Tasks;
 
 [SetUpFixture]
 public class Testing
-{
+{   
     private static IConfigurationRoot _configuration;
     private static IServiceScopeFactory _scopeFactory;
     private static Checkpoint _checkpoint;
+    private static string _currentUserId;
 
     [OneTimeSetUp]
     public void RunBeforeAnyTests()
@@ -44,13 +45,16 @@ public class Testing
 
         startup.ConfigureServices(services);
 
-        // Setup testing user (need to add a user to identity and use a real guid)
+        // Replace service registration for ICurrentUserService
+        // Remove existing registration
         var currentUserServiceDescriptor = services.FirstOrDefault(d =>
             d.ServiceType == typeof(ICurrentUserService));
 
         services.Remove(currentUserServiceDescriptor);
 
-        services.AddTransient<ICurrentUserService, CurrentUserService>();
+        // Register testing version
+        services.AddTransient(provider =>
+            Mock.Of<ICurrentUserService>(s => s.UserId == _currentUserId));
 
         _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
         
@@ -79,13 +83,6 @@ public class Testing
 
         return await mediator.Send(request);
     }
-
-    private class CurrentUserService : ICurrentUserService
-    {
-        public string UserId => _currentUserId;
-    }
-
-    private static string _currentUserId;
 
     public static async Task<string> RunAsDefaultUserAsync()
     {
