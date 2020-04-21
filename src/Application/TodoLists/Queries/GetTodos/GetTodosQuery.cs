@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using CleanArchitecture.Application.Common.Interfaces;
+using CleanArchitecture.Application.Common.Security;
 using CleanArchitecture.Domain.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.TodoLists.Queries.GetTodos
 {
+    [Authorize]
     public class GetTodosQuery : IRequest<TodosVm>
     {
     }

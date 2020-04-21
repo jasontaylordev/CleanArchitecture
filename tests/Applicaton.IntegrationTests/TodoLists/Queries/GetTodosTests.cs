@@ -1,7 +1,9 @@
-﻿using CleanArchitecture.Application.TodoLists.Queries.GetTodos;
+﻿using CleanArchitecture.Application.Common.Security;
+using CleanArchitecture.Application.TodoLists.Queries.GetTodos;
 using CleanArchitecture.Domain.Entities;
 using FluentAssertions;
 using NUnit.Framework;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,6 +16,8 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Queries
         [Test]
         public async Task ShouldReturnPriorityLevels()
         {
+            await RunAsDefaultUserAsync();
+
             var query = new GetTodosQuery();
 
             var result = await SendAsync(query);
@@ -24,6 +28,8 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Queries
         [Test]
         public async Task ShouldReturnAllListsAndItems()
         {
+            await RunAsDefaultUserAsync();
+
             await AddAsync(new TodoList
             {
                 Title = "Shopping",
@@ -45,6 +51,17 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Queries
 
             result.Lists.Should().HaveCount(1);
             result.Lists.First().Items.Should().HaveCount(7);
+        }
+
+        [Test]
+        public void ShouldRequireAuthorization()
+        {
+            var query = new GetTodosQuery();
+
+            query.GetType().Should().BeDecoratedWith<AuthorizeAttribute>();
+
+            FluentActions.Invoking(() =>
+                SendAsync(query)).Should().Throw<UnauthorizedAccessException>();
         }
     }
 }
