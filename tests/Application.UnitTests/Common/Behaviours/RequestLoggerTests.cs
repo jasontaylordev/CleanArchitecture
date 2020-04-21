@@ -30,7 +30,7 @@ namespace CleanArchitecture.Application.UnitTests.Common.Behaviours
         {
             _currentUserService.Setup(x => x.UserId).Returns("Administrator");
 
-            var requestLogger = new RequestLogger<CreateTodoItemCommand>(_logger.Object, _currentUserService.Object, _identityService.Object);
+            var requestLogger = new LoggingBehaviour<CreateTodoItemCommand>(_logger.Object, _currentUserService.Object, _identityService.Object);
 
             await requestLogger.Process(new CreateTodoItemCommand { ListId = 1, Title = "title" }, new CancellationToken());
 
@@ -40,7 +40,7 @@ namespace CleanArchitecture.Application.UnitTests.Common.Behaviours
         [Test]
         public async Task ShouldNotCallGetUserNameAsyncOnceIfUnauthenticated()
         {
-            var requestLogger = new RequestLogger<CreateTodoItemCommand>(_logger.Object, _currentUserService.Object, _identityService.Object);
+            var requestLogger = new LoggingBehaviour<CreateTodoItemCommand>(_logger.Object, _currentUserService.Object, _identityService.Object);
 
             await requestLogger.Process(new CreateTodoItemCommand { ListId = 1, Title = "title" }, new CancellationToken());
 
