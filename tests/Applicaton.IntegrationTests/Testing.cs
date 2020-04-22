@@ -95,9 +95,15 @@ public class Testing
 
         var userManager = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
 
+        var roleManager = scope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
+
+        await roleManager.CreateAsync(new IdentityRole("Admin"));
+
         var user = new ApplicationUser { UserName = userName, Email = userName };
 
         var result = await userManager.CreateAsync(user, password);
+
+        await userManager.AddToRoleAsync(user, "Admin");
 
         _currentUserId = user.Id;
 

@@ -14,24 +14,57 @@ namespace CleanArchitecture.Application.Common.Behaviours
     {
         private readonly ILogger<TRequest> _logger;
         private readonly ICurrentUserService _currentUserService;
+        private readonly IIdentityService _identityService;
 
         public AuthorizationBehaviour(
             ILogger<TRequest> logger,
-            ICurrentUserService currentUserService)
+            ICurrentUserService currentUserService,
+            IIdentityService identityService)
         {
             _logger = logger;
             _currentUserService = currentUserService;
+            _identityService = identityService;
         }
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
-            var requiresAuthorization = request.GetType().GetCustomAttributes<AuthorizeAttribute>().Any();
+            var authorizeAttributes = request.GetType().GetCustomAttributes<AuthorizeAttribute>();
 
-            if (requiresAuthorization && _currentUserService.UserId == null)
+            if (!authorizeAttributes.Any())
             {
-                throw new UnauthorizedAccessException();
+                // Must be authenticated user
+                if (_currentUserService.UserId == null)
+                {
+                    throw new UnauthorizedAccessException();
+                }
+
+                var authorizeAttributesWithRoles = authorizeAttributes.Where(a => !string.IsNullOrWhiteSpace(a.Roles));
+
+                if (authorizeAttributesWithRoles.Any())
+                {
+                    foreach (var roles in authorizeAttributesWithRoles.Select(a => a.Roles.Split(',')))
+                    {
+                        var authorized = false;
+                        foreach (var role in roles)
+                        {
+                            var isInRole = await _identityService.UserIsInRole(_currentUserService.UserId, role.Trim());
+                            if (isInRole)
+                            {
+                                authorized = true;
+                                continue;
+                            }
+                        }
+
+                        // Must be a member of at least one role in roles
+                        if (!authorized)
+                        {
+                            throw new UnauthorizedAccessException();
+                        }
+                    }
+                }
             }
 
+            // User is authorized / authorization not required
             return await next();
         }
     }

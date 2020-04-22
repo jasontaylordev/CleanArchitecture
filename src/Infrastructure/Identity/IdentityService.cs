@@ -35,6 +35,13 @@ namespace CleanArchitecture.Infrastructure.Identity
             return (result.ToApplicationResult(), user.Id);
         }
 
+        public async Task<bool> UserIsInRole(string userId, string role)
+        {
+            var user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
+
+            return await _userManager.IsInRoleAsync(user, role);
+        }
+
         public async Task<Result> DeleteUserAsync(string userId)
         {
             var user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
