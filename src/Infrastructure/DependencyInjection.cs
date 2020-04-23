@@ -35,6 +35,20 @@ namespace CleanArchitecture.Infrastructure
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
+            if (configuration.GetValue<bool>("UseInMemoryCache"))
+            {
+                services.AddMemoryCache();
+                services.AddTransient<ICacheService, InMemoryCacheService>();
+            }
+            else if (configuration.GetValue<bool>("UseRedisCache"))
+            {
+                services.AddDistributedRedisCache(options =>
+                {
+                    options.Configuration = "localhost";
+                });
+                services.AddTransient<ICacheService, RedisCacheService>();
+            }
+
             services.AddTransient<IDateTime, DateTimeService>();
             services.AddTransient<IIdentityService, IdentityService>();
             services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();

@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using CleanArchitecture.Application.Common.Interfaces;
 using MediatR;
@@ -6,12 +7,19 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using CleanArchitecture.Application.Common.Models;
 
 namespace CleanArchitecture.Application.TodoLists.Queries.ExportTodos
 {
-    public class ExportTodosQuery : IRequest<ExportTodosVm>
+    public class ExportTodosQuery : IRequest<ExportTodosVm>, ICache<ExportTodosQuery>
     {
         public int ListId { get; set; }
+
+       public CacheOptions SetCacheOptions() => new CacheOptions
+       {
+           CacheKey = $"MyCustomCacheKey{ListId}",
+           ExpirationRelativeToNow = TimeSpan.FromMilliseconds(100000)
+       };
     }
 
     public class ExportTodosQueryHandler : IRequestHandler<ExportTodosQuery, ExportTodosVm>

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.TodoLists.Queries.GetTodos
 {
-    public class GetTodosQuery : IRequest<TodosVm>
+    public class GetTodosQuery : IRequest<TodosVm> , ICache<GetTodosQuery>
     {
     }
 
