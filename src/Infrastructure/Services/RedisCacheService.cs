@@ -26,6 +26,14 @@ namespace CleanArchitecture.Infrastructure.Services
             return await Task.FromResult<object>(null);
         }
 
+        public async Task RemoveCacheValue(string key)
+        {
+            if (key != null)
+            {
+                await _distributedCache.RemoveAsync(key);
+            }
+        }
+
         public async Task SetCacheValueAsync(string key, object value, TimeSpan expirationTimeFromNow)
         {
             var serializedResponse = JsonConvert.SerializeObject(value, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Objects });
