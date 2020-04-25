@@ -11,15 +11,9 @@ using CleanArchitecture.Application.Common.Models;
 
 namespace CleanArchitecture.Application.TodoLists.Queries.ExportTodos
 {
-    public class ExportTodosQuery : IRequest<ExportTodosVm>, ICache<ExportTodosQuery>
+    public class ExportTodosQuery : IRequest<ExportTodosVm>, ICache
     {
         public int ListId { get; set; }
-
-       public CacheOptions SetCacheOptions() => new CacheOptions
-       {
-           CacheKey = $"MyCustomCacheKey{ListId}",
-           ExpirationRelativeToNow = TimeSpan.FromMilliseconds(100000)
-       };
     }
 
     public class ExportTodosQueryHandler : IRequestHandler<ExportTodosQuery, ExportTodosVm>

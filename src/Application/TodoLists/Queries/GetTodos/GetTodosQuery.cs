@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using CleanArchitecture.Application.Common.Interfaces;
+using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Domain.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -11,8 +12,14 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.TodoLists.Queries.GetTodos
 {
-    public class GetTodosQuery : IRequest<TodosVm> , ICache<GetTodosQuery>
+    public class GetTodosQuery : IRequest<TodosVm>, ICache
     {
+
+        public CacheOptions SetCacheOptions() => new CacheOptions
+        {
+            CacheKey = $"CustomKey",
+            ExpirationRelativeToNow = TimeSpan.FromMilliseconds(60000)
+        };
     }
 
     public class GetTodosQueryHandler : IRequestHandler<GetTodosQuery, TodosVm>

@@ -28,5 +28,11 @@ namespace CleanArchitecture.Infrastructure.Services
             _memoryCache.Set(key, value, absoluteExpirationRelativeToNow: expirationTimeFromNow);
             return Task.CompletedTask;
         }
+
+        public Task RemoveCacheValue(string key)
+        {
+            _memoryCache.Remove(key);
+            return Task.CompletedTask;
+        }
     }
 }
