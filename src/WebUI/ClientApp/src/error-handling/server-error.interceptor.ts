@@ -17,6 +17,7 @@ export class ServerErrorInterceptor implements HttpInterceptor {
         if (error.status === 401) {
           // refresh token
         } else {
+          //Add custom error handling here. Logging or snack bar display
           return throwError(error);
         }
       })
