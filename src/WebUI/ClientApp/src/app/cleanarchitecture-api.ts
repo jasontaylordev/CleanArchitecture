@@ -249,6 +249,7 @@ export interface ITodoListsClient {
     get2(id: number): Observable<FileResponse>;
     update(id: number, command: UpdateTodoListCommand): Observable<FileResponse>;
     delete(id: number): Observable<FileResponse>;
+    getTodos(pageNumber: number | undefined, pageSize: number | null | undefined, id: number): Observable<TodoItemResultRecord[]>;
 }
 
 @Injectable({
@@ -513,6 +514,67 @@ export class TodoListsClient implements ITodoListsClient {
             }));
         }
         return _observableOf<FileResponse>(<any>null);
+    }
+
+    getTodos(pageNumber: number | undefined, pageSize: number | null | undefined, id: number): Observable<TodoItemResultRecord[]> {
+        let url_ = this.baseUrl + "/api/TodoLists/result/{id}?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id)); 
+        if (pageNumber === null)
+            throw new Error("The parameter 'pageNumber' cannot be null.");
+        else if (pageNumber !== undefined)
+            url_ += "PageNumber=" + encodeURIComponent("" + pageNumber) + "&"; 
+        if (pageSize !== undefined)
+            url_ += "PageSize=" + encodeURIComponent("" + pageSize) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",			
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTodos(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTodos(<any>response_);
+                } catch (e) {
+                    return <Observable<TodoItemResultRecord[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<TodoItemResultRecord[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetTodos(response: HttpResponseBase): Observable<TodoItemResultRecord[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(TodoItemResultRecord.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<TodoItemResultRecord[]>(<any>null);
     }
 }
 
@@ -927,6 +989,46 @@ export interface ITodoItemDto {
     done?: boolean;
     priority?: number;
     note?: string | undefined;
+}
+
+export class TodoItemResultRecord implements ITodoItemResultRecord {
+    title?: string | undefined;
+    done?: boolean;
+
+    constructor(data?: ITodoItemResultRecord) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.title = _data["title"];
+            this.done = _data["done"];
+        }
+    }
+
+    static fromJS(data: any): TodoItemResultRecord {
+        data = typeof data === 'object' ? data : {};
+        let result = new TodoItemResultRecord();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["title"] = this.title;
+        data["done"] = this.done;
+        return data; 
+    }
+}
+
+export interface ITodoItemResultRecord {
+    title?: string | undefined;
+    done?: boolean;
 }
 
 export class CreateTodoListCommand implements ICreateTodoListCommand {

@@ -362,6 +362,65 @@
         ]
       }
     },
+    "/api/TodoLists/result/{id}": {
+      "get": {
+        "tags": [
+          "TodoLists"
+        ],
+        "operationId": "TodoLists_GetTodos",
+        "parameters": [
+          {
+            "name": "PageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "x-position": 2
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 4
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TodoItemResultRecord"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/WeatherForecast": {
       "get": {
         "tags": [
@@ -537,6 +596,19 @@
           "note": {
             "type": "string",
             "nullable": true
+          }
+        }
+      },
+      "TodoItemResultRecord": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "done": {
+            "type": "boolean"
           }
         }
       },

@@ -68,6 +68,7 @@ namespace CleanArchitecture.WebUI
                 });
 
                 configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
+                configure.OperationProcessors.Add(new IgnoreSkipPageCountOperationProcessor());
             });
         }
 
