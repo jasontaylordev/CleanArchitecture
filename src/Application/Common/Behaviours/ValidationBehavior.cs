@@ -18,25 +18,19 @@ namespace CleanArchitecture.Application.Common.Behaviours
             _validators = validators;
         }
 
-        public Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
+        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
             if (_validators.Any())
             {
                 var context = new ValidationContext(request);
 
-                var failures = _validators
-                    .Select(v => v.Validate(context))
-                    .SelectMany(result => result.Errors)
-                    .Where(f => f != null)
-                    .ToList();
+                var validationResults = await Task.WhenAll(_validators.Select(v => v.ValidateAsync(context, cancellationToken)));
+                var failures = validationResults.SelectMany(r => r.Errors).Where(f => f != null).ToList();
 
                 if (failures.Count != 0)
-                {
                     throw new ValidationException(failures);
-                }
             }
-
-            return next();
+            return await next();
         }
     }
 }
