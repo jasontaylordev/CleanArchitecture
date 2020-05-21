@@ -48,7 +48,7 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
             FluentActions.Invoking(() =>
                 SendAsync(command))
                     .Should().Throw<ValidationException>().Where(ex => ex.Errors.ContainsKey("Title"))
-                    .And.Errors["Title"].Should().Contain("The specified title is already exists.");
+                    .And.Errors["Title"].Should().Contain("The specified title already exists.");
         }
 
         [Test]
