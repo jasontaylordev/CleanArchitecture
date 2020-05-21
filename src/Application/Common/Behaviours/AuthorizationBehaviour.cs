@@ -30,7 +30,7 @@ namespace CleanArchitecture.Application.Common.Behaviours
         {
             var authorizeAttributes = request.GetType().GetCustomAttributes<AuthorizeAttribute>();
 
-            if (!authorizeAttributes.Any())
+            if (authorizeAttributes.Any())
             {
                 // Must be authenticated user
                 if (_currentUserService.UserId == null)
