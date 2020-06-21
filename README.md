@@ -12,6 +12,7 @@ This is a solution template for creating a Single Page App (SPA) with Angular an
 * .NET Core 3.1
 * ASP .NET Core 3.1
 * Entity Framework Core 3.1
+* Docker
 * Angular 9
 * MediatR
 * AutoMapper

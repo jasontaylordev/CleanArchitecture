@@ -1,0 +1,34 @@
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+# This stage is used for VS debugging on Docker
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN apt install -y nodejs
+ENV ASPNETCORE_ENVIRONMENT=Development
+WORKDIR /app
+EXPOSE 8080
+
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS runtime
+WORKDIR /app
+EXPOSE 8080
+
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN apt install -y nodejs
+WORKDIR /src
+COPY ["src/WebUI/WebUI.csproj", "src/WebUI/"]
+COPY ["src/Application/Application.csproj", "src/Application/"]
+COPY ["src/Domain/Domain.csproj", "src/Domain/"]
+COPY ["src/Infrastructure/Infrastructure.csproj", "src/Infrastructure/"]
+RUN dotnet restore "src/WebUI/WebUI.csproj"
+COPY . .
+WORKDIR "/src/src/WebUI"
+RUN dotnet build "WebUI.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "WebUI.csproj" -c Release -o /app/publish
+
+FROM runtime AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "CleanArchitecture.WebUI.dll"]
