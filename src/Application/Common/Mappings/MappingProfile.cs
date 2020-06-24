@@ -5,32 +5,35 @@ using System.Reflection;
 
 namespace CleanArchitecture.Application.Common.Mappings
 {
+    /// <summary>
+    /// Reference: https://stackoverflow.com/questions/47959135/automapper-open-closed-principle
+    /// </summary>
     public class MappingProfile : Profile
     {
         public MappingProfile()
         {
-            var assembly = Assembly.GetExecutingAssembly();
-            ApplyMappingsFromAssembly(assembly);
-            RegisterReverseMappings(assembly);
-            RegisterCustomMappings(assembly);
+            var types = Assembly.GetExecutingAssembly().GetExportedTypes();
+            ApplyMappingsFromAssembly(types);
+            RegisterReverseMappings(types);
+            RegisterCustomMappings(types);
         }
 
-        private void ApplyMappingsFromAssembly(Assembly assembly)
+        private void ApplyMappingsFromAssembly(Type[] types)
         {
-            var types = assembly.GetExportedTypes()
-                .Where(t => t.GetInterfaces().Any(i => 
-                    i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IMapFrom<>)))
-                .ToList();
+            var maps = (from t in types
+                        from i in t.GetInterfaces()
+                        where i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IMapFrom<>)
+                              && !t.IsAbstract
+                              && !t.IsInterface
+                        select new
+                        {
+                            Source = i.GetGenericArguments()[0],
+                            Destination = t
+                        }).ToArray();
 
-            foreach (var type in types)
+            foreach (var map in maps)
             {
-                var instance = Activator.CreateInstance(type);
-
-                var methodInfo = type.GetMethod("Mapping") 
-                    ?? type.GetInterface("IMapFrom`1").GetMethod("Mapping");
-                
-                methodInfo?.Invoke(instance, new object[] { this });
-
+                AutoMapperConfig.MapperConfigurationExpression?.CreateMap(map.Source, map.Destination);
             }
         }
 
@@ -38,35 +41,36 @@ namespace CleanArchitecture.Application.Common.Mappings
         /// Load all types that implement interface <see cref="IMapTo{T}"/>
         /// and create a map between them and {T}
         /// </summary>
-        private void RegisterReverseMappings(Assembly assembly)
+        private void RegisterReverseMappings(Type[] types)
         {
-            var types = assembly.GetExportedTypes()
-                .Where(t => t.GetInterfaces().Any(i =>
-                    i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IMapTo<>)))
-                .ToList();
+            var maps = (from t in types
+                        from i in t.GetInterfaces()
+                        where i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IMapTo<>)
+                              && !t.IsAbstract
+                              && !t.IsInterface
+                        select new
+                        {
+                            Source = t,
+                            Destination = i.GetGenericArguments()[0]
+                        }).ToArray();
 
-            foreach (var type in types)
+            foreach (var map in maps)
             {
-                var instance = Activator.CreateInstance(type);
-
-                var methodInfo = type.GetMethod("Mapping")
-                    ?? type.GetInterface("IMapTo`1").GetMethod("Mapping");
-
-                methodInfo?.Invoke(instance, new object[] { this });
+                AutoMapperConfig.MapperConfigurationExpression?.CreateMap(map.Source, map.Destination);
             }
         }
 
         /// Custom Mapping implementation
         /// https://docs.automapper.org/en/stable/Configuration.html
         /// Create mapping using configuration
-        private void RegisterCustomMappings(Assembly assembly)
+        private void RegisterCustomMappings(Type[] types)
         {
-            var maps = assembly.GetExportedTypes()
-                .Where(t => !t.IsAbstract && !t.IsInterface)
-                .Where(t => t.GetInterfaces()
-                    .Any(i => typeof(IHaveCustomMappings).IsAssignableFrom(t)))
-                .Select(t => (IHaveCustomMappings)Activator.CreateInstance(t))
-                .ToArray();
+            var maps = (from t in types
+                        from i in t.GetInterfaces()
+                        where typeof(IHaveCustomMappings).IsAssignableFrom(t)
+                              && !t.IsAbstract
+                              && !t.IsInterface
+                        select (IHaveCustomMappings)Activator.CreateInstance(t)).ToArray();
 
             if (maps != null)
             {
