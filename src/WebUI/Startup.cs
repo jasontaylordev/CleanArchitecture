@@ -2,7 +2,9 @@ using CleanArchitecture.Application;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Infrastructure;
 using CleanArchitecture.Infrastructure.Persistence;
+using CleanArchitecture.WebUI.Common;
 using CleanArchitecture.WebUI.Filters;
+using CleanArchitecture.WebUI.Helper;
 using CleanArchitecture.WebUI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NSwag;
 using NSwag.Generation.Processors.Security;
+using System.IO;
 using System.Linq;
 
 namespace CleanArchitecture.WebUI
@@ -22,6 +25,13 @@ namespace CleanArchitecture.WebUI
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            var context = new CustomAssemblyLoadContext();
+            var is64bit = false;
+#if DEBUG
+            is64bit = System.Environment.Is64BitOperatingSystem;
+#endif
+            context.LoadUnmanagedLibrary(Path.Combine(Directory.GetCurrentDirectory(), is64bit ? "x64" : "x86", "libwkhtmltox.dll"));
+            context.LoadUnmanagedLibrary(Path.Combine(Directory.GetCurrentDirectory(), is64bit ? "x64" : "x86", "pdfium.dll"));
         }
 
         public IConfiguration Configuration { get; }
@@ -38,9 +48,6 @@ namespace CleanArchitecture.WebUI
 
             services.AddHealthChecks()
                 .AddDbContextCheck<ApplicationDbContext>();
-
-            services.AddControllersWithViews(options => 
-                options.Filters.Add(new ApiExceptionFilter()));
 
             services.AddRazorPages();
 
@@ -86,6 +93,7 @@ namespace CleanArchitecture.WebUI
                 app.UseHsts();
             }
 
+            app.UseCustomExceptionHandler();
             app.UseHealthChecks("/health");
             app.UseHttpsRedirection();
             app.UseStaticFiles();

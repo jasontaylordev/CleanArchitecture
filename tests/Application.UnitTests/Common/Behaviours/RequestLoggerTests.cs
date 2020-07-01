@@ -34,7 +34,7 @@ namespace CleanArchitecture.Application.UnitTests.Common.Behaviours
 
             await requestLogger.Process(new CreateTodoItemCommand { ListId = 1, Title = "title" }, new CancellationToken());
 
-            _identityService.Verify(i => i.GetUserNameAsync(It.IsAny<string>()), Times.Once);
+            _identityService.Verify(i => i.GetUserAsync(It.IsAny<string>()), Times.Once);
         }
 
         [Test]
@@ -44,7 +44,7 @@ namespace CleanArchitecture.Application.UnitTests.Common.Behaviours
 
             await requestLogger.Process(new CreateTodoItemCommand { ListId = 1, Title = "title" }, new CancellationToken());
 
-            _identityService.Verify(i => i.GetUserNameAsync(null), Times.Never);
+            _identityService.Verify(i => i.GetUserAsync(null), Times.Never);
         }
     }
 }
