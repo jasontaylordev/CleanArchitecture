@@ -3,10 +3,11 @@ using CleanArchitecture.Domain.Common;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Infrastructure.Identity;
 using IdentityServer4.EntityFramework.Options;
+using MediatR;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Options;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,24 +18,27 @@ namespace CleanArchitecture.Infrastructure.Persistence
     {
         private readonly ICurrentUserService _currentUserService;
         private readonly IDateTime _dateTime;
+        private readonly IMediator _mediator;
 
         public ApplicationDbContext(
             DbContextOptions options,
             IOptions<OperationalStoreOptions> operationalStoreOptions,
             ICurrentUserService currentUserService,
-            IDateTime dateTime) : base(options, operationalStoreOptions)
+            IDateTime dateTime,
+            IMediator mediator) : base(options, operationalStoreOptions)
         {
             _currentUserService = currentUserService;
             _dateTime = dateTime;
+            _mediator = mediator;
         }
-
-        public DbSet<TodoList> TodoLists { get; set; }
 
         public DbSet<TodoItem> TodoItems { get; set; }
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        public DbSet<TodoList> TodoLists { get; set; }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
-            foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
+            foreach (Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<AuditableEntity> entry in ChangeTracker.Entries<AuditableEntity>())
             {
                 switch (entry.State)
                 {
@@ -42,6 +46,7 @@ namespace CleanArchitecture.Infrastructure.Persistence
                         entry.Entity.CreatedBy = _currentUserService.UserId;
                         entry.Entity.Created = _dateTime.Now;
                         break;
+
                     case EntityState.Modified:
                         entry.Entity.LastModifiedBy = _currentUserService.UserId;
                         entry.Entity.LastModified = _dateTime.Now;
@@ -49,7 +54,11 @@ namespace CleanArchitecture.Infrastructure.Persistence
                 }
             }
 
-            return base.SaveChangesAsync(cancellationToken);
+            int result = await base.SaveChangesAsync(cancellationToken);
+
+            await DispatchEvents(cancellationToken);
+
+            return result;
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -57,6 +66,24 @@ namespace CleanArchitecture.Infrastructure.Persistence
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             base.OnModelCreating(builder);
+        }
+
+        private async Task DispatchEvents(CancellationToken cancellationToken)
+        {
+            AuditableEntity[] entitiesWithEvents = ChangeTracker.Entries<AuditableEntity>()
+                .Select(e => e.Entity)
+                .Where(e => e.Events.Count > 0)
+                .ToArray();
+
+            foreach (AuditableEntity entity in entitiesWithEvents)
+            {
+                DomainEvent[] events = entity.Events.ToArray();
+                entity.Events.Clear();
+                foreach (DomainEvent domainEvent in events)
+                {
+                    await _mediator.Publish(domainEvent, cancellationToken);
+                }
+            }
         }
     }
 }
