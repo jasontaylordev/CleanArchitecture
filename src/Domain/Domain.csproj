@@ -6,8 +6,4 @@
     <AssemblyName>CleanArchitecture.Domain</AssemblyName>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="MediatR" Version="8.1.0" />
-  </ItemGroup>
-
 </Project>

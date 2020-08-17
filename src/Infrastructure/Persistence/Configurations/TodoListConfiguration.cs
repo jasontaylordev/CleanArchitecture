@@ -8,8 +8,6 @@ namespace CleanArchitecture.Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<TodoList> builder)
         {
-            builder.Ignore(e => e.Events);
-
             builder.Property(t => t.Title)
                 .HasMaxLength(200)
                 .IsRequired();

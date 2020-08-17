@@ -1,19 +1,20 @@
-﻿using MediatR;
-using System;
-using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
 
 namespace CleanArchitecture.Domain.Common
 {
-    public abstract class DomainEvent : INotification
+    public interface IHasDomainEvent
     {
-        public static Func<IMediator> Mediator { get; set; }
+        public List<DomainEvent> DomainEvents { get; set; }
+    }
 
-        public DateTime DateOccurred { get; protected set; } = DateTime.UtcNow;
-
-        public static async Task Raise<T>(T args) where T : INotification
+    public abstract class DomainEvent
+    {
+        protected DomainEvent()
         {
-            IMediator mediator = Mediator.Invoke();
-            await mediator.Publish<T>(args);
+            DateOccurred = DateTimeOffset.UtcNow;
         }
+
+        public DateTimeOffset DateOccurred { get; protected set; } = DateTime.UtcNow;
     }
 }

@@ -3,7 +3,6 @@ using CleanArchitecture.Domain.Common;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Infrastructure.Identity;
 using IdentityServer4.EntityFramework.Options;
-using MediatR;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -18,18 +17,18 @@ namespace CleanArchitecture.Infrastructure.Persistence
     {
         private readonly ICurrentUserService _currentUserService;
         private readonly IDateTime _dateTime;
-        private readonly IMediator _mediator;
+        private readonly IDomainEventService _domainEventService;
 
         public ApplicationDbContext(
             DbContextOptions options,
             IOptions<OperationalStoreOptions> operationalStoreOptions,
             ICurrentUserService currentUserService,
-            IDateTime dateTime,
-            IMediator mediator) : base(options, operationalStoreOptions)
+            IDomainEventService domainEventService,
+            IDateTime dateTime) : base(options, operationalStoreOptions)
         {
             _currentUserService = currentUserService;
+            _domainEventService = domainEventService;
             _dateTime = dateTime;
-            _mediator = mediator;
         }
 
         public DbSet<TodoItem> TodoItems { get; set; }
@@ -70,19 +69,14 @@ namespace CleanArchitecture.Infrastructure.Persistence
 
         private async Task DispatchEvents(CancellationToken cancellationToken)
         {
-            AuditableEntity[] entitiesWithEvents = ChangeTracker.Entries<AuditableEntity>()
-                .Select(e => e.Entity)
-                .Where(e => e.Events.Count > 0)
+            var domainEventEntities = ChangeTracker.Entries<IHasDomainEvent>()
+                .Select(x => x.Entity.DomainEvents)
+                .SelectMany(x => x)
                 .ToArray();
 
-            foreach (AuditableEntity entity in entitiesWithEvents)
+            foreach (var domainEvent in domainEventEntities)
             {
-                DomainEvent[] events = entity.Events.ToArray();
-                entity.Events.Clear();
-                foreach (DomainEvent domainEvent in events)
-                {
-                    await _mediator.Publish(domainEvent, cancellationToken);
-                }
+                await _domainEventService.Publish(domainEvent);
             }
         }
     }
