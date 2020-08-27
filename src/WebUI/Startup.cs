@@ -4,6 +4,7 @@ using CleanArchitecture.Infrastructure;
 using CleanArchitecture.Infrastructure.Persistence;
 using CleanArchitecture.WebUI.Filters;
 using CleanArchitecture.WebUI.Services;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -39,8 +40,9 @@ namespace CleanArchitecture.WebUI
             services.AddHealthChecks()
                 .AddDbContextCheck<ApplicationDbContext>();
 
-            services.AddControllersWithViews(options => 
-                options.Filters.Add(new ApiExceptionFilterAttribute()));
+            services.AddControllersWithViews(options =>
+                options.Filters.Add(new ApiExceptionFilterAttribute()))
+                    .AddFluentValidation();
 
             services.AddRazorPages();
 
