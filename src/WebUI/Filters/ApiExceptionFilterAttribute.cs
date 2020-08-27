@@ -19,6 +19,8 @@ namespace CleanArchitecture.WebUI.Filters
             {
                 { typeof(ValidationException), HandleValidationException },
                 { typeof(NotFoundException), HandleNotFoundException },
+                { typeof(GenericException), HandleGenericException}
+
             };
         }
 
@@ -84,6 +86,22 @@ namespace CleanArchitecture.WebUI.Filters
             };
 
             context.Result = new NotFoundObjectResult(details);
+
+            context.ExceptionHandled = true;
+        }
+
+        private void HandleGenericException(ExceptionContext context)
+        {
+            var exception = context.Exception as GenericException;
+            var details = new ProblemDetails()
+            {
+                Type = "https://tools.ietf.org/html/rfc7231#section-6.5.4",
+                Detail = exception.Message
+            };
+            context.Result = new BadRequestObjectResult(details)
+            {
+                StatusCode = StatusCodes.Status400BadRequest
+            };
 
             context.ExceptionHandled = true;
         }

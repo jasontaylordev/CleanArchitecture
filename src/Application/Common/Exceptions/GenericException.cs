@@ -1,10 +1,18 @@
 ﻿using System;
 namespace CleanArchitecture.Application.Common.Exceptions
 {
-    public class GenericException
+    public class GenericException : Exception
     {
-        public GenericException()
+        public string ErrorCode { get; set; }
+
+        public GenericException(string message) : base(message)
         {
+
+        }
+
+        public GenericException(string message, string errorCode) : base(message)
+        {
+            ErrorCode = errorCode;
         }
     }
 }
