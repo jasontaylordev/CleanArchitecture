@@ -11,13 +11,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using NUnit.Framework;
 using Respawn;
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
 [SetUpFixture]
 public class Testing
-{   
+{
     private static IConfigurationRoot _configuration;
     private static IServiceScopeFactory _scopeFactory;
     private static Checkpoint _checkpoint;
@@ -57,10 +58,10 @@ public class Testing
             Mock.Of<ICurrentUserService>(s => s.UserId == _currentUserId));
 
         _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
-        
+
         _checkpoint = new Checkpoint
         {
-            TablesToIgnore = new [] { "__EFMigrationsHistory" }
+            TablesToIgnore = new[] { "__EFMigrationsHistory" }
         };
 
         EnsureDatabase();
@@ -99,9 +100,16 @@ public class Testing
 
         var result = await userManager.CreateAsync(user, password);
 
-        _currentUserId = user.Id;
+        if (result.Succeeded)
+        {
+            _currentUserId = user.Id;
 
-        return _currentUserId;
+            return _currentUserId;
+        }
+
+        var errors = string.Join(Environment.NewLine, result.ToApplicationResult().Errors);
+
+        throw new Exception($"Unable to create {userName}.{Environment.NewLine}{errors}");
     }
 
     public static async Task ResetState()
@@ -110,14 +118,14 @@ public class Testing
         _currentUserId = null;
     }
 
-    public static async Task<TEntity> FindAsync<TEntity>(int id)
+    public static async Task<TEntity> FindAsync<TEntity>(params object[] keyValues)
         where TEntity : class
     {
         using var scope = _scopeFactory.CreateScope();
 
         var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
-        return await context.FindAsync<TEntity>(id);
+        return await context.FindAsync<TEntity>(keyValues);
     }
 
     public static async Task AddAsync<TEntity>(TEntity entity)
