@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.TodoLists.Queries.GetTodos
 {
-    [Authorize]
     public class GetTodosQuery : IRequest<TodosVm>
     {
     }
