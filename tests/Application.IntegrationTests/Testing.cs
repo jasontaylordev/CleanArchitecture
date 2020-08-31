@@ -103,7 +103,7 @@ public class Testing
 
         var user = new ApplicationUser { UserName = userName, Email = userName };
 
-        await userManager.CreateAsync(user, password);
+        var result = await userManager.CreateAsync(user, password);
 
         if (roles.Any())
         {
