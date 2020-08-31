@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using CleanArchitecture.Application.Common.Interfaces;
+using CleanArchitecture.Application.Common.Security;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.TodoLists.Queries.ExportTodos
 {
+    [Authorize(Roles = "Administrator")]
     public class ExportTodosQuery : IRequest<ExportTodosVm>
     {
         public int ListId { get; set; }

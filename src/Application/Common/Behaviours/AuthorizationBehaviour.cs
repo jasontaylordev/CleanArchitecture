@@ -1,4 +1,5 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
+﻿using CleanArchitecture.Application.Common.Exceptions;
+using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.Common.Security;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -58,7 +59,7 @@ namespace CleanArchitecture.Application.Common.Behaviours
                         // Must be a member of at least one role in roles
                         if (!authorized)
                         {
-                            throw new UnauthorizedAccessException();
+                            throw new ForbiddenAccessException();
                         }
                     }
                 }
