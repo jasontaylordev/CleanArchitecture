@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItem
 {
-    public partial class UpdateTodoItemCommand : IRequest
+    public class UpdateTodoItemCommand : IRequest
     {
         public int Id { get; set; }
 

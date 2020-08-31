@@ -7,8 +7,8 @@
 
 This is a solution template for creating a Single Page App (SPA) with Angular and ASP.NET Core following the principles of Clean Architecture. Create a new project based on this template by clicking the above **Use this template** button or by installing and running the associated NuGet package (see Getting Started for full details). 
 
-
 ## Technologies
+
 * .NET Core 3.1
 * ASP .NET Core 3.1
 * Entity Framework Core 3.1
@@ -49,13 +49,39 @@ When you run the application the database will be automatically created (if nece
 
 To use `dotnet-ef` for your migrations please add the following flags to your command (values assume you are executing from repository root)
 
-- `--project src/Infrastructure` (optional if in this folder)
-- `--startup-project src/WebUI`
-- `--output-dir Persistence/Migrations`
+* `--project src/Infrastructure` (optional if in this folder)
+* `--startup-project src/WebUI`
+* `--output-dir Persistence/Migrations`
 
 For example, to add a new migration from the root folder:
 
  `dotnet ef migrations add "SampleMigration" --project src\Infrastructure --startup-project src\WebUI --output-dir Persistence\Migrations`
+
+### Running Angular Independently
+
+The project is configured to start the front end in the background when ASP.NET Core starts in development mode. This feature is designed with productivity in mind. However, when making frequent back end changes productivity can suffer as it takes up to 10 seconds (or longer) to launch the application after a back end change.
+
+You can launch the front end independently by updating the `Configure` method within the `Startup` class as follows:
+
+```csharp
+// spa.UseAngularCliServer(npmScript: "start");
+spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+```
+
+Then, to launch the application, open a command-line to start the front end:
+
+```bash
+cd ClientApp
+npm start
+```
+
+Next, open a second command line and start the back end:
+
+```bash
+dotnet run
+```
+
+This will ensure your application will launch quickly when making either front end or back end changes.
 
 ## Overview
 
@@ -63,11 +89,9 @@ For example, to add a new migration from the root folder:
 
 This will contain all entities, enums, exceptions, interfaces, types and logic specific to the domain layer.
 
-
 ### Application
 
 This layer contains all application logic. It is dependent on the domain layer, but has no dependencies on any other layer or project. This layer defines interfaces that are implemented by outside layers. For example, if the application need to access a notification service, a new interface would be added to application and an implementation would be created within infrastructure.
-
 
 ### Infrastructure
 
