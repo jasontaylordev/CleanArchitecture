@@ -12,10 +12,7 @@ namespace CleanArchitecture.Application.UnitTests.Common.Exceptions
         [Test]
         public void DefaultConstructorCreatesAnEmptyErrorDictionary()
         {
-
-
             var actual = new ValidationException().Errors;
-
 
             actual.Keys.Should().BeEquivalentTo(Array.Empty<string>());
         }
@@ -28,9 +25,7 @@ namespace CleanArchitecture.Application.UnitTests.Common.Exceptions
                 new ValidationFailure("Age", "must be over 18"),
             };
 
-
             var actual = new ValidationException(failures).Errors;
-
 
             actual.Keys.Should().BeEquivalentTo(new string[] { "Age" });
             actual["Age"].Should().BeEquivalentTo(new string[] { "must be over 18" });
@@ -49,16 +44,16 @@ namespace CleanArchitecture.Application.UnitTests.Common.Exceptions
                 new ValidationFailure("Password", "must contain lower case letter"),
             };
 
-
             var actual = new ValidationException(failures).Errors;
 
-
             actual.Keys.Should().BeEquivalentTo(new string[] { "Password", "Age" });
+
             actual["Age"].Should().BeEquivalentTo(new string[] 
             { 
                 "must be 25 or younger", 
                 "must be 18 or older",
             });
+
             actual["Password"].Should().BeEquivalentTo(new string[] 
             { 
                 "must contain lower case letter",
