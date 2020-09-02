@@ -8,9 +8,19 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.WebUI.Controllers
 {
-    [Authorize]
+    using Application.Common.Models;
+    using Application.TodoItems.Queries.GetTodoItemsWithPagination;
+    using Application.TodoLists.Queries.GetTodos;
+
+    //[Authorize]
     public class TodoItemsController : ApiController
     {
+        [HttpGet]
+        public async Task<ActionResult<PaginationResponse<TodoItemDto>>> GetTodoItemsWithPagination(GetTodoItemsWithPaginationQuery query)
+        {
+            return await Mediator.Send(query);
+        }
+
         [HttpPost]
         public async Task<ActionResult<int>> Create(CreateTodoItemCommand command)
         {

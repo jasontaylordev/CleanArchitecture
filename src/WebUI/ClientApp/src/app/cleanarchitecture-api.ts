@@ -15,6 +15,7 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angula
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 export interface ITodoItemsClient {
+    getTodoItemsWithPagination(query: GetTodoItemsWithPaginationQuery): Observable<PaginationResponseOfTodoItemDto>;
     create(command: CreateTodoItemCommand): Observable<number>;
     update(id: number, command: UpdateTodoItemCommand): Observable<FileResponse>;
     delete(id: number): Observable<FileResponse>;
@@ -32,6 +33,58 @@ export class TodoItemsClient implements ITodoItemsClient {
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
         this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    getTodoItemsWithPagination(query: GetTodoItemsWithPaginationQuery): Observable<PaginationResponseOfTodoItemDto> {
+        let url_ = this.baseUrl + "/api/TodoItems";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(query);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTodoItemsWithPagination(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTodoItemsWithPagination(<any>response_);
+                } catch (e) {
+                    return <Observable<PaginationResponseOfTodoItemDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PaginationResponseOfTodoItemDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetTodoItemsWithPagination(response: HttpResponseBase): Observable<PaginationResponseOfTodoItemDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PaginationResponseOfTodoItemDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PaginationResponseOfTodoItemDto>(<any>null);
     }
 
     create(command: CreateTodoItemCommand): Observable<number> {
@@ -586,6 +639,191 @@ export class WeatherForecastClient implements IWeatherForecastClient {
     }
 }
 
+export class PaginationResponseOfTodoItemDto implements IPaginationResponseOfTodoItemDto {
+    items?: TodoItemDto[] | undefined;
+    pageIndex?: number;
+    totalPages?: number;
+    totalCount?: number;
+
+    constructor(data?: IPaginationResponseOfTodoItemDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(TodoItemDto.fromJS(item));
+            }
+            this.pageIndex = _data["pageIndex"];
+            this.totalPages = _data["totalPages"];
+            this.totalCount = _data["totalCount"];
+        }
+    }
+
+    static fromJS(data: any): PaginationResponseOfTodoItemDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PaginationResponseOfTodoItemDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        data["pageIndex"] = this.pageIndex;
+        data["totalPages"] = this.totalPages;
+        data["totalCount"] = this.totalCount;
+        return data; 
+    }
+}
+
+export interface IPaginationResponseOfTodoItemDto {
+    items?: TodoItemDto[] | undefined;
+    pageIndex?: number;
+    totalPages?: number;
+    totalCount?: number;
+}
+
+export class TodoItemDto implements ITodoItemDto {
+    id?: number;
+    listId?: number;
+    title?: string | undefined;
+    done?: boolean;
+    priority?: number;
+    note?: string | undefined;
+
+    constructor(data?: ITodoItemDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.listId = _data["listId"];
+            this.title = _data["title"];
+            this.done = _data["done"];
+            this.priority = _data["priority"];
+            this.note = _data["note"];
+        }
+    }
+
+    static fromJS(data: any): TodoItemDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new TodoItemDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["listId"] = this.listId;
+        data["title"] = this.title;
+        data["done"] = this.done;
+        data["priority"] = this.priority;
+        data["note"] = this.note;
+        return data; 
+    }
+}
+
+export interface ITodoItemDto {
+    id?: number;
+    listId?: number;
+    title?: string | undefined;
+    done?: boolean;
+    priority?: number;
+    note?: string | undefined;
+}
+
+export class PaginationQuery implements IPaginationQuery {
+    pageNumber?: number;
+    pageSize?: number;
+
+    constructor(data?: IPaginationQuery) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.pageNumber = _data["pageNumber"];
+            this.pageSize = _data["pageSize"];
+        }
+    }
+
+    static fromJS(data: any): PaginationQuery {
+        data = typeof data === 'object' ? data : {};
+        let result = new PaginationQuery();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["pageNumber"] = this.pageNumber;
+        data["pageSize"] = this.pageSize;
+        return data; 
+    }
+}
+
+export interface IPaginationQuery {
+    pageNumber?: number;
+    pageSize?: number;
+}
+
+export class GetTodoItemsWithPaginationQuery extends PaginationQuery implements IGetTodoItemsWithPaginationQuery {
+    listId?: number;
+
+    constructor(data?: IGetTodoItemsWithPaginationQuery) {
+        super(data);
+    }
+
+    init(_data?: any) {
+        super.init(_data);
+        if (_data) {
+            this.listId = _data["listId"];
+        }
+    }
+
+    static fromJS(data: any): GetTodoItemsWithPaginationQuery {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTodoItemsWithPaginationQuery();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["listId"] = this.listId;
+        super.toJSON(data);
+        return data; 
+    }
+}
+
+export interface IGetTodoItemsWithPaginationQuery extends IPaginationQuery {
+    listId?: number;
+}
+
 export class CreateTodoItemCommand implements ICreateTodoItemCommand {
     listId?: number;
     title?: string | undefined;
@@ -871,62 +1109,6 @@ export interface ITodoListDto {
     id?: number;
     title?: string | undefined;
     items?: TodoItemDto[] | undefined;
-}
-
-export class TodoItemDto implements ITodoItemDto {
-    id?: number;
-    listId?: number;
-    title?: string | undefined;
-    done?: boolean;
-    priority?: number;
-    note?: string | undefined;
-
-    constructor(data?: ITodoItemDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.listId = _data["listId"];
-            this.title = _data["title"];
-            this.done = _data["done"];
-            this.priority = _data["priority"];
-            this.note = _data["note"];
-        }
-    }
-
-    static fromJS(data: any): TodoItemDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new TodoItemDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["listId"] = this.listId;
-        data["title"] = this.title;
-        data["done"] = this.done;
-        data["priority"] = this.priority;
-        data["note"] = this.note;
-        return data; 
-    }
-}
-
-export interface ITodoItemDto {
-    id?: number;
-    listId?: number;
-    title?: string | undefined;
-    done?: boolean;
-    priority?: number;
-    note?: string | undefined;
 }
 
 export class CreateTodoListCommand implements ICreateTodoListCommand {
