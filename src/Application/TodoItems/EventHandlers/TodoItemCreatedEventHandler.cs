@@ -19,7 +19,8 @@ namespace CleanArchitecture.Application.TodoItems.EventHandlers
         public Task Handle(DomainEventNotification<TodoItemCreatedEvent> notification, CancellationToken cancellationToken)
         {
             var domainEvent = notification.DomainEvent;
-            _logger.LogInformation("Domain event - {domainEvent} handled", domainEvent.GetType().Name);
+
+            _logger.LogInformation("CleanArchitecture Domain Event: {DomainEvent}", domainEvent.GetType().Name);
 
             return Task.CompletedTask;
         }
