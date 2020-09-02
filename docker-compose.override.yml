@@ -1,0 +1,6 @@
+version: '3.4'
+
+services:
+  db:
+    ports:
+      - "1433:1433"
