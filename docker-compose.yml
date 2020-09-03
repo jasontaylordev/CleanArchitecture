@@ -8,7 +8,7 @@ services:
       dockerfile: src/WebUI/Dockerfile
     environment:
       - "UseInMemoryDatabase=false"
-      - "ConnectionStrings__DefaultConnection=Server=db;Database=master;User=sa;Password=Your_password123;MultipleActiveResultSets=true"
+      - "ConnectionStrings__DefaultConnection=Server=db;Database=CleanArchitectureDb;User=sa;Password=Your_password123;MultipleActiveResultSets=true"
       - "IdentityServer__Key__Type=Development"
       - "ASPNETCORE_URLS=http://+:8080"
     ports:
