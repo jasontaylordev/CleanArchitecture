@@ -12,7 +12,7 @@ This is a solution template for creating a Single Page App (SPA) with Angular an
 * .NET Core 3.1
 * ASP .NET Core 3.1
 * Entity Framework Core 3.1
-* Angular 9
+* Angular 10
 * MediatR
 * AutoMapper
 * FluentValidation
@@ -27,7 +27,8 @@ The easiest way to get started is to install the [NuGet package](https://www.nug
 3. Run `dotnet new --install Clean.Architecture.Solution.Template` to install the project template
 4. Create a folder for your solution and cd into it (the template will use it as project name)
 5. Run `dotnet new ca-sln` to create a new project
-6. Navigate to `src/WebUI` and run `dotnet run` to launch the project
+6. Navigate to `src/WebUI/ClientApp` and run `npm start` to launch the front end (Angular)
+7. Navigate to `src/WebUI` and run `dotnet run` to launch the back end (ASP.NET Core Web API)
 
 Check out my [blog post](https://jasontaylor.dev/clean-architecture-getting-started/) for more information.
 
@@ -56,32 +57,6 @@ To use `dotnet-ef` for your migrations please add the following flags to your co
 For example, to add a new migration from the root folder:
 
  `dotnet ef migrations add "SampleMigration" --project src\Infrastructure --startup-project src\WebUI --output-dir Persistence\Migrations`
-
-### Running Angular Independently
-
-The project is configured to start the front end in the background when ASP.NET Core starts in development mode. This feature is designed with productivity in mind. However, when making frequent back end changes productivity can suffer as it takes up to 10 seconds (or longer) to launch the application after a back end change.
-
-You can launch the front end independently by updating the `Configure` method within the `Startup` class as follows:
-
-```csharp
-// spa.UseAngularCliServer(npmScript: "start");
-spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
-```
-
-Then, to launch the application, open a command-line to start the front end:
-
-```bash
-cd ClientApp
-npm start
-```
-
-Next, open a second command line and start the back end:
-
-```bash
-dotnet run
-```
-
-This will ensure your application will launch quickly when making either front end or back end changes.
 
 ## Overview
 
