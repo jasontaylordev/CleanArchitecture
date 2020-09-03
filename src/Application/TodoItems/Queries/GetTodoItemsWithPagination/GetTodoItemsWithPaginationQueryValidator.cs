@@ -1,7 +1,7 @@
-﻿namespace CleanArchitecture.Application.TodoItems.Queries.GetTodoItemsWithPagination
-{
-    using FluentValidation;
+﻿using FluentValidation;
 
+namespace CleanArchitecture.Application.TodoItems.Queries.GetTodoItemsWithPagination
+{
     public class GetTodoItemsWithPaginationQueryValidator : AbstractValidator<GetTodoItemsWithPaginationQuery>
     {
         public GetTodoItemsWithPaginationQueryValidator()
