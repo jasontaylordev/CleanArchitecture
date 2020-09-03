@@ -1,16 +1,13 @@
-﻿namespace CleanArchitecture.Application.Common.Mappings
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using CleanArchitecture.Application.Common.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace CleanArchitecture.Application.Common.Mappings
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-
-    using Microsoft.EntityFrameworkCore;
-
-    using AutoMapper;
-    using AutoMapper.QueryableExtensions;
-    
-    using Models;
-
     public static class MappingExtensions
     {
         public static Task<PaginatedList<TDestination>> PaginatedListAsync<TDestination>(this IQueryable<TDestination> queryable, int pageNumber, int pageSize)

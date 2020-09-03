@@ -30,12 +30,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PaginationResponseOfTodoItemDto"
+                  "$ref": "#/components/schemas/PaginatedListOfTodoItemDto"
                 }
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -66,7 +71,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
       }
     },
     "/api/TodoItems/{id}": {
@@ -111,7 +121,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -142,7 +157,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
       }
     },
     "/api/TodoItems/UpdateItemDetails": {
@@ -186,7 +206,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
       }
     },
     "/api/TodoLists": {
@@ -398,7 +423,7 @@
   },
   "components": {
     "schemas": {
-      "PaginationResponseOfTodoItemDto": {
+      "PaginatedListOfTodoItemDto": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
@@ -420,6 +445,12 @@
           "totalCount": {
             "type": "integer",
             "format": "int32"
+          },
+          "hasPreviousPage": {
+            "type": "boolean"
+          },
+          "hasNextPage": {
+            "type": "boolean"
           }
         }
       },
@@ -453,26 +484,13 @@
         }
       },
       "GetTodoItemsWithPaginationQuery": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/PaginationQuery"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "listId": {
-                "type": "integer",
-                "format": "int32"
-              }
-            }
-          }
-        ]
-      },
-      "PaginationQuery": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
+          "listId": {
+            "type": "integer",
+            "format": "int32"
+          },
           "pageNumber": {
             "type": "integer",
             "format": "int32"

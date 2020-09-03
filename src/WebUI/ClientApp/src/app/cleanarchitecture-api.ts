@@ -15,7 +15,7 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angula
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 export interface ITodoItemsClient {
-    getTodoItemsWithPagination(query: GetTodoItemsWithPaginationQuery): Observable<PaginationResponseOfTodoItemDto>;
+    getTodoItemsWithPagination(query: GetTodoItemsWithPaginationQuery): Observable<PaginatedListOfTodoItemDto>;
     create(command: CreateTodoItemCommand): Observable<number>;
     update(id: number, command: UpdateTodoItemCommand): Observable<FileResponse>;
     delete(id: number): Observable<FileResponse>;
@@ -35,7 +35,7 @@ export class TodoItemsClient implements ITodoItemsClient {
         this.baseUrl = baseUrl ? baseUrl : "";
     }
 
-    getTodoItemsWithPagination(query: GetTodoItemsWithPaginationQuery): Observable<PaginationResponseOfTodoItemDto> {
+    getTodoItemsWithPagination(query: GetTodoItemsWithPaginationQuery): Observable<PaginatedListOfTodoItemDto> {
         let url_ = this.baseUrl + "/api/TodoItems";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -58,14 +58,14 @@ export class TodoItemsClient implements ITodoItemsClient {
                 try {
                     return this.processGetTodoItemsWithPagination(<any>response_);
                 } catch (e) {
-                    return <Observable<PaginationResponseOfTodoItemDto>><any>_observableThrow(e);
+                    return <Observable<PaginatedListOfTodoItemDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<PaginationResponseOfTodoItemDto>><any>_observableThrow(response_);
+                return <Observable<PaginatedListOfTodoItemDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetTodoItemsWithPagination(response: HttpResponseBase): Observable<PaginationResponseOfTodoItemDto> {
+    protected processGetTodoItemsWithPagination(response: HttpResponseBase): Observable<PaginatedListOfTodoItemDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -76,7 +76,7 @@ export class TodoItemsClient implements ITodoItemsClient {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PaginationResponseOfTodoItemDto.fromJS(resultData200);
+            result200 = PaginatedListOfTodoItemDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -84,7 +84,7 @@ export class TodoItemsClient implements ITodoItemsClient {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<PaginationResponseOfTodoItemDto>(<any>null);
+        return _observableOf<PaginatedListOfTodoItemDto>(<any>null);
     }
 
     create(command: CreateTodoItemCommand): Observable<number> {
@@ -639,13 +639,15 @@ export class WeatherForecastClient implements IWeatherForecastClient {
     }
 }
 
-export class PaginationResponseOfTodoItemDto implements IPaginationResponseOfTodoItemDto {
+export class PaginatedListOfTodoItemDto implements IPaginatedListOfTodoItemDto {
     items?: TodoItemDto[] | undefined;
     pageIndex?: number;
     totalPages?: number;
     totalCount?: number;
+    hasPreviousPage?: boolean;
+    hasNextPage?: boolean;
 
-    constructor(data?: IPaginationResponseOfTodoItemDto) {
+    constructor(data?: IPaginatedListOfTodoItemDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -664,12 +666,14 @@ export class PaginationResponseOfTodoItemDto implements IPaginationResponseOfTod
             this.pageIndex = _data["pageIndex"];
             this.totalPages = _data["totalPages"];
             this.totalCount = _data["totalCount"];
+            this.hasPreviousPage = _data["hasPreviousPage"];
+            this.hasNextPage = _data["hasNextPage"];
         }
     }
 
-    static fromJS(data: any): PaginationResponseOfTodoItemDto {
+    static fromJS(data: any): PaginatedListOfTodoItemDto {
         data = typeof data === 'object' ? data : {};
-        let result = new PaginationResponseOfTodoItemDto();
+        let result = new PaginatedListOfTodoItemDto();
         result.init(data);
         return result;
     }
@@ -684,15 +688,19 @@ export class PaginationResponseOfTodoItemDto implements IPaginationResponseOfTod
         data["pageIndex"] = this.pageIndex;
         data["totalPages"] = this.totalPages;
         data["totalCount"] = this.totalCount;
+        data["hasPreviousPage"] = this.hasPreviousPage;
+        data["hasNextPage"] = this.hasNextPage;
         return data; 
     }
 }
 
-export interface IPaginationResponseOfTodoItemDto {
+export interface IPaginatedListOfTodoItemDto {
     items?: TodoItemDto[] | undefined;
     pageIndex?: number;
     totalPages?: number;
     totalCount?: number;
+    hasPreviousPage?: boolean;
+    hasNextPage?: boolean;
 }
 
 export class TodoItemDto implements ITodoItemDto {
@@ -751,11 +759,12 @@ export interface ITodoItemDto {
     note?: string | undefined;
 }
 
-export class PaginationQuery implements IPaginationQuery {
+export class GetTodoItemsWithPaginationQuery implements IGetTodoItemsWithPaginationQuery {
+    listId?: number;
     pageNumber?: number;
     pageSize?: number;
 
-    constructor(data?: IPaginationQuery) {
+    constructor(data?: IGetTodoItemsWithPaginationQuery) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -766,42 +775,9 @@ export class PaginationQuery implements IPaginationQuery {
 
     init(_data?: any) {
         if (_data) {
+            this.listId = _data["listId"];
             this.pageNumber = _data["pageNumber"];
             this.pageSize = _data["pageSize"];
-        }
-    }
-
-    static fromJS(data: any): PaginationQuery {
-        data = typeof data === 'object' ? data : {};
-        let result = new PaginationQuery();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["pageNumber"] = this.pageNumber;
-        data["pageSize"] = this.pageSize;
-        return data; 
-    }
-}
-
-export interface IPaginationQuery {
-    pageNumber?: number;
-    pageSize?: number;
-}
-
-export class GetTodoItemsWithPaginationQuery extends PaginationQuery implements IGetTodoItemsWithPaginationQuery {
-    listId?: number;
-
-    constructor(data?: IGetTodoItemsWithPaginationQuery) {
-        super(data);
-    }
-
-    init(_data?: any) {
-        super.init(_data);
-        if (_data) {
-            this.listId = _data["listId"];
         }
     }
 
@@ -815,13 +791,16 @@ export class GetTodoItemsWithPaginationQuery extends PaginationQuery implements 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["listId"] = this.listId;
-        super.toJSON(data);
+        data["pageNumber"] = this.pageNumber;
+        data["pageSize"] = this.pageSize;
         return data; 
     }
 }
 
-export interface IGetTodoItemsWithPaginationQuery extends IPaginationQuery {
+export interface IGetTodoItemsWithPaginationQuery {
     listId?: number;
+    pageNumber?: number;
+    pageSize?: number;
 }
 
 export class CreateTodoItemCommand implements ICreateTodoItemCommand {

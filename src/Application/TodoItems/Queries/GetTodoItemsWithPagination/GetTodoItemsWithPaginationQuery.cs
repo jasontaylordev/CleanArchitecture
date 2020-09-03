@@ -1,24 +1,25 @@
-﻿namespace CleanArchitecture.Application.TodoItems.Queries.GetTodoItemsWithPagination
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using CleanArchitecture.Application.Common.Interfaces;
+using CleanArchitecture.Application.Common.Mappings;
+using CleanArchitecture.Application.Common.Models;
+using CleanArchitecture.Application.TodoLists.Queries.GetTodos;
+using MediatR;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+
+
+namespace CleanArchitecture.Application.TodoItems.Queries.GetTodoItemsWithPagination
 {
-    using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
-
-    using AutoMapper;
-    using AutoMapper.QueryableExtensions;
-    using MediatR;
-
-    using Common.Interfaces;
-    using Common.Mappings;
-    using Common.Models;
-    using TodoLists.Queries.GetTodos;
-
-    public class GetTodoItemsWithPaginationQuery : PaginationQuery, IRequest<PaginationResponse<TodoItemDto>>
+    public class GetTodoItemsWithPaginationQuery : IRequest<PaginatedList<TodoItemDto>>
     {
         public int ListId { get; set; }
+        public int PageNumber { get; set; } = 1;
+        public int PageSize { get; set; } = 10;
     }
 
-    public class GetTodoItemsWithPaginationQueryHandler : IRequestHandler<GetTodoItemsWithPaginationQuery, PaginationResponse<TodoItemDto>>
+    public class GetTodoItemsWithPaginationQueryHandler : IRequestHandler<GetTodoItemsWithPaginationQuery, PaginatedList<TodoItemDto>>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -29,22 +30,13 @@
             _mapper = mapper;
         }
 
-        public async Task<PaginationResponse<TodoItemDto>> Handle(GetTodoItemsWithPaginationQuery request, CancellationToken cancellationToken)
+        public async Task<PaginatedList<TodoItemDto>> Handle(GetTodoItemsWithPaginationQuery request, CancellationToken cancellationToken)
         {
-            PaginatedList<TodoItemDto> list = await _context.TodoItems
+            return await _context.TodoItems
                 .Where(x => x.ListId == request.ListId)
                 .OrderBy(x => x.Title)
                 .ProjectTo<TodoItemDto>(_mapper.ConfigurationProvider)
-                .PaginatedListAsync(request.PageNumber, request.PageSize);
-
-
-            return new PaginationResponse<TodoItemDto>
-            {
-                Items = list,
-                PageIndex = list.PageIndex,
-                TotalPages = list.TotalPages,
-                TotalCount = list.TotalCount,
-            };
+                .PaginatedListAsync(request.PageNumber, request.PageSize); ;
         }
     }
 }
