@@ -15,7 +15,7 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angula
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 export interface ITodoItemsClient {
-    getTodoItemsWithPagination(query: GetTodoItemsWithPaginationQuery): Observable<PaginatedListOfTodoItemDto>;
+    getTodoItemsWithPagination(listId: number | undefined, pageNumber: number | undefined, pageSize: number | undefined): Observable<PaginatedListOfTodoItemDto>;
     create(command: CreateTodoItemCommand): Observable<number>;
     update(id: number, command: UpdateTodoItemCommand): Observable<FileResponse>;
     delete(id: number): Observable<FileResponse>;
@@ -35,18 +35,26 @@ export class TodoItemsClient implements ITodoItemsClient {
         this.baseUrl = baseUrl ? baseUrl : "";
     }
 
-    getTodoItemsWithPagination(query: GetTodoItemsWithPaginationQuery): Observable<PaginatedListOfTodoItemDto> {
-        let url_ = this.baseUrl + "/api/TodoItems";
+    getTodoItemsWithPagination(listId: number | undefined, pageNumber: number | undefined, pageSize: number | undefined): Observable<PaginatedListOfTodoItemDto> {
+        let url_ = this.baseUrl + "/api/TodoItems?";
+        if (listId === null)
+            throw new Error("The parameter 'listId' cannot be null.");
+        else if (listId !== undefined)
+            url_ += "ListId=" + encodeURIComponent("" + listId) + "&";
+        if (pageNumber === null)
+            throw new Error("The parameter 'pageNumber' cannot be null.");
+        else if (pageNumber !== undefined)
+            url_ += "PageNumber=" + encodeURIComponent("" + pageNumber) + "&";
+        if (pageSize === null)
+            throw new Error("The parameter 'pageSize' cannot be null.");
+        else if (pageSize !== undefined)
+            url_ += "PageSize=" + encodeURIComponent("" + pageSize) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(query);
-
         let options_ : any = {
-            body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json",
                 "Accept": "application/json"
             })
         };
@@ -757,50 +765,6 @@ export interface ITodoItemDto {
     done?: boolean;
     priority?: number;
     note?: string | undefined;
-}
-
-export class GetTodoItemsWithPaginationQuery implements IGetTodoItemsWithPaginationQuery {
-    listId?: number;
-    pageNumber?: number;
-    pageSize?: number;
-
-    constructor(data?: IGetTodoItemsWithPaginationQuery) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.listId = _data["listId"];
-            this.pageNumber = _data["pageNumber"];
-            this.pageSize = _data["pageSize"];
-        }
-    }
-
-    static fromJS(data: any): GetTodoItemsWithPaginationQuery {
-        data = typeof data === 'object' ? data : {};
-        let result = new GetTodoItemsWithPaginationQuery();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["listId"] = this.listId;
-        data["pageNumber"] = this.pageNumber;
-        data["pageSize"] = this.pageSize;
-        return data; 
-    }
-}
-
-export interface IGetTodoItemsWithPaginationQuery {
-    listId?: number;
-    pageNumber?: number;
-    pageSize?: number;
 }
 
 export class CreateTodoItemCommand implements ICreateTodoItemCommand {
