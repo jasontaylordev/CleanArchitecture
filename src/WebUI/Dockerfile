@@ -2,15 +2,19 @@
 
 # This stage is used for VS debugging on Docker
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
+ENV ASPNETCORE_ENVIRONMENT=Development
+ENV ASPNETCORE_URLS=http://+:5000;https://+:5001
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 RUN apt install -y nodejs
-ENV ASPNETCORE_ENVIRONMENT=Development
 WORKDIR /app
-EXPOSE 8080
+EXPOSE 5000
+EXPOSE 5001
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS runtime
+ENV ASPNETCORE_URLS=http://+:5000;https://+:5001
 WORKDIR /app
-EXPOSE 8080
+EXPOSE 5000
+EXPOSE 5001
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
