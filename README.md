@@ -52,7 +52,7 @@ FOR macOS:
 FOR Linux:
 `dotnet dev-certs https -ep ${HOME}/.aspnet/https/aspnetapp.pfx -p Your_password123`
 
-In order to build and run the docker containers, execute `docker-compose up -f docker-compose.yml --build` from the root of the solution where you find the docker-compose.yml file.  You can also use "Docker Compose" from Visual Studio for Debugging purposes.
+In order to build and run the docker containers, execute `docker-compose -f 'docker-compose.yml' up --build` from the root of the solution where you find the docker-compose.yml file.  You can also use "Docker Compose" from Visual Studio for Debugging purposes.
 Then open http://localhost:5000 on your browser.
 
 ### Database Configuration
