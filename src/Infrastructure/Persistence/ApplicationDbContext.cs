@@ -71,8 +71,7 @@ namespace CleanArchitecture.Infrastructure.Persistence
         {
             var domainEventEntities = ChangeTracker.Entries<IHasDomainEvent>()
                 .Select(x => x.Entity.DomainEvents)
-                .SelectMany(x => x)
-                .ToArray();
+                .SelectMany(x => x);
 
             foreach (var domainEvent in domainEventEntities)
             {
