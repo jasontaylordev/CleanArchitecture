@@ -55,7 +55,7 @@ namespace CleanArchitecture.Infrastructure.Persistence
 
             var result = await base.SaveChangesAsync(cancellationToken);
 
-            await DispatchEvents(cancellationToken);
+            await DispatchEvents();
 
             return result;
         }
@@ -67,7 +67,7 @@ namespace CleanArchitecture.Infrastructure.Persistence
             base.OnModelCreating(builder);
         }
 
-        private async Task DispatchEvents(CancellationToken cancellationToken)
+        private async Task DispatchEvents()
         {
             var domainEventEntities = ChangeTracker.Entries<IHasDomainEvent>()
                 .Select(x => x.Entity.DomainEvents)
