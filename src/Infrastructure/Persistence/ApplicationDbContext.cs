@@ -53,7 +53,7 @@ namespace CleanArchitecture.Infrastructure.Persistence
                 }
             }
 
-            int result = await base.SaveChangesAsync(cancellationToken);
+            var result = await base.SaveChangesAsync(cancellationToken);
 
             await DispatchEvents(cancellationToken);
 
