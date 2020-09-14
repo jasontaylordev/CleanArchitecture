@@ -69,14 +69,19 @@ namespace CleanArchitecture.Infrastructure.Persistence
 
         private async Task DispatchEvents(CancellationToken cancellationToken)
         {
-            var domainEventEntities = ChangeTracker.Entries<IHasDomainEvent>()
-                .Select(x => x.Entity.DomainEvents)
-                .SelectMany(x => x)
-                .ToArray();
+           var entriesWithDomainEvents = ChangeTracker.Entries<IHasDomainEvent>()
+            .Where(x => x.Entity.DomainEvents.Count > 0)
+            .ToArray();
 
-            foreach (var domainEvent in domainEventEntities)
+            foreach (var entry in entriesWithDomainEvents)
             {
-                await _domainEventService.Publish(domainEvent);
+                foreach (var domainEvent in entry.Entity.DomainEvents)
+                {
+                    if(entry.State != EntityState.Detached)
+                        entry.State = EntityState.Detached;
+
+                    await _domainEventService.Publish(domainEvent);
+                }
             }
         }
     }
