@@ -72,10 +72,12 @@ namespace CleanArchitecture.Infrastructure.Persistence
             var domainEventEntities = ChangeTracker.Entries<IHasDomainEvent>()
                 .Select(x => x.Entity.DomainEvents)
                 .SelectMany(x => x)
+                .Where(domainEvent => !domainEvent.IsPublished)
                 .ToArray();
 
             foreach (var domainEvent in domainEventEntities)
             {
+                domainEvent.IsPublished = true;
                 await _domainEventService.Publish(domainEvent);
             }
         }
