@@ -38,8 +38,9 @@ namespace CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItemDetail
             }
 
             entity.ListId = request.ListId;
-            entity.Priority = request.Priority;
             entity.Note = request.Note;
+
+            entity.ChangePriority(request.Priority);
 
             await _context.SaveChangesAsync(cancellationToken);
 

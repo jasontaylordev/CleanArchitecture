@@ -23,7 +23,7 @@ namespace CleanArchitecture.Application.TodoLists.Commands.CreateTodoList
         public async Task<bool> BeUniqueTitle(string title, CancellationToken cancellationToken)
         {
             return await _context.TodoLists
-                .AllAsync(l => l.Title != title);
+                .AllAsync(l => l.Title != title, cancellationToken: cancellationToken);
         }
     }
 }

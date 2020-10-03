@@ -18,7 +18,7 @@ namespace CleanArchitecture.Domain.Entities
 
         public string Note { get; set; }
 
-        public PriorityLevel Priority { get; set; }
+        public PriorityLevel Priority { get; private set; } = PriorityLevel.None;
 
         public DateTime? Reminder { get; set; }
 
@@ -28,7 +28,7 @@ namespace CleanArchitecture.Domain.Entities
             get => _done;
             set
             {
-                if (value == true && _done == false)
+                if (value && _done == false)
                 {
                     DomainEvents.Add(new TodoItemCompletedEvent(this));
                 }
@@ -38,5 +38,30 @@ namespace CleanArchitecture.Domain.Entities
         }
 
         public List<DomainEvent> DomainEvents { get; set; } = new List<DomainEvent>();
+
+        /// <summary>
+        /// For entity framework use.
+        /// </summary>
+        private TodoItem()
+        {
+        }
+
+        public TodoItem(int listId, string title, bool isDone = false)
+        {
+            ListId = listId;
+            Title = title;
+            Done = isDone;
+        }
+
+        public bool ChangePriority(PriorityLevel level)
+        {
+            if (Priority == level)
+            {
+                return false;
+            }
+
+            Priority = level;
+            return true;
+        }
     }
 }

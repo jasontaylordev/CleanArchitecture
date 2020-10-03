@@ -12,9 +12,11 @@ namespace CleanArchitecture.Domain.Common
     {
         protected DomainEvent()
         {
+            EventId = Guid.NewGuid();
             DateOccurred = DateTimeOffset.UtcNow;
         }
 
-        public DateTimeOffset DateOccurred { get; protected set; } = DateTime.UtcNow;
+        public Guid EventId { get; }
+        public DateTimeOffset DateOccurred { get; protected set; }
     }
 }

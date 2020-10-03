@@ -22,11 +22,9 @@ namespace CleanArchitecture.Application.TodoLists.Commands.CreateTodoList
 
         public async Task<int> Handle(CreateTodoListCommand request, CancellationToken cancellationToken)
         {
-            var entity = new TodoList();
+            var entity = new TodoList(request.Title);
 
-            entity.Title = request.Title;
-
-            _context.TodoLists.Add(entity);
+            await _context.TodoLists.AddAsync(entity, cancellationToken);
 
             await _context.SaveChangesAsync(cancellationToken);
 

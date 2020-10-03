@@ -4,6 +4,7 @@ using CleanArchitecture.Domain.Common;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CleanArchitecture.Infrastructure.Services
@@ -19,13 +20,13 @@ namespace CleanArchitecture.Infrastructure.Services
             _mediator = mediator;
         }
 
-        public async Task Publish(DomainEvent domainEvent)
+        public async Task Publish(DomainEvent domainEvent, CancellationToken cancellationToken)
         {
-            _logger.LogInformation("Publishing domain event. Event - {event}", domainEvent.GetType().Name);
-            await _mediator.Publish(GetNotificationCorrespondingToDomainEvent(domainEvent));
+            _logger.LogInformation("CleanArchitecture publishing domain event. Event: {event}", domainEvent.GetType().Name);
+            await _mediator.Publish(GetNotificationCorrespondingToDomainEvent(domainEvent), cancellationToken);
         }
 
-        private INotification GetNotificationCorrespondingToDomainEvent(DomainEvent domainEvent)
+        private static INotification GetNotificationCorrespondingToDomainEvent(DomainEvent domainEvent)
         {
             return (INotification)Activator.CreateInstance(
                 typeof(DomainEventNotification<>).MakeGenericType(domainEvent.GetType()), domainEvent);

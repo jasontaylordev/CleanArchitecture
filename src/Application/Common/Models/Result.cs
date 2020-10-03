@@ -11,9 +11,9 @@ namespace CleanArchitecture.Application.Common.Models
             Errors = errors.ToArray();
         }
 
-        public bool Succeeded { get; set; }
+        public bool Succeeded { get; }
 
-        public string[] Errors { get; set; }
+        public string[] Errors { get; }
 
         public static Result Success()
         {

@@ -23,7 +23,7 @@ namespace CleanArchitecture.Application.Common.Behaviours
         {
             var requestName = typeof(TRequest).Name;
             var userId = _currentUserService.UserId ?? string.Empty;
-            string userName = string.Empty;
+            var userName = string.Empty;
 
             if (!string.IsNullOrEmpty(userId))
             {

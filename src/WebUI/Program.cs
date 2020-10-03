@@ -13,7 +13,7 @@ namespace CleanArchitecture.WebUI
 {
     public class Program
     {
-        public async static Task Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
 
@@ -27,7 +27,7 @@ namespace CleanArchitecture.WebUI
 
                     if (context.Database.IsSqlServer())
                     {
-                        context.Database.Migrate();
+                        await context.Database.MigrateAsync();
                     }                   
 
                     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
@@ -38,7 +38,6 @@ namespace CleanArchitecture.WebUI
                 catch (Exception ex)
                 {
                     var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-
                     logger.LogError(ex, "An error occurred while migrating or seeding the database.");
 
                     throw;

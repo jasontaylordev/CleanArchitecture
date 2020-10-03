@@ -25,7 +25,7 @@ namespace CleanArchitecture.Application.TodoLists.Commands.UpdateTodoList
         {
             return await _context.TodoLists
                 .Where(l => l.Id != model.Id)
-                .AllAsync(l => l.Title != title);
+                .AllAsync(l => l.Title != title, cancellationToken: cancellationToken);
         }
     }
 }

@@ -25,16 +25,11 @@ namespace CleanArchitecture.Application.TodoItems.Commands.CreateTodoItem
 
         public async Task<int> Handle(CreateTodoItemCommand request, CancellationToken cancellationToken)
         {
-            var entity = new TodoItem
-            {
-                ListId = request.ListId,
-                Title = request.Title,
-                Done = false
-            };
+            var entity = new TodoItem(request.ListId, request.Title);
 
             entity.DomainEvents.Add(new TodoItemCreatedEvent(entity));
 
-            _context.TodoItems.Add(entity);
+            await _context.TodoItems.AddAsync(entity, cancellationToken);
 
             await _context.SaveChangesAsync(cancellationToken);
 

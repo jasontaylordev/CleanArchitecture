@@ -24,20 +24,20 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Queries
         [Test]
         public async Task ShouldReturnAllListsAndItems()
         {
-            await AddAsync(new TodoList
+            await AddAsync(new TodoList("Shopping")
             {
-                Title = "Shopping",
                 Items =
-                    {
-                        new TodoItem { Title = "Apples", Done = true },
-                        new TodoItem { Title = "Milk", Done = true },
-                        new TodoItem { Title = "Bread", Done = true },
-                        new TodoItem { Title = "Toilet paper" },
-                        new TodoItem { Title = "Pasta" },
-                        new TodoItem { Title = "Tissues" },
-                        new TodoItem { Title = "Tuna" }
-                    }
+                {
+                    new TodoItem(1, "Apples", true),
+                    new TodoItem(1, "Milk", true),
+                    new TodoItem(1, "Bread", true),
+                    new TodoItem(1, "Toilet paper", true),
+                    new TodoItem(1, "Pasta", true),
+                    new TodoItem(1, "Tissues", true),
+                    new TodoItem(1, "Tuna", true),
+                }
             });
+
 
             var query = new GetTodosQuery();
 

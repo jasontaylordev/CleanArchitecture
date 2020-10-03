@@ -23,21 +23,18 @@ namespace CleanArchitecture.Infrastructure.Persistence
             // Seed, if necessary
             if (!context.TodoLists.Any())
             {
-                context.TodoLists.Add(new TodoList
+                await context.TodoLists.AddAsync(new TodoList("Shopping") { Items =
                 {
-                    Title = "Shopping",
-                    Items =
-                    {
-                        new TodoItem { Title = "Apples", Done = true },
-                        new TodoItem { Title = "Milk", Done = true },
-                        new TodoItem { Title = "Bread", Done = true },
-                        new TodoItem { Title = "Toilet paper" },
-                        new TodoItem { Title = "Pasta" },
-                        new TodoItem { Title = "Tissues" },
-                        new TodoItem { Title = "Tuna" },
-                        new TodoItem { Title = "Water" }
-                    }
-                });
+                    new TodoItem(1, "Apples", true),
+                    new TodoItem(1, "Milk", true),
+                    new TodoItem(1, "Bread", true),
+                    new TodoItem(1, "Toilet paper", true),
+                    new TodoItem(1, "Pasta"),
+                    new TodoItem(1, "Tissues"),
+                    new TodoItem(1, "Tuna"),
+                    new TodoItem(1, "Water"),
+
+                }});
 
                 await context.SaveChangesAsync();
             }

@@ -32,7 +32,7 @@ namespace CleanArchitecture.Application.TodoLists.Commands.UpdateTodoList
                 throw new NotFoundException(nameof(TodoList), request.Id);
             }
 
-            entity.Title = request.Title;
+            entity.ChangeTitle(request.Title);
 
             await _context.SaveChangesAsync(cancellationToken);
 

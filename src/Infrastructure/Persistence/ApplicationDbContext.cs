@@ -37,7 +37,7 @@ namespace CleanArchitecture.Infrastructure.Persistence
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
-            foreach (Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<AuditableEntity> entry in ChangeTracker.Entries<AuditableEntity>())
+            foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
             {
                 switch (entry.State)
                 {
@@ -53,7 +53,7 @@ namespace CleanArchitecture.Infrastructure.Persistence
                 }
             }
 
-            int result = await base.SaveChangesAsync(cancellationToken);
+            var result = await base.SaveChangesAsync(cancellationToken);
 
             await DispatchEvents(cancellationToken);
 
@@ -76,7 +76,7 @@ namespace CleanArchitecture.Infrastructure.Persistence
 
             foreach (var domainEvent in domainEventEntities)
             {
-                await _domainEventService.Publish(domainEvent);
+                await _domainEventService.Publish(domainEvent, cancellationToken);
             }
         }
     }
