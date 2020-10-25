@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using CleanArchitecture.Application.Common.Attributes;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.Common.Models;
 using MediatR;
 using MediatR.Pipeline;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Logging;
 
 namespace CleanArchitecture.Application.Common.Behaviours
@@ -17,8 +20,8 @@ namespace CleanArchitecture.Application.Common.Behaviours
         public ICacheService CacheService { get; }
 
         public CacheInvalidatorPostProcessor(
-            ILogger<CacheInvalidatorPostProcessor<TRequest,TResponse>> logger,
-            InvalidateCacheForQueries cache, 
+            ILogger<CacheInvalidatorPostProcessor<TRequest, TResponse>> logger,
+            InvalidateCacheForQueries cache,
             ICacheService cacheService)
         {
             _logger = logger;
@@ -28,7 +31,7 @@ namespace CleanArchitecture.Application.Common.Behaviours
 
         public Task Process(TRequest request, TResponse response, CancellationToken cancellationToken)
         {
-            if(_queriesPairs.Count > 0)
+            if (_queriesPairs.Count > 0)
             {
                 foreach (var item in _queriesPairs)
                 {
@@ -58,13 +61,13 @@ namespace CleanArchitecture.Application.Common.Behaviours
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
-            var needCachingForQuery = typeof(ICache).IsAssignableFrom(typeof(TRequest));
+            var cacheQuery = typeof(TRequest).GetCustomAttribute<CacheQueryResponseAttribute>();
 
-            if (needCachingForQuery)
+            if (cacheQuery != null)
             {
-                var options = new CacheOptions();
-
-                var cacheKey = CacheHelper.GenerateCacheKeyFromRequest(request);
+                var cacheKey = string.IsNullOrEmpty(cacheQuery.CacheKey)
+                    ? CacheHelper.GenerateCacheKeyFromRequest(request)
+                    : cacheQuery.CacheKey;
 
                 var cachedResponse = await CacheService.GetCacheValueAsync(cacheKey);
                 if (cachedResponse != null)
@@ -75,7 +78,7 @@ namespace CleanArchitecture.Application.Common.Behaviours
                 }
 
                 var actualResponse = await next();
-                await CacheService.SetCacheValueAsync(cacheKey, actualResponse, options.ExpirationRelativeToNow == TimeSpan.Zero ? TimeSpan.FromMilliseconds(60000) : options.ExpirationRelativeToNow);
+                await CacheService.SetCacheValueAsync(cacheKey, actualResponse, cacheQuery.TimeSpanForCacheInvalidation);
                 return actualResponse;
             }
             return await next();
@@ -86,33 +89,13 @@ namespace CleanArchitecture.Application.Common.Behaviours
     {
         public static string GenerateCacheKeyFromRequest(object request)
         {
-            var methodReference = request.GetType().GetMethod("SetCacheOptions");
-
-            var cacheKey = string.Empty;
-
-            if (methodReference != null)
+            var key = new StringBuilder();
+            key.Append($"{request.GetType().Name}|");
+            foreach (var property in request.GetType().GetProperties())
             {
-                var options = (CacheOptions)methodReference.Invoke(request, new object[] { });
-                cacheKey = options.CacheKey;
-
-                if (!string.IsNullOrWhiteSpace(cacheKey))
-                {
-                    return cacheKey;
-                }
+                key.Append($"{property.Name}|{property.GetValue(request)}|");
             }
-
-            if (string.IsNullOrWhiteSpace(cacheKey) || string.IsNullOrEmpty(cacheKey))
-            {
-                var key = new StringBuilder();
-                key.Append($"{request.GetType().Name}|");
-                foreach (var property in request.GetType().GetProperties())
-                {
-                    key.Append($"{property.Name}| {property.GetValue(request)}|");
-                }
-                return key.ToString();
-            }
-
-            return string.Empty;
+            return key.ToString();
         }
     }
 }

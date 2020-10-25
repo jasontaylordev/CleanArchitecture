@@ -8,9 +8,11 @@ using MediatR;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using CleanArchitecture.Application.Common.Attributes;
 
 namespace CleanArchitecture.Application.TodoItems.Queries.GetTodoItemsWithPagination
 {
+    [CacheQueryResponse]
     public class GetTodoItemsWithPaginationQuery : IRequest<PaginatedList<TodoItemDto>>
     {
         public int ListId { get; set; }

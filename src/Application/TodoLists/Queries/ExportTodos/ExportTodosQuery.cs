@@ -11,7 +11,7 @@ using CleanArchitecture.Application.Common.Models;
 
 namespace CleanArchitecture.Application.TodoLists.Queries.ExportTodos
 {
-    public class ExportTodosQuery : IRequest<ExportTodosVm>, ICache
+    public class ExportTodosQuery : IRequest<ExportTodosVm>
     {
         public int ListId { get; set; }
     }
