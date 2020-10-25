@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace CleanArchitecture.Application.Common.Extensions
+namespace CleanArchitecture.Application.UnitTests.Extensions
 {
     public static class EnumerableExtensions
     {

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using CleanArchitecture.Application.Common.Extensions;
 using CleanArchitecture.Application.Common.Interfaces;
+using CleanArchitecture.Application.UnitTests.Extensions;
 using Microsoft.EntityFrameworkCore;
 using MockQueryable.Moq;
 using Moq;
