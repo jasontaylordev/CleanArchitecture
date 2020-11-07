@@ -25,7 +25,7 @@ namespace CleanArchitecture.Application.Common.Behaviours
             var userId = _currentUserService.UserId ?? string.Empty;
             string userName = string.Empty;
 
-            if (!string.IsNullOrEmpty(userId))
+            if (string.IsNullOrEmpty(userId))
             {
                 userName = await _identityService.GetUserNameAsync(userId);
             }
