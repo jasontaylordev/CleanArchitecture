@@ -41,7 +41,7 @@ namespace CleanArchitecture.WebUI
                 .AddDbContextCheck<ApplicationDbContext>();
 
             services.AddControllersWithViews(options =>
-                options.Filters.Add(new ApiExceptionFilterAttribute()))
+                options.Filters.Add<ApiExceptionFilterAttribute>())
                     .AddFluentValidation();
 
             services.AddRazorPages();
