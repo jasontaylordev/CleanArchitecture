@@ -21,7 +21,7 @@ namespace CleanArchitecture.Domain.Common
             return !(EqualOperator(left, right));
         }
 
-        protected abstract IEnumerable<object> GetAtomicValues();
+        protected abstract IEnumerable<object> GetEqualityComponents();
 
         public override bool Equals(object obj)
         {
@@ -31,29 +31,12 @@ namespace CleanArchitecture.Domain.Common
             }
 
             var other = (ValueObject)obj;
-            var thisValues = GetAtomicValues().GetEnumerator();
-            var otherValues = other.GetAtomicValues().GetEnumerator();
-
-            while (thisValues.MoveNext() && otherValues.MoveNext())
-            {
-                if (thisValues.Current is null ^ otherValues.Current is null)
-                {
-                    return false;
-                }
-
-                if (thisValues.Current != null &&
-                    !thisValues.Current.Equals(otherValues.Current))
-                {
-                    return false;
-                }
-            }
-
-            return !thisValues.MoveNext() && !otherValues.MoveNext();
+            return GetEqualityComponents().SequenceEqual(other.GetEqualityComponents());
         }
 
         public override int GetHashCode()
         {
-            return GetAtomicValues()
+            return GetEqualityComponents()
                 .Select(x => x != null ? x.GetHashCode() : 0)
                 .Aggregate((x, y) => x ^ y);
         }
