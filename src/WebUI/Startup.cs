@@ -38,6 +38,7 @@ namespace CleanArchitecture.WebUI
             services.AddSingleton<ICurrentUserService, CurrentUserService>();
 
             services.AddHttpContextAccessor();
+            services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddHealthChecks()
                 .AddDbContextCheck<ApplicationDbContext>();
