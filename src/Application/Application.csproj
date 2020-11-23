@@ -11,7 +11,7 @@
     <PackageReference Include="FluentValidation" Version="9.3.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="9.3.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0-rc.2.*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
