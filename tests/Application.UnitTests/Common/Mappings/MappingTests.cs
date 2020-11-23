@@ -33,7 +33,16 @@ namespace CleanArchitecture.Application.UnitTests.Common.Mappings
         [TestCase(typeof(TodoItem), typeof(TodoItemDto))]
         public void ShouldSupportMappingFromSourceToDestination(Type source, Type destination)
         {
-            var instance = Activator.CreateInstance(source);
+            object instance;
+            try
+            {
+                instance = Activator.CreateInstance(source);
+            }
+            catch (MissingMethodException e)
+            {
+                instance = System.Runtime.Serialization.FormatterServices
+                    .GetUninitializedObject(source);
+            }
 
             _mapper.Map(instance, source, destination);
         }
