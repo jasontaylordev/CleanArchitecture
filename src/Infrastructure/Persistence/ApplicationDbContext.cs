@@ -69,15 +69,17 @@ namespace CleanArchitecture.Infrastructure.Persistence
 
         private async Task DispatchEvents()
         {
-            var domainEventEntities = ChangeTracker.Entries<IHasDomainEvent>()
-                .Select(x => x.Entity.DomainEvents)
-                .SelectMany(x => x)
-                .Where(domainEvent => !domainEvent.IsPublished);
-
-            foreach (var domainEvent in domainEventEntities)
+            while (true)
             {
-                domainEvent.IsPublished = true;
-                await _domainEventService.Publish(domainEvent);
+                var domainEventEntity = ChangeTracker.Entries<IHasDomainEvent>()
+                    .Select(x => x.Entity.DomainEvents)
+                    .SelectMany(x => x)
+                    .Where(domainEvent => !domainEvent.IsPublished)
+                    .FirstOrDefault();
+                if (domainEventEntity == null) break;
+
+                domainEventEntity.IsPublished = true;
+                await _domainEventService.Publish(domainEventEntity);
             }
         }
     }
