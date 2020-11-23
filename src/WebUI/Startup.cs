@@ -41,7 +41,7 @@ namespace CleanArchitecture.WebUI
                 .AddDbContextCheck<ApplicationDbContext>();
 
             services.AddControllersWithViews(options =>
-                options.Filters.Add(new ApiExceptionFilterAttribute()))
+                options.Filters.Add<ApiExceptionFilterAttribute>())
                     .AddFluentValidation();
 
             services.AddRazorPages();
@@ -124,7 +124,8 @@ namespace CleanArchitecture.WebUI
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseAngularCliServer(npmScript: "start");
+                    //spa.UseAngularCliServer(npmScript: "start");
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                 }
             });
         }

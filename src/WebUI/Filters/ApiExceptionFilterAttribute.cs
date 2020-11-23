@@ -40,6 +40,12 @@ namespace CleanArchitecture.WebUI.Filters
                 return;
             }
 
+            if (!context.ModelState.IsValid)
+            {
+                HandleInvalidModelStateException(context);
+                return;
+            }
+
             HandleUnknownException(context);
         }
 
@@ -48,6 +54,18 @@ namespace CleanArchitecture.WebUI.Filters
             var exception = context.Exception as ValidationException;
 
             var details = new ValidationProblemDetails(exception.Errors)
+            {
+                Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1"
+            };
+
+            context.Result = new BadRequestObjectResult(details);
+
+            context.ExceptionHandled = true;
+        }
+
+        private void HandleInvalidModelStateException(ExceptionContext context)
+        {
+            var details = new ValidationProblemDetails(context.ModelState)
             {
                 Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1"
             };
