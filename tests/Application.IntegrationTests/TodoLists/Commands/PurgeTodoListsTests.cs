@@ -73,10 +73,7 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
                 Title = "New List #3"
             });
 
-            var command = new PurgeTodoListsCommand();
-
-            FluentActions.Invoking(() => SendAsync(command))
-                .Should().NotThrow<ForbiddenAccessException>();
+            await SendAsync(new PurgeTodoListsCommand());
 
             var count = await CountAsync<TodoList>();
 
