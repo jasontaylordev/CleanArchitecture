@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.WebUI.Controllers
 {
-    public class WeatherForecastController : ApiController
+    public class WeatherForecastController : ApiControllerBase
     {
         [HttpGet]
         public async Task<IEnumerable<WeatherForecast>> Get()

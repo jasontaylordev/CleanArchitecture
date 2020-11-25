@@ -33,9 +33,12 @@ namespace CleanArchitecture.WebUI
             services.AddApplication();
             services.AddInfrastructure(Configuration);
 
+            services.AddDatabaseDeveloperPageExceptionFilter();
+
             services.AddSingleton<ICurrentUserService, CurrentUserService>();
 
             services.AddHttpContextAccessor();
+            services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddHealthChecks()
                 .AddDbContextCheck<ApplicationDbContext>();
@@ -79,7 +82,7 @@ namespace CleanArchitecture.WebUI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                app.UseMigrationsEndPoint();
             }
             else
             {
