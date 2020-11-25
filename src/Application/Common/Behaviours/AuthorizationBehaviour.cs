@@ -52,7 +52,7 @@ namespace CleanArchitecture.Application.Common.Behaviours
                             if (isInRole)
                             {
                                 authorized = true;
-                                continue;
+                                break;
                             }
                         }
 
