@@ -47,6 +47,11 @@ namespace CleanArchitecture.Infrastructure
             services.AddAuthentication()
                 .AddIdentityServerJwt();
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("CanPurge", policy => policy.RequireRole("Administrator"));
+            });
+
             return services;
         }
     }

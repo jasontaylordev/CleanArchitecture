@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace CleanArchitecture.Application.TodoLists.Commands.PurgeTodoLists
 {
     [Authorize(Roles = "Administrator")]
+    [Authorize(Policy = "CanPurge")]
     public class PurgeTodoListsCommand : IRequest
     {
     }

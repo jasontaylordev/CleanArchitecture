@@ -2,7 +2,6 @@
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.Common.Security;
 using MediatR;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Reflection;
@@ -13,16 +12,13 @@ namespace CleanArchitecture.Application.Common.Behaviours
 {
     public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {
-        private readonly ILogger<TRequest> _logger;
         private readonly ICurrentUserService _currentUserService;
         private readonly IIdentityService _identityService;
 
         public AuthorizationBehaviour(
-            ILogger<TRequest> logger,
             ICurrentUserService currentUserService,
             IIdentityService identityService)
         {
-            _logger = logger;
             _currentUserService = currentUserService;
             _identityService = identityService;
         }
@@ -39,6 +35,7 @@ namespace CleanArchitecture.Application.Common.Behaviours
                     throw new UnauthorizedAccessException();
                 }
 
+                // Role-based authorization
                 var authorizeAttributesWithRoles = authorizeAttributes.Where(a => !string.IsNullOrWhiteSpace(a.Roles));
 
                 if (authorizeAttributesWithRoles.Any())
@@ -48,7 +45,7 @@ namespace CleanArchitecture.Application.Common.Behaviours
                         var authorized = false;
                         foreach (var role in roles)
                         {
-                            var isInRole = await _identityService.UserIsInRole(_currentUserService.UserId, role.Trim());
+                            var isInRole = await _identityService.IsInRoleAsync(_currentUserService.UserId, role.Trim());
                             if (isInRole)
                             {
                                 authorized = true;
@@ -57,6 +54,21 @@ namespace CleanArchitecture.Application.Common.Behaviours
                         }
 
                         // Must be a member of at least one role in roles
+                        if (!authorized)
+                        {
+                            throw new ForbiddenAccessException();
+                        }
+                    }
+                }
+
+                // Policy-based authorization
+                var authorizeAttributesWithPolicies = authorizeAttributes.Where(a => !string.IsNullOrWhiteSpace(a.Policy));
+                if (authorizeAttributesWithPolicies.Any())
+                {
+                    foreach(var policy in authorizeAttributesWithPolicies.Select(a => a.Policy))
+                    {
+                        var authorized = await _identityService.AuthorizeAsync(_currentUserService.UserId, policy);
+
                         if (!authorized)
                         {
                             throw new ForbiddenAccessException();

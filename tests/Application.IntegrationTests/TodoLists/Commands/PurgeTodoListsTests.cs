@@ -42,11 +42,6 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
         {
             await RunAsAdministratorAsync();
 
-            var listId = await SendAsync(new CreateTodoListCommand
-            {
-                Title = "New List"
-            });
-
             var command = new PurgeTodoListsCommand();
 
             FluentActions.Invoking(() => SendAsync(command))
