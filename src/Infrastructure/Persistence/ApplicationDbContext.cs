@@ -13,75 +13,76 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Infrastructure.Persistence
 {
-    public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, IApplicationDbContext
-    {
-        private readonly ICurrentUserService _currentUserService;
-        private readonly IDateTime _dateTime;
-        private readonly IDomainEventService _domainEventService;
+				public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, IApplicationDbContext
+				{
+								private readonly ICurrentUserService _currentUserService;
+								private readonly IDateTime _dateTime;
+								private readonly IDomainEventService _domainEventService;
 
-        public ApplicationDbContext(
-            DbContextOptions options,
-            IOptions<OperationalStoreOptions> operationalStoreOptions,
-            ICurrentUserService currentUserService,
-            IDomainEventService domainEventService,
-            IDateTime dateTime) : base(options, operationalStoreOptions)
-        {
-            _currentUserService = currentUserService;
-            _domainEventService = domainEventService;
-            _dateTime = dateTime;
-        }
+								public ApplicationDbContext(
+									DbContextOptions options,
+									IOptions<OperationalStoreOptions> operationalStoreOptions,
+									ICurrentUserService currentUserService,
+									IDomainEventService domainEventService,
+									IDateTime dateTime) : base(options, operationalStoreOptions)
+								{
+												_currentUserService = currentUserService;
+												_domainEventService = domainEventService;
+												_dateTime = dateTime;
+								}
 
-        public DbSet<TodoItem> TodoItems { get; set; }
+								public DbSet<TodoItem> TodoItems { get; set; }
 
-        public DbSet<TodoList> TodoLists { get; set; }
+								public DbSet<TodoList> TodoLists { get; set; }
 
-        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
-        {
-            foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
-            {
-                switch (entry.State)
-                {
-                    case EntityState.Added:
-                        entry.Entity.CreatedBy = _currentUserService.UserId;
-                        entry.Entity.Created = _dateTime.Now;
-                        break;
+								public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+								{
+												foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
+												{
+																switch (entry.State)
+																{
+																				case EntityState.Added:
+																								entry.Entity.CreatedBy = _currentUserService.UserId;
+																								entry.Entity.Created = _dateTime.Now;
+																								break;
 
-                    case EntityState.Modified:
-                        entry.Entity.LastModifiedBy = _currentUserService.UserId;
-                        entry.Entity.LastModified = _dateTime.Now;
-                        break;
-                }
-            }
+																				case EntityState.Modified:
+																								entry.Entity.LastModifiedBy = _currentUserService.UserId;
+																								entry.Entity.LastModified = _dateTime.Now;
+																								break;
+																}
+												}
 
-            var result = await base.SaveChangesAsync(cancellationToken);
+												var result = await base.SaveChangesAsync(cancellationToken);
 
-            await DispatchEvents();
+												await DispatchEvents();
 
-            return result;
-        }
+												return result;
+								}
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+								protected override void OnModelCreating(ModelBuilder builder)
+								{
+												builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-            base.OnModelCreating(builder);
-        }
+												base.OnModelCreating(builder);
+								}
 
-        private async Task DispatchEvents()
-        {
-            while (true)
-            {
-                var domainEventEntity = ChangeTracker.Entries<IHasDomainEvent>()
-                    .Select(x => x.Entity.DomainEvents)
-                    .SelectMany(x => x)
-                    .Where(domainEvent => !domainEvent.IsPublished)
-                    .FirstOrDefault();
-                if (domainEventEntity == null) break;
+								private async Task DispatchEvents()
+								{
+												while (true)
+												{
+																var domainEventEntity = ChangeTracker.Entries<IHasDomainEvent>()
+																	.Select(x => x.Entity.DomainEvents)
+																	.SelectMany(x => x)
+																	.Where(domainEvent => !domainEvent.IsPublished)
+																	.FirstOrDefault();
+																if (domainEventEntity == null) break;
 
-            foreach (var domainEvent in domainEventEntities)
-            {
-                await _domainEventService.Publish(domainEvent);
-            }
-        }
-    }
+																foreach (var domainEvent in domainEventEntities)
+																{
+																				await _domainEventService.Publish(domainEvent);
+																}
+												}
+								}
+				}
 }
