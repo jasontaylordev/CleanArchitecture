@@ -20,10 +20,10 @@ namespace CleanArchitecture.Infrastructure.Services
             _mediator = mediator;
         }
 
-        public async Task Publish(DomainEvent domainEvent, CancellationToken cancellationToken)
+        public async Task Publish(DomainEvent domainEvent)
         {
             _logger.LogInformation("CleanArchitecture publishing domain event. Event: {event}", domainEvent.GetType().Name);
-            await _mediator.Publish(GetNotificationCorrespondingToDomainEvent(domainEvent), cancellationToken);
+            await _mediator.Publish(GetNotificationCorrespondingToDomainEvent(domainEvent));
         }
 
         private static INotification GetNotificationCorrespondingToDomainEvent(DomainEvent domainEvent)

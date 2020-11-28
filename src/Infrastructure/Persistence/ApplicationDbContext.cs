@@ -71,17 +71,15 @@ namespace CleanArchitecture.Infrastructure.Persistence
 								{
 												while (true)
 												{
-																var domainEventEntity = ChangeTracker.Entries<IHasDomainEvent>()
+																var domainEventEntity = ChangeTracker
+																	.Entries<IHasDomainEvent>()
 																	.Select(x => x.Entity.DomainEvents)
 																	.SelectMany(x => x)
-																	.Where(domainEvent => !domainEvent.IsPublished)
-																	.FirstOrDefault();
+																	.FirstOrDefault(domainEvent => !domainEvent.IsPublished);
 																if (domainEventEntity == null) break;
 
-																foreach (var domainEvent in domainEventEntities)
-																{
-																				await _domainEventService.Publish(domainEvent);
-																}
+																domainEventEntity.IsPublished = true;
+																await _domainEventService.Publish(domainEventEntity);
 												}
 								}
 				}
