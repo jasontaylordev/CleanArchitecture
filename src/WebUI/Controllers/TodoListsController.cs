@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace CleanArchitecture.WebUI.Controllers
 {
     [Authorize]
-    public class TodoListsController : ApiController
+    public class TodoListsController : ApiControllerBase
     {
         [HttpGet]
         public async Task<ActionResult<TodosVm>> Get()

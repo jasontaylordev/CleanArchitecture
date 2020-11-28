@@ -15,8 +15,8 @@ namespace CleanArchitecture.Domain.Common
             EventId = Guid.NewGuid();
             DateOccurred = DateTimeOffset.UtcNow;
         }
-
-        public Guid EventId { get; }
-        public DateTimeOffset DateOccurred { get; protected set; }
-    }
+        public bool IsPublished { get; set; }
+        public DateTimeOffset DateOccurred { get; protected set; } = DateTime.UtcNow;
+								public Guid EventId { get; }
+				}
 }

@@ -55,7 +55,7 @@ namespace CleanArchitecture.Infrastructure.Persistence
 
             var result = await base.SaveChangesAsync(cancellationToken);
 
-            await DispatchEvents(cancellationToken);
+            await DispatchEvents();
 
             return result;
         }
@@ -67,16 +67,20 @@ namespace CleanArchitecture.Infrastructure.Persistence
             base.OnModelCreating(builder);
         }
 
-        private async Task DispatchEvents(CancellationToken cancellationToken)
+        private async Task DispatchEvents()
         {
-            var domainEventEntities = ChangeTracker.Entries<IHasDomainEvent>()
-                .Select(x => x.Entity.DomainEvents)
-                .SelectMany(x => x)
-                .ToArray();
+            while (true)
+            {
+                var domainEventEntity = ChangeTracker.Entries<IHasDomainEvent>()
+                    .Select(x => x.Entity.DomainEvents)
+                    .SelectMany(x => x)
+                    .Where(domainEvent => !domainEvent.IsPublished)
+                    .FirstOrDefault();
+                if (domainEventEntity == null) break;
 
             foreach (var domainEvent in domainEventEntities)
             {
-                await _domainEventService.Publish(domainEvent, cancellationToken);
+                await _domainEventService.Publish(domainEvent);
             }
         }
     }
