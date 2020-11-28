@@ -24,6 +24,7 @@
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="5.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -40,10 +41,6 @@
     <Content Remove="$(SpaRoot)**" />
     <None Remove="$(SpaRoot)**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="ClientApp\Dockerfile.cs" />
   </ItemGroup>
 
   <ItemGroup>
