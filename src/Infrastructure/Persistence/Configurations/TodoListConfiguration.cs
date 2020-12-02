@@ -11,6 +11,9 @@ namespace CleanArchitecture.Infrastructure.Persistence.Configurations
             builder.Property(t => t.Title)
                 .HasMaxLength(200)
                 .IsRequired();
+
+            builder
+                .OwnsOne(b => b.Colour);
         }
     }
 }
