@@ -1,5 +1,6 @@
 ﻿using CleanArchitecture.Application.TodoLists.Queries.GetTodos;
 using CleanArchitecture.Domain.Entities;
+using CleanArchitecture.Domain.ValueObjects;
 using FluentAssertions;
 using NUnit.Framework;
 using System.Linq;
@@ -27,6 +28,7 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Queries
             await AddAsync(new TodoList
             {
                 Title = "Shopping",
+                Colour = Colour.Blue,
                 Items =
                     {
                         new TodoItem { Title = "Apples", Done = true },

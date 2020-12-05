@@ -1,4 +1,5 @@
 ﻿using CleanArchitecture.Domain.Entities;
+using CleanArchitecture.Domain.ValueObjects;
 using CleanArchitecture.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;
@@ -34,6 +35,7 @@ namespace CleanArchitecture.Infrastructure.Persistence
                 context.TodoLists.Add(new TodoList
                 {
                     Title = "Shopping",
+                    Colour = Colour.Blue,
                     Items =
                     {
                         new TodoItem { Title = "Apples", Done = true },
