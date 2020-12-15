@@ -9,14 +9,14 @@ This is a solution template for creating a Single Page App (SPA) with Angular an
 
 ## Technologies
 
-* ASP.NET Core 5
-* Entity Framework Core 5
-* Angular 10
-* MediatR
-* AutoMapper
-* FluentValidation
-* NUnit, FluentAssertions, Moq & Respawn
-* Docker
+* [ASP.NET Core 5](https://docs.microsoft.com/en-us/dotnet/core/dotnet-five)
+* [Entity Framework Core 5](https://docs.microsoft.com/en-us/ef/core/what-is-new/ef-core-5.0/whatsnew)
+* [Angular 11](https://angular.io/)
+* [MediatR](https://github.com/jbogard/MediatR)
+* [AutoMapper](https://automapper.org/)
+* [FluentValidation](https://fluentvalidation.net/)
+* [NUnit](https://nunit.org/), [FluentAssertions](https://fluentassertions.com/), [Moq](https://github.com/moq/moq) & [Respawn](https://github.com/jbogard/Respawn)
+* [Docker](https://www.docker.com/)
 
 ## Getting Started
 
@@ -96,7 +96,7 @@ This layer contains classes for accessing external resources such as file system
 
 ### WebUI
 
-This layer is a single page application based on Angular 10 and ASP.NET Core 5. This layer depends on both the Application and Infrastructure layers, however, the dependency on Infrastructure is only to support dependency injection. Therefore only *Startup.cs* should reference Infrastructure.
+This layer is a single page application based on Angular 11 and ASP.NET Core 5. This layer depends on both the Application and Infrastructure layers, however, the dependency on Infrastructure is only to support dependency injection. Therefore only *Startup.cs* should reference Infrastructure.
 
 ## Support
 
