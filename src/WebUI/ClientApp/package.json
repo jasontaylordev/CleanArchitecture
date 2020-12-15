@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "echo Starting... && ng serve",
+    "start": "echo 'Starting...' && ng serve",
+    "start:dev": "echo 'Starting (Dev)...' && ng serve --host 0.0.0.0 --disable-host-check",
     "build": "ng build",
     "build:ssr": "ng run CleanArchitecture.WebUI:server:dev",
     "test": "ng test",

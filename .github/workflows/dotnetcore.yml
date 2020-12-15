@@ -19,4 +19,4 @@ jobs:
     - name: Install dotnet ef
       run: dotnet tool install --global dotnet-ef
     - name: Build with dotnet
-      run: dotnet build --configuration Release
+      run: dotnet build --configuration Release CleanArchitecture.sln
