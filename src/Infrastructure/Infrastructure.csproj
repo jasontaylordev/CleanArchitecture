@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="CsvHelper" Version="15.0.10" />
+    <PackageReference Include="EasyCache.MemCache" Version="1.0.0" />
     <PackageReference Include="EasyCache.Memory" Version="1.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.0" />
