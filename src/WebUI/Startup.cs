@@ -1,6 +1,7 @@
 using CleanArchitecture.Application;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Infrastructure;
+using CleanArchitecture.Infrastructure.Caching.Extensions;
 using CleanArchitecture.Infrastructure.Persistence;
 using CleanArchitecture.WebUI.Filters;
 using CleanArchitecture.WebUI.Services;
@@ -76,7 +77,7 @@ namespace CleanArchitecture.WebUI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IConfiguration configuration)
         {
             if (env.IsDevelopment())
             {
@@ -89,6 +90,9 @@ namespace CleanArchitecture.WebUI
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            if (configuration.GetValue<bool>("CacheOptions:IsActive") && configuration.GetValue<string>("CacheOptions:ProviderName") == "MemCache")
+                app.UseEasyMemCache();
 
             app.UseHealthChecks("/health");
             app.UseHttpsRedirection();
