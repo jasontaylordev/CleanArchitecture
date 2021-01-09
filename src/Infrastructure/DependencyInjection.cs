@@ -5,8 +5,11 @@ using CleanArchitecture.Infrastructure.Files;
 using CleanArchitecture.Infrastructure.Identity;
 using CleanArchitecture.Infrastructure.Persistence;
 using CleanArchitecture.Infrastructure.Services;
+using EasyCache.MemCache.Concrete;
 using EasyCache.MemCache.Extensions;
+using EasyCache.Memory.Concrete;
 using EasyCache.Memory.Extensions;
+using EasyCache.Redis.Concrete;
 using EasyCache.Redis.Extensions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
@@ -70,14 +73,17 @@ namespace CleanArchitecture.Infrastructure
                             options.Configuration = redisCacheOption.Configuration;
                             options.InstanceName = redisCacheOption.InstanceName;
                         });
+                        services.AddTransient<IApplicationCacheService, ApplicationEasyRedisCacheManager>();
                         break;
                     case Constants.CACHE_MEMORY:
                         services.AddEasyMemoryCache();
+                        services.AddTransient<IApplicationCacheService, ApplicationEasyMemoryCacheManager>();
                         break;
                     case Constants.CACHE_MEMCACHE:
                         MemCacheOption memCacheOption = new MemCacheOption();
                         configuration.GetSection(Constants.CACHE_OPTIONS_MEMCACHE).Bind(memCacheOption, c => c.BindNonPublicProperties = true);
                         services.AddEasyMemCache(options => options.AddServer(memCacheOption.ServerName, memCacheOption.Port));
+                        services.AddTransient<IApplicationCacheService, ApplicationEasyMemCacheManager>();
                         break;
                     default:
                         break;
