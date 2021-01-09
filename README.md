@@ -15,6 +15,10 @@ This is a solution template for creating a Single Page App (SPA) with Angular an
 * MediatR
 * AutoMapper
 * FluentValidation
+* Cache ([EasyCache](https://github.com/furkandeveloper/EasyCache))
+  - Memory Cache
+  - Redis
+  - Memcache
 * NUnit, FluentAssertions, Moq & Respawn
 * Docker
 
@@ -79,6 +83,30 @@ To use `dotnet-ef` for your migrations please add the following flags to your co
 For example, to add a new migration from the root folder:
 
  `dotnet ef migrations add "SampleMigration" --project src\Infrastructure --startup-project src\WebUI --output-dir Persistence\Migrations`
+ 
+ <hr/>
+ 
+### Cache Configuration
+The template is configured to use an memory cache by default. This ensures that all users will be able to run the solution without needing to set up additional infrastructure (e.g. Redis, MemCache).
+
+```json
+"CacheOptions": {
+    "IsActive": true,
+    "ProviderName": "Memory",
+    "Redis": {
+      "Configuration": "localhost",
+      "InstanceName": "CleanArchitecture"
+    },
+    "Memory": {
+    },
+    "MemCache": {
+      "ServerName": "localhost",
+      "Port": 11211
+    }
+  }
+```
+
+See for more information [Wiki](https://github.com/furkandeveloper/EasyCache/wiki)
 
 ## Overview
 
