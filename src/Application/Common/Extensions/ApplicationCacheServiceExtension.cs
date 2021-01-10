@@ -22,7 +22,7 @@ namespace CleanArchitecture.Application.Common.Extensions
             return data;
         }
 
-        public static T GetAndSetAsync<T>(this IApplicationCacheService applicationCacheService, string key, Func<Task<T>> getResult, TimeSpan expireTime)
+        public static Task<T> GetAndSetAsync<T>(this IApplicationCacheService applicationCacheService, string key, Func<Task<T>> getResult, TimeSpan expireTime)
         {
             var data = applicationCacheService.Get<T>(key);
 
@@ -32,7 +32,7 @@ namespace CleanArchitecture.Application.Common.Extensions
                 applicationCacheService.Set(key, data, expireTime);
             }
 
-            return data;
+            return Task.FromResult(data);
         }
     }
 }
