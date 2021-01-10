@@ -22,13 +22,13 @@ namespace CleanArchitecture.Application.Common.Extensions
             return data;
         }
 
-        public static T GetAndSetAsync<T>(this IApplicationCacheService applicationCacheService, string key, Func<T> getResult, TimeSpan expireTime)
+        public static T GetAndSetAsync<T>(this IApplicationCacheService applicationCacheService, string key, Func<Task<T>> getResult, TimeSpan expireTime)
         {
             var data = applicationCacheService.Get<T>(key);
 
             if (data == null)
             {
-                data = getResult();
+                data = getResult().GetAwaiter().GetResult();
                 applicationCacheService.Set(key, data, expireTime);
             }
 
