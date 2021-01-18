@@ -22,17 +22,17 @@ namespace CleanArchitecture.Application.Common.Extensions
             return data;
         }
 
-        public static Task<T> GetAndSetAsync<T>(this IApplicationCacheService applicationCacheService, string key, Func<Task<T>> getResult, TimeSpan expireTime)
+        public static async Task<T> GetAndSetAsync<T>(this IApplicationCacheService applicationCacheService, string key, Func<Task<T>> getResult, TimeSpan expireTime)
         {
             var data = applicationCacheService.Get<T>(key);
 
             if (data == null)
             {
-                data = getResult().GetAwaiter().GetResult();
+                data = await getResult();
                 applicationCacheService.Set(key, data, expireTime);
             }
 
-            return Task.FromResult(data);
+            return data;
         }
     }
 }
