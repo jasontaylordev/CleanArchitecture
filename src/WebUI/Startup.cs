@@ -33,6 +33,8 @@ namespace CleanArchitecture.WebUI
             services.AddApplication();
             services.AddInfrastructure(Configuration);
 
+            services.AddDatabaseDeveloperPageExceptionFilter();
+
             services.AddSingleton<ICurrentUserService, CurrentUserService>();
 
             services.AddHttpContextAccessor();
@@ -41,7 +43,7 @@ namespace CleanArchitecture.WebUI
                 .AddDbContextCheck<ApplicationDbContext>();
 
             services.AddControllersWithViews(options =>
-                options.Filters.Add(new ApiExceptionFilterAttribute()))
+                options.Filters.Add<ApiExceptionFilterAttribute>())
                     .AddFluentValidation();
 
             services.AddRazorPages();
@@ -79,7 +81,7 @@ namespace CleanArchitecture.WebUI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                app.UseMigrationsEndPoint();
             }
             else
             {
@@ -125,7 +127,7 @@ namespace CleanArchitecture.WebUI
                 if (env.IsDevelopment())
                 {
                     //spa.UseAngularCliServer(npmScript: "start");
-                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+                    spa.UseProxyToSpaDevelopmentServer(Configuration["SpaBaseUrl"] ?? "http://localhost:4200");
                 }
             });
         }

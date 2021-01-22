@@ -1,10 +1,9 @@
-name: .NET Core
-
+name: .NET
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -13,11 +12,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Setup .NET Core
+    - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.101
+        dotnet-version: 5.0.100
     - name: Install dotnet ef
       run: dotnet tool install --global dotnet-ef
     - name: Build with dotnet
-      run: dotnet build --configuration Release
+      run: dotnet build --configuration Release CleanArchitecture.sln

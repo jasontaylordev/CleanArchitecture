@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace CleanArchitecture.WebUI.Controllers
 {
     [Authorize]
-    public class TodoItemsController : ApiController
+    public class TodoItemsController : ApiControllerBase
     {
         [HttpGet]
         public async Task<ActionResult<PaginatedList<TodoItemDto>>> GetTodoItemsWithPagination([FromQuery] GetTodoItemsWithPaginationQuery query)

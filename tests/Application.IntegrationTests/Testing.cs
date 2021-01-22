@@ -80,17 +80,22 @@ public class Testing
     {
         using var scope = _scopeFactory.CreateScope();
 
-        var mediator = scope.ServiceProvider.GetService<IMediator>();
+        var mediator = scope.ServiceProvider.GetService<ISender>();
 
         return await mediator.Send(request);
     }
 
     public static async Task<string> RunAsDefaultUserAsync()
     {
-        return await RunAsUserAsync("test@local", "Testing1234!");
+        return await RunAsUserAsync("test@local", "Testing1234!", new string[] { });
     }
 
-    public static async Task<string> RunAsUserAsync(string userName, string password)
+    public static async Task<string> RunAsAdministratorAsync()
+    {
+        return await RunAsUserAsync("administrator@local", "Administrator1234!", new[] { "Administrator" });
+    }
+
+    public static async Task<string> RunAsUserAsync(string userName, string password, string[] roles)
     {
         using var scope = _scopeFactory.CreateScope();
 
@@ -99,6 +104,18 @@ public class Testing
         var user = new ApplicationUser { UserName = userName, Email = userName };
 
         var result = await userManager.CreateAsync(user, password);
+
+        if (roles.Any())
+        {
+            var roleManager = scope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
+
+            foreach (var role in roles)
+            {
+                await roleManager.CreateAsync(new IdentityRole(role));
+            }
+
+            await userManager.AddToRolesAsync(user, roles);
+        }
 
         if (result.Succeeded)
         {
@@ -138,6 +155,15 @@ public class Testing
         context.Add(entity);
 
         await context.SaveChangesAsync();
+    }
+
+    public static async Task<int> CountAsync<TEntity>() where TEntity : class
+    {
+        using var scope = _scopeFactory.CreateScope();
+
+        var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+
+        return await context.Set<TEntity>().CountAsync();
     }
 
     [OneTimeTearDown]
