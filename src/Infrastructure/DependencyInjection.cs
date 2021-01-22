@@ -1,13 +1,16 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
+﻿using CleanArchitecture.Application.Common.Behaviours;
+using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Infrastructure.Files;
 using CleanArchitecture.Infrastructure.Identity;
 using CleanArchitecture.Infrastructure.Persistence;
 using CleanArchitecture.Infrastructure.Services;
+using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace CleanArchitecture.Infrastructure
 {
@@ -44,6 +47,7 @@ namespace CleanArchitecture.Infrastructure
             {
                 services.AddMemoryCache();
                 services.AddTransient<ICacheService, InMemoryCacheService>();
+				services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehaviour<,>));
             }
             else if (configuration.GetValue<bool>("UseRedisCache"))
             {
@@ -52,6 +56,7 @@ namespace CleanArchitecture.Infrastructure
                     options.Configuration = "localhost";
                 });
                 services.AddTransient<ICacheService, RedisCacheService>();
+				services.TryAddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehaviour<,>));
             }
 
             services.AddTransient<IDateTime, DateTimeService>();

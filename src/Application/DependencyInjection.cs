@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using CleanArchitecture.Application.Common.Behaviours;
-using CleanArchitecture.Application.Common.Models;
 using FluentValidation;
 using MediatR;
-using MediatR.Pipeline;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -20,8 +18,6 @@ namespace CleanArchitecture.Application
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AuthorizationBehaviour<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(PerformanceBehaviour<,>));
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehaviour<,>));
-
             return services;
         }
     }
