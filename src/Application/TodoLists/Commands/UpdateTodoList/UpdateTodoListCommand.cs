@@ -4,9 +4,12 @@ using CleanArchitecture.Domain.Entities;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
+using CleanArchitecture.Application.Common.Attributes;
+using CleanArchitecture.Application.TodoLists.Queries.GetTodos;
 
 namespace CleanArchitecture.Application.TodoLists.Commands.UpdateTodoList
 {
+    [InvalidateCache(typeof(GetTodosQuery))]
     public class UpdateTodoListCommand : IRequest
     {
         public int Id { get; set; }

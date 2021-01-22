@@ -12,7 +12,7 @@ using CleanArchitecture.Application.Common.Attributes;
 
 namespace CleanArchitecture.Application.TodoLists.Queries.GetTodos
 {
-    [CacheQueryResponse(70000)]
+	[CacheQueryResponse(5000)]
     public class GetTodosQuery : IRequest<TodosVm>
     {
     }

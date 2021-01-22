@@ -3,9 +3,12 @@ using CleanArchitecture.Domain.Entities;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
+using CleanArchitecture.Application.Common.Attributes;
+using CleanArchitecture.Application.TodoLists.Queries.GetTodos;
 
 namespace CleanArchitecture.Application.TodoLists.Commands.CreateTodoList
 {
+    [InvalidateCache(typeof(GetTodosQuery))]
     public class CreateTodoListCommand : IRequest<int>
     {
         public string Title { get; set; }

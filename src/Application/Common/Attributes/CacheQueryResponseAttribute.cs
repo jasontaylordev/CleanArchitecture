@@ -2,7 +2,7 @@
 
 namespace CleanArchitecture.Application.Common.Attributes
 {
-    [AttributeUsage(AttributeTargets.Class)]
+	[AttributeUsage(AttributeTargets.Class)]
     public class CacheQueryResponseAttribute : Attribute
     {
         public string CacheKey;

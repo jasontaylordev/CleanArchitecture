@@ -1,14 +1,17 @@
 ﻿using CleanArchitecture.Application.Common.Exceptions;
 using CleanArchitecture.Application.Common.Interfaces;
+using CleanArchitecture.Application.TodoLists.Queries.GetTodos;
 using CleanArchitecture.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using CleanArchitecture.Application.Common.Attributes;
 
 namespace CleanArchitecture.Application.TodoLists.Commands.DeleteTodoList
 {
+    [InvalidateCache(typeof(GetTodosQuery))]
     public class DeleteTodoListCommand : IRequest
     {
         public int Id { get; set; }
