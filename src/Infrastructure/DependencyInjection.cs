@@ -54,12 +54,12 @@ namespace CleanArchitecture.Infrastructure
                 services.AddDistributedRedisCache(options =>
                 {
                     options.Configuration = "localhost";
-                });
-                services.AddTransient<ICacheService, RedisCacheService>();
+				});
+				services.AddTransient<ICacheService, RedisCacheService>();
 				services.TryAddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehaviour<,>));
-            }
+			}
 
-            services.AddTransient<IDateTime, DateTimeService>();
+			services.AddTransient<IDateTime, DateTimeService>();
             services.AddTransient<IIdentityService, IdentityService>();
             services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
 

@@ -45,22 +45,4 @@ namespace CleanArchitecture.Application.TodoItems.Commands.CreateTodoItem
             return entity.Id;
         }
     }
-
-    public class CreateTodoItemPostProcessor : IRequestPostProcessor<CreateTodoItemCommand, int>, ICacheInvalidatorPostProcessor
-    {
-        public InvalidateCacheForQueries QueriesList { get; set; }
-
-        public CreateTodoItemPostProcessor(InvalidateCacheForQueries pairs)
-        {
-            QueriesList = pairs;
-        }
-
-        public Task Process(CreateTodoItemCommand request, int response, CancellationToken cancellationToken)
-        {
-            QueriesList.Add(typeof(ExportTodosQuery), new ExportTodosQuery { ListId = request.ListId });
-            QueriesList.Add(typeof(GetTodosQuery), new GetTodosQuery { });
-
-            return Task.CompletedTask;
-        }
-    }
 }

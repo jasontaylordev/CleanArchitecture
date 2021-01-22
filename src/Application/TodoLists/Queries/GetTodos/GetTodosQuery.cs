@@ -14,7 +14,7 @@ using CleanArchitecture.Application.Common.Attributes;
 namespace CleanArchitecture.Application.TodoLists.Queries.GetTodos
 {
 	[CacheQueryResponse(5000)]
-    public class GetTodosQuery : IRequest<TodosVm>
+	public class GetTodosQuery : IRequest<TodosVm>
     {
     }
 
