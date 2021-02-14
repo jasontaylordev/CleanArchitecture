@@ -10,13 +10,13 @@ This is a solution template for creating a Single Page App (SPA) with Angular an
 ## Technologies
 
 * ASP.NET Core 5
-* Entity Framework Core 5
-* Angular 10
-* MediatR
-* AutoMapper
-* FluentValidation
-* NUnit, FluentAssertions, Moq & Respawn
-* Docker
+* [Entity Framework Core 5](https://docs.microsoft.com/en-us/ef/core/)
+* [Angular 10](https://angular.io/)
+* [MediatR](https://github.com/jbogard/MediatR)
+* [AutoMapper](https://automapper.org/)
+* [FluentValidation](https://fluentvalidation.net/)
+* [NUnit](https://nunit.org/), [FluentAssertions](https://fluentassertions.com/), [Moq](https://github.com/moq) & [Respawn](https://github.com/jbogard/Respawn)
+* [Docker](https://www.docker.com/)
 
 ## Getting Started
 
@@ -27,8 +27,9 @@ The easiest way to get started is to install the [NuGet package](https://www.nug
 3. Run `dotnet new --install Clean.Architecture.Solution.Template` to install the project template
 4. Create a folder for your solution and cd into it (the template will use it as project name)
 5. Run `dotnet new ca-sln` to create a new project
-6. Navigate to `src/WebUI/ClientApp` and run `npm start` to launch the front end (Angular)
-7. Navigate to `src/WebUI` and run `dotnet run` to launch the back end (ASP.NET Core Web API)
+6. Navigate to `src/WebUI/ClientApp` and run `npm install`
+7. Navigate to `src/WebUI/ClientApp` and run `npm start` to launch the front end (Angular)
+8. Navigate to `src/WebUI` and run `dotnet run` to launch the back end (ASP.NET Core Web API)
 
 Check out my [blog post](https://jasontaylor.dev/clean-architecture-getting-started/) for more information.
 
