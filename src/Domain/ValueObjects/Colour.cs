@@ -1,16 +1,12 @@
-﻿using CleanArchitecture.Domain.Common;
-using CleanArchitecture.Domain.Exceptions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using CleanArchitecture.Domain.Common;
+using CleanArchitecture.Domain.Exceptions;
 
 namespace CleanArchitecture.Domain.ValueObjects
 {
-    public class Colour : ValueObject
+    public record Colour : ValueObject
     {
-        static Colour()
-        {
-        }
-
         private Colour()
         {
         }
@@ -22,7 +18,7 @@ namespace CleanArchitecture.Domain.ValueObjects
 
         public static Colour From(string code)
         {
-            var colour = new Colour { Code = code };
+            var colour = new Colour {Code = code};
 
             if (!SupportedColours.Contains(colour))
             {
@@ -78,11 +74,6 @@ namespace CleanArchitecture.Domain.ValueObjects
                 yield return Purple;
                 yield return Grey;
             }
-        }
-
-        protected override IEnumerable<object> GetEqualityComponents()
-        {
-            yield return Code;
         }
     }
 }
