@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.Infrastructure.Identity;
+﻿using CleanArchitecture.Domain.Entities;
 using System;
 
 namespace CleanArchitecture.Domain.Common
