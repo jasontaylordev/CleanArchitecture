@@ -9,9 +9,9 @@ namespace CleanArchitecture.Domain.Entities
     public class ApplicationUser 
     {
         /// <summary>
-        /// Primary key and also a foreign key to IdentityUser.Id
+        /// Primary key and also a foreign key to the user's identity id.
         /// </summary>
-        public int Id { get; set; }
+        public string Id { get; set; }
         public ThemeColor ThemeColor { get; set; }
     }
 }
