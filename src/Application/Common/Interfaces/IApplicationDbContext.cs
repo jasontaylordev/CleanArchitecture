@@ -7,6 +7,7 @@ namespace CleanArchitecture.Application.Common.Interfaces
 {
     public interface IApplicationDbContext
     {
+        DbSet<ApplicationUser> ApplicationUsers { get; set; }
         DbSet<TodoList> TodoLists { get; set; }
 
         DbSet<TodoItem> TodoItems { get; set; }

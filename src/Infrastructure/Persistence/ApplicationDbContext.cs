@@ -31,6 +31,7 @@ namespace CleanArchitecture.Infrastructure.Persistence
             _dateTime = dateTime;
         }
 
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<TodoItem> TodoItems { get; set; }
 
         public DbSet<TodoList> TodoLists { get; set; }
