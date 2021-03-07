@@ -1,9 +1,9 @@
 ﻿using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.ValueObjects;
+using CleanArchitecture.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;
 using System.Threading.Tasks;
-using User = CleanArchitecture.Infrastructure.Identity.User;
 
 namespace CleanArchitecture.Infrastructure.Persistence
 {

@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using User = CleanArchitecture.Infrastructure.Identity.User;
 
 namespace CleanArchitecture.Infrastructure
 {

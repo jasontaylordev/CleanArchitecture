@@ -1,5 +1,4 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Infrastructure.Identity;
 using CleanArchitecture.Infrastructure.Persistence;
 using CleanArchitecture.WebUI;
@@ -16,7 +15,6 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using User = CleanArchitecture.Infrastructure.Identity.User;
 
 [SetUpFixture]
 public class Testing
@@ -102,10 +100,10 @@ public class Testing
         using var scope = _scopeFactory.CreateScope();
 
         var userManager = scope.ServiceProvider.GetService<UserManager<User>>();
+        var identityService = scope.ServiceProvider.GetService<IIdentityService>();
 
-        var user = new User { UserName = userName, Email = userName };
-
-        var result = await userManager.CreateAsync(user, password);
+        var (result, userId) = await identityService.CreateUserAsync(userName, password, userName);
+        var user = await userManager.FindByIdAsync(userId);
 
         if (roles.Any())
         {
@@ -126,7 +124,7 @@ public class Testing
             return _currentUserId;
         }
 
-        var errors = string.Join(Environment.NewLine, result.ToApplicationResult().Errors);
+        var errors = string.Join(Environment.NewLine, result.Errors);
 
         throw new Exception($"Unable to create {userName}.{Environment.NewLine}{errors}");
     }

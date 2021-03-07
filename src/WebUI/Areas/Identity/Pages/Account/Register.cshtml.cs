@@ -79,10 +79,10 @@ namespace CleanArchitecture.WebUI.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {                
                 var (result, userId) = await _identityService.CreateUserAsync(Input.Email, Input.Password, Input.Email);
+                var user = await _userManager.FindByIdAsync(userId);
+                
                 if (result.Succeeded)
                 {
-                    var user = new User { UserName = Input.Email, Email = Input.Email, Id = userId };
-
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
