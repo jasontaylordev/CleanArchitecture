@@ -54,8 +54,8 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoItems.Commands
             var item = await FindAsync<TodoItem>(itemId);
 
             item.Title.Should().Be(command.Title);
-            item.LastModifiedBy.Should().NotBeNull();
-            item.LastModifiedBy.Should().Be(userId);
+            item.LastModifiedByUserId.Should().NotBeNull();
+            item.LastModifiedByUserId.Should().Be(userId);
             item.LastModified.Should().NotBeNull();
             item.LastModified.Should().BeCloseTo(DateTime.Now, 1000);
         }

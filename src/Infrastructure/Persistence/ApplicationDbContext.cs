@@ -42,12 +42,12 @@ namespace CleanArchitecture.Infrastructure.Persistence
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        entry.Entity.CreatedBy = _currentUserService.UserId;
+                        entry.Entity.CreatedByUserId = _currentUserService.UserId;
                         entry.Entity.Created = _dateTime.Now;
                         break;
 
                     case EntityState.Modified:
-                        entry.Entity.LastModifiedBy = _currentUserService.UserId;
+                        entry.Entity.LastModifiedByUserId = _currentUserService.UserId;
                         entry.Entity.LastModified = _dateTime.Now;
                         break;
                 }
@@ -63,8 +63,19 @@ namespace CleanArchitecture.Infrastructure.Persistence
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
+            
+            ApplyProtectionFilters(builder);
+            
             base.OnModelCreating(builder);
+        }
+
+        private void ApplyProtectionFilters(ModelBuilder builder)
+        {
+            builder.Entity<TodoList>()
+                .HasQueryFilter(x => x.CreatedByUserId == _currentUserService.UserId);
+
+            builder.Entity<TodoItem>()
+                .HasQueryFilter(x => x.CreatedByUserId == _currentUserService.UserId);
         }
 
         private async Task DispatchEvents()

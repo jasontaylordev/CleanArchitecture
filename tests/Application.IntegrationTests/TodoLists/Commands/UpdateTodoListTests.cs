@@ -72,8 +72,8 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
             var list = await FindAsync<TodoList>(listId);
 
             list.Title.Should().Be(command.Title);
-            list.LastModifiedBy.Should().NotBeNull();
-            list.LastModifiedBy.Should().Be(userId);
+            list.LastModifiedByUserId.Should().NotBeNull();
+            list.LastModifiedByUserId.Should().Be(userId);
             list.LastModified.Should().NotBeNull();
             list.LastModified.Should().BeCloseTo(DateTime.Now, 1000);
         }
