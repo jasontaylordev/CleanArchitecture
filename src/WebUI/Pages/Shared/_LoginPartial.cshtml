@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using CleanArchitecture.Domain.Entities;
-@inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
 @{
     string returnUrl = null;
