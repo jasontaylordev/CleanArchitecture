@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using FluentValidation.Results;
 
 namespace CleanArchitecture.Application.Common.Exceptions
 {
+    [Serializable]
     public class ValidationException : Exception
     {
         public ValidationException()
@@ -22,5 +24,20 @@ namespace CleanArchitecture.Application.Common.Exceptions
         }
 
         public IDictionary<string, string[]> Errors { get; }
+
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+            info.AddValue("Errors", Errors);
+        }
+
+        protected ValidationException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+            if (info == null)
+                throw new ArgumentNullException(nameof(info));
+
+            Errors = (Dictionary<string, string[]>)info.GetValue("Errors", typeof(Dictionary<string,string[]>));
+        }
     }
 }
