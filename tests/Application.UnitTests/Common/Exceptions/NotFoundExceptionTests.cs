@@ -7,7 +7,7 @@ namespace CleanArchitecture.Application.UnitTests.Common.Exceptions
     public class NotFoundExceptionTests
     {
         [Test]
-        public void ShouldBeBinarySerializable()
+        public void ShouldBeSerializable()
         {
             new NotFoundException("EntityName", 1).Should().BeBinarySerializable();
         }
