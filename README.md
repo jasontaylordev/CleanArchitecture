@@ -27,7 +27,7 @@ The easiest way to get started is to install the [NuGet package](https://www.nug
 3. Run `dotnet new --install Clean.Architecture.Solution.Template` to install the project template
 4. Create a folder for your solution and cd into it (the template will use it as project name)
 5. Run `dotnet new ca-sln` to create a new project
-6. Navigate to `src/WebUI/ClientApp` and run `npm start` to launch the front end (Angular)
+6. Navigate to `src/WebUI/ClientApp` and run `npm install` to launch the front end (Angular)
 7. Navigate to `src/WebUI` and run `dotnet run` to launch the back end (ASP.NET Core Web API)
 
 Check out my [blog post](https://jasontaylor.dev/clean-architecture-getting-started/) for more information.
