@@ -7,8 +7,13 @@ namespace WpfUI.ViewModels
 {
     public class ShellViewModel : Conductor<object>
     {
-        public ShellViewModel()
+        private WeatherForecastViewModel _weatherForecastVM;
+
+
+
+        public ShellViewModel(WeatherForecastViewModel weatherForecastVM)
         {
+            _weatherForecastVM = weatherForecastVM;
             ActivateHomeView();
         }
 
@@ -24,7 +29,7 @@ namespace WpfUI.ViewModels
 
         public void ActivateWeatherForecastView()
         {
-            ActivateItemAsync(IoC.Get<WeatherForecastViewModel>(), new CancellationToken());
+            ActivateItemAsync(_weatherForecastVM, new CancellationToken());
         }
 
         public void ActivateTodoView()

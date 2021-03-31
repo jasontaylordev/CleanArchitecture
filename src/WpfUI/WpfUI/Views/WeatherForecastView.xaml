@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:WpfUI.Views"
+             xmlns:converters="clr-namespace:WpfUI.Converters"
              mc:Ignorable="d" 
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
@@ -14,11 +15,25 @@
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{materialDesign:MaterialDesignFont}"
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <converters:InverseBooleanToVisibilityConverter 
+                x:Key="InverseBooleanToVisibilityConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <StackPanel Margin="10">
+        <TextBlock Text="Weather forecast" 
+                   FontSize="28" FontWeight="DemiBold" Margin="10 5 5 5"/>
         <TextBlock 
-            Text="Weather Forecast" 
-            FontSize="18"
-            HorizontalAlignment="Center"
-            Margin="10 80 10 20"/>
+            Text="This component demonstrates fetching data from the server." 
+            FontSize="13" Margin="10 5 10 20"/>
+        <TextBlock 
+            Text="Loading.." 
+            Visibility="{Binding IsLoading, Converter={ StaticResource BooleanToVisibilityConverter}}" 
+            FontStyle="Italic" FontSize="13" Margin="0"  />
+        <DataGrid 
+            ItemsSource="{Binding Forecasts}" 
+            Visibility="{Binding IsLoading, Converter={     StaticResource InverseBooleanToVisibilityConverter}}"
+            AutoGenerateColumns="True" IsReadOnly="True"/>
     </StackPanel>
 </UserControl>

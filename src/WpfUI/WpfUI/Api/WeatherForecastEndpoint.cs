@@ -10,16 +10,16 @@ namespace WpfUI.Api
 {
     public class WeatherForecastEndpoint : IWeatherForecastEndpoint
     {
-        private IAPIHelper _apiHelper;
+        private IApi _api;
 
-        public WeatherForecastEndpoint(IAPIHelper apiHelper)
+        public WeatherForecastEndpoint(IApi apiHelper)
         {
-            _apiHelper = apiHelper;
+            _api = apiHelper;
         }
 
         public async Task<IEnumerable<WeatherForecastDisplayModel>> GetAll()
         {
-            using (HttpResponseMessage response = await _apiHelper.ApiClient.GetAsync("/api/WeatherForecast"))
+            using (HttpResponseMessage response = await _api.Client.GetAsync("/api/WeatherForecast"))
             {
                 if (response.IsSuccessStatusCode)
                 {
