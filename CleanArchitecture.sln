@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.IntegrationTest
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{6BD2EC46-FA8F-44F3-AF33-903BBB347116}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfUI", "src\WpfUI\WpfUI\WpfUI.csproj", "{BE233D18-1284-4ABE-8EB0-258855FA0EEE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{6BD2EC46-FA8F-44F3-AF33-903BBB347116}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BD2EC46-FA8F-44F3-AF33-903BBB347116}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6BD2EC46-FA8F-44F3-AF33-903BBB347116}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE233D18-1284-4ABE-8EB0-258855FA0EEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE233D18-1284-4ABE-8EB0-258855FA0EEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE233D18-1284-4ABE-8EB0-258855FA0EEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE233D18-1284-4ABE-8EB0-258855FA0EEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +79,7 @@ Global
 		{DEFF4009-1FAB-4392-80B6-707E2DC5C00B} = {664D406C-2F83-48F0-BFC3-408D5CB53C65}
 		{DC37FD87-552C-4613-9F16-1537CA522898} = {664D406C-2F83-48F0-BFC3-408D5CB53C65}
 		{277029AF-D9E1-4B75-9F11-48FEA7345AD7} = {664D406C-2F83-48F0-BFC3-408D5CB53C65}
+		{BE233D18-1284-4ABE-8EB0-258855FA0EEE} = {6ED356A7-8B47-4613-AD01-C85CF28491BD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3CB609D9-5D54-4C11-A371-DAAC8B74E430}
