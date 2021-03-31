@@ -8,7 +8,7 @@ using WpfUI.ViewModels;
 
 
 
-namespace WpfUI
+namespace WpfUI.Domain
 {
     public class Bootstrapper : BootstrapperBase
     {

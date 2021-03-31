@@ -12,7 +12,7 @@ namespace WpfUI.Api
     {
         private IApi _api;
 
-        public WeatherForecastEndpoint(IApi apiHelper)
+        public WeatherForecastEndpoint(IApi apiHelper) 
         {
             _api = apiHelper;
         }

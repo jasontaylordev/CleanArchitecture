@@ -22,7 +22,7 @@
         </Grid.RowDefinitions>
 
         <materialDesign:Card
-            Padding="8"
+            Padding="2"
             materialDesign:ShadowAssist.ShadowDepth="Depth2"
             materialDesign:ShadowAssist.ShadowEdges="Bottom">
             <!--<materialDesign:ColorZone
@@ -34,8 +34,8 @@
                 DockPanel.Dock="Top">-->
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock
                     Grid.Column="0"
@@ -43,9 +43,9 @@
                         VerticalAlignment="Center"
                         FontSize="16"
                         Text="CleanArchitecture.WpfUI"
-                        Margin="200 2 2 0"/>
+                        Margin="2 2 2 0"/>
                 <StackPanel Orientation="Horizontal" Grid.Column="1">
-                    
+
                     <Button
                         x:Name="ActivateHomeView"
                         Margin="2"
@@ -92,10 +92,9 @@
 
                 </StackPanel>
             </Grid>
-            
         </materialDesign:Card>
-        <Grid Grid.Row="1">
-            <ContentControl x:Name="ActiveItem" Grid.Row="1"  Margin="0" />
+        <Grid Grid.Row="1" >
+            <ContentControl x:Name="ActiveItem" Grid.Row="1"  Margin="10" />
         </Grid>
     </Grid>
 </Window>

@@ -7,5 +7,14 @@ namespace WpfUI.ViewModels
 {
     public class HomeViewModel : Screen
     {
+        public void TestLink()
+        {
+
+        }
+
+        public void TestLink2()
+        {
+
+        }
     }
 }

@@ -24,7 +24,7 @@ namespace WpfUI.ViewModels
 
         public void ActivateCounterView()
         {
-            ActivateItemAsync(IoC.Get<NotImplementedViewModel>(), new CancellationToken());
+            ActivateItemAsync(IoC.Get<CounterViewModel>(), new CancellationToken());
         }
 
         public void ActivateWeatherForecastView()

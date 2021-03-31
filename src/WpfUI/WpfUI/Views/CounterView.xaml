@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="WpfUI.Views.HomeView"
+﻿<UserControl x:Class="WpfUI.Views.CounterView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -16,18 +16,29 @@
              FontFamily="{materialDesign:MaterialDesignFont}"
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel Margin="10" HorizontalAlignment="Center">
-        
-        <TextBlock Text="Hello, world!" 
+
+        <TextBlock Text="Counter" 
                    FontSize="36" FontWeight="Medium" Margin="10 5 5 5"/>
         <TextBlock 
-            Text="Welcome to the WPF desktop application for the Clean Architecture Solution template." 
-            Margin="10 5 10 10"/>
+            Text="This is a simple example of a WPF MVVM Control." 
+            Margin="10 5 10 20"/>
 
-        <TextBlock 
-            Text="Work in progress..." 
-            HorizontalAlignment="Center"
-            Foreground="LightGray"
-            Margin="10 25 10 10"/>
+        <StackPanel Margin="10" Orientation="Horizontal">
+            <TextBlock 
+                Text="Current count: " 
+                VerticalAlignment="Center"/>
+            <TextBlock 
+                Text="{Binding CounterValue, Mode=TwoWay}" 
+                FontWeight="ExtraBold"
+                VerticalAlignment="Center"/>
+        </StackPanel>
+        <Button
+            x:Name="Increment"
+            Style="{StaticResource MaterialDesignRaisedDarkButton}"
+            HorizontalAlignment="Left"
+            Content="Increment" 
+            Margin="10"/>
+
 
     </StackPanel>
 </UserControl>

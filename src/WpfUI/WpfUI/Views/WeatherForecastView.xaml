@@ -21,18 +21,19 @@
                 x:Key="InverseBooleanToVisibilityConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
-    <StackPanel Margin="10">
+    <StackPanel Margin="10" HorizontalAlignment="Center">
         <TextBlock Text="Weather forecast" 
-                   FontSize="28" FontWeight="DemiBold" Margin="10 5 5 5"/>
+                   FontSize="36" FontWeight="Medium" Margin="10 5 5 5"/>
         <TextBlock 
             Text="This component demonstrates fetching data from the server." 
-            FontSize="13" Margin="10 5 10 20"/>
+            FontSize="14" Margin="10 5 10 20"/>
         <TextBlock 
             Text="Loading.." 
             Visibility="{Binding IsLoading, Converter={ StaticResource BooleanToVisibilityConverter}}" 
             FontStyle="Italic" FontSize="13" Margin="0"  />
         <DataGrid 
             ItemsSource="{Binding Forecasts}" 
+            AlternatingRowBackground="WhiteSmoke"
             Visibility="{Binding IsLoading, Converter={     StaticResource InverseBooleanToVisibilityConverter}}"
             AutoGenerateColumns="True" IsReadOnly="True"/>
     </StackPanel>
