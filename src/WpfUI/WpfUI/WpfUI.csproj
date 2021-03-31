@@ -9,10 +9,11 @@
   <ItemGroup>
     <PackageReference Include="Caliburn.Micro" Version="4.0.135-beta" />
     <PackageReference Include="MaterialDesignThemes" Version="4.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <Folder Include="Api\" />
   </ItemGroup>
 
 </Project>
