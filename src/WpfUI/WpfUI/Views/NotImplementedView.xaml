@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="WpfUI.Views.NotImplementedView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:WpfUI.Views"
+             mc:Ignorable="d" 
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal" 
+             TextOptions.TextRenderingMode="Auto"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{materialDesign:MaterialDesignFont}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel 
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center">
+        <TextBlock Text="Work in progress ..." FontSize="18"/>
+        <materialDesign:PackIcon 
+            Kind="ProgressWrench" 
+            Height="100" Width="100"
+            HorizontalAlignment="Center"
+            Margin="20"/>
+        <ProgressBar
+  IsIndeterminate="True" />
+    </StackPanel>
+</UserControl>
