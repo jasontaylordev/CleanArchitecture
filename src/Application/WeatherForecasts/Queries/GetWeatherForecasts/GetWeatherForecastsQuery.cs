@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.WeatherForecasts.Queries.GetWeatherForecasts
 {
-    public class GetWeatherForecastsQuery : IRequest<IEnumerable<WeatherForecast>>
-    {
-    }
+    public record GetWeatherForecastsQuery : IRequest<IEnumerable<WeatherForecast>>;
 
     public class GetWeatherForecastsQueryHandler : IRequestHandler<GetWeatherForecastsQuery, IEnumerable<WeatherForecast>>
     {

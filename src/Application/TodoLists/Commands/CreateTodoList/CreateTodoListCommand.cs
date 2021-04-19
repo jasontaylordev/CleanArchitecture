@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.TodoLists.Commands.CreateTodoList
 {
-    public class CreateTodoListCommand : IRequest<int>
-    {
-        public string Title { get; set; }
-    }
+    public record CreateTodoListCommand(string Title) : IRequest<int>;
 
     public class CreateTodoListCommandHandler : IRequestHandler<CreateTodoListCommand, int>
     {

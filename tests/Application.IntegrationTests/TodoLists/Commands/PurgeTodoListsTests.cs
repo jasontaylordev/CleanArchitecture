@@ -53,20 +53,11 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
         {
             await RunAsAdministratorAsync();
 
-            await SendAsync(new CreateTodoListCommand
-            {
-                Title = "New List #1"
-            });
+            await SendAsync(new CreateTodoListCommand("New List #1"));
 
-            await SendAsync(new CreateTodoListCommand
-            {
-                Title = "New List #2"
-            });
+            await SendAsync(new CreateTodoListCommand("New List #2"));
 
-            await SendAsync(new CreateTodoListCommand
-            {
-                Title = "New List #3"
-            });
+            await SendAsync(new CreateTodoListCommand("New List #3"));
 
             await SendAsync(new PurgeTodoListsCommand());
 

@@ -7,12 +7,7 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.TodoLists.Commands.UpdateTodoList
 {
-    public class UpdateTodoListCommand : IRequest
-    {
-        public int Id { get; set; }
-
-        public string Title { get; set; }
-    }
+    public record UpdateTodoListCommand(int Id, string Title) : IRequest;
 
     public class UpdateTodoListCommandHandler : IRequestHandler<UpdateTodoListCommand>
     {

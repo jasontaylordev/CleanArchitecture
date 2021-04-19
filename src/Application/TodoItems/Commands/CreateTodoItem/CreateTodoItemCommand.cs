@@ -7,12 +7,7 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.TodoItems.Commands.CreateTodoItem
 {
-    public class CreateTodoItemCommand : IRequest<int>
-    {
-        public int ListId { get; set; }
-
-        public string Title { get; set; }
-    }
+    public record CreateTodoItemCommand(int ListId, string Title) : IRequest<int>;
 
     public class CreateTodoItemCommandHandler : IRequestHandler<CreateTodoItemCommand, int>
     {

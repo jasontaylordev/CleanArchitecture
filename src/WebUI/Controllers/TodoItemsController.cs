@@ -55,7 +55,7 @@ namespace CleanArchitecture.WebUI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            await Mediator.Send(new DeleteTodoItemCommand { Id = id });
+            await Mediator.Send(new DeleteTodoItemCommand(id));
 
             return NoContent();
         }

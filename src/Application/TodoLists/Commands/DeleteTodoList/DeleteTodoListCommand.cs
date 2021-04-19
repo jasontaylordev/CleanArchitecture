@@ -9,10 +9,7 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.TodoLists.Commands.DeleteTodoList
 {
-    public class DeleteTodoListCommand : IRequest
-    {
-        public int Id { get; set; }
-    }
+    public record DeleteTodoListCommand(int Id) : IRequest;
 
     public class DeleteTodoListCommandHandler : IRequestHandler<DeleteTodoListCommand>
     {

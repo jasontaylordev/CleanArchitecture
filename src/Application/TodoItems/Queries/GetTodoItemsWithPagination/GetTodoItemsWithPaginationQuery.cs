@@ -11,12 +11,7 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.TodoItems.Queries.GetTodoItemsWithPagination
 {
-    public class GetTodoItemsWithPaginationQuery : IRequest<PaginatedList<TodoItemDto>>
-    {
-        public int ListId { get; set; }
-        public int PageNumber { get; set; } = 1;
-        public int PageSize { get; set; } = 10;
-    }
+    public record GetTodoItemsWithPaginationQuery(int ListId, int PageNumber = 1, int PageSize = 10): IRequest<PaginatedList<TodoItemDto>>;
 
     public class GetTodoItemsWithPaginationQueryHandler : IRequestHandler<GetTodoItemsWithPaginationQuery, PaginatedList<TodoItemDto>>
     {

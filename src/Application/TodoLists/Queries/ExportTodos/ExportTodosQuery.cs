@@ -9,10 +9,7 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.TodoLists.Queries.ExportTodos
 {
-    public class ExportTodosQuery : IRequest<ExportTodosVm>
-    {
-        public int ListId { get; set; }
-    }
+    public record ExportTodosQuery(int ListId) : IRequest<ExportTodosVm>;
 
     public class ExportTodosQueryHandler : IRequestHandler<ExportTodosQuery, ExportTodosVm>
     {

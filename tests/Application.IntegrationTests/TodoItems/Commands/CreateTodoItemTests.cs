@@ -16,7 +16,7 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoItems.Commands
         [Test]
         public void ShouldRequireMinimumFields()
         {
-            var command = new CreateTodoItemCommand();
+            var command = new CreateTodoItemCommand(0, null);
 
             FluentActions.Invoking(() =>
                 SendAsync(command)).Should().Throw<ValidationException>();
@@ -27,16 +27,9 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoItems.Commands
         {
             var userId = await RunAsDefaultUserAsync();
 
-            var listId = await SendAsync(new CreateTodoListCommand
-            {
-                Title = "New List"
-            });
+            var listId = await SendAsync(new CreateTodoListCommand("New List"));
 
-            var command = new CreateTodoItemCommand
-            {
-                ListId = listId,
-                Title = "Tasks"
-            };
+            var command = new CreateTodoItemCommand(listId, "Tasks");
 
             var itemId = await SendAsync(command);
 

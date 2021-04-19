@@ -21,7 +21,7 @@ namespace CleanArchitecture.WebUI.Controllers
         [HttpGet("{id}")]
         public async Task<FileResult> Get(int id)
         {
-            var vm = await Mediator.Send(new ExportTodosQuery { ListId = id });
+            var vm = await Mediator.Send(new ExportTodosQuery(id));
 
             return File(vm.Content, vm.ContentType, vm.FileName);
         }
@@ -48,7 +48,7 @@ namespace CleanArchitecture.WebUI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            await Mediator.Send(new DeleteTodoListCommand { Id = id });
+            await Mediator.Send(new DeleteTodoListCommand(id));
 
             return NoContent();
         }

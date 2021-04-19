@@ -12,9 +12,7 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.TodoLists.Queries.GetTodos
 {
-    public class GetTodosQuery : IRequest<TodosVm>
-    {
-    }
+    public record GetTodosQuery : IRequest<TodosVm>;
 
     public class GetTodosQueryHandler : IRequestHandler<GetTodosQuery, TodosVm>
     {

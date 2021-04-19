@@ -19,11 +19,7 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoItems.Commands
         [Test]
         public void ShouldRequireValidTodoItemId()
         {
-            var command = new UpdateTodoItemCommand
-            {
-                Id = 99,
-                Title = "New Title"
-            };
+            var command = new UpdateTodoItemCommand(99, "New Title");
 
             FluentActions.Invoking(() =>
                 SendAsync(command)).Should().Throw<NotFoundException>();
@@ -34,24 +30,11 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoItems.Commands
         {
             var userId = await RunAsDefaultUserAsync();
 
-            var listId = await SendAsync(new CreateTodoListCommand
-            {
-                Title = "New List"
-            });
+            var listId = await SendAsync(new CreateTodoListCommand("New List"));
 
-            var itemId = await SendAsync(new CreateTodoItemCommand
-            {
-                ListId = listId,
-                Title = "New Item"
-            });
+            var itemId = await SendAsync(new CreateTodoItemCommand(listId, "New Item"));
 
-            var command = new UpdateTodoItemDetailCommand
-            {
-                Id = itemId,
-                ListId = listId,
-                Note = "This is the note.",
-                Priority = PriorityLevel.High
-            };
+            var command = new UpdateTodoItemDetailCommand(itemId, listId, PriorityLevel.High, "This is the note.");
 
             await SendAsync(command);
 

@@ -15,7 +15,7 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
         [Test]
         public void ShouldRequireMinimumFields()
         {
-            var command = new CreateTodoListCommand();
+            var command = new CreateTodoListCommand(null);
 
             FluentActions.Invoking(() =>
                 SendAsync(command)).Should().Throw<ValidationException>();
@@ -24,15 +24,9 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
         [Test]
         public async Task ShouldRequireUniqueTitle()
         {
-            await SendAsync(new CreateTodoListCommand
-            {
-                Title = "Shopping"
-            });
+            await SendAsync(new CreateTodoListCommand("Shopping"));
 
-            var command = new CreateTodoListCommand
-            {
-                Title = "Shopping"
-            };
+            var command = new CreateTodoListCommand("Shopping");
 
             FluentActions.Invoking(() =>
                 SendAsync(command)).Should().Throw<ValidationException>();
@@ -43,10 +37,7 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
         {
             var userId = await RunAsDefaultUserAsync();
 
-            var command = new CreateTodoListCommand
-            {
-                Title = "Tasks"
-            };
+            var command = new CreateTodoListCommand("Tasks");
 
             var id = await SendAsync(command);
 

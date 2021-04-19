@@ -16,11 +16,7 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
         [Test]
         public void ShouldRequireValidTodoListId()
         {
-            var command = new UpdateTodoListCommand
-            {
-                Id = 99,
-                Title = "New Title"
-            };
+            var command = new UpdateTodoListCommand(99, "New Title");
 
             FluentActions.Invoking(() =>
                 SendAsync(command)).Should().Throw<NotFoundException>();
@@ -29,21 +25,11 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
         [Test]
         public async Task ShouldRequireUniqueTitle()
         {
-            var listId = await SendAsync(new CreateTodoListCommand
-            {
-                Title = "New List"
-            });
+            var listId = await SendAsync(new CreateTodoListCommand("New List"));
 
-            await SendAsync(new CreateTodoListCommand
-            {
-                Title = "Other List"
-            });
+            await SendAsync(new CreateTodoListCommand("Other List"));
 
-            var command = new UpdateTodoListCommand
-            {
-                Id = listId,
-                Title = "Other List"
-            };
+            var command = new UpdateTodoListCommand(listId, "Other List");
 
             FluentActions.Invoking(() =>
                 SendAsync(command))
@@ -56,16 +42,9 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
         {
             var userId = await RunAsDefaultUserAsync();
 
-            var listId = await SendAsync(new CreateTodoListCommand
-            {
-                Title = "New List"
-            });
+            var listId = await SendAsync(new CreateTodoListCommand("New List"));
 
-            var command = new UpdateTodoListCommand
-            {
-                Id = listId,
-                Title = "Updated List Title"
-            };
+            var command = new UpdateTodoListCommand(listId, "Updated List Title");
 
             await SendAsync(command);
 
