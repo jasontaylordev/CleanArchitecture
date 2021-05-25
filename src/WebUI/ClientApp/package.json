@@ -22,7 +22,6 @@
     "@angular/platform-browser-dynamic": "11.2.14",
     "@angular/platform-server": "11.2.14",
     "@angular/router": "11.2.14",
-    "@fortawesome/angular-fontawesome": "0.7.0",
     "@fortawesome/fontawesome-svg-core": "1.2.30",
     "@fortawesome/free-solid-svg-icons": "5.14.0",
     "aspnet-prerendering": "^3.0.1",
