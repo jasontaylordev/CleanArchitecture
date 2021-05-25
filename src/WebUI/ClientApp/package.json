@@ -24,8 +24,6 @@
     "@angular/router": "12.0.1",
     "@fortawesome/angular-fontawesome": "^0.9.0",
     "@fortawesome/fontawesome-svg-core": "1.2.30",
-    "@fortawesome/free-brands-svg-icons": "^5.15.3",
-    "@fortawesome/free-regular-svg-icons": "^5.15.3",
     "@fortawesome/free-solid-svg-icons": "5.14.0",
     "aspnet-prerendering": "^3.0.1",
     "bootstrap": "^4.3.1",
