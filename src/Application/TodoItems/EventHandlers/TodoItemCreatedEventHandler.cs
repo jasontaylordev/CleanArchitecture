@@ -9,9 +9,9 @@ namespace CleanArchitecture.Application.TodoItems.EventHandlers
 {
     public class TodoItemCreatedEventHandler : INotificationHandler<DomainEventNotification<TodoItemCreatedEvent>>
     {
-        private readonly ILogger<TodoItemCompletedEventHandler> _logger;
+        private readonly ILogger<TodoItemCreatedEventHandler> _logger;
 
-        public TodoItemCreatedEventHandler(ILogger<TodoItemCompletedEventHandler> logger)
+        public TodoItemCreatedEventHandler(ILogger<TodoItemCreatedEventHandler> logger)
         {
             _logger = logger;
         }
