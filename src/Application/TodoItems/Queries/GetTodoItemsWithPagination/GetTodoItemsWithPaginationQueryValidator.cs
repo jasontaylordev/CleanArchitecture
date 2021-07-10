@@ -7,7 +7,6 @@ namespace CleanArchitecture.Application.TodoItems.Queries.GetTodoItemsWithPagina
         public GetTodoItemsWithPaginationQueryValidator()
         {
             RuleFor(x => x.ListId)
-                .NotNull()
                 .NotEmpty().WithMessage("ListId is required.");
 
             RuleFor(x => x.PageNumber)
