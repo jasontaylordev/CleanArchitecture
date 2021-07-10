@@ -44,7 +44,7 @@ namespace CleanArchitecture.WebUI
 
             services.AddControllersWithViews(options =>
                 options.Filters.Add<ApiExceptionFilterAttribute>())
-                    .AddFluentValidation();
+                    .AddFluentValidation(x => x.AutomaticValidationEnabled = false);
 
             services.AddRazorPages();
 
