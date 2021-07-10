@@ -1,0 +1,26 @@
+<h3>JWT Bearer Token</h3>
+
+<div *ngIf="!isError">
+  <p>Here is your JWT</p>
+  <div class="card">
+    <div class="card-body">
+      <p id="tokenContent">{{token}}</p>
+    </div>
+  </div>
+  <br />
+  <p>
+    <button class="btn btn-primary" (click)="copyToClipboard()">Copy to clipboard</button>
+  </p>
+  <p>
+    <span *ngIf="isCopied">Copied!</span>
+  </p>
+</div>
+
+<div *ngIf="isError">
+  <div class="alert alert-danger" role="alert">
+    Error getting JWT
+  </div>
+  <p>
+    Something went wrong getting your access token from the auth service. Please try again.
+  </p>
+</div>
