@@ -11,7 +11,7 @@ This is a solution template for creating a Single Page App (SPA) with Angular an
 
 * ASP.NET Core 5
 * [Entity Framework Core 5](https://docs.microsoft.com/en-us/ef/core/)
-* [Angular 10](https://angular.io/)
+* [Angular 12](https://angular.io/)
 * [MediatR](https://github.com/jbogard/MediatR)
 * [AutoMapper](https://automapper.org/)
 * [FluentValidation](https://fluentvalidation.net/)
