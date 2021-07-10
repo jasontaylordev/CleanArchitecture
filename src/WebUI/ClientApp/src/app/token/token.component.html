@@ -1,15 +1,21 @@
-<h3>JWT Bearer Token</h3>
+<h3>JWT</h3>
 
 <div *ngIf="!isError">
-  <p>Here is your JWT</p>
+  <p>
+    This component demonstrates interacting with the authorization service to
+    retrieve your
+    <a href="https://jwt.io/" target="_blank">JSON web token (JWT)</a>.
+  </p>
   <div class="card">
     <div class="card-body">
-      <p id="tokenContent">{{token}}</p>
+      <p id="tokenContent">{{ token }}</p>
     </div>
   </div>
   <br />
   <p>
-    <button class="btn btn-primary" (click)="copyToClipboard()">Copy to clipboard</button>
+    <button class="btn btn-primary" (click)="copyToClipboard()">
+      <fa-icon [icon]="faCopy"></fa-icon>&nbsp;Copy
+    </button>
   </p>
   <p>
     <span *ngIf="isCopied">Copied!</span>
@@ -17,10 +23,9 @@
 </div>
 
 <div *ngIf="isError">
-  <div class="alert alert-danger" role="alert">
-    Error getting JWT
-  </div>
+  <div class="alert alert-danger" role="alert">Error getting JWT</div>
   <p>
-    Something went wrong getting your access token from the auth service. Please try again.
+    Something went wrong getting your access token from the auth service. Please
+    try again.
   </p>
 </div>
