@@ -23,7 +23,7 @@ namespace CleanArchitecture.Infrastructure.Persistence
             if (userManager.Users.All(u => u.UserName != administrator.UserName))
             {
                 await userManager.CreateAsync(administrator, "Administrator1!");
-                await userManager.AddToRolesAsync(administrator, new [] { administratorRole.Name });
+                await userManager.AddToRolesAsync(administrator, new[] { administratorRole.Name });
             }
         }
 

@@ -4,7 +4,6 @@ using CleanArchitecture.Application.TodoItems.Commands.DeleteTodoItem;
 using CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItem;
 using CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItemDetail;
 using CleanArchitecture.Application.TodoItems.Queries.GetTodoItemsWithPagination;
-using CleanArchitecture.Application.TodoLists.Queries.GetTodos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -15,7 +14,7 @@ namespace CleanArchitecture.WebUI.Controllers
     public class TodoItemsController : ApiControllerBase
     {
         [HttpGet]
-        public async Task<ActionResult<PaginatedList<TodoItemDto>>> GetTodoItemsWithPagination([FromQuery] GetTodoItemsWithPaginationQuery query)
+        public async Task<ActionResult<PaginatedList<TodoItemBriefDto>>> GetTodoItemsWithPagination([FromQuery] GetTodoItemsWithPaginationQuery query)
         {
             return await Mediator.Send(query);
         }
