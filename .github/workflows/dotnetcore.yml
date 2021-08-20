@@ -19,6 +19,7 @@ jobs:
     - name: Build with dotnet
       run: dotnet build --configuration Release CleanArchitecture.sln
 
+
   test:
     runs-on: ubuntu-latest
     services:
@@ -32,6 +33,13 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: run tests
-      run: dotnet test CleanArchitecture.sln --configuration Release
+      run: dotnet test CleanArchitecture.sln --configuration Release --logger "trx;LogFileName=test-results.trx"
       env:
         ConnectionStrings__DefaultConnection: Server=.;Database=CleanArchitectureTestDb;User=sa;Password=Your_password123;MultipleActiveResultSets=true
+    - name: Test Report
+      uses: dorny/test-reporter@v1
+      if: success() || failure()
+      with:
+        name: Tests Results
+        path: "**/*.trx"
+        reporter: dotnet-trx
