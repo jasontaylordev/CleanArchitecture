@@ -91,12 +91,13 @@ namespace CleanArchitecture.WebUI
             }
 
             app.UseHealthChecks("/health");
+            app.UseBlazorFrameworkFiles();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            if (!env.IsDevelopment())
-            {
-                app.UseSpaStaticFiles();
-            }
+            //if (!env.IsDevelopment())
+            //{
+            //    app.UseSpaStaticFiles();
+            //}
 
             app.UseSwaggerUi3(settings =>
             {
@@ -111,25 +112,27 @@ namespace CleanArchitecture.WebUI
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
+                //endpoints.MapControllerRoute(
+                //    name: "default",
+                //    pattern: "{controller}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+                endpoints.MapControllers();
+                endpoints.MapFallbackToFile("index.html");
             });
 
-            app.UseSpa(spa =>
-            {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
+            //app.usespa(spa =>
+            //{
+            //    // to learn more about options for serving an angular spa from asp.net core,
+            //    // see https://go.microsoft.com/fwlink/?linkid=864501
 
-                spa.Options.SourcePath = "ClientApp";
+            //    spa.options.sourcepath = "clientapp";
 
-                if (env.IsDevelopment())
-                {
-                    //spa.UseAngularCliServer(npmScript: "start");
-                    spa.UseProxyToSpaDevelopmentServer(Configuration["SpaBaseUrl"] ?? "http://localhost:4200");
-                }
-            });
+            //    if (env.isdevelopment())
+            //    {
+            //        //spa.useangularcliserver(npmscript: "start");
+            //        spa.useproxytospadevelopmentserver(configuration["spabaseurl"] ?? "http://localhost:4200");
+            //    }
+            //});
         }
     }
 }
