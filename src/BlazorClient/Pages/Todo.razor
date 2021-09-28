@@ -1,0 +1,178 @@
+﻿@page "/todo"
+@inject TodoListsClient ListsClient
+@inject TodoItemsClient ItemsClient
+
+<h1>Todo</h1>
+
+<p>This is a complex todo list component.</p>
+
+<style>
+    #listOptions {
+        margin-right: 10px;
+    }
+
+    #todo-items .item-input-control {
+        border: 0;
+        box-shadow: none;
+        background-color: transparent;
+    }
+
+    #todo-items .done-todo {
+        text-decoration: line-through;
+    }
+
+    #todo-items .todo-item-title {
+        padding-top: 8px;
+    }
+
+    #todo-items .list-group-item {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+
+        #todo-items .list-group-item .btn-xs {
+            padding: 0;
+        }
+
+    #todo-items .todo-item-checkbox {
+        padding-top: 8px;
+    }
+
+    #todo-items .todo-item-commands {
+        padding-top: 4px;
+    }
+
+    .modal-footer {
+        display: block;
+    }
+</style>
+
+<div class="row">
+    <div class="col-sm-4">
+        <div class="clearfix">
+            <h2 class="float-left">Lists</h2>
+            <button class="btn btn-default float-right" title="Add List...">
+                <span class="oi oi-plus" aria-hidden="true"></span>
+            </button>
+        </div>
+        <ul class="list-group">
+            @if (vm != null)
+            {
+                foreach (var list in vm.Lists)
+                {
+                    <li class="list-group-item @(selectedList == list ? "active" : "")" @onclick="() => selectedList = list">
+                        <div class="clearfix">
+                            <div class="float-left">
+                                @list.Title
+                            </div>
+                            <div class="float-right text-right">
+                                <span class="badge badge-light">@list.Items.Count</span>
+                            </div>
+                        </div>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+    @if (selectedList != null)
+    {
+        <div class="col-sm-8">
+            <div class="clearfix">
+                <h2 class="float-left">@selectedList.Title</h2>
+                <button id="listOptions" class="btn btn-default float-right" title="List Options...">
+                    <span class="oi oi-ellipses"></span>
+                </button>
+            </div>
+            <ul id="todo-items" class="list-group mb-2">
+                @foreach (var item in selectedList.Items)
+                {
+                    <li class="list-group-item">
+                        <div class="d-flex">
+                            <div class="todo-item-checkbox">
+                                @if (item.Done) // SFD: Find a better solution.
+                                {
+                                    <input type="checkbox" @onchange="() => ToggleDone(item)" checked />
+                                }
+                                else
+                                {
+                                    <input type="checkbox" @onchange="() => ToggleDone(item)" />
+                                }
+                            </div>
+                            <div class="flex-fill">
+                                @if (item == selectedItem)
+                                {
+                                    <input type="text"
+                                           class="form-control item-input-control" 
+                                           @bind="item.Title" 
+                                           @onkeyup='(e) => { if (e.Key == "Enter") UpdateItem(item); }'
+                                           @onblur="() => UpdateItem(item)"
+                                           autofocus="autofocus" />
+                                }
+                                else
+                                {
+                                    <div class="todo-item-title form-control item-input-control @(item.Done ? "done-todo" : "")">
+                                        <span>@item.Title</span>
+                                    </div>
+                                }
+                            </div>
+                            <div class="todo-item-commands">
+                                <button class="btn btn-default btn-xs" role="button">
+                                    <span class="oi oi-ellipses"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                }
+                <li class="list-group-item">
+                    <button class="btn btn-default" @onclick="AddItem">Add Item...</button>
+                </li>
+            </ul>
+        </div>
+    }
+</div>
+
+@code {
+    private TodosVm vm;
+    private TodoListDto selectedList;
+    private TodoItemDto selectedItem;
+
+    protected override async Task OnInitializedAsync()
+    {
+        vm = await ListsClient.GetAsync();
+        selectedList = vm.Lists.First();
+    }
+
+    protected async Task ToggleDone(TodoItemDto item)
+    {
+        item.Done = !item.Done;
+
+        await ItemsClient.UpdateAsync(item.Id, new UpdateTodoItemCommand
+        {
+            Id = item.Id,
+            Title = item.Title,
+            Done = item.Done
+        });
+    }
+
+    protected void AddItem()
+    {
+        var newItem = new TodoItemDto();
+
+        selectedList.Items.Add(newItem);
+
+        selectedItem = newItem;
+    }
+
+    protected async Task UpdateItem(TodoItemDto item)
+    {
+        var result = await ItemsClient.CreateAsync(new CreateTodoItemCommand
+        {
+            ListId = selectedList.Id,
+            Title = selectedItem.Title
+        });
+
+        selectedItem.Id = result;
+
+        selectedItem = null;
+    }
+}

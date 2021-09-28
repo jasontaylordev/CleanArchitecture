@@ -19,6 +19,10 @@ namespace BlazorClient
 
             // Supply HttpClient instances that include access tokens when making requests to the server project
             builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("BlazorWebApplication1.ServerAPI"));
+  
+            builder.Services.AddTransient(factory => new WeatherForecastClient(factory.GetRequiredService<HttpClient>()));
+            builder.Services.AddTransient(factory => new TodoListsClient(factory.GetRequiredService<HttpClient>()));
+            builder.Services.AddTransient(factory => new TodoItemsClient(factory.GetRequiredService<HttpClient>()));
 
             builder.Services.AddApiAuthorization();
 
