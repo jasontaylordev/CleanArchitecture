@@ -27,7 +27,7 @@ else
             @foreach (var forecast in forecasts)
             {
                 <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
+                    <td>@forecast.Date.ToLocalTime()</td>
                     <td>@forecast.TemperatureC</td>
                     <td>@forecast.TemperatureF</td>
                     <td>@forecast.Summary</td>
@@ -38,13 +38,14 @@ else
 }
 
 @code {
-    private WeatherForecast[] forecasts;
+    private ICollection<WeatherForecast> forecasts;
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+            var api = new WeatherForecastClient(Http);
+            forecasts = await api.GetAsync();
         }
         catch (AccessTokenNotAvailableException exception)
         {
