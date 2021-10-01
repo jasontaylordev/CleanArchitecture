@@ -2,8 +2,7 @@
  
  # Clean Architecture Solution Template
 ![.NET Core](https://github.com/jasontaylordev/CleanArchitecture/workflows/.NET%20Core/badge.svg) [![Clean.Architecture.Solution.Template NuGet Package](https://img.shields.io/badge/nuget-1.1.1-blue)](https://www.nuget.org/packages/Clean.Architecture.Solution.Template) [![NuGet](https://img.shields.io/nuget/dt/Clean.Architecture.Solution.Template.svg)](https://www.nuget.org/packages/Clean.Architecture.Solution.Template) [![Twitter Follow](https://img.shields.io/twitter/follow/jasontaylordev.svg?style=social&label=Follow)](https://twitter.com/jasontaylordev)
-[![Discord](https://img.shields.io/discord/893301913662148658?color=%237289DA&label=Discord&logo=discord&logoColor=white&style=flat-square)](https://discord.gg/p9YtBjfgGe)
-![Discord](https://img.shields.io/discord/893301913662148658?label=Discord&style=plastic)
+[![Discord](https://img.shields.io/discord/893301913662148658?label=Discord&logo=discord&logoColor=white)](https://discord.gg/p9YtBjfgGe)
 
 
 <br/>
