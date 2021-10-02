@@ -8,7 +8,6 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -54,12 +53,6 @@ namespace CleanArchitecture.WebUI
                 options.SuppressModelStateInvalidFilter = true;
             });
 
-            // In production, the Angular files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp/dist";
-            });
-
             services.AddOpenApiDocument(configure =>
             {
                 configure.Title = "CleanArchitecture API";
@@ -82,6 +75,7 @@ namespace CleanArchitecture.WebUI
             {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
+                app.UseWebAssemblyDebugging();
             }
             else
             {
@@ -94,10 +88,6 @@ namespace CleanArchitecture.WebUI
             app.UseBlazorFrameworkFiles();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            //if (!env.IsDevelopment())
-            //{
-            //    app.UseSpaStaticFiles();
-            //}
 
             app.UseSwaggerUi3(settings =>
             {
@@ -119,20 +109,6 @@ namespace CleanArchitecture.WebUI
                 endpoints.MapControllers();
                 endpoints.MapFallbackToFile("index.html");
             });
-
-            //app.usespa(spa =>
-            //{
-            //    // to learn more about options for serving an angular spa from asp.net core,
-            //    // see https://go.microsoft.com/fwlink/?linkid=864501
-
-            //    spa.options.sourcepath = "clientapp";
-
-            //    if (env.isdevelopment())
-            //    {
-            //        //spa.useangularcliserver(npmscript: "start");
-            //        spa.useproxytospadevelopmentserver(configuration["spabaseurl"] ?? "http://localhost:4200");
-            //    }
-            //});
         }
     }
 }

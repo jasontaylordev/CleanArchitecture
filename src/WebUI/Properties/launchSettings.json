@@ -13,7 +13,8 @@
       "launchBrowser": true,
       "environmentVariables": {
         "DOTNET_ENVIRONMENT": "Development"
-      }
+      },
+      "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}"
     },
     "CleanArchitecture.WebUI": {
       "commandName": "Project",
@@ -21,20 +22,22 @@
       "environmentVariables": {
         "DOTNET_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:5001;http://localhost:5000"
+      "dotnetRunMessages": "true",
+      "applicationUrl": "https://localhost:5001;http://localhost:5000",
+      "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}"
     },
     "Docker": {
       "commandName": "Docker",
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
       "environmentVariables": {
+        "ASPNETCORE_URLS": "https://+:5001;http://+:5000",
         "UseInMemoryDatabase": "true",
-        "ASPNETCORE_HTTPS_PORT": "5001",
-        "ASPNETCORE_URLS": "https://+:5001;http://+:5000"
+        "ASPNETCORE_HTTPS_PORT": "5001"
       },
+      "sslPort": 5001,
       "httpPort": 5000,
-      "useSSL": true,
-      "sslPort": 5001
+      "useSSL": true
     }
   }
 }
