@@ -1,18 +1,125 @@
-﻿@inherits LayoutComponentBase
+﻿@using Microsoft.AspNetCore.Components
+@using BlazorFluentUI.Themes.Default
+@inherits LayoutComponentBase
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+<style>
+    :root {
+        --demoShadowColors1: @((customTheme ? "rgba(255,255,255,0.132)" : "rgba(0,0,0,0.132)" ));
+        --demoShadowColors2: @((customTheme ? "rgba(255,255,255,0.108)" : "rgba(0,0,0,0.108)" ));
 
-    <div class="main">
-        <div class="top-row px-4 auth">
-            <LoginDisplay />
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
+        --demoSiteBackgroundColor: @((customTheme ? "#11100f" : "#faf9f8" ));
+    }
+</style>
 
-        <div class="content px-4">
-            @Body
-        </div>
-    </div>
+<div class="siteWrapper">
+    <Stack Horizontal="true" Style="width:100%;">
+        <ResponsiveLayout MinWidth="ResponsiveMode.Medium.ToMinCssValue()">
+            <StackItem Grow="0" DisableShrink="true" Style="height:100%;overflow:hidden;">
+                <NavMenu />
+            </StackItem>
+        </ResponsiveLayout>
+        <StackItem Grow="1" Style="overflow:hidden">
+            <Stack VerticalFill="true" Style="width:100%;">
+                <ResponsiveLayout MaxWidth="ResponsiveMode.Medium.ToMaxCssValue()">
+                    <StackItem Grow="0" VerticalFill="false">
+                        <IconButton IconName="navigation" OnClick=@ShowMenu Style="position:fixed;z-index:1000;"/>
+                    </StackItem>
+                </ResponsiveLayout>
+                <ResponsiveLayout MinWidth="ResponsiveMode.Medium.ToMinCssValue()">
+                    <Stack Horizontal="true" HorizontalAlign="Alignment.SpaceBetween" VerticalAlign="Alignment.Center" Style="width:100%">
+                        <StackItem Grow="0" VerticalFill="false" Style="padding-left: 40px;">
+                            <div class="top-row">
+                                <BlazorFluentUI.Link Href="https://github.com/BlazorFluentUI/BlazorFluentUI" Target="_blank">View BlazorFluentUI GitHub repo</BlazorFluentUI.Link>
+                            </div>
+                        </StackItem>
+                        <StackItem>
+                            <LoginDisplay />
+
+                        </StackItem>
+                        <StackItem DisableShrink="true">
+                            <Toggle Checked=customTheme CheckedChanged="@SwitchTheme" OnText="Dark Theme" OffText="Default Theme" />
+                        </StackItem>
+                    </Stack>
+                </ResponsiveLayout>
+                <div class="siteContent" style="@dark">
+                    <div class="sectionWrapper" style="@dark">
+                        @Body
+                    </div>
+                </div>
+            </Stack>
+            <ResponsiveLayout MaxWidth="ResponsiveMode.Medium.ToMaxCssValue()">
+                <Panel Type=@PanelType.SmallFixedNear OnDismiss=@(() => isPanelOpen = false) IsOpen=@isPanelOpen IsLightDismiss="true">
+                    <NavigationTemplate>
+                        <IconButton IconName="navigation" OnClick=@(() => isPanelOpen = false) />
+                        <Toggle Checked=customTheme CheckedChanged="@SwitchTheme" OnText="Dark Theme" OffText="Default Theme" />
+                        <BlazorFluentUI.Link Href="https://github.com/BlazorFluentUI/BlazorFluentUI" Target="_blank">View BlazorFluentUI GitHub repo</BlazorFluentUI.Link>
+                    </NavigationTemplate>
+                    <ChildContent>
+                        <NavMenu />
+                    </ChildContent>
+                </Panel>
+            </ResponsiveLayout>
+        </StackItem>
+    </Stack>
 </div>
+
+@code {
+
+    [Inject]
+    public ThemeProvider? ThemeProvider { get; set; }
+
+    private bool customTheme;
+    private string? dark;
+
+    private Rule ScrollbarRule = new Rule();
+    //private ICollection<IRule> DarkThemeLocalRules { get; set; } = new System.Collections.Generic.List<IRule>();
+
+    protected override void OnInitialized()
+    {
+        customTheme = ThemeProvider?.Theme.Palette.GetType() == typeof(DefaultPaletteDark);
+
+        base.OnInitialized();
+    }
+
+
+    private Task SwitchTheme()
+    {
+        customTheme = !customTheme;
+        if (customTheme)
+        {
+            var palette = new DefaultPaletteDark();
+            ThemeProvider?.UpdateTheme(palette, new DefaultSemanticColorsDark(palette), new DefaultSemanticTextColorsDark(palette));
+
+            //dark = $"background-color: {ThemeProvider?.Theme.SemanticColors.BodyBackground}";
+
+        }
+        else
+        {
+            ThemeProvider?.UpdateTheme(new DefaultPalette());
+            dark = "";
+        }
+        return Task.CompletedTask;
+    }
+
+    //private bool isMenuCollapsed = true;
+    private bool isPanelOpen = false;
+
+    [CascadingParameter] public ResponsiveMode CurrentMode { get; set; }
+
+    void ShowMenu()
+    {
+        isPanelOpen = true;
+    }
+
+    void HideMenu()
+    {
+        isPanelOpen = false;
+    }
+
+    void OnNavLinkClick(BlazorFluentUI.Routing.NavLink linkBase)
+    {
+        isPanelOpen = false;
+    }
+
+
+}

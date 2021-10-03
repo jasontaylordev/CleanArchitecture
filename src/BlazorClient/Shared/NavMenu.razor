@@ -1,42 +1,32 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">BlazorClient</a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</div>
+﻿@using BlazorFluentUI.Routing
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="todo">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Todo
-            </NavLink>
-        </li>
-    </ul>
-</div>
+<Stack Horizontal="false" VerticalFill="true" Style="overflow:hidden;">
+    <StackItem Grow="0" VerticalFill="false" Style="padding-left: 30px">
+        <div class="top-row">
+            <BlazorFluentUI.Link Href="/">BlazorClient V@(System.Reflection.Assembly.GetAssembly(typeof(FluentUIComponentBase))?.GetName()?.Version?.ToString() ?? "NULL")</BlazorFluentUI.Link>
+        </div>
+    </StackItem>
+    <StackItem VerticalFill="true" Style="overflow-y:auto;">
+        <Nav>
+            <NavLinkGroup Name="Basic Controls" CollapseByDefault="false">
+                <BlazorFluentUI.Routing.NavLink Name="Counter" Url="counter" Id="counterpage" IconName="counter" OnClick=@OnLinkClicked />
+                <BlazorFluentUI.Routing.NavLink Name="Weather" Url="fetchdata" Id="weather" IconName="weather" OnClick=@OnLinkClicked />
+                <BlazorFluentUI.Routing.NavLink Name="Counter" Url="counter" Id="counterpage" IconName="counter" OnClick=@OnLinkClicked />
+                <BlazorFluentUI.Routing.NavLink Name="Counter" Url="todo" Id="todopage" IconName="todo" OnClick=@OnLinkClicked />
+            </NavLinkGroup>
+        </Nav>
+    </StackItem>
+</Stack>
 
 @code {
-    private bool collapseNavMenu = true;
+	[Parameter] public EventCallback<BlazorFluentUI.Routing.NavLink> OnLinkClicked { get; set; }
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+	bool collapseNavMenu = true;
 
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
+	string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+	void ToggleNavMenu()
+	{
+		collapseNavMenu = !collapseNavMenu;
+	}
 }
