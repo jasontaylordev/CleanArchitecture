@@ -1,22 +1,23 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using BlazorFluentUI.Routing
 
 @inject NavigationManager Navigation
 @inject SignOutSessionStateManager SignOutManager
 
 <AuthorizeView>
     <Authorized>
-        <a href="authentication/profile">Hello, @context.User.Identity.Name!</a>
-        <button class="nav-link btn btn-link" @onclick="BeginSignOut">Log out</button>
+        <BlazorFluentUI.Routing.NavLink Name="@context.User.Identity.Name" Url="authentication/profile" Id="Profile" IconName="person" />
+        <BlazorFluentUI.Routing.NavLink Name="Log out" Id="logout" IconName="sign_out" OnClick="BeginSignOut"/>
     </Authorized>
     <NotAuthorized>
-        <a href="authentication/register">Register</a>
-        <a href="authentication/login">Log in</a>
+        <BlazorFluentUI.Routing.NavLink Name="Register" Url="authentication/register" Id="register" IconName="person" />
+        <BlazorFluentUI.Routing.NavLink Name="Login" Url="authentication/login" Id="login" IconName="accessibility" />
     </NotAuthorized>
 </AuthorizeView>
 
 @code{
-    private async Task BeginSignOut(MouseEventArgs args)
+    private async Task BeginSignOut()
     {
         await SignOutManager.SetSignOutState();
         Navigation.NavigateTo("authentication/logout");

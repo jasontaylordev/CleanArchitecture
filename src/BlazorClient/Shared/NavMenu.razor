@@ -9,24 +9,26 @@
     <StackItem VerticalFill="true" Style="overflow-y:auto;">
         <Nav>
             <NavLinkGroup Name="Basic Controls" CollapseByDefault="false">
-                <BlazorFluentUI.Routing.NavLink Name="Counter" Url="counter" Id="counterpage" IconName="counter" OnClick=@OnLinkClicked />
-                <BlazorFluentUI.Routing.NavLink Name="Weather" Url="fetchdata" Id="weather" IconName="weather" OnClick=@OnLinkClicked />
-                <BlazorFluentUI.Routing.NavLink Name="Counter" Url="counter" Id="counterpage" IconName="counter" OnClick=@OnLinkClicked />
-                <BlazorFluentUI.Routing.NavLink Name="Counter" Url="todo" Id="todopage" IconName="todo" OnClick=@OnLinkClicked />
+                <BlazorFluentUI.Routing.NavLink Name="Counter" Url="counter" Id="counterpage" IconName="add" OnClick=@OnLinkClicked />
+                <BlazorFluentUI.Routing.NavLink Name="Weather" Url="fetchdata" Id="weather" IconName="beach" OnClick=@OnLinkClicked />
+                <BlazorFluentUI.Routing.NavLink Name="Todo" Url="todo" Id="todopage" IconName="apps_list" OnClick=@OnLinkClicked />
+            </NavLinkGroup>
+            <NavLinkGroup Name="Account" CollapseByDefault="true">
+                <LoginDisplay />
             </NavLinkGroup>
         </Nav>
     </StackItem>
 </Stack>
 
 @code {
-	[Parameter] public EventCallback<BlazorFluentUI.Routing.NavLink> OnLinkClicked { get; set; }
+    [Parameter] public EventCallback<BlazorFluentUI.Routing.NavLink> OnLinkClicked { get; set; }
 
-	bool collapseNavMenu = true;
+    bool collapseNavMenu = true;
 
-	string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
-	void ToggleNavMenu()
-	{
-		collapseNavMenu = !collapseNavMenu;
-	}
+    void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
 }
