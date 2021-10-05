@@ -6,15 +6,11 @@ using System.Collections.Generic;
 
 namespace CleanArchitecture.Domain.Entities
 {
-    public class TodoItem : AuditableEntity, IHasDomainEvent
+    public class TodoItem : CommonEntity, IHasDomainEvent
     {
-        public int Id { get; set; }
-
         public TodoList List { get; set; }
 
         public int ListId { get; set; }
-
-        public string Title { get; set; }
 
         public string Note { get; set; }
 
