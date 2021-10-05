@@ -1,13 +1,8 @@
- <img align="left" width="116" height="116" src="https://raw.githubusercontent.com/jasontaylordev/CleanArchitecture/main/.github/icon.png" />
- 
- # Clean Architecture Solution Template
-![.NET Core](https://github.com/jasontaylordev/CleanArchitecture/workflows/.NET%20Core/badge.svg) [![Clean.Architecture.Solution.Template NuGet Package](https://img.shields.io/badge/nuget-1.1.1-blue)](https://www.nuget.org/packages/Clean.Architecture.Solution.Template) [![NuGet](https://img.shields.io/nuget/dt/Clean.Architecture.Solution.Template.svg)](https://www.nuget.org/packages/Clean.Architecture.Solution.Template) [![Twitter Follow](https://img.shields.io/twitter/follow/jasontaylordev.svg?style=social&label=Follow)](https://twitter.com/jasontaylordev)
-[![Discord](https://img.shields.io/discord/893301913662148658?label=Discord&logo=discord&logoColor=white)](https://discord.gg/p9YtBjfgGe)
+# Clean Architecture Solution Template
 
 
-<br/>
-
-This is a solution template for creating a Single Page App (SPA) with Angular and ASP.NET Core following the principles of Clean Architecture. Create a new project based on this template by clicking the above **Use this template** button or by installing and running the associated NuGet package (see Getting Started for full details). 
+This is a solution template for creating a Blazor WASM App and ASP.NET Core following the principles of Clean Architecture. 
+It is a fork of the [Clean Architecture repository by Jason Taylor](https://github.com/jasontaylordev/CleanArchitecture) where we removed his Angular SPA and added a Blazor WASM app.
 
 ## Learn about Clean Architecture
 
@@ -17,27 +12,15 @@ This is a solution template for creating a Single Page App (SPA) with Angular an
 
 * ASP.NET Core 5
 * [Entity Framework Core 5](https://docs.microsoft.com/en-us/ef/core/)
-* [Angular 12](https://angular.io/)
 * [MediatR](https://github.com/jbogard/MediatR)
 * [AutoMapper](https://automapper.org/)
 * [FluentValidation](https://fluentvalidation.net/)
 * [NUnit](https://nunit.org/), [FluentAssertions](https://fluentassertions.com/), [Moq](https://github.com/moq) & [Respawn](https://github.com/jbogard/Respawn)
-* [Docker](https://www.docker.com/)
+* [BlazorFluentUI](https://github.com/BlazorFluentUI/BlazorFluentUI)
+* [Docker](https://www.docker.com/) (not fully tested yet)
 
 ## Getting Started
 
-The easiest way to get started is to install the [NuGet package](https://www.nuget.org/packages/Clean.Architecture.Solution.Template) and run `dotnet new ca-sln`:
-
-1. Install the latest [.NET 5 SDK](https://dotnet.microsoft.com/download/dotnet/5.0)
-2. Install the latest [Node.js LTS](https://nodejs.org/en/)
-3. Run `dotnet new --install Clean.Architecture.Solution.Template` to install the project template
-4. Create a folder for your solution and cd into it (the template will use it as project name)
-5. Run `dotnet new ca-sln` to create a new project
-6. Navigate to `src/WebUI/ClientApp` and run `npm install`
-7. Navigate to `src/WebUI/ClientApp` and run `npm start` to launch the front end (Angular)
-8. Navigate to `src/WebUI` and run `dotnet run` to launch the back end (ASP.NET Core Web API)
-
-Check out my [blog post](https://jasontaylor.dev/clean-architecture-getting-started/) for more information.
 
 ### Docker Configuration
 
@@ -105,11 +88,15 @@ This layer contains classes for accessing external resources such as file system
 
 ### WebUI
 
-This layer is a single page application based on Angular 10 and ASP.NET Core 5. This layer depends on both the Application and Infrastructure layers, however, the dependency on Infrastructure is only to support dependency injection. Therefore only *Startup.cs* should reference Infrastructure.
+This layer depends on both the Application and Infrastructure layers, however, the dependency on Infrastructure is only to support dependency injection. Therefore only *Startup.cs* should reference Infrastructure.
+
+### BlazorClient
+
+This is the Blazor WASM client. The app is served by WebUI and communicates with the WebUI API.
 
 ## Support
 
-If you are having problems, please let us know by [raising a new issue](https://github.com/jasontaylordev/CleanArchitecture/issues/new/choose).
+If you are having problems, please let us know by [raising a new issue](https://github.com/JohnMidity/CleanArchitecture/issues/new/choose).
 
 ## License
 

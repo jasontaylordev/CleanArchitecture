@@ -22,14 +22,18 @@
             <Stack VerticalFill="true" Style="width:100%;">
                 <ResponsiveLayout MaxWidth="ResponsiveMode.Medium.ToMaxCssValue()">
                     <StackItem Grow="0" VerticalFill="false">
-                        <IconButton IconName="navigation" OnClick=@ShowMenu Style="position:fixed;z-index:1000;"/>
+                        <IconButton IconName="navigation" OnClick=@ShowMenu Style="position:fixed;z-index:1000;" />
                     </StackItem>
                 </ResponsiveLayout>
                 <ResponsiveLayout MinWidth="ResponsiveMode.Medium.ToMinCssValue()">
                     <Stack Horizontal="true" HorizontalAlign="Alignment.SpaceBetween" VerticalAlign="Alignment.Center" Style="width:100%">
                         <StackItem Grow="0" VerticalFill="false" Style="padding-left: 40px;">
                             <div class="top-row">
-                                <BlazorFluentUI.Link Href="https://github.com/BlazorFluentUI/BlazorFluentUI" Target="_blank">View BlazorFluentUI GitHub repo</BlazorFluentUI.Link>
+                                <AuthorizeView>
+                                    <Authorized>
+                                        <BlazorFluentUI.Link Href="authentication/profile">Welcome @context.User.Identity.Name</BlazorFluentUI.Link>
+                                    </Authorized>
+                                </AuthorizeView>
                             </div>
                         </StackItem>
                         <StackItem DisableShrink="true">

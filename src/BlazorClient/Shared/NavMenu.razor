@@ -3,7 +3,7 @@
 <Stack Horizontal="false" VerticalFill="true" Style="overflow:hidden;">
     <StackItem Grow="0" VerticalFill="false" Style="padding-left: 30px">
         <div class="top-row">
-            <BlazorFluentUI.Link Href="/">BlazorClient V@(System.Reflection.Assembly.GetAssembly(typeof(FluentUIComponentBase))?.GetName()?.Version?.ToString() ?? "NULL")</BlazorFluentUI.Link>
+            <BlazorFluentUI.Link Href="/">BlazorClient V@(System.Reflection.Assembly.GetAssembly(typeof(BlazorClient.App))?.GetName()?.Version?.ToString() ?? "NULL")</BlazorFluentUI.Link>
         </div>
     </StackItem>
     <StackItem VerticalFill="true" Style="overflow-y:auto;">
