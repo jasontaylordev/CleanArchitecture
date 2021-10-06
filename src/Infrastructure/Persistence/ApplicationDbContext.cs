@@ -2,6 +2,7 @@
 using CleanArchitecture.Domain.Common;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Infrastructure.Identity;
+using CleanArchitecture.Infrastructure.Persistence.Configurations;
 using IdentityServer4.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
@@ -63,6 +64,10 @@ namespace CleanArchitecture.Infrastructure.Persistence
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            builder.ApplyConfiguration(new TodoListConfiguration());
+
+            builder.ApplyConfiguration(new TodoItemConfiguration());
 
             base.OnModelCreating(builder);
         }
