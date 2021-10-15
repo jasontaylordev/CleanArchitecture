@@ -13,12 +13,10 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
     public class DeleteTodoListTests : TestBase
     {
         [Test]
-        public void ShouldRequireValidTodoListId()
+        public async Task ShouldRequireValidTodoListId()
         {
             var command = new DeleteTodoListCommand { Id = 99 };
-
-            FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<NotFoundException>();
+            await FluentActions.Invoking(() => SendAsync(command)).Should().ThrowAsync<NotFoundException>();
         }
 
         [Test]

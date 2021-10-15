@@ -14,16 +14,10 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
     public class UpdateTodoListTests : TestBase
     {
         [Test]
-        public void ShouldRequireValidTodoListId()
+        public async Task ShouldRequireValidTodoListId()
         {
-            var command = new UpdateTodoListCommand
-            {
-                Id = 99,
-                Title = "New Title"
-            };
-
-            FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<NotFoundException>();
+            var command = new UpdateTodoListCommand { Id = 99, Title = "New Title" };
+            await FluentActions.Invoking(() => SendAsync(command)).Should().ThrowAsync<NotFoundException>();
         }
 
         [Test]
@@ -45,9 +39,9 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
                 Title = "Other List"
             };
 
-            FluentActions.Invoking(() =>
+            (await FluentActions.Invoking(() =>
                 SendAsync(command))
-                    .Should().Throw<ValidationException>().Where(ex => ex.Errors.ContainsKey("Title"))
+                    .Should().ThrowAsync<ValidationException>().Where(ex => ex.Errors.ContainsKey("Title")))
                     .And.Errors["Title"].Should().Contain("The specified title already exists.");
         }
 
@@ -75,7 +69,7 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
             list.LastModifiedBy.Should().NotBeNull();
             list.LastModifiedBy.Should().Be(userId);
             list.LastModified.Should().NotBeNull();
-            list.LastModified.Should().BeCloseTo(DateTime.Now, 1000);
+            list.LastModified.Should().BeCloseTo(DateTime.Now, TimeSpan.FromMilliseconds(10000));
         }
     }
 }

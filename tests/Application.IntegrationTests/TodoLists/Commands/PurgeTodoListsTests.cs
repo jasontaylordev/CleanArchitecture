@@ -16,14 +16,14 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
     public class PurgeTodoListsTests : TestBase
     {
         [Test]
-        public void ShouldDenyAnonymousUser()
+        public async Task ShouldDenyAnonymousUser()
         {
             var command = new PurgeTodoListsCommand();
 
             command.GetType().Should().BeDecoratedWith<AuthorizeAttribute>();
 
-            FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<UnauthorizedAccessException>();
+            await FluentActions.Invoking(() =>
+                SendAsync(command)).Should().ThrowAsync<UnauthorizedAccessException>();
         }
 
         [Test]
@@ -33,8 +33,8 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
 
             var command = new PurgeTodoListsCommand();
 
-            FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<ForbiddenAccessException>();
+           await FluentActions.Invoking(() =>
+                SendAsync(command)).Should().ThrowAsync<ForbiddenAccessException>();
         }
 
         [Test]
@@ -44,8 +44,8 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
 
             var command = new PurgeTodoListsCommand();
 
-            FluentActions.Invoking(() => SendAsync(command))
-                .Should().NotThrow<ForbiddenAccessException>();
+           await FluentActions.Invoking(() => SendAsync(command))
+                .Should().NotThrowAsync<ForbiddenAccessException>();
         }
 
         [Test]
