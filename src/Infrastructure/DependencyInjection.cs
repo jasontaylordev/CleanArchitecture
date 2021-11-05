@@ -33,12 +33,12 @@ namespace CleanArchitecture.Infrastructure
             services.AddScoped<IDomainEventService, DomainEventService>();
 
             services
-                .AddDefaultIdentity<ApplicationUser>()
+                .AddDefaultIdentity<User>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddIdentityServer()
-                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+                .AddApiAuthorization<User, ApplicationDbContext>();
 
             services.AddTransient<IDateTime, DateTimeService>();
             services.AddTransient<IIdentityService, IdentityService>();

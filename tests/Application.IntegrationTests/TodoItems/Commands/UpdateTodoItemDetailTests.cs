@@ -60,8 +60,8 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoItems.Commands
             item.ListId.Should().Be(command.ListId);
             item.Note.Should().Be(command.Note);
             item.Priority.Should().Be(command.Priority);
-            item.LastModifiedBy.Should().NotBeNull();
-            item.LastModifiedBy.Should().Be(userId);
+            item.LastModifiedByUserId.Should().NotBeNull();
+            item.LastModifiedByUserId.Should().Be(userId);
             item.LastModified.Should().NotBeNull();
             item.LastModified.Should().BeCloseTo(DateTime.Now, 10000);
         }

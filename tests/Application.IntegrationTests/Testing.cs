@@ -99,11 +99,11 @@ public class Testing
     {
         using var scope = _scopeFactory.CreateScope();
 
-        var userManager = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
+        var userManager = scope.ServiceProvider.GetService<UserManager<User>>();
+        var identityService = scope.ServiceProvider.GetService<IIdentityService>();
 
-        var user = new ApplicationUser { UserName = userName, Email = userName };
-
-        var result = await userManager.CreateAsync(user, password);
+        var (result, userId) = await identityService.CreateUserAsync(userName, password, userName);
+        var user = await userManager.FindByIdAsync(userId);
 
         if (roles.Any())
         {
@@ -124,7 +124,7 @@ public class Testing
             return _currentUserId;
         }
 
-        var errors = string.Join(Environment.NewLine, result.ToApplicationResult().Errors);
+        var errors = string.Join(Environment.NewLine, result.Errors);
 
         throw new Exception($"Unable to create {userName}.{Environment.NewLine}{errors}");
     }

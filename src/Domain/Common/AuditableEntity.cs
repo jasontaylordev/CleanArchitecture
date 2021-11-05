@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CleanArchitecture.Domain.Entities;
+using System;
 
 namespace CleanArchitecture.Domain.Common
 {
@@ -6,10 +7,13 @@ namespace CleanArchitecture.Domain.Common
     {
         public DateTime Created { get; set; }
 
-        public string CreatedBy { get; set; }
+        public string CreatedByUserId { get; set; }
 
         public DateTime? LastModified { get; set; }
 
-        public string LastModifiedBy { get; set; }
+        public string LastModifiedByUserId { get; set; }
+
+        public ApplicationUser CreatedByUser { get; set; }
+        public ApplicationUser ModifiedByUser { get; set; }
     }
 }

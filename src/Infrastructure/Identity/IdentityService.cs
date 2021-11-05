@@ -1,24 +1,29 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.Common.Models;
+using CleanArchitecture.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CleanArchitecture.Infrastructure.Identity
 {
     public class IdentityService : IIdentityService
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IUserClaimsPrincipalFactory<ApplicationUser> _userClaimsPrincipalFactory;
+        private readonly IApplicationDbContext _context;
+        private readonly UserManager<User> _userManager;
+        private readonly IUserClaimsPrincipalFactory<User> _userClaimsPrincipalFactory;
         private readonly IAuthorizationService _authorizationService;
 
         public IdentityService(
-            UserManager<ApplicationUser> userManager,
-            IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
+            IApplicationDbContext context,
+            UserManager<User> userManager,
+            IUserClaimsPrincipalFactory<User> userClaimsPrincipalFactory,
             IAuthorizationService authorizationService)
         {
+            _context = context;
             _userManager = userManager;
             _userClaimsPrincipalFactory = userClaimsPrincipalFactory;
             _authorizationService = authorizationService;
@@ -29,17 +34,23 @@ namespace CleanArchitecture.Infrastructure.Identity
             var user = await _userManager.Users.FirstAsync(u => u.Id == userId);
 
             return user.UserName;
-        }
+        }       
 
-        public async Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password)
+        public async Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password, string email)
         {
-            var user = new ApplicationUser
+            var user = new User
             {
                 UserName = userName,
-                Email = userName,
+                Email = email,
             };
 
             var result = await _userManager.CreateAsync(user, password);
+            if (result.Succeeded)
+            {
+                //Sync identity to application
+                _context.ApplicationUsers.Add(new ApplicationUser { Id = user.Id });
+                await _context.SaveChangesAsync(CancellationToken.None);
+            }
 
             return (result.ToApplicationResult(), user.Id);
         }
@@ -74,7 +85,7 @@ namespace CleanArchitecture.Infrastructure.Identity
             return Result.Success();
         }
 
-        public async Task<Result> DeleteUserAsync(ApplicationUser user)
+        public async Task<Result> DeleteUserAsync(User user)
         {
             var result = await _userManager.DeleteAsync(user);
 

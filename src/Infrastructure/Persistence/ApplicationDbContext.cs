@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Infrastructure.Persistence
 {
-    public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, IApplicationDbContext
+    public class ApplicationDbContext : ApiAuthorizationDbContext<User>, IApplicationDbContext
     {
         private readonly ICurrentUserService _currentUserService;
         private readonly IDateTime _dateTime;
@@ -31,6 +31,7 @@ namespace CleanArchitecture.Infrastructure.Persistence
             _dateTime = dateTime;
         }
 
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<TodoItem> TodoItems { get; set; }
 
         public DbSet<TodoList> TodoLists { get; set; }
@@ -42,12 +43,12 @@ namespace CleanArchitecture.Infrastructure.Persistence
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        entry.Entity.CreatedBy = _currentUserService.UserId;
+                        entry.Entity.CreatedByUserId = _currentUserService.UserId;
                         entry.Entity.Created = _dateTime.Now;
                         break;
 
                     case EntityState.Modified:
-                        entry.Entity.LastModifiedBy = _currentUserService.UserId;
+                        entry.Entity.LastModifiedByUserId = _currentUserService.UserId;
                         entry.Entity.LastModified = _dateTime.Now;
                         break;
                 }
@@ -63,8 +64,19 @@ namespace CleanArchitecture.Infrastructure.Persistence
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
+            
+            ApplyProtectionFilters(builder);
+            
             base.OnModelCreating(builder);
+        }
+
+        private void ApplyProtectionFilters(ModelBuilder builder)
+        {
+            builder.Entity<TodoList>()
+                .HasQueryFilter(x => x.CreatedByUserId == _currentUserService.UserId);
+
+            builder.Entity<TodoItem>()
+                .HasQueryFilter(x => x.CreatedByUserId == _currentUserService.UserId);
         }
 
         private async Task DispatchEvents()
