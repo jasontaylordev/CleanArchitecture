@@ -4,8 +4,6 @@ using CleanArchitecture.Application.TodoLists.Commands.UpdateTodoList;
 using CleanArchitecture.Domain.Entities;
 using FluentAssertions;
 using NUnit.Framework;
-using System;
-using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
 {

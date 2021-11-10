@@ -6,6 +6,7 @@
     <AssemblyName>CleanArchitecture.Application.IntegrationTests</AssemblyName>
     
     <IsPackable>false</IsPackable>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>

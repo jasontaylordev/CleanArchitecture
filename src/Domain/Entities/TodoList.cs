@@ -1,6 +1,5 @@
 ﻿using CleanArchitecture.Domain.Common;
 using CleanArchitecture.Domain.ValueObjects;
-using System.Collections.Generic;
 
 namespace CleanArchitecture.Domain.Entities
 {

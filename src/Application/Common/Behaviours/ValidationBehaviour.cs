@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using FluentValidation;
+﻿using FluentValidation;
 using MediatR;
 using ValidationException = CleanArchitecture.Application.Common.Exceptions.ValidationException;
 

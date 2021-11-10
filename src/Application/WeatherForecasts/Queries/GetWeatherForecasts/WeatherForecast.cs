@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CleanArchitecture.Application.WeatherForecasts.Queries.GetWeatherForecasts
+﻿namespace CleanArchitecture.Application.WeatherForecasts.Queries.GetWeatherForecasts
 {
     public class WeatherForecast
     {

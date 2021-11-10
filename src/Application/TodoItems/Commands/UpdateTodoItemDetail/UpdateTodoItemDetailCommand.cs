@@ -3,8 +3,6 @@ using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Enums;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItemDetail
 {

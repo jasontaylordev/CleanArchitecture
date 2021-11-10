@@ -1,12 +1,8 @@
-﻿using CleanArchitecture.Application.Common.Exceptions;
+﻿using System.Reflection;
+using CleanArchitecture.Application.Common.Exceptions;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.Common.Security;
 using MediatR;
-using System;
-using System.Linq;
-using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.Common.Behaviours
 {

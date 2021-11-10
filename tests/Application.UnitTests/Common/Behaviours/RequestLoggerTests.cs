@@ -4,8 +4,6 @@ using CleanArchitecture.Application.TodoItems.Commands.CreateTodoItem;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.UnitTests.Common.Behaviours
 {

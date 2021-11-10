@@ -6,9 +6,7 @@ using CleanArchitecture.Application.TodoLists.Commands.CreateTodoList;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Enums;
 using FluentAssertions;
-using System.Threading.Tasks;
 using NUnit.Framework;
-using System;
 
 namespace CleanArchitecture.Application.IntegrationTests.TodoItems.Commands
 {

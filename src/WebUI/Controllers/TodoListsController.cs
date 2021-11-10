@@ -5,7 +5,6 @@ using CleanArchitecture.Application.TodoLists.Queries.ExportTodos;
 using CleanArchitecture.Application.TodoLists.Queries.GetTodos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace CleanArchitecture.WebUI.Controllers
 {

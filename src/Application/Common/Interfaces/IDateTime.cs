@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CleanArchitecture.Application.Common.Interfaces
+﻿namespace CleanArchitecture.Application.Common.Interfaces
 {
     public interface IDateTime
     {

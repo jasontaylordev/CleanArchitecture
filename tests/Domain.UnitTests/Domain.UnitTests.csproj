@@ -6,6 +6,7 @@
     <AssemblyName>CleanArchitecture.Domain.UnitTests</AssemblyName>
 
     <IsPackable>false</IsPackable>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>

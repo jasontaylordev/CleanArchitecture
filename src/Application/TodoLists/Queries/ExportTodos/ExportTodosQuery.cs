@@ -3,9 +3,6 @@ using AutoMapper.QueryableExtensions;
 using CleanArchitecture.Application.Common.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.TodoLists.Queries.ExportTodos
 {

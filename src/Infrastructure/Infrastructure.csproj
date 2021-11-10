@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>CleanArchitecture.Infrastructure</RootNamespace>
     <AssemblyName>CleanArchitecture.Infrastructure</AssemblyName>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>

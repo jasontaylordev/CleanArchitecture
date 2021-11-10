@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace CleanArchitecture.Domain.Common
+﻿namespace CleanArchitecture.Domain.Common
 {
     public interface IHasDomainEvent
     {

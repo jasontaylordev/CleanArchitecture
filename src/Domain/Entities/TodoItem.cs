@@ -1,8 +1,6 @@
 ﻿using CleanArchitecture.Domain.Common;
 using CleanArchitecture.Domain.Enums;
 using CleanArchitecture.Domain.Events;
-using System;
-using System.Collections.Generic;
 
 namespace CleanArchitecture.Domain.Entities
 {

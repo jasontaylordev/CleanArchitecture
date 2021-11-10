@@ -3,8 +3,6 @@ using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.ValueObjects;
 using FluentAssertions;
 using NUnit.Framework;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Queries
 {

@@ -1,4 +1,5 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
+﻿using System.Reflection;
+using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Domain.Common;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Infrastructure.Identity;
@@ -6,11 +7,6 @@ using Duende.IdentityServer.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CleanArchitecture.Infrastructure.Persistence
 {

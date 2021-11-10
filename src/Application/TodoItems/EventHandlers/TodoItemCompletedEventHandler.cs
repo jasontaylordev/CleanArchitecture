@@ -2,8 +2,6 @@
 using CleanArchitecture.Domain.Events;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.TodoItems.EventHandlers
 {

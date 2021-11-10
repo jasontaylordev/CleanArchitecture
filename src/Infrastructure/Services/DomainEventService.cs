@@ -3,8 +3,6 @@ using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Domain.Common;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Threading.Tasks;
 
 namespace CleanArchitecture.Infrastructure.Services
 {

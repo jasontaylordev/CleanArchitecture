@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.IntegrationTests
 {

@@ -2,12 +2,9 @@
 using CleanArchitecture.Application.Common.Security;
 using CleanArchitecture.Application.TodoLists.Commands.CreateTodoList;
 using CleanArchitecture.Application.TodoLists.Commands.PurgeTodoLists;
-using CleanArchitecture.Application.TodoLists.Queries.ExportTodos;
 using CleanArchitecture.Domain.Entities;
 using FluentAssertions;
 using NUnit.Framework;
-using System;
-using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
 {

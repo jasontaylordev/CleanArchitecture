@@ -1,6 +1,5 @@
 ﻿using CleanArchitecture.Application.Common.Models;
 using Microsoft.AspNetCore.Identity;
-using System.Linq;
 
 namespace CleanArchitecture.Infrastructure.Identity
 {

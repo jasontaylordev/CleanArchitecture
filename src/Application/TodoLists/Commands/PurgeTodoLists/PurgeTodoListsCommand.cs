@@ -1,8 +1,6 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.Common.Security;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.TodoLists.Commands.PurgeTodoLists
 {

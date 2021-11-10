@@ -1,7 +1,5 @@
 ﻿using CleanArchitecture.Domain.Common;
 using CleanArchitecture.Domain.Exceptions;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace CleanArchitecture.Domain.ValueObjects
 {

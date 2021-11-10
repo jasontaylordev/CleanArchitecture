@@ -1,6 +1,5 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
-using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
+﻿using System.Security.Claims;
+using CleanArchitecture.Application.Common.Interfaces;
 
 namespace CleanArchitecture.WebUI.Services
 {

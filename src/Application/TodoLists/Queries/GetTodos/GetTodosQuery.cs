@@ -1,14 +1,9 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Application.Common.Security;
 using CleanArchitecture.Domain.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.TodoLists.Queries.GetTodos
 {
