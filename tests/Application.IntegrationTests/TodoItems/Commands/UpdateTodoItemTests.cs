@@ -15,16 +15,10 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoItems.Commands
     public class UpdateTodoItemTests : TestBase
     {
         [Test]
-        public void ShouldRequireValidTodoItemId()
+        public async Task ShouldRequireValidTodoItemId()
         {
-            var command = new UpdateTodoItemCommand
-            {
-                Id = 99,
-                Title = "New Title"
-            };
-
-            FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<NotFoundException>();
+            var command = new UpdateTodoItemCommand { Id = 99, Title = "New Title" };
+            await FluentActions.Invoking(() => SendAsync(command)).Should().ThrowAsync<NotFoundException>();
         }
 
         [Test]
@@ -57,7 +51,7 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoItems.Commands
             item.LastModifiedBy.Should().NotBeNull();
             item.LastModifiedBy.Should().Be(userId);
             item.LastModified.Should().NotBeNull();
-            item.LastModified.Should().BeCloseTo(DateTime.Now, 1000);
+            item.LastModified.Should().BeCloseTo(DateTime.Now, TimeSpan.FromMilliseconds(10000));
         }
     }
 }

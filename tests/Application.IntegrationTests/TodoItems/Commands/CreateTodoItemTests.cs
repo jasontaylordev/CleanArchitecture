@@ -14,12 +14,12 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoItems.Commands
     public class CreateTodoItemTests : TestBase
     {
         [Test]
-        public void ShouldRequireMinimumFields()
+        public async Task ShouldRequireMinimumFields()
         {
             var command = new CreateTodoItemCommand();
 
-            FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<ValidationException>();
+            await FluentActions.Invoking(() =>
+                SendAsync(command)).Should().ThrowAsync<ValidationException>();
         }
 
         [Test]
@@ -46,7 +46,7 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoItems.Commands
             item.ListId.Should().Be(command.ListId);
             item.Title.Should().Be(command.Title);
             item.CreatedBy.Should().Be(userId);
-            item.Created.Should().BeCloseTo(DateTime.Now, 10000);
+            item.Created.Should().BeCloseTo(DateTime.Now, TimeSpan.FromMilliseconds(10000));
             item.LastModifiedBy.Should().BeNull();
             item.LastModified.Should().BeNull();
         }
