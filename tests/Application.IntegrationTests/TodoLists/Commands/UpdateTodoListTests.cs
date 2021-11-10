@@ -4,72 +4,70 @@ using CleanArchitecture.Application.TodoLists.Commands.UpdateTodoList;
 using CleanArchitecture.Domain.Entities;
 using FluentAssertions;
 using NUnit.Framework;
-using System;
-using System.Threading.Tasks;
 
-namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
+namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands;
+
+using static Testing;
+
+public class UpdateTodoListTests : TestBase
 {
-    using static Testing;
-
-    public class UpdateTodoListTests : TestBase
+    [Test]
+    public async Task ShouldRequireValidTodoListId()
     {
-        [Test]
-        public async Task ShouldRequireValidTodoListId()
+        var command = new UpdateTodoListCommand { Id = 99, Title = "New Title" };
+        await FluentActions.Invoking(() => SendAsync(command)).Should().ThrowAsync<NotFoundException>();
+    }
+
+    [Test]
+    public async Task ShouldRequireUniqueTitle()
+    {
+        var listId = await SendAsync(new CreateTodoListCommand
         {
-            var command = new UpdateTodoListCommand { Id = 99, Title = "New Title" };
-            await FluentActions.Invoking(() => SendAsync(command)).Should().ThrowAsync<NotFoundException>();
-        }
+            Title = "New List"
+        });
 
-        [Test]
-        public async Task ShouldRequireUniqueTitle()
+        await SendAsync(new CreateTodoListCommand
         {
-            var listId = await SendAsync(new CreateTodoListCommand
-            {
-                Title = "New List"
-            });
+            Title = "Other List"
+        });
 
-            await SendAsync(new CreateTodoListCommand
-            {
-                Title = "Other List"
-            });
-
-            var command = new UpdateTodoListCommand
-            {
-                Id = listId,
-                Title = "Other List"
-            };
-
-            (await FluentActions.Invoking(() =>
-                SendAsync(command))
-                    .Should().ThrowAsync<ValidationException>().Where(ex => ex.Errors.ContainsKey("Title")))
-                    .And.Errors["Title"].Should().Contain("The specified title already exists.");
-        }
-
-        [Test]
-        public async Task ShouldUpdateTodoList()
+        var command = new UpdateTodoListCommand
         {
-            var userId = await RunAsDefaultUserAsync();
+            Id = listId,
+            Title = "Other List"
+        };
 
-            var listId = await SendAsync(new CreateTodoListCommand
-            {
-                Title = "New List"
-            });
+        (await FluentActions.Invoking(() =>
+            SendAsync(command))
+                .Should().ThrowAsync<ValidationException>().Where(ex => ex.Errors.ContainsKey("Title")))
+                .And.Errors["Title"].Should().Contain("The specified title already exists.");
+    }
 
-            var command = new UpdateTodoListCommand
-            {
-                Id = listId,
-                Title = "Updated List Title"
-            };
+    [Test]
+    public async Task ShouldUpdateTodoList()
+    {
+        var userId = await RunAsDefaultUserAsync();
 
-            await SendAsync(command);
+        var listId = await SendAsync(new CreateTodoListCommand
+        {
+            Title = "New List"
+        });
 
-            var list = await FindAsync<TodoList>(listId);
+        var command = new UpdateTodoListCommand
+        {
+            Id = listId,
+            Title = "Updated List Title"
+        };
 
-            list.Title.Should().Be(command.Title);
-            list.LastModifiedBy.Should().NotBeNull();
-            list.LastModifiedBy.Should().Be(userId);
-            list.LastModified.Should().NotBeNull();
-            list.LastModified.Should().BeCloseTo(DateTime.Now, TimeSpan.FromMilliseconds(10000));
-        }
+        await SendAsync(command);
+
+        var list = await FindAsync<TodoList>(listId);
+
+        list.Should().NotBeNull();
+        list!.Title.Should().Be(command.Title);
+        list.LastModifiedBy.Should().NotBeNull();
+        list.LastModifiedBy.Should().Be(userId);
+        list.LastModified.Should().NotBeNull();
+        list.LastModified.Should().BeCloseTo(DateTime.Now, TimeSpan.FromMilliseconds(10000));
     }
 }

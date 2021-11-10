@@ -648,7 +648,7 @@ export class WeatherForecastClient implements IWeatherForecastClient {
 }
 
 export class PaginatedListOfTodoItemBriefDto implements IPaginatedListOfTodoItemBriefDto {
-    items?: TodoItemBriefDto[] | undefined;
+    items?: TodoItemBriefDto[];
     pageNumber?: number;
     totalPages?: number;
     totalCount?: number;
@@ -703,7 +703,7 @@ export class PaginatedListOfTodoItemBriefDto implements IPaginatedListOfTodoItem
 }
 
 export interface IPaginatedListOfTodoItemBriefDto {
-    items?: TodoItemBriefDto[] | undefined;
+    items?: TodoItemBriefDto[];
     pageNumber?: number;
     totalPages?: number;
     totalCount?: number;
@@ -899,8 +899,8 @@ export enum PriorityLevel {
 }
 
 export class TodosVm implements ITodosVm {
-    priorityLevels?: PriorityLevelDto[] | undefined;
-    lists?: TodoListDto[] | undefined;
+    priorityLevels?: PriorityLevelDto[];
+    lists?: TodoListDto[];
 
     constructor(data?: ITodosVm) {
         if (data) {
@@ -950,8 +950,8 @@ export class TodosVm implements ITodosVm {
 }
 
 export interface ITodosVm {
-    priorityLevels?: PriorityLevelDto[] | undefined;
-    lists?: TodoListDto[] | undefined;
+    priorityLevels?: PriorityLevelDto[];
+    lists?: TodoListDto[];
 }
 
 export class PriorityLevelDto implements IPriorityLevelDto {
@@ -998,7 +998,7 @@ export class TodoListDto implements ITodoListDto {
     id?: number;
     title?: string | undefined;
     colour?: string | undefined;
-    items?: TodoItemDto[] | undefined;
+    items?: TodoItemDto[];
 
     constructor(data?: ITodoListDto) {
         if (data) {
@@ -1047,7 +1047,7 @@ export interface ITodoListDto {
     id?: number;
     title?: string | undefined;
     colour?: string | undefined;
-    items?: TodoItemDto[] | undefined;
+    items?: TodoItemDto[];
 }
 
 export class TodoItemDto implements ITodoItemDto {

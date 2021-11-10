@@ -3,57 +3,54 @@ using CleanArchitecture.Application.TodoLists.Commands.CreateTodoList;
 using CleanArchitecture.Domain.Entities;
 using FluentAssertions;
 using NUnit.Framework;
-using System;
-using System.Threading.Tasks;
 
-namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
+namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands;
+
+using static Testing;
+
+public class CreateTodoListTests : TestBase
 {
-    using static Testing;
-
-    public class CreateTodoListTests : TestBase
+    [Test]
+    public async Task ShouldRequireMinimumFields()
     {
-        [Test]
-        public async Task ShouldRequireMinimumFields()
+        var command = new CreateTodoListCommand();
+        await FluentActions.Invoking(() => SendAsync(command)).Should().ThrowAsync<ValidationException>();
+    }
+
+    [Test]
+    public async Task ShouldRequireUniqueTitle()
+    {
+        await SendAsync(new CreateTodoListCommand
         {
-            var command = new CreateTodoListCommand();
-            await FluentActions.Invoking(() => SendAsync(command)).Should().ThrowAsync<ValidationException>();
-        }
+            Title = "Shopping"
+        });
 
-        [Test]
-        public async Task ShouldRequireUniqueTitle()
+        var command = new CreateTodoListCommand
         {
-            await SendAsync(new CreateTodoListCommand
-            {
-                Title = "Shopping"
-            });
+            Title = "Shopping"
+        };
 
-            var command = new CreateTodoListCommand
-            {
-                Title = "Shopping"
-            };
+        await FluentActions.Invoking(() =>
+            SendAsync(command)).Should().ThrowAsync<ValidationException>();
+    }
 
-            await FluentActions.Invoking(() =>
-                SendAsync(command)).Should().ThrowAsync<ValidationException>();
-        }
+    [Test]
+    public async Task ShouldCreateTodoList()
+    {
+        var userId = await RunAsDefaultUserAsync();
 
-        [Test]
-        public async Task ShouldCreateTodoList()
+        var command = new CreateTodoListCommand
         {
-            var userId = await RunAsDefaultUserAsync();
+            Title = "Tasks"
+        };
 
-            var command = new CreateTodoListCommand
-            {
-                Title = "Tasks"
-            };
+        var id = await SendAsync(command);
 
-            var id = await SendAsync(command);
+        var list = await FindAsync<TodoList>(id);
 
-            var list = await FindAsync<TodoList>(id);
-
-            list.Should().NotBeNull();
-            list.Title.Should().Be(command.Title);
-            list.CreatedBy.Should().Be(userId);
-            list.Created.Should().BeCloseTo(DateTime.Now, TimeSpan.FromMilliseconds(10000));
-        }
+        list.Should().NotBeNull();
+        list!.Title.Should().Be(command.Title);
+        list.CreatedBy.Should().Be(userId);
+        list.Created.Should().BeCloseTo(DateTime.Now, TimeSpan.FromMilliseconds(10000));
     }
 }

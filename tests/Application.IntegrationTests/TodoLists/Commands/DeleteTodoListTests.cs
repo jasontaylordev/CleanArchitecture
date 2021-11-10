@@ -4,37 +4,35 @@ using CleanArchitecture.Application.TodoLists.Commands.DeleteTodoList;
 using CleanArchitecture.Domain.Entities;
 using FluentAssertions;
 using NUnit.Framework;
-using System.Threading.Tasks;
 
-namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands
+namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands;
+
+using static Testing;
+
+public class DeleteTodoListTests : TestBase
 {
-    using static Testing;
-
-    public class DeleteTodoListTests : TestBase
+    [Test]
+    public async Task ShouldRequireValidTodoListId()
     {
-        [Test]
-        public async Task ShouldRequireValidTodoListId()
+        var command = new DeleteTodoListCommand { Id = 99 };
+        await FluentActions.Invoking(() => SendAsync(command)).Should().ThrowAsync<NotFoundException>();
+    }
+
+    [Test]
+    public async Task ShouldDeleteTodoList()
+    {
+        var listId = await SendAsync(new CreateTodoListCommand
         {
-            var command = new DeleteTodoListCommand { Id = 99 };
-            await FluentActions.Invoking(() => SendAsync(command)).Should().ThrowAsync<NotFoundException>();
-        }
+            Title = "New List"
+        });
 
-        [Test]
-        public async Task ShouldDeleteTodoList()
+        await SendAsync(new DeleteTodoListCommand
         {
-            var listId = await SendAsync(new CreateTodoListCommand
-            {
-                Title = "New List"
-            });
+            Id = listId
+        });
 
-            await SendAsync(new DeleteTodoListCommand 
-            { 
-                Id = listId 
-            });
+        var list = await FindAsync<TodoList>(listId);
 
-            var list = await FindAsync<TodoList>(listId);
-
-            list.Should().BeNull();
-        }
+        list.Should().BeNull();
     }
 }

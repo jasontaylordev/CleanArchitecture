@@ -3,42 +3,38 @@ using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace CleanArchitecture.Application.TodoLists.Commands.DeleteTodoList
+namespace CleanArchitecture.Application.TodoLists.Commands.DeleteTodoList;
+
+public class DeleteTodoListCommand : IRequest
 {
-    public class DeleteTodoListCommand : IRequest
+    public int Id { get; set; }
+}
+
+public class DeleteTodoListCommandHandler : IRequestHandler<DeleteTodoListCommand>
+{
+    private readonly IApplicationDbContext _context;
+
+    public DeleteTodoListCommandHandler(IApplicationDbContext context)
     {
-        public int Id { get; set; }
+        _context = context;
     }
 
-    public class DeleteTodoListCommandHandler : IRequestHandler<DeleteTodoListCommand>
+    public async Task<Unit> Handle(DeleteTodoListCommand request, CancellationToken cancellationToken)
     {
-        private readonly IApplicationDbContext _context;
+        var entity = await _context.TodoLists
+            .Where(l => l.Id == request.Id)
+            .SingleOrDefaultAsync(cancellationToken);
 
-        public DeleteTodoListCommandHandler(IApplicationDbContext context)
+        if (entity == null)
         {
-            _context = context;
+            throw new NotFoundException(nameof(TodoList), request.Id);
         }
 
-        public async Task<Unit> Handle(DeleteTodoListCommand request, CancellationToken cancellationToken)
-        {
-            var entity = await _context.TodoLists
-                .Where(l => l.Id == request.Id)
-                .SingleOrDefaultAsync(cancellationToken);
+        _context.TodoLists.Remove(entity);
 
-            if (entity == null)
-            {
-                throw new NotFoundException(nameof(TodoList), request.Id);
-            }
+        await _context.SaveChangesAsync(cancellationToken);
 
-            _context.TodoLists.Remove(entity);
-
-            await _context.SaveChangesAsync(cancellationToken);
-
-            return Unit.Value;
-        }
+        return Unit.Value;
     }
 }
