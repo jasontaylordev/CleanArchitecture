@@ -1,14 +1,13 @@
 ﻿using FluentValidation;
 
-namespace CleanArchitecture.Application.TodoItems.Commands.CreateTodoItem
+namespace CleanArchitecture.Application.TodoItems.Commands.CreateTodoItem;
+
+public class CreateTodoItemCommandValidator : AbstractValidator<CreateTodoItemCommand>
 {
-    public class CreateTodoItemCommandValidator : AbstractValidator<CreateTodoItemCommand>
+    public CreateTodoItemCommandValidator()
     {
-        public CreateTodoItemCommandValidator()
-        {
-            RuleFor(v => v.Title)
-                .MaximumLength(200)
-                .NotEmpty();
-        }
+        RuleFor(v => v.Title)
+            .MaximumLength(200)
+            .NotEmpty();
     }
 }

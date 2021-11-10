@@ -1,7 +1,6 @@
-﻿namespace CleanArchitecture.Application.Common.Interfaces
+﻿namespace CleanArchitecture.Application.Common.Interfaces;
+
+public interface IDateTime
 {
-    public interface IDateTime
-    {
-        DateTime Now { get; }
-    }
+    DateTime Now { get; }
 }

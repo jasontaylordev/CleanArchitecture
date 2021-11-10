@@ -1,9 +1,8 @@
-﻿namespace CleanArchitecture.Application.TodoLists.Queries.GetTodos
-{
-    public class TodosVm
-    {
-        public IList<PriorityLevelDto> PriorityLevels { get; set; }
+﻿namespace CleanArchitecture.Application.TodoLists.Queries.GetTodos;
 
-        public IList<TodoListDto> Lists { get; set; }
-    }
+public class TodosVm
+{
+    public IList<PriorityLevelDto> PriorityLevels { get; set; }
+
+    public IList<TodoListDto> Lists { get; set; }
 }

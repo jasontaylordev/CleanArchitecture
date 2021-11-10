@@ -1,16 +1,15 @@
 ﻿using CleanArchitecture.Domain.Common;
 using CleanArchitecture.Domain.ValueObjects;
 
-namespace CleanArchitecture.Domain.Entities
+namespace CleanArchitecture.Domain.Entities;
+
+public class TodoList : AuditableEntity
 {
-    public class TodoList : AuditableEntity
-    {
-        public int Id { get; set; }
+    public int Id { get; set; }
 
-        public string Title { get; set; }
+    public string Title { get; set; }
 
-        public Colour Colour { get; set; } = Colour.White;
+    public Colour Colour { get; set; } = Colour.White;
 
-        public IList<TodoItem> Items { get; private set; } = new List<TodoItem>();
-    }
+    public IList<TodoItem> Items { get; private set; } = new List<TodoItem>();
 }
