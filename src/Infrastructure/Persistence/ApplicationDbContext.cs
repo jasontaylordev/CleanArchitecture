@@ -6,6 +6,7 @@ using IdentityServer4.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -53,9 +54,15 @@ namespace CleanArchitecture.Infrastructure.Persistence
                 }
             }
 
+            var events = ChangeTracker.Entries<IHasDomainEvent>()
+                    .Select(x => x.Entity.DomainEvents)
+                    .SelectMany(x => x)
+                    .Where(domainEvent => !domainEvent.IsPublished)
+                    .ToArray();
+
             var result = await base.SaveChangesAsync(cancellationToken);
 
-            await DispatchEvents();
+            await DispatchEvents(events);
 
             return result;
         }
@@ -67,19 +74,12 @@ namespace CleanArchitecture.Infrastructure.Persistence
             base.OnModelCreating(builder);
         }
 
-        private async Task DispatchEvents()
+        private async Task DispatchEvents(DomainEvent[] events)
         {
-            while (true)
+            foreach (var @event in events)
             {
-                var domainEventEntity = ChangeTracker.Entries<IHasDomainEvent>()
-                    .Select(x => x.Entity.DomainEvents)
-                    .SelectMany(x => x)
-                    .Where(domainEvent => !domainEvent.IsPublished)
-                    .FirstOrDefault();
-                if (domainEventEntity == null) break;
-
-                domainEventEntity.IsPublished = true;
-                await _domainEventService.Publish(domainEventEntity);
+                @event.IsPublished = true;
+                await _domainEventService.Publish(@event);
             }
         }
     }

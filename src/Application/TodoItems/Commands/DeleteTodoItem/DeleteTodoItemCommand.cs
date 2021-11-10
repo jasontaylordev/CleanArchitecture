@@ -1,6 +1,7 @@
 ﻿using CleanArchitecture.Application.Common.Exceptions;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Domain.Entities;
+using CleanArchitecture.Domain.Events;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,6 +32,8 @@ namespace CleanArchitecture.Application.TodoItems.Commands.DeleteTodoItem
             }
 
             _context.TodoItems.Remove(entity);
+
+            entity.DomainEvents.Add(new TodoItemDeletedEvent(entity));
 
             await _context.SaveChangesAsync(cancellationToken);
 
