@@ -5,9 +5,7 @@ using CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItemDetail;
 using CleanArchitecture.Application.TodoLists.Commands.CreateTodoList;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Enums;
-
 using FluentAssertions;
-
 using NUnit.Framework;
 
 namespace CleanArchitecture.Application.IntegrationTests.TodoItems.Commands;
@@ -51,7 +49,8 @@ public class UpdateTodoItemDetailTests : TestBase
 
         var item = await FindAsync<TodoItem>(itemId);
 
-        item.ListId.Should().Be(command.ListId);
+        item.Should().NotBeNull();
+        item!.ListId.Should().Be(command.ListId);
         item.Note.Should().Be(command.Note);
         item.Priority.Should().Be(command.Priority);
         item.LastModifiedBy.Should().NotBeNull();

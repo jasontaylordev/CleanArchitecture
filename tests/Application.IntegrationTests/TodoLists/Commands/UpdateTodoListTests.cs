@@ -2,9 +2,7 @@
 using CleanArchitecture.Application.TodoLists.Commands.CreateTodoList;
 using CleanArchitecture.Application.TodoLists.Commands.UpdateTodoList;
 using CleanArchitecture.Domain.Entities;
-
 using FluentAssertions;
-
 using NUnit.Framework;
 
 namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands;
@@ -65,7 +63,8 @@ public class UpdateTodoListTests : TestBase
 
         var list = await FindAsync<TodoList>(listId);
 
-        list.Title.Should().Be(command.Title);
+        list.Should().NotBeNull();
+        list!.Title.Should().Be(command.Title);
         list.LastModifiedBy.Should().NotBeNull();
         list.LastModifiedBy.Should().Be(userId);
         list.LastModified.Should().NotBeNull();

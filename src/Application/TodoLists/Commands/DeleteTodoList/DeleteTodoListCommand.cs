@@ -1,9 +1,7 @@
 ﻿using CleanArchitecture.Application.Common.Exceptions;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Domain.Entities;
-
 using MediatR;
-
 using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Application.TodoLists.Commands.DeleteTodoList;

@@ -1,5 +1,4 @@
 ﻿using CleanArchitecture.Domain.Common;
-
 using MediatR;
 
 namespace CleanArchitecture.Application.Common.Models;

@@ -446,7 +446,6 @@
         "properties": {
           "items": {
             "type": "array",
-            "nullable": true,
             "items": {
               "$ref": "#/components/schemas/TodoItemBriefDto"
             }
@@ -566,14 +565,12 @@
         "properties": {
           "priorityLevels": {
             "type": "array",
-            "nullable": true,
             "items": {
               "$ref": "#/components/schemas/PriorityLevelDto"
             }
           },
           "lists": {
             "type": "array",
-            "nullable": true,
             "items": {
               "$ref": "#/components/schemas/TodoListDto"
             }
@@ -612,7 +609,6 @@
           },
           "items": {
             "type": "array",
-            "nullable": true,
             "items": {
               "$ref": "#/components/schemas/TodoItemDto"
             }

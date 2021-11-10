@@ -1,9 +1,7 @@
 ﻿using System.Globalization;
-
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.TodoLists.Queries.ExportTodos;
 using CleanArchitecture.Infrastructure.Files.Maps;
-
 using CsvHelper;
 
 namespace CleanArchitecture.Infrastructure.Files;

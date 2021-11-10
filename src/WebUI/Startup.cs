@@ -4,11 +4,8 @@ using CleanArchitecture.Infrastructure;
 using CleanArchitecture.Infrastructure.Persistence;
 using CleanArchitecture.WebUI.Filters;
 using CleanArchitecture.WebUI.Services;
-
 using FluentValidation.AspNetCore;
-
 using Microsoft.AspNetCore.Mvc;
-
 using NSwag;
 using NSwag.Generation.Processors.Security;
 

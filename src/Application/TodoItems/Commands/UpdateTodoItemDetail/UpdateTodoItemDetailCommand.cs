@@ -2,7 +2,6 @@
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Enums;
-
 using MediatR;
 
 namespace CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItemDetail;
@@ -15,7 +14,7 @@ public class UpdateTodoItemDetailCommand : IRequest
 
     public PriorityLevel Priority { get; set; }
 
-    public string Note { get; set; }
+    public string? Note { get; set; }
 }
 
 public class UpdateTodoItemDetailCommandHandler : IRequestHandler<UpdateTodoItemDetailCommand>

@@ -1,9 +1,7 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Domain.Common;
-
 using MediatR;
-
 using Microsoft.Extensions.Logging;
 
 namespace CleanArchitecture.Infrastructure.Services;
@@ -28,6 +26,6 @@ public class DomainEventService : IDomainEventService
     private INotification GetNotificationCorrespondingToDomainEvent(DomainEvent domainEvent)
     {
         return (INotification)Activator.CreateInstance(
-            typeof(DomainEventNotification<>).MakeGenericType(domainEvent.GetType()), domainEvent);
+            typeof(DomainEventNotification<>).MakeGenericType(domainEvent.GetType()), domainEvent)!;
     }
 }

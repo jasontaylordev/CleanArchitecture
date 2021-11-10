@@ -1,6 +1,5 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.Common.Models;
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -47,12 +46,17 @@ public class IdentityService : IIdentityService
     {
         var user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
 
-        return await _userManager.IsInRoleAsync(user, role);
+        return user != null && await _userManager.IsInRoleAsync(user, role);
     }
 
     public async Task<bool> AuthorizeAsync(string userId, string policyName)
     {
         var user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
+
+        if (user == null)
+        {
+            return false;
+        }
 
         var principal = await _userClaimsPrincipalFactory.CreateAsync(user);
 

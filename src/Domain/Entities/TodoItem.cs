@@ -8,13 +8,11 @@ public class TodoItem : AuditableEntity, IHasDomainEvent
 {
     public int Id { get; set; }
 
-    public TodoList List { get; set; }
-
     public int ListId { get; set; }
 
-    public string Title { get; set; }
+    public string? Title { get; set; }
 
-    public string Note { get; set; }
+    public string? Note { get; set; }
 
     public PriorityLevel Priority { get; set; }
 
@@ -34,6 +32,8 @@ public class TodoItem : AuditableEntity, IHasDomainEvent
             _done = value;
         }
     }
+
+    public TodoList List { get; set; } = null!;
 
     public List<DomainEvent> DomainEvents { get; set; } = new List<DomainEvent>();
 }

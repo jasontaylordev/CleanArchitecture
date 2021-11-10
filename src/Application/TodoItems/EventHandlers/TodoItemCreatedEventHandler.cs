@@ -1,8 +1,6 @@
 ﻿using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Domain.Events;
-
 using MediatR;
-
 using Microsoft.Extensions.Logging;
 
 namespace CleanArchitecture.Application.TodoItems.EventHandlers;

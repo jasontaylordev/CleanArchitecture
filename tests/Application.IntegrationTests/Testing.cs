@@ -12,13 +12,15 @@ using Moq;
 using NUnit.Framework;
 using Respawn;
 
+namespace CleanArchitecture.Application.IntegrationTests;
+
 [SetUpFixture]
 public class Testing
 {
-    private static IConfigurationRoot _configuration;
-    private static IServiceScopeFactory _scopeFactory;
-    private static Checkpoint _checkpoint;
-    private static string _currentUserId;
+    private static IConfigurationRoot _configuration = null!;
+    private static IServiceScopeFactory _scopeFactory = null!;
+    private static Checkpoint _checkpoint = null!;
+    private static string? _currentUserId;
 
     [OneTimeSetUp]
     public void RunBeforeAnyTests()
@@ -47,13 +49,16 @@ public class Testing
         var currentUserServiceDescriptor = services.FirstOrDefault(d =>
             d.ServiceType == typeof(ICurrentUserService));
 
-        services.Remove(currentUserServiceDescriptor);
+        if (currentUserServiceDescriptor != null)
+        {
+            services.Remove(currentUserServiceDescriptor);
+        }
 
         // Register testing version
         services.AddTransient(provider =>
             Mock.Of<ICurrentUserService>(s => s.UserId == _currentUserId));
 
-        _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
+        _scopeFactory = services.BuildServiceProvider().GetRequiredService<IServiceScopeFactory>();
 
         _checkpoint = new Checkpoint
         {
@@ -67,7 +72,7 @@ public class Testing
     {
         using var scope = _scopeFactory.CreateScope();
 
-        var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+        var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
         context.Database.Migrate();
     }
@@ -76,7 +81,7 @@ public class Testing
     {
         using var scope = _scopeFactory.CreateScope();
 
-        var mediator = scope.ServiceProvider.GetService<ISender>();
+        var mediator = scope.ServiceProvider.GetRequiredService<ISender>();
 
         return await mediator.Send(request);
     }
@@ -95,7 +100,7 @@ public class Testing
     {
         using var scope = _scopeFactory.CreateScope();
 
-        var userManager = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
         var user = new ApplicationUser { UserName = userName, Email = userName };
 
@@ -103,7 +108,7 @@ public class Testing
 
         if (roles.Any())
         {
-            var roleManager = scope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
+            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
             foreach (var role in roles)
             {
@@ -128,15 +133,16 @@ public class Testing
     public static async Task ResetState()
     {
         await _checkpoint.Reset(_configuration.GetConnectionString("DefaultConnection"));
+
         _currentUserId = null;
     }
 
-    public static async Task<TEntity> FindAsync<TEntity>(params object[] keyValues)
+    public static async Task<TEntity?> FindAsync<TEntity>(params object[] keyValues)
         where TEntity : class
     {
         using var scope = _scopeFactory.CreateScope();
 
-        var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+        var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
         return await context.FindAsync<TEntity>(keyValues);
     }
@@ -146,7 +152,7 @@ public class Testing
     {
         using var scope = _scopeFactory.CreateScope();
 
-        var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+        var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
         context.Add(entity);
 
@@ -157,7 +163,7 @@ public class Testing
     {
         using var scope = _scopeFactory.CreateScope();
 
-        var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+        var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
         return await context.Set<TEntity>().CountAsync();
     }

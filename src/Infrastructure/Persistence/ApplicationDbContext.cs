@@ -1,12 +1,9 @@
 ﻿using System.Reflection;
-
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Domain.Common;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Infrastructure.Identity;
-
 using Duende.IdentityServer.EntityFramework.Options;
-
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -31,9 +28,9 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
         _dateTime = dateTime;
     }
 
-    public DbSet<TodoItem> TodoItems { get; set; }
+    public DbSet<TodoList> TodoLists => Set<TodoList>();
 
-    public DbSet<TodoList> TodoLists { get; set; }
+    public DbSet<TodoItem> TodoItems => Set<TodoItem>();
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
     {

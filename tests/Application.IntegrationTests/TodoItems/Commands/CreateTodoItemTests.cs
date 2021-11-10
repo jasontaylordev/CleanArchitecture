@@ -2,9 +2,7 @@
 using CleanArchitecture.Application.TodoItems.Commands.CreateTodoItem;
 using CleanArchitecture.Application.TodoLists.Commands.CreateTodoList;
 using CleanArchitecture.Domain.Entities;
-
 using FluentAssertions;
-
 using NUnit.Framework;
 
 namespace CleanArchitecture.Application.IntegrationTests.TodoItems.Commands;
@@ -43,7 +41,7 @@ public class CreateTodoItemTests : TestBase
         var item = await FindAsync<TodoItem>(itemId);
 
         item.Should().NotBeNull();
-        item.ListId.Should().Be(command.ListId);
+        item!.ListId.Should().Be(command.ListId);
         item.Title.Should().Be(command.Title);
         item.CreatedBy.Should().Be(userId);
         item.Created.Should().BeCloseTo(DateTime.Now, TimeSpan.FromMilliseconds(10000));

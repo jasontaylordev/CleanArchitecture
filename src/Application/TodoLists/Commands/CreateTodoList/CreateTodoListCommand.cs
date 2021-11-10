@@ -1,13 +1,12 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Domain.Entities;
-
 using MediatR;
 
 namespace CleanArchitecture.Application.TodoLists.Commands.CreateTodoList;
 
 public class CreateTodoListCommand : IRequest<int>
 {
-    public string Title { get; set; }
+    public string? Title { get; set; }
 }
 
 public class CreateTodoListCommandHandler : IRequestHandler<CreateTodoListCommand, int>

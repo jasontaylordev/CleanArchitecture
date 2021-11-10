@@ -1,7 +1,6 @@
 ﻿using CleanArchitecture.Application.Common.Exceptions;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Domain.Entities;
-
 using MediatR;
 
 namespace CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItem;
@@ -10,7 +9,7 @@ public class UpdateTodoItemCommand : IRequest
 {
     public int Id { get; set; }
 
-    public string Title { get; set; }
+    public string? Title { get; set; }
 
     public bool Done { get; set; }
 }

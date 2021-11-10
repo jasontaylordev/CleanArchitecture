@@ -1,11 +1,7 @@
 ﻿using System.Reflection;
-
 using CleanArchitecture.Application.Common.Behaviours;
-
 using FluentValidation;
-
 using MediatR;
-
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CleanArchitecture.Application;

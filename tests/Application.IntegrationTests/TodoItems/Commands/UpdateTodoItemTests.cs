@@ -3,9 +3,7 @@ using CleanArchitecture.Application.TodoItems.Commands.CreateTodoItem;
 using CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItem;
 using CleanArchitecture.Application.TodoLists.Commands.CreateTodoList;
 using CleanArchitecture.Domain.Entities;
-
 using FluentAssertions;
-
 using NUnit.Framework;
 
 namespace CleanArchitecture.Application.IntegrationTests.TodoItems.Commands;
@@ -47,7 +45,8 @@ public class UpdateTodoItemTests : TestBase
 
         var item = await FindAsync<TodoItem>(itemId);
 
-        item.Title.Should().Be(command.Title);
+        item.Should().NotBeNull();
+        item!.Title.Should().Be(command.Title);
         item.LastModifiedBy.Should().NotBeNull();
         item.LastModifiedBy.Should().Be(userId);
         item.LastModified.Should().NotBeNull();
