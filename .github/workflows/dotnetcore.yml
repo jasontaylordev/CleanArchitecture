@@ -31,6 +31,10 @@ jobs:
           ACCEPT_EULA: Y
     steps:
     - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.100
     - name: run tests
       run: dotnet test CleanArchitecture.sln --configuration Release
       env:
