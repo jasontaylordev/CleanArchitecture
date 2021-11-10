@@ -1,7 +1,4 @@
-﻿using CleanArchitecture.Domain.Common;
-using CleanArchitecture.Domain.Entities;
-
-namespace CleanArchitecture.Domain.Events;
+﻿namespace CleanArchitecture.Domain.Events;
 
 public class TodoItemDeletedEvent : DomainEvent
 {
