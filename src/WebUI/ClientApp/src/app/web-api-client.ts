@@ -649,7 +649,7 @@ export class WeatherForecastClient implements IWeatherForecastClient {
 
 export class PaginatedListOfTodoItemBriefDto implements IPaginatedListOfTodoItemBriefDto {
     items?: TodoItemBriefDto[] | undefined;
-    pageIndex?: number;
+    pageNumber?: number;
     totalPages?: number;
     totalCount?: number;
     hasPreviousPage?: boolean;
@@ -671,7 +671,7 @@ export class PaginatedListOfTodoItemBriefDto implements IPaginatedListOfTodoItem
                 for (let item of _data["items"])
                     this.items!.push(TodoItemBriefDto.fromJS(item));
             }
-            this.pageIndex = _data["pageIndex"];
+            this.pageNumber = _data["pageNumber"];
             this.totalPages = _data["totalPages"];
             this.totalCount = _data["totalCount"];
             this.hasPreviousPage = _data["hasPreviousPage"];
@@ -693,7 +693,7 @@ export class PaginatedListOfTodoItemBriefDto implements IPaginatedListOfTodoItem
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        data["pageIndex"] = this.pageIndex;
+        data["pageNumber"] = this.pageNumber;
         data["totalPages"] = this.totalPages;
         data["totalCount"] = this.totalCount;
         data["hasPreviousPage"] = this.hasPreviousPage;
@@ -704,7 +704,7 @@ export class PaginatedListOfTodoItemBriefDto implements IPaginatedListOfTodoItem
 
 export interface IPaginatedListOfTodoItemBriefDto {
     items?: TodoItemBriefDto[] | undefined;
-    pageIndex?: number;
+    pageNumber?: number;
     totalPages?: number;
     totalCount?: number;
     hasPreviousPage?: boolean;

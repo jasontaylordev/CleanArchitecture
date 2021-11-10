@@ -451,7 +451,7 @@
               "$ref": "#/components/schemas/TodoItemBriefDto"
             }
           },
-          "pageIndex": {
+          "pageNumber": {
             "type": "integer",
             "format": "int32"
           },
