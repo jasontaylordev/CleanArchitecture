@@ -20,7 +20,7 @@ namespace CleanArchitecture.Infrastructure.Persistence
         private readonly IDomainEventService _domainEventService;
 
         public ApplicationDbContext(
-            DbContextOptions options,
+            DbContextOptions<ApplicationDbContext> options,
             IOptions<OperationalStoreOptions> operationalStoreOptions,
             ICurrentUserService currentUserService,
             IDomainEventService domainEventService,
