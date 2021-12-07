@@ -6,10 +6,7 @@ using MediatR;
 
 namespace CleanArchitecture.Application.TodoItems.Commands.DeleteTodoItem;
 
-public class DeleteTodoItemCommand : IRequest
-{
-    public int Id { get; set; }
-}
+public record DeleteTodoItemCommand(int Id) : IRequest;
 
 public class DeleteTodoItemCommandHandler : IRequestHandler<DeleteTodoItemCommand>
 {
