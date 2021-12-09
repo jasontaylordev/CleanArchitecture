@@ -12,19 +12,29 @@ public class MappingProfile : Profile
 
     private void ApplyMappingsFromAssembly(Assembly assembly)
     {
-        var types = assembly.GetExportedTypes()
-            .Where(t => t.GetInterfaces().Any(i =>
-                i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IMapFrom<>)))
+        var types = (from t in assembly.GetExportedTypes()
+                     let mapInterfaces = t.GetInterfaces().Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IMapFrom<>)).ToList()
+                     where mapInterfaces.Any()
+                     select (t, mapInterfaces)
+            )
             .ToList();
 
-        foreach (var type in types)
+        foreach (var (type, mapInterfaces) in types)
         {
             var instance = Activator.CreateInstance(type);
 
-            var methodInfo = type.GetMethod("Mapping")
-                ?? type.GetInterface("IMapFrom`1")!.GetMethod("Mapping");
+            var classMethodInfo = type.GetMethod("Mapping");
+            if (classMethodInfo != null)
+                classMethodInfo.Invoke(instance, new object[] { this });
+            else
+            {
+                foreach (var mapInterface in mapInterfaces)
+                {
+                    var methodInfo = mapInterface.GetMethod("Mapping");
+                    methodInfo?.Invoke(instance, new object[] { this });
+                }
 
-            methodInfo?.Invoke(instance, new object[] { this });
+            }
 
         }
     }
