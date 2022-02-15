@@ -1,8 +1,11 @@
  <img align="left" width="116" height="116" src="https://raw.githubusercontent.com/jasontaylordev/CleanArchitecture/main/.github/icon.png" />
  
  # Clean Architecture Solution Template
-![.NET Core](https://github.com/jasontaylordev/CleanArchitecture/workflows/.NET%20Core/badge.svg) [![Clean.Architecture.Solution.Template NuGet Package](https://img.shields.io/badge/nuget-1.1.1-blue)](https://www.nuget.org/packages/Clean.Architecture.Solution.Template) [![NuGet](https://img.shields.io/nuget/dt/Clean.Architecture.Solution.Template.svg)](https://www.nuget.org/packages/Clean.Architecture.Solution.Template) [![Twitter Follow](https://img.shields.io/twitter/follow/jasontaylordev.svg?style=social&label=Follow)](https://twitter.com/jasontaylordev)
+![.NET Core](https://github.com/jasontaylordev/CleanArchitecture/workflows/.NET%20Core/badge.svg) 
+[![Clean.Architecture.Solution.Template NuGet Package](https://img.shields.io/badge/nuget-6.0.1-blue)](https://www.nuget.org/packages/Clean.Architecture.Solution.Template) 
+[![NuGet](https://img.shields.io/nuget/dt/Clean.Architecture.Solution.Template.svg)](https://www.nuget.org/packages/Clean.Architecture.Solution.Template)
 [![Discord](https://img.shields.io/discord/893301913662148658?label=Discord&logo=discord&logoColor=white)](https://discord.gg/p9YtBjfgGe)
+[![Twitter Follow](https://img.shields.io/twitter/follow/jasontaylordev.svg?style=social&label=Follow)](https://twitter.com/jasontaylordev)
 
 
 <br/>
@@ -15,8 +18,8 @@ This is a solution template for creating a Single Page App (SPA) with Angular an
 
 ## Technologies
 
-* ASP.NET Core 5
-* [Entity Framework Core 5](https://docs.microsoft.com/en-us/ef/core/)
+* [ASP.NET Core 6](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core?view=aspnetcore-6.0)
+* [Entity Framework Core 6](https://docs.microsoft.com/en-us/ef/core/)
 * [Angular 12](https://angular.io/)
 * [MediatR](https://github.com/jbogard/MediatR)
 * [AutoMapper](https://automapper.org/)
@@ -28,7 +31,7 @@ This is a solution template for creating a Single Page App (SPA) with Angular an
 
 The easiest way to get started is to install the [NuGet package](https://www.nuget.org/packages/Clean.Architecture.Solution.Template) and run `dotnet new ca-sln`:
 
-1. Install the latest [.NET 5 SDK](https://dotnet.microsoft.com/download/dotnet/5.0)
+1. Install the latest [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet/6.0)
 2. Install the latest [Node.js LTS](https://nodejs.org/en/)
 3. Run `dotnet new --install Clean.Architecture.Solution.Template` to install the project template
 4. Create a folder for your solution and cd into it (the template will use it as project name)
@@ -42,7 +45,7 @@ Check out my [blog post](https://jasontaylor.dev/clean-architecture-getting-star
 ### Docker Configuration
 
 In order to get Docker working, you will need to add a temporary SSL cert and mount a volume to hold that cert.
-You can find [Microsoft Docs](https://docs.microsoft.com/en-us/aspnet/core/security/docker-https?view=aspnetcore-3.1) that describe the steps required for Windows, macOS, and Linux.
+You can find [Microsoft Docs](https://docs.microsoft.com/en-us/aspnet/core/security/docker-https?view=aspnetcore-6.0) that describe the steps required for Windows, macOS, and Linux.
 
 For Windows:
 The following will need to be executed from your terminal to create a cert

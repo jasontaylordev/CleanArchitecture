@@ -1,10 +1,8 @@
 ﻿using CleanArchitecture.Domain.Common;
-using System.Threading.Tasks;
 
-namespace CleanArchitecture.Application.Common.Interfaces
+namespace CleanArchitecture.Application.Common.Interfaces;
+
+public interface IDomainEventService
 {
-    public interface IDomainEventService
-    {
-        Task Publish(DomainEvent domainEvent);
-    }
+    Task Publish(DomainEvent domainEvent);
 }
