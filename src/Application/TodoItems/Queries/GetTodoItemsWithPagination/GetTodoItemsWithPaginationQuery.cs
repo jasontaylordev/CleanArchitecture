@@ -1,36 +1,26 @@
 ﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Application.Common.Mappings;
-using CleanArchitecture.Application.Common.Models;
-using MediatR;
+using CleanArchitecture.Application.Common.Queries;
+using CleanArchitecture.Domain.Entities;
 
 namespace CleanArchitecture.Application.TodoItems.Queries.GetTodoItemsWithPagination;
 
-public class GetTodoItemsWithPaginationQuery : IRequest<PaginatedList<TodoItemBriefDto>>
+public class GetTodoItemsWithPaginationQuery : PageEntityBaseQuery<TodoItemBriefDto>
 {
     public int ListId { get; set; }
-    public int PageNumber { get; set; } = 1;
-    public int PageSize { get; set; } = 10;
+
 }
 
-public class GetTodoItemsWithPaginationQueryHandler : IRequestHandler<GetTodoItemsWithPaginationQuery, PaginatedList<TodoItemBriefDto>>
+public class GetTodoItemsWithPaginationQueryHandler : PageEntityBaseQueryHandler<GetTodoItemsWithPaginationQuery, TodoItem, TodoItemBriefDto>
 {
-    private readonly IApplicationDbContext _context;
-    private readonly IMapper _mapper;
 
-    public GetTodoItemsWithPaginationQueryHandler(IApplicationDbContext context, IMapper mapper)
+    public GetTodoItemsWithPaginationQueryHandler(IApplicationDbContext context, IMapper mapper) : base(context, mapper)
     {
-        _context = context;
-        _mapper = mapper;
     }
 
-    public async Task<PaginatedList<TodoItemBriefDto>> Handle(GetTodoItemsWithPaginationQuery request, CancellationToken cancellationToken)
+    protected override IQueryable<TodoItem> Query(GetTodoItemsWithPaginationQuery request)
     {
-        return await _context.TodoItems
-            .Where(x => x.ListId == request.ListId)
-            .OrderBy(x => x.Title)
-            .ProjectTo<TodoItemBriefDto>(_mapper.ConfigurationProvider)
-            .PaginatedListAsync(request.PageNumber, request.PageSize);
+        return Entity.Where(x => x.ListId == request.ListId)
+        .OrderBy(x => x.Title);
     }
 }
