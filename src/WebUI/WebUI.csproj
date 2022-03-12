@@ -1,85 +1,92 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>CleanArchitecture.WebUI</RootNamespace>
-    <AssemblyName>CleanArchitecture.WebUI</AssemblyName>
-    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
-    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
-    <IsPackable>true</IsPackable>
-    <!--<IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>-->
-    <SpaRoot>ClientApp\</SpaRoot>
-    <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <RootNamespace>CleanArchitecture.WebUI</RootNamespace>
+        <AssemblyName>CleanArchitecture.WebUI</AssemblyName>
+        <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+        <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+        <IsPackable>true</IsPackable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <SpaRoot>ClientApp\</SpaRoot>
+        <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
 
-    <!-- Set this to true if you enable server-side prerendering -->
-    <BuildServerSideRenderer>false</BuildServerSideRenderer>
-    <UserSecretsId>efad71c6-743c-4b87-9de8-f26d77146f6d</UserSecretsId>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>..\..</DockerfileContext>
-    <DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
-  </PropertyGroup>
+        <!-- Set this to true if you enable server-side prerendering -->
+        <BuildServerSideRenderer>false</BuildServerSideRenderer>
+        <UserSecretsId>efad71c6-743c-4b87-9de8-f26d77146f6d</UserSecretsId>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <DockerfileContext>..\..</DockerfileContext>
+        <DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="FluentValidation.AspNetCore" Version="9.3.0" />
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="5.0.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.8" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="NSwag.AspNetCore" Version="13.9.4" />
-    <PackageReference Include="NSwag.MSBuild" Version="13.9.4">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <!-- Don't publish the SPA source files, but do show them in the project files list -->
-    <Content Remove="$(SpaRoot)**" />
-    <None Remove="$(SpaRoot)**" />
-    <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Application\Application.csproj" />
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
-  </ItemGroup>
-
-  <Target Name="NSwag" AfterTargets="Build" Condition="'$(Configuration)' == 'Debug'">
-    <Copy SourceFiles="@(Reference)" DestinationFolder="$(OutDir)References" />
-    <Exec Command="$(NSwagExe_Net50) run /variables:Configuration=$(Configuration)" />
-    <RemoveDir Directories="$(OutDir)References" />
-  </Target>
-
-  <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
-    <!-- Ensure Node.js is installed -->
-    <Exec Command="node --version" ContinueOnError="true">
-      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
-    </Exec>
-    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
-    <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
-  </Target>
-
-  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
-    <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --prod" />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr -- --prod" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
-
-    <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
-      <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
-      <DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />
-      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
-        <RelativePath>%(DistFiles.Identity)</RelativePath>
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      </ResolvedFileToPublish>
+        <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.4" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="6.0.0" />
+        <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="6.0.0" />
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="NSwag.AspNetCore" Version="13.14.4" />
+        <PackageReference Include="NSwag.MSBuild" Version="13.14.4">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
     </ItemGroup>
-  </Target>
+
+    <ItemGroup>
+        <!-- Don't publish the SPA source files, but do show them in the project files list -->
+        <Content Remove="$(SpaRoot)**" />
+        <None Remove="$(SpaRoot)**" />
+        <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Application\Application.csproj" />
+        <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+    </ItemGroup>
+
+    <PropertyGroup>
+        <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    </PropertyGroup>
+
+    <Target Name="NSwag" AfterTargets="PostBuildEvent" Condition=" '$(Configuration)' == 'Debug' ">
+        <Message Importance="High" Text="$(NSwagExe_Net60) run nswag.json /variables:Configuration=$(Configuration)" />
+        <Exec WorkingDirectory="$(ProjectDir)" EnvironmentVariables="ASPNETCORE_ENVIRONMENT=Development" Command="$(NSwagExe_Net60) run nswag.json /variables:Configuration=$(Configuration)" />
+        <Delete Files="$(ProjectDir)\obj\$(MSBuildProjectFile).NSwag.targets" />
+        <!-- This thingy trigger project rebuild -->
+    </Target>
+
+    <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
+        <!-- Ensure Node.js is installed -->
+        <Exec Command="node --version" ContinueOnError="true">
+            <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+        </Exec>
+        <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+        <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
+        <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+    </Target>
+
+    <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+        <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+        <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+        <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --prod" />
+        <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr -- --prod" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
+
+        <!-- Include the newly-built files in the publish output -->
+        <ItemGroup>
+            <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
+            <DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />
+            <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+                <RelativePath>%(DistFiles.Identity)</RelativePath>
+                <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+                <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+            </ResolvedFileToPublish>
+        </ItemGroup>
+    </Target>
 
 </Project>

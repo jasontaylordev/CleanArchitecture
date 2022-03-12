@@ -1,15 +1,11 @@
-﻿using CleanArchitecture.Domain.Common;
-using CleanArchitecture.Domain.Entities;
+﻿namespace CleanArchitecture.Domain.Events;
 
-namespace CleanArchitecture.Domain.Events
+public class TodoItemCreatedEvent : DomainEvent
 {
-    public class TodoItemCreatedEvent : DomainEvent
+    public TodoItemCreatedEvent(TodoItem item)
     {
-        public TodoItemCreatedEvent(TodoItem item)
-        {
-            Item = item;
-        }
-
-        public TodoItem Item { get; }
+        Item = item;
     }
+
+    public TodoItem Item { get; }
 }

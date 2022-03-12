@@ -234,3 +234,5 @@ _Pvt_Extensions
 .fake/
 /NDependOut
 /CleanArchitecture.ndproj
+/.mfractor
+src/WebUI/ClientApp/package-lock.json

@@ -1,22 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>CleanArchitecture.Infrastructure</RootNamespace>
-    <AssemblyName>CleanArchitecture.Infrastructure</AssemblyName>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <RootNamespace>CleanArchitecture.Infrastructure</RootNamespace>
+        <AssemblyName>CleanArchitecture.Infrastructure</AssemblyName>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="CsvHelper" Version="15.0.10" />
-    <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="5.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.0" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="CsvHelper" Version="15.0.10" />
+        <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="6.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.0" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Application\Application.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Application\Application.csproj" />
+    </ItemGroup>
 
 </Project>

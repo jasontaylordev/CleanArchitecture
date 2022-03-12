@@ -15,7 +15,7 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angula
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 export interface ITodoItemsClient {
-    getTodoItemsWithPagination(listId: number | undefined, pageNumber: number | undefined, pageSize: number | undefined): Observable<PaginatedListOfTodoItemDto>;
+    getTodoItemsWithPagination(listId: number | undefined, pageNumber: number | undefined, pageSize: number | undefined): Observable<PaginatedListOfTodoItemBriefDto>;
     create(command: CreateTodoItemCommand): Observable<number>;
     update(id: number, command: UpdateTodoItemCommand): Observable<FileResponse>;
     delete(id: number): Observable<FileResponse>;
@@ -35,7 +35,7 @@ export class TodoItemsClient implements ITodoItemsClient {
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
-    getTodoItemsWithPagination(listId: number | undefined, pageNumber: number | undefined, pageSize: number | undefined): Observable<PaginatedListOfTodoItemDto> {
+    getTodoItemsWithPagination(listId: number | undefined, pageNumber: number | undefined, pageSize: number | undefined): Observable<PaginatedListOfTodoItemBriefDto> {
         let url_ = this.baseUrl + "/api/TodoItems?";
         if (listId === null)
             throw new Error("The parameter 'listId' cannot be null.");
@@ -66,14 +66,14 @@ export class TodoItemsClient implements ITodoItemsClient {
                 try {
                     return this.processGetTodoItemsWithPagination(<any>response_);
                 } catch (e) {
-                    return <Observable<PaginatedListOfTodoItemDto>><any>_observableThrow(e);
+                    return <Observable<PaginatedListOfTodoItemBriefDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<PaginatedListOfTodoItemDto>><any>_observableThrow(response_);
+                return <Observable<PaginatedListOfTodoItemBriefDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetTodoItemsWithPagination(response: HttpResponseBase): Observable<PaginatedListOfTodoItemDto> {
+    protected processGetTodoItemsWithPagination(response: HttpResponseBase): Observable<PaginatedListOfTodoItemBriefDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -84,7 +84,7 @@ export class TodoItemsClient implements ITodoItemsClient {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PaginatedListOfTodoItemDto.fromJS(resultData200);
+            result200 = PaginatedListOfTodoItemBriefDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -92,7 +92,7 @@ export class TodoItemsClient implements ITodoItemsClient {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<PaginatedListOfTodoItemDto>(<any>null);
+        return _observableOf<PaginatedListOfTodoItemBriefDto>(<any>null);
     }
 
     create(command: CreateTodoItemCommand): Observable<number> {
@@ -647,15 +647,15 @@ export class WeatherForecastClient implements IWeatherForecastClient {
     }
 }
 
-export class PaginatedListOfTodoItemDto implements IPaginatedListOfTodoItemDto {
-    items?: TodoItemDto[] | undefined;
-    pageIndex?: number;
+export class PaginatedListOfTodoItemBriefDto implements IPaginatedListOfTodoItemBriefDto {
+    items?: TodoItemBriefDto[];
+    pageNumber?: number;
     totalPages?: number;
     totalCount?: number;
     hasPreviousPage?: boolean;
     hasNextPage?: boolean;
 
-    constructor(data?: IPaginatedListOfTodoItemDto) {
+    constructor(data?: IPaginatedListOfTodoItemBriefDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -669,9 +669,9 @@ export class PaginatedListOfTodoItemDto implements IPaginatedListOfTodoItemDto {
             if (Array.isArray(_data["items"])) {
                 this.items = [] as any;
                 for (let item of _data["items"])
-                    this.items!.push(TodoItemDto.fromJS(item));
+                    this.items!.push(TodoItemBriefDto.fromJS(item));
             }
-            this.pageIndex = _data["pageIndex"];
+            this.pageNumber = _data["pageNumber"];
             this.totalPages = _data["totalPages"];
             this.totalCount = _data["totalCount"];
             this.hasPreviousPage = _data["hasPreviousPage"];
@@ -679,9 +679,9 @@ export class PaginatedListOfTodoItemDto implements IPaginatedListOfTodoItemDto {
         }
     }
 
-    static fromJS(data: any): PaginatedListOfTodoItemDto {
+    static fromJS(data: any): PaginatedListOfTodoItemBriefDto {
         data = typeof data === 'object' ? data : {};
-        let result = new PaginatedListOfTodoItemDto();
+        let result = new PaginatedListOfTodoItemBriefDto();
         result.init(data);
         return result;
     }
@@ -693,7 +693,7 @@ export class PaginatedListOfTodoItemDto implements IPaginatedListOfTodoItemDto {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        data["pageIndex"] = this.pageIndex;
+        data["pageNumber"] = this.pageNumber;
         data["totalPages"] = this.totalPages;
         data["totalCount"] = this.totalCount;
         data["hasPreviousPage"] = this.hasPreviousPage;
@@ -702,24 +702,22 @@ export class PaginatedListOfTodoItemDto implements IPaginatedListOfTodoItemDto {
     }
 }
 
-export interface IPaginatedListOfTodoItemDto {
-    items?: TodoItemDto[] | undefined;
-    pageIndex?: number;
+export interface IPaginatedListOfTodoItemBriefDto {
+    items?: TodoItemBriefDto[];
+    pageNumber?: number;
     totalPages?: number;
     totalCount?: number;
     hasPreviousPage?: boolean;
     hasNextPage?: boolean;
 }
 
-export class TodoItemDto implements ITodoItemDto {
+export class TodoItemBriefDto implements ITodoItemBriefDto {
     id?: number;
     listId?: number;
     title?: string | undefined;
     done?: boolean;
-    priority?: number;
-    note?: string | undefined;
 
-    constructor(data?: ITodoItemDto) {
+    constructor(data?: ITodoItemBriefDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -734,14 +732,12 @@ export class TodoItemDto implements ITodoItemDto {
             this.listId = _data["listId"];
             this.title = _data["title"];
             this.done = _data["done"];
-            this.priority = _data["priority"];
-            this.note = _data["note"];
         }
     }
 
-    static fromJS(data: any): TodoItemDto {
+    static fromJS(data: any): TodoItemBriefDto {
         data = typeof data === 'object' ? data : {};
-        let result = new TodoItemDto();
+        let result = new TodoItemBriefDto();
         result.init(data);
         return result;
     }
@@ -752,19 +748,15 @@ export class TodoItemDto implements ITodoItemDto {
         data["listId"] = this.listId;
         data["title"] = this.title;
         data["done"] = this.done;
-        data["priority"] = this.priority;
-        data["note"] = this.note;
         return data; 
     }
 }
 
-export interface ITodoItemDto {
+export interface ITodoItemBriefDto {
     id?: number;
     listId?: number;
     title?: string | undefined;
     done?: boolean;
-    priority?: number;
-    note?: string | undefined;
 }
 
 export class CreateTodoItemCommand implements ICreateTodoItemCommand {
@@ -907,8 +899,8 @@ export enum PriorityLevel {
 }
 
 export class TodosVm implements ITodosVm {
-    priorityLevels?: PriorityLevelDto[] | undefined;
-    lists?: TodoListDto[] | undefined;
+    priorityLevels?: PriorityLevelDto[];
+    lists?: TodoListDto[];
 
     constructor(data?: ITodosVm) {
         if (data) {
@@ -958,8 +950,8 @@ export class TodosVm implements ITodosVm {
 }
 
 export interface ITodosVm {
-    priorityLevels?: PriorityLevelDto[] | undefined;
-    lists?: TodoListDto[] | undefined;
+    priorityLevels?: PriorityLevelDto[];
+    lists?: TodoListDto[];
 }
 
 export class PriorityLevelDto implements IPriorityLevelDto {
@@ -1006,7 +998,7 @@ export class TodoListDto implements ITodoListDto {
     id?: number;
     title?: string | undefined;
     colour?: string | undefined;
-    items?: TodoItemDto[] | undefined;
+    items?: TodoItemDto[];
 
     constructor(data?: ITodoListDto) {
         if (data) {
@@ -1055,7 +1047,63 @@ export interface ITodoListDto {
     id?: number;
     title?: string | undefined;
     colour?: string | undefined;
-    items?: TodoItemDto[] | undefined;
+    items?: TodoItemDto[];
+}
+
+export class TodoItemDto implements ITodoItemDto {
+    id?: number;
+    listId?: number;
+    title?: string | undefined;
+    done?: boolean;
+    priority?: number;
+    note?: string | undefined;
+
+    constructor(data?: ITodoItemDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.listId = _data["listId"];
+            this.title = _data["title"];
+            this.done = _data["done"];
+            this.priority = _data["priority"];
+            this.note = _data["note"];
+        }
+    }
+
+    static fromJS(data: any): TodoItemDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new TodoItemDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["listId"] = this.listId;
+        data["title"] = this.title;
+        data["done"] = this.done;
+        data["priority"] = this.priority;
+        data["note"] = this.note;
+        return data; 
+    }
+}
+
+export interface ITodoItemDto {
+    id?: number;
+    listId?: number;
+    title?: string | undefined;
+    done?: boolean;
+    priority?: number;
+    note?: string | undefined;
 }
 
 export class CreateTodoListCommand implements ICreateTodoListCommand {
