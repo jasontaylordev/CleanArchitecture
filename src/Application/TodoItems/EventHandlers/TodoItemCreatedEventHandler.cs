@@ -8,12 +8,10 @@ namespace CleanArchitecture.Application.TodoItems.EventHandlers;
 public class TodoItemCreatedEventHandler : INotificationHandler<DomainEventNotification<TodoItemCreatedEvent>>
 {
     private readonly ILogger<TodoItemCreatedEventHandler> _logger;
-
     public TodoItemCreatedEventHandler(ILogger<TodoItemCreatedEventHandler> logger)
     {
         _logger = logger;
     }
-
     public Task Handle(DomainEventNotification<TodoItemCreatedEvent> notification, CancellationToken cancellationToken)
     {
         var domainEvent = notification.DomainEvent;
