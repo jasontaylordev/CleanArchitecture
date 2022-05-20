@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using CleanArchitecture.Application.Common.Interfaces;
+using CleanArchitecture.Application.Common.Mappings;
 using CleanArchitecture.Domain.Enums;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Application.TodoLists.Queries.GetTodos;
 
@@ -32,10 +31,8 @@ public class GetTodosQueryHandler : IRequestHandler<GetTodosQuery, TodosVm>
                 .ToList(),
 
             Lists = await _context.TodoLists
-                .AsNoTracking()
-                .ProjectTo<TodoListDto>(_mapper.ConfigurationProvider)
                 .OrderBy(t => t.Title)
-                .ToListAsync(cancellationToken)
+                .ProjectToListAsync<TodoListDto>(_mapper.ConfigurationProvider)
         };
     }
 }
