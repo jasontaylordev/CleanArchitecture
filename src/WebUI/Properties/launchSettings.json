@@ -24,19 +24,6 @@
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy"
       }
-    },
-    "Docker": {
-      "commandName": "Docker",
-      "launchBrowser": true,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
-      "environmentVariables": {
-        "UseInMemoryDatabase": "true",
-        "ASPNETCORE_HTTPS_PORT": "5001",
-        "ASPNETCORE_URLS": "https://+:5001;http://+:5000"
-      },
-      "httpPort": 5000,
-      "useSSL": true,
-      "sslPort": 5001
     }
   }
 }
