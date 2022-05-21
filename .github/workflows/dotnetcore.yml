@@ -34,4 +34,4 @@ jobs:
     - name: run tests
       run: dotnet test CleanArchitecture.sln --configuration Release
       env:
-        ConnectionStrings__DefaultConnection: Server=.;Database=CleanArchitectureTestDb;User=sa;Password=Your_password123;MultipleActiveResultSets=true
+        ConnectionStrings__DefaultConnection: Server=.;Database=CleanArchitectureDb-Test;User=sa;Password=Your_password123;MultipleActiveResultSets=true;

@@ -15,6 +15,16 @@ public partial class Testing
     {
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
+            builder.ConfigureAppConfiguration(configurationBuilder =>
+            {
+                var integrationConfig = new ConfigurationBuilder()
+                    .AddJsonFile("appsettings.json")
+                    .AddEnvironmentVariables()
+                    .Build();
+
+                configurationBuilder.AddConfiguration(integrationConfig);
+            });
+
             builder.ConfigureServices((builder, services) =>
             {
                 services
@@ -28,15 +38,6 @@ public partial class Testing
                             builder.Configuration.GetConnectionString("DefaultConnection"),
                             b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
             });
-
-            builder.ConfigureAppConfiguration((_, config) =>
-            {
-                config.AddInMemoryCollection(new Dictionary<string, string>
-                {
-                    { "UseInMemoryDatabase", "false" },
-                    { "ConnectionStrings:DefaultConnection", "Server=(localdb)\\mssqllocaldb;Database=CleanArchitectureTestDb;Trusted_Connection=True;MultipleActiveResultSets=true;" },
-                });
-            });
-       }
+        }
     }
 }
