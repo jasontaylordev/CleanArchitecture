@@ -20,7 +20,7 @@ This is a solution template for creating a Single Page App (SPA) with Angular an
 
 * [ASP.NET Core 6](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core?view=aspnetcore-6.0)
 * [Entity Framework Core 6](https://docs.microsoft.com/en-us/ef/core/)
-* [Angular 12](https://angular.io/)
+* [Angular 13](https://angular.io/)
 * [MediatR](https://github.com/jbogard/MediatR)
 * [AutoMapper](https://automapper.org/)
 * [FluentValidation](https://fluentvalidation.net/)
@@ -36,9 +36,7 @@ The easiest way to get started is to install the [NuGet package](https://www.nug
 3. Run `dotnet new --install Clean.Architecture.Solution.Template` to install the project template
 4. Create a folder for your solution and cd into it (the template will use it as project name)
 5. Run `dotnet new ca-sln` to create a new project
-6. Navigate to `src/WebUI/ClientApp` and run `npm install`
-7. Navigate to `src/WebUI/ClientApp` and run `npm start` to launch the front end (Angular)
-8. Navigate to `src/WebUI` and run `dotnet run` to launch the back end (ASP.NET Core Web API)
+6. Navigate to `src/WebUI` and launch the project using `dotnet run`
 
 Check out my [blog post](https://jasontaylor.dev/clean-architecture-getting-started/) for more information.
 
@@ -82,7 +80,8 @@ When you run the application the database will be automatically created (if nece
 
 ### Database Migrations
 
-To use `dotnet-ef` for your migrations please add the following flags to your command (values assume you are executing from repository root)
+To use `dotnet-ef` for your migrations first ensure that "UseInMemoryDatabase" is disabled, as described within previous section.
+Then, add the following flags to your command (values assume you are executing from repository root)
 
 * `--project src/Infrastructure` (optional if in this folder)
 * `--startup-project src/WebUI`
@@ -108,7 +107,7 @@ This layer contains classes for accessing external resources such as file system
 
 ### WebUI
 
-This layer is a single page application based on Angular 12 and ASP.NET Core 6. This layer depends on both the Application and Infrastructure layers, however, the dependency on Infrastructure is only to support dependency injection. Therefore only *Startup.cs* should reference Infrastructure.
+This layer is a single page application based on Angular 13 and ASP.NET Core 6. This layer depends on both the Application and Infrastructure layers, however, the dependency on Infrastructure is only to support dependency injection. Therefore only *Startup.cs* should reference Infrastructure.
 
 ## Support
 

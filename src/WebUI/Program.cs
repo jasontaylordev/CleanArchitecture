@@ -34,10 +34,6 @@ builder.Services.AddRazorPages();
 builder.Services.Configure<ApiBehaviorOptions>(options =>
     options.SuppressModelStateInvalidFilter = true);
 
-// In production, the Angular files will be served from this directory
-builder.Services.AddSpaStaticFiles(configuration =>
-    configuration.RootPath = "ClientApp/dist");
-
 builder.Services.AddOpenApiDocument(configure =>
 {
     configure.Title = "CleanArchitecture API";
@@ -59,7 +55,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
     app.UseMigrationsEndPoint();
-    // app.UseDatabaseInitialiser();
+
     using (var scope = app.Services.CreateScope())
     {
         var initialiser = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
@@ -69,7 +65,6 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
@@ -77,11 +72,6 @@ else
 app.UseHealthChecks("/health");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
-if (!app.Environment.IsDevelopment())
-{
-    app.UseSpaStaticFiles();
-}
 
 app.UseSwaggerUi3(settings =>
 {
@@ -95,27 +85,13 @@ app.UseAuthentication();
 app.UseIdentityServer();
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllerRoute(
-        name: "default",
-        pattern: "{controller}/{action=Index}/{id?}");
-    endpoints.MapRazorPages();
-});
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller}/{action=Index}/{id?}");
 
-app.UseSpa(spa =>
-{
-    // To learn more about options for serving an Angular SPA from ASP.NET Core,
-    // see https://go.microsoft.com/fwlink/?linkid=864501
+app.MapRazorPages();
 
-    spa.Options.SourcePath = "ClientApp";
-
-    if (app.Environment.IsDevelopment())
-    {
-        //spa.UseAngularCliServer(npmScript: "start");
-        spa.UseProxyToSpaDevelopmentServer(app.Configuration["SpaBaseUrl"] ?? "http://localhost:4200");
-    }
-});
+app.MapFallbackToFile("index.html"); ;
 
 app.Run();
 

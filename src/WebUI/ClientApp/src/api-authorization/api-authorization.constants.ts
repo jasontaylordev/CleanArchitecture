@@ -23,7 +23,7 @@ export const LoginActions = {
 
 let applicationPaths: ApplicationPathsType = {
   DefaultLoginRedirectPath: '/',
-  ApiAuthorizationClientConfigurationUrl: `/_configuration/${ApplicationName}`,
+  ApiAuthorizationClientConfigurationUrl: `_configuration/${ApplicationName}`,
   Login: `authentication/${LoginActions.Login}`,
   LoginFailed: `authentication/${LoginActions.LoginFailed}`,
   LoginCallback: `authentication/${LoginActions.LoginCallback}`,
@@ -40,8 +40,8 @@ let applicationPaths: ApplicationPathsType = {
   LogOutPathComponents: [],
   LoggedOutPathComponents: [],
   LogOutCallbackPathComponents: [],
-  IdentityRegisterPath: '/Identity/Account/Register',
-  IdentityManagePath: '/Identity/Account/Manage'
+  IdentityRegisterPath: 'Identity/Account/Register',
+  IdentityManagePath: 'Identity/Account/Manage'
 };
 
 applicationPaths = {
@@ -66,14 +66,14 @@ interface ApplicationPathsType {
   readonly LogOut: string;
   readonly LoggedOut: string;
   readonly LogOutCallback: string;
-  readonly LoginPathComponents: string[];
-  readonly LoginFailedPathComponents: string[];
-  readonly LoginCallbackPathComponents: string[];
-  readonly RegisterPathComponents: string[];
-  readonly ProfilePathComponents: string[];
-  readonly LogOutPathComponents: string[];
-  readonly LoggedOutPathComponents: string[];
-  readonly LogOutCallbackPathComponents: string[];
+  readonly LoginPathComponents: string [];
+  readonly LoginFailedPathComponents: string [];
+  readonly LoginCallbackPathComponents: string [];
+  readonly RegisterPathComponents: string [];
+  readonly ProfilePathComponents: string [];
+  readonly LogOutPathComponents: string [];
+  readonly LoggedOutPathComponents: string [];
+  readonly LogOutCallbackPathComponents: string [];
   readonly IdentityRegisterPath: string;
   readonly IdentityManagePath: string;
 }
