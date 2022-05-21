@@ -9,7 +9,7 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands;
 
 using static Testing;
 
-public class UpdateTodoListTests : TestBase
+public class UpdateTodoListTests : BaseTestFixture
 {
     [Test]
     public async Task ShouldRequireValidTodoListId()

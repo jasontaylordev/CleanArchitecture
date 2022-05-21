@@ -9,35 +9,35 @@ using Moq;
 
 namespace CleanArchitecture.Application.IntegrationTests;
 
-public partial class Testing
+using static Testing;
+
+public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
-    private class CustomWebApplicationFactory : WebApplicationFactory<Program>
+    protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        protected override void ConfigureWebHost(IWebHostBuilder builder)
+        builder.ConfigureAppConfiguration(configurationBuilder =>
         {
-            builder.ConfigureAppConfiguration(configurationBuilder =>
-            {
-                var integrationConfig = new ConfigurationBuilder()
-                    .AddJsonFile("appsettings.json")
-                    .AddEnvironmentVariables()
-                    .Build();
+            var integrationConfig = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .AddEnvironmentVariables()
+                .Build();
 
-                configurationBuilder.AddConfiguration(integrationConfig);
-            });
+            configurationBuilder.AddConfiguration(integrationConfig);
+        });
 
-            builder.ConfigureServices((builder, services) =>
-            {
-                services
-                    .Remove<ICurrentUserService>()
-                    .AddTransient(provider => Mock.Of<ICurrentUserService>(s => s.UserId == _currentUserId));
+        builder.ConfigureServices((builder, services) =>
+        {
+            services
+                .Remove<ICurrentUserService>()
+                .AddTransient(provider => Mock.Of<ICurrentUserService>(s => 
+                    s.UserId == GetCurrentUserId()));
 
-                services
-                    .Remove<DbContextOptions<ApplicationDbContext>>()
-                    .AddDbContext<ApplicationDbContext>(options =>
-                        options.UseSqlServer(
-                            builder.Configuration.GetConnectionString("DefaultConnection"),
-                            b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
-            });
-        }
+            services
+                .Remove<DbContextOptions<ApplicationDbContext>>()
+                .AddDbContext<ApplicationDbContext>(options =>
+                    options.UseSqlServer(
+                        builder.Configuration.GetConnectionString("DefaultConnection"),
+                        b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+        });
     }
 }

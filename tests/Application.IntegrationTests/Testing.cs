@@ -42,6 +42,11 @@ public partial class Testing
         return await mediator.Send(request);
     }
 
+    public static string? GetCurrentUserId()
+    {
+        return _currentUserId;
+    }
+
     public static async Task<string> RunAsDefaultUserAsync()
     {
         return await RunAsUserAsync("test@local", "Testing1234!", Array.Empty<string>());

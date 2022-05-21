@@ -10,7 +10,7 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoItems.Commands;
 
 using static Testing;
 
-public class UpdateTodoItemTests : TestBase
+public class UpdateTodoItemTests : BaseTestFixture
 {
     [Test]
     public async Task ShouldRequireValidTodoItemId()

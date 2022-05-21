@@ -8,7 +8,7 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Queries;
 
 using static Testing;
 
-public class GetTodosTests : TestBase
+public class GetTodosTests : BaseTestFixture
 {
     [Test]
     public async Task ShouldReturnPriorityLevels()

@@ -10,7 +10,7 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands;
 
 using static Testing;
 
-public class PurgeTodoListsTests : TestBase
+public class PurgeTodoListsTests : BaseTestFixture
 {
     [Test]
     public async Task ShouldDenyAnonymousUser()

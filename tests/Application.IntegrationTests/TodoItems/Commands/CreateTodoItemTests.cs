@@ -9,7 +9,7 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoItems.Commands;
 
 using static Testing;
 
-public class CreateTodoItemTests : TestBase
+public class CreateTodoItemTests : BaseTestFixture
 {
     [Test]
     public async Task ShouldRequireMinimumFields()
