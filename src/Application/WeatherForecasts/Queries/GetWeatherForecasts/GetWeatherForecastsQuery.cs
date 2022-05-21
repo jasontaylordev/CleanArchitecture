@@ -2,9 +2,7 @@
 
 namespace CleanArchitecture.Application.WeatherForecasts.Queries.GetWeatherForecasts;
 
-public class GetWeatherForecastsQuery : IRequest<IEnumerable<WeatherForecast>>
-{
-}
+public record GetWeatherForecastsQuery : IRequest<IEnumerable<WeatherForecast>>;
 
 public class GetWeatherForecastsQueryHandler : RequestHandler<GetWeatherForecastsQuery, IEnumerable<WeatherForecast>>
 {

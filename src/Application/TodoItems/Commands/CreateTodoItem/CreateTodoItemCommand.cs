@@ -5,11 +5,11 @@ using MediatR;
 
 namespace CleanArchitecture.Application.TodoItems.Commands.CreateTodoItem;
 
-public class CreateTodoItemCommand : IRequest<int>
+public record CreateTodoItemCommand : IRequest<int>
 {
-    public int ListId { get; set; }
+    public int ListId { get; init; }
 
-    public string? Title { get; set; }
+    public string? Title { get; init; }
 }
 
 public class CreateTodoItemCommandHandler : IRequestHandler<CreateTodoItemCommand, int>

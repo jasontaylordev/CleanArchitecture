@@ -6,15 +6,15 @@ using MediatR;
 
 namespace CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItemDetail;
 
-public class UpdateTodoItemDetailCommand : IRequest
+public record UpdateTodoItemDetailCommand : IRequest
 {
-    public int Id { get; set; }
+    public int Id { get; init; }
 
-    public int ListId { get; set; }
+    public int ListId { get; init; }
 
-    public PriorityLevel Priority { get; set; }
+    public PriorityLevel Priority { get; init; }
 
-    public string? Note { get; set; }
+    public string? Note { get; init; }
 }
 
 public class UpdateTodoItemDetailCommandHandler : IRequestHandler<UpdateTodoItemDetailCommand>
