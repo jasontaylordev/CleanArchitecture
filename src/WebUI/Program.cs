@@ -1,52 +1,11 @@
-using CleanArchitecture.Application;
-using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Infrastructure;
 using CleanArchitecture.Infrastructure.Persistence;
-using CleanArchitecture.WebUI.Filters;
-using CleanArchitecture.WebUI.Services;
-using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Mvc;
-using NSwag;
-using NSwag.Generation.Processors.Security;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddApplication();
-builder.Services.AddInfrastructure(builder.Configuration);
-
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-builder.Services.AddSingleton<ICurrentUserService, CurrentUserService>();
-
-builder.Services.AddHttpContextAccessor();
-
-builder.Services.AddHealthChecks()
-    .AddDbContextCheck<ApplicationDbContext>();
-
-builder.Services.AddControllersWithViews(options =>
-    options.Filters.Add<ApiExceptionFilterAttribute>())
-        .AddFluentValidation(x => x.AutomaticValidationEnabled = false);
-
-builder.Services.AddRazorPages();
-
-// Customise default API behaviour
-builder.Services.Configure<ApiBehaviorOptions>(options =>
-    options.SuppressModelStateInvalidFilter = true);
-
-builder.Services.AddOpenApiDocument(configure =>
-{
-    configure.Title = "CleanArchitecture API";
-    configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
-    {
-        Type = OpenApiSecuritySchemeType.ApiKey,
-        Name = "Authorization",
-        In = OpenApiSecurityApiKeyLocation.Header,
-        Description = "Type into the textbox: Bearer {your JWT token}."
-    });
-
-    configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
-});
+builder.Services.AddApplicationServices();
+builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddWebUIServices();
 
 var app = builder.Build();
 
@@ -56,6 +15,7 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
     app.UseMigrationsEndPoint();
 
+    // Initialise and seed database
     using (var scope = app.Services.CreateScope())
     {
         var initialiser = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
