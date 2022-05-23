@@ -20,7 +20,7 @@ public class TodoItem : BaseAuditableEntity
         {
             if (value == true && _done == false)
             {
-                DomainEvents.Add(new TodoItemCompletedEvent(this));
+                AddDomainEvent(new TodoItemCompletedEvent(this));
             }
 
             _done = value;

@@ -16,7 +16,6 @@ public static class ConfigureServices
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<AuditableEntitySaveChangesInterceptor>();
-        services.AddScoped<EventSaveChangesInterceptor>();
 
         if (configuration.GetValue<bool>("UseInMemoryDatabase"))
         {
@@ -33,8 +32,6 @@ public static class ConfigureServices
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
 
         services.AddScoped<ApplicationDbContextInitialiser>();
-
-        services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
 
         services
             .AddDefaultIdentity<ApplicationUser>()
