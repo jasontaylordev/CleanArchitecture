@@ -29,15 +29,14 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         {
             services
                 .Remove<ICurrentUserService>()
-                .AddTransient(provider => Mock.Of<ICurrentUserService>(s => 
+                .AddTransient(provider => Mock.Of<ICurrentUserService>(s =>
                     s.UserId == GetCurrentUserId()));
 
             services
                 .Remove<DbContextOptions<ApplicationDbContext>>()
-                .AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(
-                        builder.Configuration.GetConnectionString("DefaultConnection"),
-                        b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+                .AddDbContext<ApplicationDbContext>((sp, options) =>
+                    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+                        builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
         });
     }
 }
