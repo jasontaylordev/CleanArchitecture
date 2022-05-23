@@ -1,9 +1,7 @@
 ﻿namespace CleanArchitecture.Domain.Entities;
 
-public class TodoList : AuditableEntity
+public class TodoList : BaseAuditableEntity
 {
-    public int Id { get; set; }
-
     public string? Title { get; set; }
 
     public Colour Colour { get; set; } = Colour.White;

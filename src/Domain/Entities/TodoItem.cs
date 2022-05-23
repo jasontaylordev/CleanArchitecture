@@ -1,9 +1,7 @@
 ﻿namespace CleanArchitecture.Domain.Entities;
 
-public class TodoItem : AuditableEntity, IHasDomainEvent
+public class TodoItem : BaseAuditableEntity
 {
-    public int Id { get; set; }
-
     public int ListId { get; set; }
 
     public string? Title { get; set; }
@@ -30,6 +28,4 @@ public class TodoItem : AuditableEntity, IHasDomainEvent
     }
 
     public TodoList List { get; set; } = null!;
-
-    public List<DomainEvent> DomainEvents { get; set; } = new List<DomainEvent>();
 }

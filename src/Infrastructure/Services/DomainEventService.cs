@@ -1,31 +1,30 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Domain.Common;
 using MediatR;
-using Microsoft.Extensions.Logging;
 
 namespace CleanArchitecture.Infrastructure.Services;
 
 public class DomainEventService : IDomainEventService
 {
-    private readonly ILogger<DomainEventService> _logger;
-    private readonly IPublisher _mediator;
+    private readonly IPublisher _publisher;
 
-    public DomainEventService(ILogger<DomainEventService> logger, IPublisher mediator)
+    public DomainEventService(IPublisher publisher)
     {
-        _logger = logger;
-        _mediator = mediator;
+        _publisher = publisher;
     }
 
-    public async Task Publish(DomainEvent domainEvent)
+    public async Task DispatchEvents(IEnumerable<BaseEntity> entities)
     {
-        _logger.LogInformation("Publishing domain event. Event - {event}", domainEvent.GetType().Name);
-        await _mediator.Publish(GetNotificationCorrespondingToDomainEvent(domainEvent));
-    }
+        foreach (var entity in entities)
+        {
+            var domainEvents = entity.DomainEvents.ToArray();
 
-    private INotification GetNotificationCorrespondingToDomainEvent(DomainEvent domainEvent)
-    {
-        return (INotification)Activator.CreateInstance(
-            typeof(DomainEventNotification<>).MakeGenericType(domainEvent.GetType()), domainEvent)!;
+            entity.DomainEvents.Clear();
+
+            foreach (var domainEvent in domainEvents)
+            {
+                await _publisher.Publish(domainEvent);
+            }
+        }
     }
 }

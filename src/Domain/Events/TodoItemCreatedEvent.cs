@@ -1,6 +1,6 @@
 ﻿namespace CleanArchitecture.Domain.Events;
 
-public class TodoItemCreatedEvent : DomainEvent
+public class TodoItemCreatedEvent : BaseEvent
 {
     public TodoItemCreatedEvent(TodoItem item)
     {
