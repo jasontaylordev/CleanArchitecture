@@ -2,7 +2,7 @@
 
 namespace CleanArchitecture.Application.Common.Interfaces;
 
-public interface IDomainEventService
+public interface IDomainEventDispatcher
 {
     Task DispatchEvents(IEnumerable<BaseEntity> entities);
 }

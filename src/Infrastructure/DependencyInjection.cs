@@ -35,7 +35,7 @@ public static class DependencyInjection
 
         services.AddScoped<ApplicationDbContextInitialiser>();
 
-        services.AddScoped<IDomainEventService, DomainEventService>();
+        services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
 
         services
             .AddDefaultIdentity<ApplicationUser>()

@@ -7,12 +7,12 @@ namespace CleanArchitecture.Infrastructure.Persistence.Interceptors;
 
 public class EventSaveChangesInterceptor : SaveChangesInterceptor
 {
-    private readonly IDomainEventService _eventDispatcherService;
+    private readonly IDomainEventDispatcher _domainEventDispatcher;
     private readonly List<BaseEntity> _entitiesWithEvents = new();
 
-    public EventSaveChangesInterceptor(IDomainEventService eventDispatcherService)
+    public EventSaveChangesInterceptor(IDomainEventDispatcher domainEventDispatcher)
     {
-        _eventDispatcherService = eventDispatcherService;
+        _domainEventDispatcher = domainEventDispatcher;
     }
 
     public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
@@ -58,7 +58,7 @@ public class EventSaveChangesInterceptor : SaveChangesInterceptor
     {
         if (!_entitiesWithEvents.Any()) return;
 
-        _eventDispatcherService.DispatchEvents(_entitiesWithEvents);
+        _domainEventDispatcher.DispatchEvents(_entitiesWithEvents);
 
         _entitiesWithEvents.Clear();
     }

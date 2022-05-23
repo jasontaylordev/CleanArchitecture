@@ -4,11 +4,11 @@ using MediatR;
 
 namespace CleanArchitecture.Infrastructure.Services;
 
-public class DomainEventService : IDomainEventService
+public class DomainEventDispatcher : IDomainEventDispatcher
 {
     private readonly IPublisher _publisher;
 
-    public DomainEventService(IPublisher publisher)
+    public DomainEventDispatcher(IPublisher publisher)
     {
         _publisher = publisher;
     }
