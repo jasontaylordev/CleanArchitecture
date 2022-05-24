@@ -19,8 +19,9 @@ public class PurgeTodoListsTests : BaseTestFixture
 
         command.GetType().Should().BeDecoratedWith<AuthorizeAttribute>();
 
-        await FluentActions.Invoking(() =>
-            SendAsync(command)).Should().ThrowAsync<UnauthorizedAccessException>();
+        var action = () => SendAsync(command);
+
+        await action.Should().ThrowAsync<UnauthorizedAccessException>();
     }
 
     [Test]
@@ -30,8 +31,9 @@ public class PurgeTodoListsTests : BaseTestFixture
 
         var command = new PurgeTodoListsCommand();
 
-        await FluentActions.Invoking(() =>
-             SendAsync(command)).Should().ThrowAsync<ForbiddenAccessException>();
+        var action = () => SendAsync(command);
+
+        await action.Should().ThrowAsync<ForbiddenAccessException>();
     }
 
     [Test]
@@ -41,8 +43,9 @@ public class PurgeTodoListsTests : BaseTestFixture
 
         var command = new PurgeTodoListsCommand();
 
-        await FluentActions.Invoking(() => SendAsync(command))
-             .Should().NotThrowAsync<ForbiddenAccessException>();
+        var action = () => SendAsync(command);
+
+        await action.Should().NotThrowAsync<ForbiddenAccessException>();
     }
 
     [Test]
