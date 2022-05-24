@@ -1,6 +1,7 @@
 ﻿using System.Runtime.Serialization;
 using AutoMapper;
 using CleanArchitecture.Application.Common.Mappings;
+using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Application.TodoLists.Queries.GetTodos;
 using CleanArchitecture.Domain.Entities;
 using NUnit.Framework;
@@ -29,6 +30,8 @@ public class MappingTests
     [Test]
     [TestCase(typeof(TodoList), typeof(TodoListDto))]
     [TestCase(typeof(TodoItem), typeof(TodoItemDto))]
+    [TestCase(typeof(TodoList), typeof(LookupDto))]
+    [TestCase(typeof(TodoItem), typeof(LookupDto))]
     public void ShouldSupportMappingFromSourceToDestination(Type source, Type destination)
     {
         var instance = GetInstanceOf(source);
