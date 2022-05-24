@@ -1,11 +1,12 @@
  <img align="left" width="116" height="116" src="https://raw.githubusercontent.com/jasontaylordev/CleanArchitecture/main/.github/icon.png" />
  
  # Clean Architecture Solution Template
-![.NET Core](https://github.com/jasontaylordev/CleanArchitecture/workflows/.NET%20Core/badge.svg) 
-[![Clean.Architecture.Solution.Template NuGet Package](https://img.shields.io/badge/nuget-6.0.5-blue)](https://www.nuget.org/packages/Clean.Architecture.Solution.Template) 
-[![NuGet](https://img.shields.io/nuget/dt/Clean.Architecture.Solution.Template.svg)](https://www.nuget.org/packages/Clean.Architecture.Solution.Template)
-[![Discord](https://img.shields.io/discord/893301913662148658?label=Discord&logo=discord&logoColor=white)](https://discord.gg/p9YtBjfgGe)
-[![Twitter Follow](https://img.shields.io/twitter/follow/jasontaylordev.svg?style=social&label=Follow)](https://twitter.com/jasontaylordev)
+[![.NET](https://github.com/jasontaylordev/CleanArchitecture/actions/workflows/dotnetcore.yml/badge.svg)](https://github.com/jasontaylordev/CleanArchitecture/actions/workflows/dotnetcore.yml)
+[![CodeQL](https://github.com/jasontaylordev/CleanArchitecture/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/jasontaylordev/CleanArchitecture/actions/workflows/codeql-analysis.yml)
+[![Nuget](https://img.shields.io/nuget/v/Clean.Architecture.Solution.Template?label=NuGet)](https://www.nuget.org/packages/Clean.Architecture.Solution.Template)
+[![Nuget](https://img.shields.io/nuget/dt/Clean.Architecture.Solution.Template?label=Downloads)](https://www.nuget.org/packages/Clean.Architecture.Solution.Template)
+[![Discord](https://img.shields.io/discord/893301913662148658?label=Discord)](https://discord.gg/p9YtBjfgGe)
+![Twitter Follow](https://img.shields.io/twitter/follow/jasontaylordev?label=Follow&style=social)
 
 
 <br/>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+
+    <id>Clean.Architecture.Solution.Template</id>
+    <version>6.0.6</version>
+    <title>Clean Architecture Solution Template</title>
+    <description>Clean Architecture Solution Template for and .NET 6.</description>
+    <summary>
+      This is a solution template for creating a Single Page App (SPA) with ASP.NET Core 6 and Angular 12 following the principles of Clean Architecture.
+    </summary>
+    <authors>JasonTaylorDev</authors>
+
+    <projectUrl>https://github.com/JasonTaylorDev/CleanArchitecture</projectUrl>
+    <repository type="git" url="https://github.com/JasonTaylorDev/CleanArchitecture.git" branch="main" />
+
+    <license type="expression">MIT</license>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <tags>clean-architecture project template csharp dotnet angular</tags>
+    <icon>icon.png</icon>
+
+    <packageTypes>
+      <packageType name="Template" />
+    </packageTypes>
+
+  </metadata>
+
+  <files>
+    <file src=".template.config\icon.png" target="" />
+    <file src=".\**" target="content" exclude="**\node_modules\**;**\bin\**;**\obj\**;**\.vs\**;**\.vscode\**;**\ClientApp\dist\**;**\wwwroot\dist\**;content\Directory.Build.*;**\.git\**;**\.github\**;**\CODE_OF_CONDUCT.md;**\LICENSE;**\README.md;" />
+  </files>
+
+</package>
