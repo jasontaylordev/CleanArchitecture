@@ -8,4 +8,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Supernova.Enum.Generators" Version="1.0.11" />
+    </ItemGroup>
+
 </Project>
