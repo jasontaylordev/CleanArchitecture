@@ -5,13 +5,13 @@ using MediatR;
 
 namespace CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItem;
 
-public class UpdateTodoItemCommand : IRequest
+public record UpdateTodoItemCommand : IRequest
 {
-    public int Id { get; set; }
+    public int Id { get; init; }
 
-    public string? Title { get; set; }
+    public string? Title { get; init; }
 
-    public bool Done { get; set; }
+    public bool Done { get; init; }
 }
 
 public class UpdateTodoItemCommandHandler : IRequestHandler<UpdateTodoItemCommand>

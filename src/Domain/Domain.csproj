@@ -9,6 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="MediatR" Version="9.0.0" />
       <PackageReference Include="Supernova.Enum.Generators" Version="1.0.11" />
     </ItemGroup>
 

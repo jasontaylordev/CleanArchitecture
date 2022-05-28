@@ -10,7 +10,7 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands;
 
 using static Testing;
 
-public class PurgeTodoListsTests : TestBase
+public class PurgeTodoListsTests : BaseTestFixture
 {
     [Test]
     public async Task ShouldDenyAnonymousUser()
@@ -19,8 +19,9 @@ public class PurgeTodoListsTests : TestBase
 
         command.GetType().Should().BeDecoratedWith<AuthorizeAttribute>();
 
-        await FluentActions.Invoking(() =>
-            SendAsync(command)).Should().ThrowAsync<UnauthorizedAccessException>();
+        var action = () => SendAsync(command);
+
+        await action.Should().ThrowAsync<UnauthorizedAccessException>();
     }
 
     [Test]
@@ -30,8 +31,9 @@ public class PurgeTodoListsTests : TestBase
 
         var command = new PurgeTodoListsCommand();
 
-        await FluentActions.Invoking(() =>
-             SendAsync(command)).Should().ThrowAsync<ForbiddenAccessException>();
+        var action = () => SendAsync(command);
+
+        await action.Should().ThrowAsync<ForbiddenAccessException>();
     }
 
     [Test]
@@ -41,8 +43,9 @@ public class PurgeTodoListsTests : TestBase
 
         var command = new PurgeTodoListsCommand();
 
-        await FluentActions.Invoking(() => SendAsync(command))
-             .Should().NotThrowAsync<ForbiddenAccessException>();
+        var action = () => SendAsync(command);
+
+        await action.Should().NotThrowAsync<ForbiddenAccessException>();
     }
 
     [Test]

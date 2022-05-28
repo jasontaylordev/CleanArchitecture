@@ -4,7 +4,8 @@ namespace CleanArchitecture.Application.IntegrationTests;
 
 using static Testing;
 
-public class TestBase
+[TestFixture]
+public abstract class BaseTestFixture
 {
     [SetUp]
     public async Task TestSetUp()

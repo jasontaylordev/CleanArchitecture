@@ -1,6 +1,6 @@
 ﻿namespace CleanArchitecture.Domain.Events;
 
-public class TodoItemCompletedEvent : DomainEvent
+public class TodoItemCompletedEvent : BaseEvent
 {
     public TodoItemCompletedEvent(TodoItem item)
     {

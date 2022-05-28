@@ -9,7 +9,7 @@ namespace CleanArchitecture.Application.IntegrationTests.TodoItems.Commands;
 
 using static Testing;
 
-public class CreateTodoItemTests : TestBase
+public class CreateTodoItemTests : BaseTestFixture
 {
     [Test]
     public async Task ShouldRequireMinimumFields()
@@ -45,7 +45,7 @@ public class CreateTodoItemTests : TestBase
         item.Title.Should().Be(command.Title);
         item.CreatedBy.Should().Be(userId);
         item.Created.Should().BeCloseTo(DateTime.Now, TimeSpan.FromMilliseconds(10000));
-        item.LastModifiedBy.Should().BeNull();
-        item.LastModified.Should().BeNull();
+        item.LastModifiedBy.Should().Be(userId);
+        item.LastModified.Should().BeCloseTo(DateTime.Now, TimeSpan.FromMilliseconds(10000));
     }
 }

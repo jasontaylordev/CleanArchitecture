@@ -1,11 +1,10 @@
-﻿using CleanArchitecture.Application.Common.Models;
-using CleanArchitecture.Domain.Events;
+﻿using CleanArchitecture.Domain.Events;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
 namespace CleanArchitecture.Application.TodoItems.EventHandlers;
 
-public class TodoItemCompletedEventHandler : INotificationHandler<DomainEventNotification<TodoItemCompletedEvent>>
+public class TodoItemCompletedEventHandler : INotificationHandler<TodoItemCompletedEvent>
 {
     private readonly ILogger<TodoItemCompletedEventHandler> _logger;
 
@@ -14,11 +13,9 @@ public class TodoItemCompletedEventHandler : INotificationHandler<DomainEventNot
         _logger = logger;
     }
 
-    public Task Handle(DomainEventNotification<TodoItemCompletedEvent> notification, CancellationToken cancellationToken)
+    public Task Handle(TodoItemCompletedEvent notification, CancellationToken cancellationToken)
     {
-        var domainEvent = notification.DomainEvent;
-
-        _logger.LogInformation("CleanArchitecture Domain Event: {DomainEvent}", domainEvent.GetType().Name);
+        _logger.LogInformation("CleanArchitecture Domain Event: {DomainEvent}", notification.GetType().Name);
 
         return Task.CompletedTask;
     }
