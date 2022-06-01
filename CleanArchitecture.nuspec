@@ -3,13 +3,16 @@
   <metadata>
 
     <id>Clean.Architecture.Solution.Template</id>
-    <version>6.0.7</version>
+    <version>6.0.8</version>
     <title>Clean Architecture Solution Template</title>
+    <authors>JasonTaylorDev</authors>
     <description>Clean Architecture Solution Template for and .NET 6.</description>
     <summary>
-      This is a solution template for creating a Single Page App (SPA) with ASP.NET Core 6 and Angular 12 following the principles of Clean Architecture.
+      This is a solution template for creating a Single Page App (SPA) with ASP.NET Core 6 and Angular 13 following the principles of Clean Architecture.
     </summary>
-    <authors>JasonTaylorDev</authors>
+    <releaseNotes>
+      Upgrade to the latest version of Angular and RxJS.
+    </releaseNotes>
 
     <projectUrl>https://github.com/JasonTaylorDev/CleanArchitecture</projectUrl>
     <repository type="git" url="https://github.com/JasonTaylorDev/CleanArchitecture.git" branch="main" />
@@ -18,6 +21,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <tags>clean-architecture project template csharp dotnet angular</tags>
     <icon>icon.png</icon>
+    <readme>README.md</readme>
 
     <packageTypes>
       <packageType name="Template" />
@@ -26,7 +30,8 @@
   </metadata>
 
   <files>
-    <file src=".template.config\icon.png" target="" />
+    <file src=".template.config\icon.png" />
+    <file src="README.md" />
     <file src=".\**" target="content" exclude="**\node_modules\**;**\bin\**;**\obj\**;**\.vs\**;**\.vscode\**;**\ClientApp\dist\**;**\wwwroot\dist\**;content\Directory.Build.*;**\.git\**;**\.github\**;**\CODE_OF_CONDUCT.md;**\LICENSE;**\README.md;" />
   </files>
 
