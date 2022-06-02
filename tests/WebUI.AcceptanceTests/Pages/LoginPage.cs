@@ -8,7 +8,7 @@ public class LoginPage : BasePage
         Page = page;
     }
 
-    public override string PagePath => "https://localhost:44447/authentication/login";
+    public override string PagePath => $"{BaseUrl}/authentication/login";
 
     public override IBrowser Browser { get; }
 
