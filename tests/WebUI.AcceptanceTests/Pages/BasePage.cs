@@ -2,6 +2,8 @@
 
 public abstract class BasePage
 {
+    public static string BaseUrl => ConfigurationHelper.GetBaseUrl();
+
     public abstract string PagePath { get; }
 
     public abstract IBrowser Browser { get; }
