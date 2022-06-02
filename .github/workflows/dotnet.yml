@@ -5,6 +5,10 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  as-name: "as-cast"
+  rg-name: "rg-cast"
+
 jobs:
   build:
 
@@ -31,3 +35,43 @@ jobs:
       run: dotnet test --no-build --configuration Release --filter "FullyQualifiedName!~AcceptanceTests"
       env:
         ConnectionStrings__DefaultConnection: Server=.;Database=CleanArchitectureDb-Test;User=sa;Password=Your_password123;MultipleActiveResultSets=true;
+    - name: Publish
+      run: dotnet publish src/WebUI/WebUI.csproj --configuration Release --output website
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v2.2.2
+      with:
+        name: website
+        path: /home/runner/work/CleanArchitecture/CleanArchitecture/website/**
+        if-no-files-found: error
+
+  deploy-staging:
+    needs: build
+    
+    runs-on: ubuntu-latest
+
+    environment:
+      name: staging
+      url: ${{ steps.deploywebapp.outputs.webapp-url }}
+    
+    steps:
+    - name: Download a Build Artifact
+      uses: actions/download-artifact@v2.0.8
+      with:
+        name: website
+        path: website
+
+    - name: Login via Azure CLI
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+    - name: Deploy web app
+      id: deploywebapp
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ env.as-name }}
+        slot-name: staging
+        package: website
+
+    - name: Logout via Azure CLI
+      run: az logout
