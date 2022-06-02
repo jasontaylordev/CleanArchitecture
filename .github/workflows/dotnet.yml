@@ -1,5 +1,6 @@
 name: .NET
 on:
+  workflow_dispatch:
   push:
     branches: [ main ]
   pull_request:
@@ -72,6 +73,31 @@ jobs:
         app-name: ${{ env.as-name }}
         slot-name: staging
         package: website
+
+    - name: Logout via Azure CLI
+      run: az logout
+
+  deploy-prod:
+    needs: deploy-staging
+
+    runs-on: ubuntu-latest
+
+    environment:
+      name: prod
+      url: ${{ steps.slot_swap.outputs.url }}
+
+    steps:
+    - name: Login via Azure CLI
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+    - name: Swap Staging and Prod
+      id: slot_swap
+      run: |
+        az webapp deployment slot swap -g ${{ env.rg-name }} -n ${{ env.as-name }} -s staging
+        url=$(az webapp show -g ${{ env.rg-name }} -n ${{ env.as-name }} --query "defaultHostName" -o tsv)
+        echo "::set-output name=url::https://$url"
 
     - name: Logout via Azure CLI
       run: az logout
