@@ -12,7 +12,7 @@ public class LoginPage : BasePage
 
     public override IBrowser Browser { get; }
 
-    public override IPage Page { get; }
+    public override IPage Page { get; set; }
 
     public Task SetEmail(string email)
         => Page.FillAsync("#Input_Email", email);
