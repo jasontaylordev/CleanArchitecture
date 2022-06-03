@@ -19,7 +19,7 @@ jobs:
     - name: Build
       run: dotnet build --no-restore --configuration Release
     - name: Install Playwright
-      run: pwsh bin/Release/net6.0/playwright.ps1 install --with-deps
+      run: pwsh bin/Release/net6.0/playwright.ps1 install
     - name: Test
       run: dotnet test --configuration Release
       env:

@@ -20,8 +20,6 @@ public sealed class LoginStepDefinitions
 #if DEBUG
         options.Headless = false;
         options.SlowMo = 500;
-#else
-        options.Headless = true;
 #endif
 
         var browser = await playwright.Chromium.LaunchAsync(options);
