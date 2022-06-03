@@ -1,0 +1,26 @@
+name: Live Tests
+on:
+  deployment_status:
+
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    if: github.event.deployment_status.state == 'success'
+    defaults:
+      run:
+        working-directory: ./tests/WebUI.AcceptanceTests
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+    - name: Restore
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
+    - name: Test
+      run: |
+        pwsh bin/Release/net6.0/playwright.ps1 install --with-deps
+        dotnet test
+      env:
+        BaseUrl: ${{ github.event.deployment_status.environment_url }}
