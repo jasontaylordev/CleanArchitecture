@@ -15,11 +15,14 @@ public sealed class LoginStepDefinitions
     {
         var playwright = await Playwright.CreateAsync();
 
-        var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
-        {
-            //Headless = false,
-            //SlowMo = 1000
-        });
+        var options = new BrowserTypeLaunchOptions();
+
+#if DEBUG
+        options.Headless = false;
+        options.SlowMo = 500;
+#endif
+
+        var browser = await playwright.Chromium.LaunchAsync(options);
 
         var page = await browser.NewPageAsync();
 
