@@ -1,4 +1,4 @@
-name: Publish template
+name: Package
 on:
   push:
     branches:

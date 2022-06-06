@@ -1,0 +1,31 @@
+name: Build
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    services:
+      sql:
+        image: mcr.microsoft.com/mssql/server
+        ports:
+          - 1433:1433
+        env:
+          SA_PASSWORD: Your_password123
+          ACCEPT_EULA: Y
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+    - name: Restore
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
+    - name: Test
+      run: dotnet test --no-build --configuration Release --filter "FullyQualifiedName!~AcceptanceTests"
+      env:
+        ConnectionStrings__DefaultConnection: Server=.;Database=CleanArchitectureDb-Test;User=sa;Password=Your_password123;MultipleActiveResultSets=true;
