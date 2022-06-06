@@ -11,6 +11,9 @@ jobs:
       run:
         working-directory: ./tests/WebUI.AcceptanceTests
     steps:
+    - name: Delayed start # Give the app service a chance to start.
+      run: sleep 30s
+      shell: bash
     - uses: actions/checkout@v2
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
