@@ -14,3 +14,12 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+/* Importing Bootstrap SCSS file. */
+@import "~bootstrap/scss/bootstrap";
+
+/* Importing Datepicker SCSS file. */
+@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
+
+/* Importing Bootstrap Icons SCSS file. */
+@import '../node_modules/bootstrap-icons/font/bootstrap-icons';
