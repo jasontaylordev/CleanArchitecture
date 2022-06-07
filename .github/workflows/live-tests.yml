@@ -9,7 +9,7 @@ jobs:
     if: github.event.deployment_status.state == 'success'
     defaults:
       run:
-        working-directory: ./tests/WebUI.AcceptanceTests
+        working-directory: /tests/WebUI.AcceptanceTests
     steps:
     - name: Delayed start # Give the app service a chance to start.
       run: sleep 30s
