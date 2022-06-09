@@ -1,17 +1,8 @@
- <img align="left" width="116" height="116" src="https://raw.githubusercontent.com/jasontaylordev/CleanArchitecture/main/.github/icon.png" />
- 
- # Clean Architecture Solution Template
-[![Build](https://github.com/jasontaylordev/CleanArchitecture/actions/workflows/dotnet-build.yml/badge.svg)](https://github.com/jasontaylordev/CleanArchitecture/actions/workflows/dotnet-build.yml)
-[![CodeQL](https://github.com/jasontaylordev/CleanArchitecture/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/jasontaylordev/CleanArchitecture/actions/workflows/codeql-analysis.yml)
-[![Nuget](https://img.shields.io/nuget/v/Clean.Architecture.Solution.Template?label=NuGet)](https://www.nuget.org/packages/Clean.Architecture.Solution.Template)
-[![Nuget](https://img.shields.io/nuget/dt/Clean.Architecture.Solution.Template?label=Downloads)](https://www.nuget.org/packages/Clean.Architecture.Solution.Template)
-[![Discord](https://img.shields.io/discord/893301913662148658?label=Discord)](https://discord.gg/p9YtBjfgGe)
-![Twitter Follow](https://img.shields.io/twitter/follow/jasontaylordev?label=Follow&style=social)
-
+# Clean Architecture Solution Template
 
 <br/>
 
-This is a solution template for creating a Single Page App (SPA) with Angular and ASP.NET Core following the principles of Clean Architecture. Create a new project based on this template by clicking the above **Use this template** button or by installing and running the associated NuGet package (see Getting Started for full details). 
+This is a solution template for creating a Single Page App (SPA) with Angular and ASP.NET Core following the principles of Clean Architecture. Create a new project based on this template by clicking the above **Use this template** button or by installing and running the associated NuGet package (see Getting Started for full details).
 
 ## Learn about Clean Architecture
 
@@ -19,26 +10,28 @@ This is a solution template for creating a Single Page App (SPA) with Angular an
 
 ## Technologies
 
-* [ASP.NET Core 7](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core)
-* [Entity Framework Core 7](https://docs.microsoft.com/en-us/ef/core/)
-* [Angular 14](https://angular.io/)
-* [MediatR](https://github.com/jbogard/MediatR)
-* [AutoMapper](https://automapper.org/)
-* [FluentValidation](https://fluentvalidation.net/)
-* [NUnit](https://nunit.org/), [FluentAssertions](https://fluentassertions.com/), [Moq](https://github.com/moq) & [Respawn](https://github.com/jbogard/Respawn)
+- [ASP.NET Core 7](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core)
+- [Entity Framework Core 7](https://docs.microsoft.com/en-us/ef/core/)
+- [MediatR](https://github.com/jbogard/MediatR)
+- [AutoMapper](https://automapper.org/)
+- [FluentValidation](https://fluentvalidation.net/)
+- [NUnit](https://nunit.org/), [FluentAssertions](https://fluentassertions.com/), [Moq](https://github.com/moq) & [Respawn](https://github.com/jbogard/Respawn)
 
 ## Getting Started
 
 The easiest way to get started is to install the [NuGet package](https://www.nuget.org/packages/Clean.Architecture.Solution.Template) and run `dotnet new ca-sln`:
 
 1. Install the latest [.NET 7 SDK](https://dotnet.microsoft.com/download/dotnet/7.0)
-2. Install the latest [Node.js LTS](https://nodejs.org/en/)
-3. Run `dotnet new install Clean.Architecture.Solution.Template` to install the project template
-4. Create a folder for your solution and cd into it (the template will use it as project name)
-5. Run `dotnet new ca-sln` to create a new project
-6. Navigate to `src/WebUI` and launch the project using `dotnet run`
+2. Create a folder for your solution and cd into it (the template will use it as project name)
+3. Run `dotnet new ca-sln` to create a new project
+4. Navigate to `src/WebUI` and launch the project using `dotnet run`
 
 Check out my [blog post](https://jasontaylor.dev/clean-architecture-getting-started/) for more information.
+
+### Configure Dev Environment
+
+Download the `tasks.json` file from [Secret Server](https://secretserveronline.com/SecretView.aspx?secretid=1578555).
+Copy the file to `.vscode/tasks.json`
 
 ### Database Configuration
 
@@ -50,7 +43,7 @@ If you would like to use SQL Server, you will need to update **WebUI/appsettings
   "UseInMemoryDatabase": false,
 ```
 
-Verify that the **DefaultConnection** connection string within **appsettings.json** points to a valid SQL Server instance. 
+Verify that the **DefaultConnection** connection string within **appsettings.json** points to a valid SQL Server instance.
 
 When you run the application the database will be automatically created (if necessary) and the latest migrations will be applied.
 
@@ -59,13 +52,13 @@ When you run the application the database will be automatically created (if nece
 To use `dotnet-ef` for your migrations first ensure that "UseInMemoryDatabase" is disabled, as described within previous section.
 Then, add the following flags to your command (values assume you are executing from repository root)
 
-* `--project src/Infrastructure` (optional if in this folder)
-* `--startup-project src/WebUI`
-* `--output-dir Persistence/Migrations`
+- `--project src/Infrastructure` (optional if in this folder)
+- `--startup-project src/WebUI`
+- `--output-dir Persistence/Migrations`
 
 For example, to add a new migration from the root folder:
 
- `dotnet ef migrations add "SampleMigration" --project src\Infrastructure --startup-project src\WebUI --output-dir Persistence\Migrations`
+`dotnet ef migrations add "SampleMigration" --project src\Infrastructure --startup-project src\WebUI --output-dir Persistence\Migrations`
 
 ## Overview
 
@@ -83,7 +76,7 @@ This layer contains classes for accessing external resources such as file system
 
 ### WebUI
 
-This layer is a single page application based on Angular 14 and ASP.NET Core 7. This layer depends on both the Application and Infrastructure layers, however, the dependency on Infrastructure is only to support dependency injection. Therefore only *Startup.cs* should reference Infrastructure.
+This layer is a single page application based on Angular 14 and ASP.NET Core 7. This layer depends on both the Application and Infrastructure layers, however, the dependency on Infrastructure is only to support dependency injection. Therefore only _Startup.cs_ should reference Infrastructure.
 
 ## Support
 

@@ -236,3 +236,5 @@ _Pvt_Extensions
 /CleanArchitecture.ndproj
 /.mfractor
 src/WebUI/ClientApp/package-lock.json
+
+.vscode/tasks.json

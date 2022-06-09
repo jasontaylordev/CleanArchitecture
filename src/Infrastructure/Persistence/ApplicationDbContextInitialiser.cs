@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.Domain.Entities;
+using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -23,18 +23,18 @@ public class ApplicationDbContextInitialiser
 
     public async Task InitialiseAsync()
     {
-        try
-        {
-            if (_context.Database.IsSqlServer())
-            {
-                await _context.Database.MigrateAsync();
-            }
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "An error occurred while initialising the database.");
-            throw;
-        }
+        // try
+        // {
+        //     if (_context.Database.IsSqlServer())
+        //     {
+        //         await _context.Database.MigrateAsync();
+        //     }
+        // }
+        // catch (Exception ex)
+        // {
+        //     _logger.LogError(ex, "An error occurred while initialising the database.");
+        //     throw;
+        // }
     }
 
     public async Task SeedAsync()
@@ -68,7 +68,7 @@ public class ApplicationDbContextInitialiser
             await _userManager.CreateAsync(administrator, "Administrator1!");
             if (!string.IsNullOrWhiteSpace(administratorRole.Name))
             {
-                await _userManager.AddToRolesAsync(administrator, new [] { administratorRole.Name });
+                await _userManager.AddToRolesAsync(administrator, new[] { administratorRole.Name });
             }
         }
 

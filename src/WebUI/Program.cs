@@ -13,15 +13,14 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
-    app.UseMigrationsEndPoint();
 
     // Initialise and seed database
-    using (var scope = app.Services.CreateScope())
-    {
-        var initialiser = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
-        await initialiser.InitialiseAsync();
-        await initialiser.SeedAsync();
-    }
+    // using (var scope = app.Services.CreateScope())
+    // {
+    //     var initialiser = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
+    //     await initialiser.InitialiseAsync();
+    //     await initialiser.SeedAsync();
+    // }
 }
 else
 {
@@ -41,9 +40,9 @@ app.UseSwaggerUi3(settings =>
 
 app.UseRouting();
 
-app.UseAuthentication();
-app.UseIdentityServer();
-app.UseAuthorization();
+// app.UseAuthentication();
+// app.UseIdentityServer();
+// app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",

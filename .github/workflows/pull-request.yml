@@ -1,0 +1,29 @@
+on:
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - 'kustomize/**'
+
+name: Build & Test EMS-Items
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:    
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.head_ref }}   # checkout the correct branch name
+        fetch-depth: 0                # fetch the whole repo history
+
+    - name: Build, tag, and push image to Amazon ECR
+      id: build-image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: ems-items
+        IMAGE_TAG: ${{ steps.gitversion.outputs.majorMinorPatch }}
+      run: |
+        # Build a docker container
+        docker build -f ./src/WebUI/Dockerfile --target "final" .

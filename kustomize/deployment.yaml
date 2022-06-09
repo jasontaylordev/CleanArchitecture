@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: emsitem
+  namespace: ems
+  labels:
+    app: emsitem
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: emsitem
+  template:
+    metadata:
+      labels:
+        app: emsitem
+    spec:
+      imagePullSecrets:
+        - name: us-east-1-ecr-registry
+      containers:
+        - name: emsitem
+          image: 576463005830.dkr.ecr.us-east-1.amazonaws.com/ems-items:1.1.118
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: ems-items-configmap
+            - secretRef:
+                name: order-connectionstring
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
