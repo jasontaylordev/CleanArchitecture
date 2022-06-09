@@ -28,7 +28,6 @@ RUN dotnet build "WebUI.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "WebUI.csproj" -c Release -o /app/publish
-COPY ["src/WebUI/localhost.pfx", "/app/publish"]
 
 FROM base AS final
 ENV PATH="/app/clidriver/bin:/app/clidriver/lib/:${PATH}"

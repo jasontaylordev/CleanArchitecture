@@ -51,7 +51,7 @@ jobs:
         # Build a docker container and
         # push it to ECR so that it can
         # be deployed to ECS.
-        docker build -f ./src/WebUI/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG --target "final" .
+        docker build -f ./src/WebUI/Dockerfile --build-arg "DB2LICENSE=$DB2LICENSE" -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG --target "final" .
         # docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
