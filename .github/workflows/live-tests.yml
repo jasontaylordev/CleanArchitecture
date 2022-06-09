@@ -9,7 +9,7 @@ jobs:
     if: github.event.deployment_status.state == 'success'
     defaults:
       run:
-        working-directory: /tests/WebUI.AcceptanceTests
+        working-directory: ./tests/WebUI.AcceptanceTests
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET
