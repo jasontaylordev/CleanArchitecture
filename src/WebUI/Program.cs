@@ -1,4 +1,9 @@
-using CleanArchitecture.Infrastructure.Persistence;
+//copy db2 license
+var licensePath = Directory.GetParent(System.Reflection.Assembly.GetExecutingAssembly().Location)?.FullName + "/clidriver/license/db2consv_ee.lic";
+if (!File.Exists(licensePath))
+{
+    File.Copy("/db2/license/db2consv_ee.lic", licensePath);
+}
 
 var builder = WebApplication.CreateBuilder(args);
 
