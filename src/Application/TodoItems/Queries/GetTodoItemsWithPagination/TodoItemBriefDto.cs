@@ -1,7 +1,4 @@
-﻿using CleanArchitecture.Application.Common.Mappings;
-using CleanArchitecture.Domain.Entities;
-
-namespace CleanArchitecture.Application.TodoItems.Queries.GetTodoItemsWithPagination;
+﻿namespace CleanArchitecture.Application.TodoItems.Queries.GetTodoItemsWithPagination;
 
 public class TodoItemBriefDto : IMapFrom<TodoItem>
 {
