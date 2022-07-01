@@ -32,8 +32,6 @@ FROM base AS final
 ENV PATH="/app/clidriver/bin:/app/clidriver/lib/:${PATH}"
 ENV LD_LIBRARY_PATH="/app/clidriver/lib:/app/clidriver/lib/icc"
 ENV DB2_CLI_DRIVER_INSTALL_PATH="/app/clidriver"
-ENV ASPNETCORE_Kestrel__Certificates__Default__Password="password"
-ENV ASPNETCORE_Kestrel__Certificates__Default__Path="/app/localhost.pfx"
 WORKDIR /app
 COPY --from=publish /app/publish .
 RUN cp /db2/license/db2consv_ee.lic /app/clidriver/license
