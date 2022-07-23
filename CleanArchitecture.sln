@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebUI", "src\WebUI\WebUI.cs
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebUI.AcceptanceTests", "tests\WebUI.AcceptanceTests\WebUI.AcceptanceTests.csproj", "{712BEC26-420A-40F8-8C79-FD6896353D71}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.WebApi", "src\CleanArchitecture.WebApi\CleanArchitecture.WebApi.csproj", "{BD8BACC7-4D5A-44AC-A666-BD45359D1FAA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{712BEC26-420A-40F8-8C79-FD6896353D71}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{712BEC26-420A-40F8-8C79-FD6896353D71}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{712BEC26-420A-40F8-8C79-FD6896353D71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD8BACC7-4D5A-44AC-A666-BD45359D1FAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD8BACC7-4D5A-44AC-A666-BD45359D1FAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD8BACC7-4D5A-44AC-A666-BD45359D1FAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD8BACC7-4D5A-44AC-A666-BD45359D1FAA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +80,7 @@ Global
 		{277029AF-D9E1-4B75-9F11-48FEA7345AD7} = {664D406C-2F83-48F0-BFC3-408D5CB53C65}
 		{22454EE9-16B3-4B7A-8352-37E59B858155} = {6ED356A7-8B47-4613-AD01-C85CF28491BD}
 		{712BEC26-420A-40F8-8C79-FD6896353D71} = {664D406C-2F83-48F0-BFC3-408D5CB53C65}
+		{BD8BACC7-4D5A-44AC-A666-BD45359D1FAA} = {6ED356A7-8B47-4613-AD01-C85CF28491BD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3CB609D9-5D54-4C11-A371-DAAC8B74E430}
