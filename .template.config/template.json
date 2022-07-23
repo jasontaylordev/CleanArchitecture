@@ -5,10 +5,10 @@
     "ASP.NET",
     "Clean Architecture"
   ],
-  "name": "Clean Architecture Solution",
-  "description":  "Modified for own purposes. Credits to @jasontaylordev",
+  "name": "JN Clean Architecture Solution",
+  "description":  "Modified for own purposes. Credits to JasonTaylorDev",
   "identity": "JN.Clean.Architecture.Solution.CSharp",
-  "groupIdentity": "Clean.Architecture.Solution",
+  "groupIdentity": "JN.Clean.Architecture.Solution",
   "shortName": "ca-jn-sln",
   "tags": {
     "language": "C#",

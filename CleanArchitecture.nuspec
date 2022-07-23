@@ -2,11 +2,11 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
 
-    <id>Clean.Architecture.Solution.Template</id>
+    <id>JN.Clean.Architecture.Solution.Template</id>
     <version>6.1.0</version>
     <title>Clean Architecture Solution Template</title>
-    <authors>JasonTaylorDev</authors>
-    <description>Clean Architecture Solution Template for and .NET 6.</description>
+    <authors>Jens Neumann</authors>
+    <description>Clean Architecture Solution Template for and .NET 6. Credits to JasonTaylorDev</description>
     <summary>
       This is a solution template for creating a Single Page App (SPA) with ASP.NET Core 6 and Angular 13 following the principles of Clean Architecture.
     </summary>
@@ -14,8 +14,8 @@
       Recreated the Todo page demo that was broken in the Angular 13 upgrade.
     </releaseNotes>
 
-    <projectUrl>https://github.com/JasonTaylorDev/CleanArchitecture</projectUrl>
-    <repository type="git" url="https://github.com/JasonTaylorDev/CleanArchitecture.git" branch="main" />
+    <projectUrl>https://github.com/doribell/CleanArchitecture</projectUrl>
+    <repository type="git" url="https://github.com/doribell/CleanArchitecture.git" branch="main" />
 
     <license type="expression">MIT</license>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
