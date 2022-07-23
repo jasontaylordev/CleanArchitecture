@@ -1,17 +1,15 @@
 {
   "$schema": "http://json.schemastore.org/template",
-  "author": "JasonTaylorDev",
+  "author": "Jens Neumann",
   "classifications": [
-    "Web",
-    "SPA",
     "ASP.NET",
     "Clean Architecture"
   ],
   "name": "Clean Architecture Solution",
-  "description":  "This is a test.",
-  "identity": "Clean.Architecture.Solution.CSharp",
+  "description":  "Modified for own purposes. Credits to @jasontaylordev",
+  "identity": "JN.Clean.Architecture.Solution.CSharp",
   "groupIdentity": "Clean.Architecture.Solution",
-  "shortName": "ca-sln",
+  "shortName": "ca-jn-sln",
   "tags": {
     "language": "C#",
     "type": "project"

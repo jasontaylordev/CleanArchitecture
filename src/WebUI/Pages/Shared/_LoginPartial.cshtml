@@ -12,6 +12,7 @@
     }
 }
 
+@* ReSharper disable Mvc.AreaNotResolved *@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
@@ -34,3 +35,4 @@
         </li>
     }
 </ul>
+@* ReSharper restore Mvc.AreaNotResolved *@
