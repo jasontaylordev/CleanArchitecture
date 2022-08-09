@@ -19,7 +19,7 @@ spec:
         - name: us-east-1-ecr-registry
       containers:
         - name: emsitem
-          image: 576463005830.dkr.ecr.us-east-1.amazonaws.com/ems-items:6.1.14
+          image: 576463005830.dkr.ecr.us-east-1.amazonaws.com/ems-items:6.1.16
           imagePullPolicy: Always
           envFrom:
             - configMapRef:
