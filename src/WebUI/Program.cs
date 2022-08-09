@@ -4,7 +4,6 @@ using Serilog;
 
 try
 {
-    Log.Information("Service Starting...");
     var licensePath = Directory.GetParent(System.Reflection.Assembly.GetExecutingAssembly().Location)?.FullName + "/clidriver/license/db2consv_ee.lic";
     if (!File.Exists(licensePath))
     {
@@ -13,9 +12,14 @@ try
 
     var builder = WebApplication.CreateBuilder(args);
 
+    // setup AWS CloudWatch client
+    // var client = myAppConfigRoot.GetAwsOptions().CreateServiceClient<IAmazonCloudWatchLogs>();
     // Setup logging
     var logger = new LoggerConfiguration()
                     .ReadFrom.Configuration(builder.Configuration)
+                    // .WriteTo.AmazonCloudWatch(
+                    //     "myLogGroup/",
+                    //     "dev", Serilog.Events.LogEventLevel.Verbose, 100, 15, true, 10000, 3, LogGroupRetentionPolicy.OneWeek)
                     .Enrich.FromLogContext()
                     .CreateLogger();
     builder.Logging.ClearProviders();
@@ -85,7 +89,7 @@ try
 }
 catch (Exception ex)
 {
-    Log.Fatal(ex, "Unhandled exception");
+    Log.Fatal(ex, $"Unhandled exception: ${ex.InnerException?.Message}");
 }
 finally
 {
