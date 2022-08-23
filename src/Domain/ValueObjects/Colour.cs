@@ -35,7 +35,7 @@ public class Colour : ValueObject
 
     public static Colour Yellow => new("#FFFF66");
 
-    public static Colour Green => new("#CCFF99 ");
+    public static Colour Green => new("#CCFF99");
 
     public static Colour Blue => new("#6666FF");
 
