@@ -11,7 +11,7 @@ namespace CleanArchitecture.Application.IntegrationTests;
 
 using static Testing;
 
-public class CustomWebApplicationFactory : WebApplicationFactory<Program>
+internal class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
