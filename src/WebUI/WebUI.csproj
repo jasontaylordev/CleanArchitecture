@@ -42,15 +42,6 @@
         <PackageReference Include="Serilog.AspNetCore" Version="6.0.1" />
         <PackageReference Include="Serilog.Sinks.AwsCloudWatch" Version="4.0.171" />
         <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
-    </ItemGroup>    
-
-    
-    <PropertyGroup>
-        <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    </PropertyGroup>
-
-    <!-- <Target Name="NSwag" AfterTargets="PostBuildEvent" Condition=" '$(Configuration)' == 'Debug' ">
-        <Exec WorkingDirectory="$(ProjectDir)" EnvironmentVariables="ASPNETCORE_ENVIRONMENT=Development" Command="$(NSwagExe_Net60) run nswag.json /variables:Configuration=$(Configuration)" />
-    </Target> -->
+    </ItemGroup>   
 
 </Project>

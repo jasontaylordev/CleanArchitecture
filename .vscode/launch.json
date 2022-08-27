@@ -7,9 +7,6 @@
             "preLaunchTask": "docker-run: debug",
             "netCore": {
                 "appProject": "${workspaceFolder}/src/WebUI/WebUI.csproj"
-            },
-            "dockerServerReadyAction": {
-                "uriFormat": "%s://localhost:%s/api"
             }
         }
     ]

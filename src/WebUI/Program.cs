@@ -1,6 +1,9 @@
 //copy db2 license
 using Microsoft.AspNetCore.HttpLogging;
 using Serilog;
+using Serilog.Events;
+using Serilog.Sinks.AwsCloudWatch;
+using Serilog.Sinks.SystemConsole.Themes;
 
 try
 {
@@ -16,10 +19,20 @@ try
     // var client = myAppConfigRoot.GetAwsOptions().CreateServiceClient<IAmazonCloudWatchLogs>();
     // Setup logging
     var logger = new LoggerConfiguration()
-                    .ReadFrom.Configuration(builder.Configuration)
-                    // .WriteTo.AmazonCloudWatch(
-                    //     "myLogGroup/",
-                    //     "dev", Serilog.Events.LogEventLevel.Verbose, 100, 15, true, 10000, 3, LogGroupRetentionPolicy.OneWeek)
+                    // .ReadFrom.Configuration(builder.Configuration)
+                    .WriteTo.Console(
+                        theme: AnsiConsoleTheme.Code,
+                        outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {RequestId} {Message:lj}{NewLine}{Exception}",
+                        restrictedToMinimumLevel: LogEventLevel.Information
+                    )
+                    .WriteTo.AmazonCloudWatch(
+                        logGroup: builder.Configuration.GetValue<string>("LogGroup"), 
+                        logStreamPrefix: builder.Configuration.GetValue<string>("LogStreamPrefix"), 
+                        restrictedToMinimumLevel: LogEventLevel.Verbose, batchSizeLimit: 100, 
+                        batchUploadPeriodInSeconds: 15,
+                        logGroupRetentionPolicy: LogGroupRetentionPolicy.OneWeek, 
+                        appendUniqueInstanceGuid: false
+                    )
                     .Enrich.FromLogContext()
                     .CreateLogger();
     builder.Logging.ClearProviders();
@@ -64,12 +77,6 @@ try
     app.UseHealthChecks("/health");
     // app.UseHttpsRedirection();
     app.UseStaticFiles();
-
-    app.UseSwaggerUi3(settings =>
-    {
-        settings.Path = "/api";
-        settings.DocumentPath = "/api/specification.json";
-    });
 
     app.UseRouting();
 
