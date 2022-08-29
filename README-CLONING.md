@@ -63,6 +63,11 @@ For this assignment the commands are:
       ```
       And solve the conflicts if any
  
+ 7. Push the changes back up to GitHub
+    ```bash       
+       git push origin main
+    ```
+ 
 
 ## Files to update
 
