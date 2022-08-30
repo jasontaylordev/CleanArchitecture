@@ -18,17 +18,19 @@ try
     // setup AWS CloudWatch client
     // var client = myAppConfigRoot.GetAwsOptions().CreateServiceClient<IAmazonCloudWatchLogs>();
     // Setup logging
+    var logLevel = builder.Configuration.GetValue<LogEventLevel>("LogLevel");
     var logger = new LoggerConfiguration()
                     // .ReadFrom.Configuration(builder.Configuration)
                     .WriteTo.Console(
                         theme: AnsiConsoleTheme.Code,
                         outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {RequestId} {Message:lj}{NewLine}{Exception}",
-                        restrictedToMinimumLevel: LogEventLevel.Information
+                        restrictedToMinimumLevel: logLevel
                     )
                     .WriteTo.AmazonCloudWatch(
                         logGroup: builder.Configuration.GetValue<string>("LogGroup"), 
                         logStreamPrefix: builder.Configuration.GetValue<string>("LogStreamPrefix"), 
-                        restrictedToMinimumLevel: LogEventLevel.Verbose, batchSizeLimit: 100, 
+                        restrictedToMinimumLevel: logLevel, 
+                        batchSizeLimit: 100, 
                         batchUploadPeriodInSeconds: 15,
                         logGroupRetentionPolicy: LogGroupRetentionPolicy.OneWeek, 
                         appendUniqueInstanceGuid: false
