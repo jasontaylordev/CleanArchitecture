@@ -1,9 +1,11 @@
-﻿using MediatR;
+﻿using MediatR.Pipeline;
 using Microsoft.Extensions.Logging;
 
 namespace CleanArchitecture.Application.Common.Behaviours;
 
-public class UnhandledExceptionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
+public class UnhandledExceptionBehaviour<TRequest, TException> : IRequestExceptionAction<TRequest, TException>
+    where TRequest : notnull
+    where TException : Exception
 {
     private readonly ILogger<TRequest> _logger;
 
@@ -12,19 +14,12 @@ public class UnhandledExceptionBehaviour<TRequest, TResponse> : IPipelineBehavio
         _logger = logger;
     }
 
-    public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
+    public Task Execute(TRequest request, TException exception, CancellationToken cancellationToken)
     {
-        try
-        {
-            return await next();
-        }
-        catch (Exception ex)
-        {
-            var requestName = typeof(TRequest).Name;
+        var requestName = typeof(TRequest).Name;
 
-            _logger.LogError(ex, "CleanArchitecture Request: Unhandled Exception for Request {Name} {@Request}", requestName, request);
-
-            throw;
-        }
+        _logger.LogError(exception, "CleanArchitecture Request: Unhandled Exception for Request {Name} {@Request}", requestName, request);
+        
+        return Task.CompletedTask;
     }
 }
