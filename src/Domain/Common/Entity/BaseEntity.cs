@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using CleanArchitecture.Domain.Common.Events;
 
-namespace CleanArchitecture.Domain.Common;
+namespace CleanArchitecture.Domain.Common.Entity;
 
 public abstract class BaseEntity
 {

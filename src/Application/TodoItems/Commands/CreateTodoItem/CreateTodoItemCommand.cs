@@ -30,7 +30,7 @@ public class CreateTodoItemCommandHandler : IRequestHandler<CreateTodoItemComman
             Done = false
         };
 
-        entity.AddDomainEvent(new TodoItemCreatedEvent(entity));
+        entity.AddDomainEvent(new CreatedEvent<TodoItem>(entity));
 
         _context.TodoItems.Add(entity);
 

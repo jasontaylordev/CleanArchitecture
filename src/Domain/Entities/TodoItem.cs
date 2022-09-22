@@ -1,4 +1,6 @@
-﻿namespace CleanArchitecture.Domain.Entities;
+﻿using CleanArchitecture.Domain.Common.Entity;
+
+namespace CleanArchitecture.Domain.Entities;
 
 public class TodoItem : BaseAuditableEntity
 {
@@ -20,7 +22,7 @@ public class TodoItem : BaseAuditableEntity
         {
             if (value == true && _done == false)
             {
-                AddDomainEvent(new TodoItemCompletedEvent(this));
+                AddDomainEvent(new CompletedEvent<TodoItem>(this));
             }
 
             _done = value;
