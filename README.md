@@ -33,7 +33,7 @@ The easiest way to get started is to install the [NuGet package](https://www.nug
 
 1. Install the latest [.NET 7 SDK](https://dotnet.microsoft.com/download/dotnet/7.0)
 2. Install the latest [Node.js LTS](https://nodejs.org/en/)
-3. Run `dotnet new install Clean.Architecture.Solution.Template` to install the project template
+3. Run `dotnet new --install Clean.Architecture.Solution.Template` to install the project template
 4. Create a folder for your solution and cd into it (the template will use it as project name)
 5. Run `dotnet new ca-sln` to create a new project
 6. Navigate to `src/WebUI` and launch the project using `dotnet run`
