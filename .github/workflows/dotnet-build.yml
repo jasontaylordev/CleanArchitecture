@@ -28,4 +28,4 @@ jobs:
     - name: Test
       run: dotnet test --no-build --configuration Release --filter "FullyQualifiedName!~AcceptanceTests"
       env:
-        ConnectionStrings__DefaultConnection: Server=.;Database=CleanArchitectureDb-Test;User=sa;Password=Your_password123;MultipleActiveResultSets=true;
+        ConnectionStrings__DefaultConnection: Server=.;Database=CleanArchitectureDb-Test;User=sa;Password=Your_password123;MultipleActiveResultSets=true;Encrypt=false;
