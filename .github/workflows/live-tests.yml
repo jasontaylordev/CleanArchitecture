@@ -19,7 +19,7 @@ jobs:
     - name: Build
       run: dotnet build --no-restore --configuration Release
     - name: Install Playwright
-      run: pwsh bin/Release/net6.0/playwright.ps1 install
+      run: pwsh bin/Release/net7.0/playwright.ps1 install
     - name: Wait
       uses: emilioschepis/wait-for-endpoint@v1.0.2
       with:
