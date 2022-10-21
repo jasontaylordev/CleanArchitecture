@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/cleanarchitecture.webui'),
+      dir: require('path').join(__dirname, './coverage/angularapp'),
       subdir: '.',
       reporters: [
         { type: 'html' },
