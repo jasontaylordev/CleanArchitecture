@@ -1,4 +1,5 @@
 using CleanArchitecture.Infrastructure.Persistence;
+using CleanArchitecture.WebUI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +38,12 @@ app.UseSwaggerUi3(settings =>
     settings.Path = "/api";
     settings.DocumentPath = "/api/specification.json";
 });
+
+app.UseRouting();
+
+app.UseAuthentication();
+app.UseIdentityServer();
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
