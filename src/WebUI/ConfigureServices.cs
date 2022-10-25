@@ -4,7 +4,7 @@ using CleanArchitecture.WebUI.Services;
 using Microsoft.AspNetCore.Mvc;
 using ZymLabs.NSwag.FluentValidation;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace CleanArchitecture.WebUI;
 
 public static class ConfigureServices
 {
@@ -19,8 +19,6 @@ public static class ConfigureServices
         services.AddHealthChecks()
             .AddDbContextCheck<ApplicationDbContext>();
 
-        services.AddControllersWithViews();
-
         services.AddRazorPages();
 
         services.AddScoped(provider =>
@@ -30,6 +28,8 @@ public static class ConfigureServices
 
             return new FluentValidationSchemaProcessor(provider, validationRules, loggerFactory);
         });
+
+        services.AddEndpointsApiExplorer();
 
         // Customise default API behaviour
         services.Configure<ApiBehaviorOptions>(options =>
