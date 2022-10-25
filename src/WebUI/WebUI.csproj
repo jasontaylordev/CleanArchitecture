@@ -11,6 +11,8 @@
         <!--#endif-->
         <ImplicitUsings>enable</ImplicitUsings>
         <IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
+		<RootNamespace>CleanArchitecture.WebUI</RootNamespace>
+		<AssemblyName>CleanArchitecture.WebUI</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>
