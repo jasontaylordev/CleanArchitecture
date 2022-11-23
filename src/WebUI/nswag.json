@@ -46,7 +46,7 @@
       "serializerSettingsType": null,
       "useDocumentProvider": true,
       "documentName": "v1",
-      "aspNetCoreEnvironment": null,
+      "aspNetCoreEnvironment": "Development",
       "createWebHostBuilderMethod": null,
       "startupType": null,
       "allowNullableBodyParameters": true,
