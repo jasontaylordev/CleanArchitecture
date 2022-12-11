@@ -74,7 +74,7 @@
   </Target>
 
   <!-- Auto generate API client -->
-  <Target Name="NSwag" BeforeTargets="AfterBuild" Condition="'$(TF_BUILD)'!='True'">
+  <Target Name="NSwag" BeforeTargets="AfterBuild" Condition="'$(Configuration)' == 'Debug'">
     <Exec ConsoleToMSBuild="true" ContinueOnError="true" Command="$(NSwagExe_Net70) run nswag.json">
       <Output TaskParameter="ExitCode" PropertyName="NSwagExitCode" />
       <Output TaskParameter="ConsoleOutput" PropertyName="NSwagOutput" />
