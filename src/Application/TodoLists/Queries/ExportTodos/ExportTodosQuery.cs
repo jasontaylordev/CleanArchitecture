@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Application.TodoLists.Queries.ExportTodos;
 
-public class ExportTodosQuery : IRequest<ExportTodosVm>
+public record ExportTodosQuery : IRequest<ExportTodosVm>
 {
-    public int ListId { get; set; }
+    public int ListId { get; init; }
 }
 
 public class ExportTodosQueryHandler : IRequestHandler<ExportTodosQuery, ExportTodosVm>

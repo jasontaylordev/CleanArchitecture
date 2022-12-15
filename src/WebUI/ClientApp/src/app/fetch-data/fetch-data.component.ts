@@ -6,7 +6,7 @@ import { WeatherForecastClient, WeatherForecast } from '../web-api-client';
   templateUrl: './fetch-data.component.html'
 })
 export class FetchDataComponent {
-  public forecasts: WeatherForecast[];
+  public forecasts: WeatherForecast[] = [];
 
   constructor(private client: WeatherForecastClient) {
     client.get().subscribe(result => {

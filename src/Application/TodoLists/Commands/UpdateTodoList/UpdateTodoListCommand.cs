@@ -5,11 +5,11 @@ using MediatR;
 
 namespace CleanArchitecture.Application.TodoLists.Commands.UpdateTodoList;
 
-public class UpdateTodoListCommand : IRequest
+public record UpdateTodoListCommand : IRequest
 {
-    public int Id { get; set; }
+    public int Id { get; init; }
 
-    public string? Title { get; set; }
+    public string? Title { get; init; }
 }
 
 public class UpdateTodoListCommandHandler : IRequestHandler<UpdateTodoListCommand>

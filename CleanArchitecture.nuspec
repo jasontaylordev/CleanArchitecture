@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+
+    <id>Clean.Architecture.Solution.Template</id>
+    <version>7.0.0</version>
+    <title>Clean Architecture Solution Template</title>
+    <authors>JasonTaylorDev</authors>
+    <description>Clean Architecture Solution Template for and .NET 7.</description>
+    <summary>
+      This is a solution template for creating a Single Page App (SPA) with ASP.NET Core 7 and Angular 14 following the principles of Clean Architecture.
+    </summary>
+    <releaseNotes>
+      Recreated the Todo page demo that was broken in the Angular 14 upgrade.
+    </releaseNotes>
+
+    <projectUrl>https://github.com/JasonTaylorDev/CleanArchitecture</projectUrl>
+    <repository type="git" url="https://github.com/JasonTaylorDev/CleanArchitecture.git" branch="main" />
+
+    <license type="expression">MIT</license>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <tags>clean-architecture project template csharp dotnet angular</tags>
+    <icon>icon.png</icon>
+    <readme>README.md</readme>
+
+    <packageTypes>
+      <packageType name="Template" />
+    </packageTypes>
+
+  </metadata>
+
+  <files>
+    <file src=".template.config\icon.png" />
+    <file src="README.md" />
+    <file src=".\**" target="content" exclude="**\node_modules\**;**\bin\**;**\obj\**;**\.vs\**;**\.vscode\**;**\ClientApp\dist\**;**\wwwroot\dist\**;content\Directory.Build.*;**\.git\**;**\.github\**;**\CODE_OF_CONDUCT.md;**\LICENSE;**\README.md;" />
+  </files>
+
+</package>
