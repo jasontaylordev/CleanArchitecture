@@ -1,6 +1,4 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Application.Common.Security;
-using MediatR;
+﻿using CleanArchitecture.Application.Common.Security;
 
 namespace CleanArchitecture.Application.TodoLists.Commands.PurgeTodoLists;
 

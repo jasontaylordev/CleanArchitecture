@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Application.Common.Mappings;
 using CleanArchitecture.Application.Common.Models;
-using MediatR;
 
 namespace CleanArchitecture.Application.TodoItems.Queries.GetTodoItemsWithPagination;
 
