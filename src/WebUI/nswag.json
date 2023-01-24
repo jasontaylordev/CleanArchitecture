@@ -1,5 +1,5 @@
 {
-  "runtime": "Net60",
+  "runtime": "Net70",
   "defaultVariables": null,
   "documentGenerator": {
     "aspNetCoreToOpenApi": {
@@ -46,7 +46,7 @@
       "serializerSettingsType": null,
       "useDocumentProvider": true,
       "documentName": "v1",
-      "aspNetCoreEnvironment": null,
+      "aspNetCoreEnvironment": "Development",
       "createWebHostBuilderMethod": null,
       "startupType": null,
       "allowNullableBodyParameters": true,
