@@ -18,8 +18,17 @@
   },
   "sourceName": "CleanArchitecture",
   "preferNameDirectory": true,
+  "symbols":{
+    "apiOnly":{ "type": "parameter", "dataType":"bool", "defaultValue": "false" }
+  },
   "sources": [
     {
+      "modifiers": [
+        { 
+          "condition": "(apiOnly)",
+          "exclude": ["src/WebUI/ClientApp/**/*"]
+        }
+      ],
       "source": "./",
       "target": "./",
       "exclude": [
