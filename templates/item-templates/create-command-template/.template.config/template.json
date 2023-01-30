@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Antonio Lanzolla",
+  "classifications": [
+    "Web",
+    "SPA",
+    "ASP.NET",
+    "Clean Architecture"
+  ],
+  "name": "Create new command in Clean Architecture Solution",
+  "identity": "Clean.Architecture.Solution.CreateCommand.CSharp",
+  "groupIdentity": "Clean.Architecture.Solution.CreateCommand",
+  "description":  "Create e new command in Clean Architecture Solution from",
+  "shortName": "ca-command",
+  "tags": {
+    "language": "C#",
+    "type": "item"
+  },
+  "sourceName": "CleanArchitectureCommand",
+  "preferNameDirectory": false,
+  "symbols": {
+    "DefaultNamespace": {
+      "type": "bind",
+      "binding": "msbuild:RootNamespace",
+      "replaces": "CleanArchitecture.Application",
+      "defaultValue": "CleanArchitecture.Application"
+    },
+    "aggregateName":
+    {
+      "type": "parameter",
+      "datatype": "string",
+      "isRequired": true,
+      "replaces": "AggregateName",
+      "fileRename": "AggregateName"
+    },
+    "returnType": {
+      "type": "parameter",
+      "datatype": "string",
+      "isRequired": false,
+      "replaces": "Unit",
+      "defaultValue": "Unit"
+    }
+  },
+  "sources": [
+    {
+      "source": "./",
+      "target": "./"
+    }
+  ]
+}

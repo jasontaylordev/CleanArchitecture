@@ -27,6 +27,7 @@
         "**/[Bb]in/**",
         "**/[Oo]bj/**",
         ".template.config/**/*",
+        "templates/**/*",
         ".vs/**/*",
         "**/*.filelist",
         "**/*.user",
