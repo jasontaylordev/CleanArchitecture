@@ -1,12 +1,6 @@
-﻿using System;
-using System.Reflection;
-using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Application.TodoItems.Commands.CreateTodoItem;
+﻿using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Infrastructure.Persistence;
-using CleanArchitecture.WebUI.Filters;
 using CleanArchitecture.WebUI.Services;
-using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using NSwag;
 using NSwag.Generation.Processors.Security;
@@ -27,9 +21,7 @@ public static class ConfigureServices
         services.AddHealthChecks()
             .AddDbContextCheck<ApplicationDbContext>();
 
-        services.AddControllersWithViews(options =>
-            options.Filters.Add<ApiExceptionFilterAttribute>())
-                .AddFluentValidation(x => x.AutomaticValidationEnabled = false);
+        services.AddControllersWithViews();
 
         services.AddRazorPages();
 
