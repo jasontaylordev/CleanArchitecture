@@ -9,6 +9,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 // using Microsoft.Extensions.Options;
 using CleanArchitecture.Infrastructure.Persistence.Configurations;
+using Microsoft.Extensions.Options;
 // using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace CleanArchitecture.Infrastructure.Persistence;
@@ -18,7 +19,6 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext, IDbContext
     public string? Schema { get; }
     private readonly IMediator _mediator;
     private readonly AuditableEntitySaveChangesInterceptor _auditableEntitySaveChangesInterceptor;
-
     public ApplicationDbContext(
         DbContextOptions<ApplicationDbContext> options,
         IMediator mediator,

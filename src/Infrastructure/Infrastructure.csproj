@@ -12,9 +12,9 @@
         <PackageReference Include="CsvHelper" Version="30.0.1" />
         <!-- <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="7.0.2" /> -->
         <!-- <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.2" /> -->
-        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.14" />
         <PackageReference Include="IBM.EntityFrameworkCore-lnx" Version="6.0.0.300" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.2" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.14" />
     </ItemGroup>
 
     <ItemGroup>
