@@ -27,12 +27,12 @@ try
                         restrictedToMinimumLevel: logLevel
                     )
                     .WriteTo.AmazonCloudWatch(
-                        logGroup: builder.Configuration.GetValue<string>("LogGroup"), 
-                        logStreamPrefix: builder.Configuration.GetValue<string>("LogStreamPrefix"), 
-                        restrictedToMinimumLevel: logLevel, 
-                        batchSizeLimit: 100, 
+                        logGroup: builder.Configuration.GetValue<string>("LogGroup"),
+                        logStreamPrefix: builder.Configuration.GetValue<string>("LogStreamPrefix"),
+                        restrictedToMinimumLevel: logLevel,
+                        batchSizeLimit: 100,
                         batchUploadPeriodInSeconds: 15,
-                        logGroupRetentionPolicy: LogGroupRetentionPolicy.OneWeek, 
+                        logGroupRetentionPolicy: LogGroupRetentionPolicy.OneWeek,
                         appendUniqueInstanceGuid: false
                     )
                     .Enrich.FromLogContext()
@@ -78,7 +78,7 @@ try
 
     app.UseHealthChecks("/health");
     // app.UseHttpsRedirection();
-    app.UseStaticFiles();
+    // app.UseStaticFiles();
 
     app.UseRouting();
 
@@ -90,9 +90,9 @@ try
         name: "default",
         pattern: "{controller}/{action=Index}/{id?}");
 
-    app.MapRazorPages();
+    // app.MapRazorPages();
 
-    app.MapFallbackToFile("index.html");
+    // app.MapFallbackToFile("index.html");
 
     app.Run();
 }

@@ -7,7 +7,7 @@ namespace CleanArchitecture.Infrastructure.Persistence
 {
     public class DbSchemaAwareModelCacheKeyFactory : IModelCacheKeyFactory
     {
-        public object Create(DbContext context)
+        public object Create(DbContext context, bool designTime)
         {
             return new
             {

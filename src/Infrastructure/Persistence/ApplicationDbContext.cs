@@ -1,20 +1,19 @@
 ﻿using System.Reflection;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Domain.Entities;
-using CleanArchitecture.Infrastructure.Identity;
+// using CleanArchitecture.Infrastructure.Identity;
 using CleanArchitecture.Infrastructure.Persistence.Interceptors;
-using Duende.IdentityServer.EntityFramework.Options;
+// using Duende.IdentityServer.EntityFramework.Options;
 using MediatR;
-using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+// using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+// using Microsoft.Extensions.Options;
 using CleanArchitecture.Infrastructure.Persistence.Configurations;
-using IBM.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
+// using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace CleanArchitecture.Infrastructure.Persistence;
 
-public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, IApplicationDbContext, IDbContextSchema
+public class ApplicationDbContext : DbContext, IApplicationDbContext, IDbContextSchema
 {
     public string? Schema { get; }
     private readonly IMediator _mediator;
@@ -22,11 +21,10 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
 
     public ApplicationDbContext(
         DbContextOptions<ApplicationDbContext> options,
-        IOptions<OperationalStoreOptions> operationalStoreOptions,
         IMediator mediator,
         AuditableEntitySaveChangesInterceptor auditableEntitySaveChangesInterceptor,
         IDbContextSchema? schema = null)
-        : base(options, operationalStoreOptions)
+        : base(options)
     {
         _mediator = mediator;
         _auditableEntitySaveChangesInterceptor = auditableEntitySaveChangesInterceptor;

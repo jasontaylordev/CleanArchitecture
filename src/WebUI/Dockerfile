@@ -1,10 +1,10 @@
 # This stage is used for VS debugging on Docker
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 RUN apt-get update && apt-get install -y libxml2
 ENV ASPNETCORE_URLS=https://+:5001;http://+:5000
-ENV PATH="/app/bin/Debug/net6.0/clidriver/bin:/app/bin/Debug/net6.0/clidriver/lib/:${PATH}"
-ENV LD_LIBRARY_PATH="/app/bin/Debug/net6.0/clidriver/lib/:/app/bin/Debug/net6.0/clidriver/lib/icc"
-ENV DB2_CLI_DRIVER_INSTALL_PATH="/app/bin/Debug/net6.0/clidriver"
+ENV PATH="/app/bin/Debug/net7.0/clidriver/bin:/app/bin/Debug/net7.0/clidriver/lib/:${PATH}"
+ENV LD_LIBRARY_PATH="/app/bin/Debug/net7.0/clidriver/lib/:/app/bin/Debug/net7.0/clidriver/lib/icc"
+ENV DB2_CLI_DRIVER_INSTALL_PATH="/app/bin/Debug/net7.0/clidriver"
 ENV DB2LICENSE_PATH="/db2/license/db2consv_ee.lic"
 ARG DB2LICENSE
 RUN mkdir -p /db2/license
@@ -14,7 +14,7 @@ WORKDIR /app
 EXPOSE 5000
 EXPOSE 5001
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["src/WebUI/WebUI.csproj", "src/WebUI/"]
 COPY ["src/Application/Application.csproj", "src/Application/"]

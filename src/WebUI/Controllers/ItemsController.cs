@@ -1,5 +1,5 @@
 ﻿using CleanArchitecture.Application.Items.Queries.GetItem;
-using Microsoft.AspNetCore.Authorization;
+// using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecture.WebUI.Controllers;
