@@ -195,7 +195,7 @@ export class TodoComponent implements OnInit {
           error => console.error(error)
         );
     } else {
-      this.itemsClient.update(item.id, item).subscribe(
+      this.itemsClient.update(item.id, item as UpdateTodoItemCommand).subscribe(
         () => console.log('Update succeeded.'),
         error => console.error(error)
       );
