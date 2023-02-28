@@ -3,7 +3,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { TodoListsClient, TodoItemsClient,
   TodoListDto, TodoItemDto, PriorityLevelDto,
   CreateTodoListCommand, UpdateTodoListCommand,
-  CreateTodoItemCommand, UpdateTodoItemCommand
+  CreateTodoItemCommand, UpdateTodoItemCommand, UpdateTodoItemDetailCommand
 } from '../web-api-client';
 
 @Component({
@@ -134,7 +134,7 @@ export class TodoComponent implements OnInit {
   }
 
   updateItemDetails(): void {
-    const item = this.itemDetailsEditor as UpdateTodoItemCommand;
+    const item = this.itemDetailsEditor as UpdateTodoItemDetailCommand;
     this.itemsClient.updateItemDetails(this.selectedItem.id, item).subscribe(
       () => {
         if (this.selectedItem.listId !== this.itemDetailsEditor.listId) {
@@ -186,7 +186,7 @@ export class TodoComponent implements OnInit {
 
     if (item.id === 0) {
       this.itemsClient
-        .create({ ...item, listId: this.selectedList.id
+        .create({ title: item.title, listId: this.selectedList.id
           } as CreateTodoItemCommand)
         .subscribe(
           result => {
@@ -195,7 +195,7 @@ export class TodoComponent implements OnInit {
           error => console.error(error)
         );
     } else {
-      this.itemsClient.update(item.id, item).subscribe(
+      this.itemsClient.update(item.id, item as UpdateTodoItemCommand).subscribe(
         () => console.log('Update succeeded.'),
         error => console.error(error)
       );

@@ -21,16 +21,16 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.0-rc.2.22476.2" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.3" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
         <PackageReference Include="nunit" Version="3.13.3" />
-        <PackageReference Include="NUnit3TestAdapter" Version="4.2.1">
+        <PackageReference Include="NUnit3TestAdapter" Version="4.3.1">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="FluentAssertions" Version="6.7.0" />
-        <PackageReference Include="Moq" Version="4.18.2" />
-        <PackageReference Include="Respawn" Version="4.0.0" />
+        <PackageReference Include="FluentAssertions" Version="6.10.0" />
+        <PackageReference Include="Moq" Version="4.18.4" />
+        <PackageReference Include="Respawn" Version="6.0.0" />
     </ItemGroup>
 
     <ItemGroup>

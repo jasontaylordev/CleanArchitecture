@@ -32,7 +32,10 @@ public class TodoListsController : ApiControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult> Update(int id, UpdateTodoListCommand command)
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesDefaultResponseType]
+    public async Task<IActionResult> Update(int id, UpdateTodoListCommand command)
     {
         if (id != command.Id)
         {
@@ -45,7 +48,9 @@ public class TodoListsController : ApiControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<ActionResult> Delete(int id)
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesDefaultResponseType]
+    public async Task<IActionResult> Delete(int id)
     {
         await Mediator.Send(new DeleteTodoListCommand(id));
 

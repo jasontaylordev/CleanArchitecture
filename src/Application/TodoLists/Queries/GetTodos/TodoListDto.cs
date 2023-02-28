@@ -7,14 +7,14 @@ public class TodoListDto : IMapFrom<TodoList>
 {
     public TodoListDto()
     {
-        Items = new List<TodoItemDto>();
+        Items = Array.Empty<TodoItemDto>();
     }
 
-    public int Id { get; set; }
+    public int Id { get; init; }
 
-    public string? Title { get; set; }
+    public string? Title { get; init; }
 
-    public string? Colour { get; set; }
+    public string? Colour { get; init; }
 
-    public IList<TodoItemDto> Items { get; set; }
+    public IReadOnlyCollection<TodoItemDto> Items { get; init; }
 }
