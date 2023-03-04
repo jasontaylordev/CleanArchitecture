@@ -1,0 +1,41 @@
+@AuthToken = eyJhbGciOiJSUzI1NiIsImtpZCI6IkRldmVsb3BtZW50IiwidHlwIjoiYXQrand0In0.eyJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDQ0NyIsIm5iZiI6MTY3NzkyNTI0NywiaWF0IjoxNjc3OTI1MjQ3LCJleHAiOjE2Nzc5Mjg4NDcsImF1ZCI6IldlYlVJQVBJIiwic2NvcGUiOlsiV2ViVUlBUEkiLCJvcGVuaWQiLCJwcm9maWxlIl0sImFtciI6WyJwd2QiXSwiY2xpZW50X2lkIjoiQ2xlYW5BcmNoaXRlY3R1cmUuV2ViVUkiLCJzdWIiOiI3M2YzY2RiMC02YjRkLTRlZGEtOGYzMy03ZjFjODYyMzRiMTUiLCJhdXRoX3RpbWUiOjE2Nzc5MjUyNDQsImlkcCI6ImxvY2FsIiwic2lkIjoiOTM5REY4NzM0MzczN0E4OEQwQTREOEE2MTI0RjRDMTEiLCJqdGkiOiI0Nzg0QzFFMDNGQzlDMTFGRDkwMjEyRTMwMTVBRUQ4NSJ9.wSzL7_5cUNSCocZei-_iBulEh9PpoSsFrdeOymB7zIJ1B1sXXNS0hMMlWEJryNhcJ5wocJitUs35cYnZCDAv5ufUssztSttIG6GDAVxBbJsKVQsELPdC-FzjZx5fOCd9VXGkkykl2lcJtCQpuOuEFKR_eo6koqX4iI_kK33r10a3tCUjsZfVz3-wbLoK7imDcISNbGZosTMEZfw-BTvBIKoAn5DndgWWs0xp9LIphP2a-mczd7PKDiUriRyT1TMn_CGsyd1MUb9mvD0aV2jiPc5qRm5Rf4KKQTWKSkKv_ToTRSCWSvwV7HLOwOcY0dn4mYaNHHbc7wUDIkozHGkATA 
+@id = 1
+
+# GET TodoLists
+GET https://localhost:44447/api/TodoLists
+Authorization: Bearer {{AuthToken}}
+
+###
+
+#GET TodoList
+GET https://localhost:44447/api/TodoLists/{{id}}
+Authorization: Bearer {{AuthToken}}
+
+###
+
+#POST TodoList
+POST https://localhost:44447/api/TodoLists
+Authorization: Bearer {{AuthToken}}
+Content-Type: application/json
+
+{
+  "Title": "My Todo List"
+}
+
+###
+
+#PUT TodoList
+PUT https://localhost:44447/api/TodoLists/{{id}}
+Authorization: Bearer {{AuthToken}}
+Content-Type: application/json
+
+{
+  "Id": {{id}},
+  "Title": "My Todo List edited"
+}
+
+###
+
+#DELETE TodoList
+DELETE https://localhost:44447/api/TodoLists/{{id}}
+Authorization: Bearer {{AuthToken}}
