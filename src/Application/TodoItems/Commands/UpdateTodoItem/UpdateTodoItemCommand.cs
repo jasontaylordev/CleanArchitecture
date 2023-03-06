@@ -26,13 +26,7 @@ public class UpdateTodoItemCommandHandler : IRequestHandler<UpdateTodoItemComman
     public async Task Handle(UpdateTodoItemCommand request, CancellationToken cancellationToken)
     {
         var entity = await _context.TodoItems
-            .FindAsync(new object[] { request.Id }, cancellationToken);
-
-        if (entity == null)
-        {
-            throw new NotFoundException(nameof(TodoItem), request.Id);
-        }
-
+            .FindAsync(new object[] { request.Id }, cancellationToken) ?? throw new NotFoundException(nameof(TodoItem), request.Id);
         entity.Title = request.Title;
         entity.Done = request.Done;
 
