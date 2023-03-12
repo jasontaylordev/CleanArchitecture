@@ -27,6 +27,7 @@
     "bootstrap-icons": "^1.8.3",
     "jquery": "^3.6.0",
     "ngx-bootstrap": "9.0.0",
+    "oidc-client-ts": "^2.2.2",
     "popper.js": "^1.16.0",
     "run-script-os": "^1.1.6",
     "rxjs": "~7.5.6",
