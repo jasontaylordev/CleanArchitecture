@@ -182,6 +182,7 @@ export class AuthorizeService {
     const settings: any = await response.json();
     settings.automaticSilentRenew = true;
     settings.includeIdTokenInSilentRenew = true;
+    settings.loadUserInfo = true;
     this.userManager = new UserManager(settings);
 
     this.userManager.events.addUserSignedOut(async () => {
