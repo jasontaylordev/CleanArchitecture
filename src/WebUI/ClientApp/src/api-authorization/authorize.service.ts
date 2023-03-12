@@ -144,7 +144,7 @@ export class AuthorizeService {
   public async completeSignOut(url: string): Promise<IAuthenticationResult> {
     await this.ensureUserManagerInitialized();
     try {
-      const response = await this.userManager!.signoutCallback(url);
+      const response = await this.userManager!.signoutRedirectCallback(url);
       this.userSubject.next(null);
       return this.success(response && response.state);
     } catch (error: any) {
