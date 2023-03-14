@@ -1,4 +1,5 @@
 ﻿using CleanArchitecture.Domain.Common;
+using CleanArchitecture.Domain.Common.Contracts;
 using Microsoft.EntityFrameworkCore;
 
 namespace MediatR;
@@ -8,7 +9,7 @@ public static class MediatorExtensions
     public static async Task DispatchDomainEvents(this IMediator mediator, DbContext context) 
     {
         var entities = context.ChangeTracker
-            .Entries<BaseEntity>()
+            .Entries<IBaseEntity>()
             .Where(e => e.Entity.DomainEvents.Any())
             .Select(e => e.Entity);
 

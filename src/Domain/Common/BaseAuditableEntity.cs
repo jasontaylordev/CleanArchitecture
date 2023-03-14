@@ -1,6 +1,8 @@
-﻿namespace CleanArchitecture.Domain.Common;
+﻿using CleanArchitecture.Domain.Common.Contracts;
 
-public abstract class BaseAuditableEntity : BaseEntity
+namespace CleanArchitecture.Domain.Common;
+
+public abstract class BaseAuditableEntity<TId> : BaseEntity<TId>, IAuditableEntity
 {
     public DateTime Created { get; set; }
 
