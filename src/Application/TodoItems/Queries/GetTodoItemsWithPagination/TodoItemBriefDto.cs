@@ -5,11 +5,11 @@ namespace CleanArchitecture.Application.TodoItems.Queries.GetTodoItemsWithPagina
 
 public class TodoItemBriefDto : IMapFrom<TodoItem>
 {
-    public int Id { get; set; }
+    public int Id { get; init; }
 
-    public int ListId { get; set; }
+    public int ListId { get; init; }
 
-    public string? Title { get; set; }
+    public string? Title { get; init; }
 
-    public bool Done { get; set; }
+    public bool Done { get; init; }
 }

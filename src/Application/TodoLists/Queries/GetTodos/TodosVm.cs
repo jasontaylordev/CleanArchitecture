@@ -2,7 +2,7 @@
 
 public class TodosVm
 {
-    public IList<PriorityLevelDto> PriorityLevels { get; set; } = new List<PriorityLevelDto>();
+    public IReadOnlyCollection<PriorityLevelDto> PriorityLevels { get; init; } = Array.Empty<PriorityLevelDto>();
 
-    public IList<TodoListDto> Lists { get; set; } = new List<TodoListDto>();
+    public IReadOnlyCollection<TodoListDto> Lists { get; init; } = Array.Empty<TodoListDto>();
 }
