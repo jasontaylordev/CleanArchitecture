@@ -8,6 +8,10 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@nuxtjs/style-resources": "^1.2.1",
     "nuxt": "^3.3.1"
+  },
+  "dependencies": {
+    "bootstrap": "^5.2.3"
   }
 }
