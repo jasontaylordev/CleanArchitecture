@@ -12,6 +12,9 @@
     "nuxt": "^3.3.1"
   },
   "dependencies": {
-    "bootstrap": "^5.2.3"
+    "@pinia/nuxt": "^0.4.7",
+    "bootstrap": "^5.2.3",
+    "oidc-client-ts": "^2.2.2",
+    "pinia": "^2.0.33"
   }
 }
