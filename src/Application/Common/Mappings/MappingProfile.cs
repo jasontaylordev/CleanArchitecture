@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Runtime.Serialization;
 using AutoMapper;
 
 namespace CleanArchitecture.Application.Common.Mappings;
@@ -24,7 +25,7 @@ public class MappingProfile : Profile
 
         foreach (var type in types)
         {
-            var instance = Activator.CreateInstance(type);
+            var instance = FormatterServices.GetUninitializedObject(type);
             
             var methodInfo = type.GetMethod(mappingMethodName);
 
