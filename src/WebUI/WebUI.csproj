@@ -21,25 +21,25 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
-        <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="7.0.3" />
-        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.3" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.3" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.3" />
-        <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="7.0.3" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.3" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.3" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.3">
+        <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+        <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="7.0.5" />
+        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.5" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.5" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.5" />
+        <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="7.0.5" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.5" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="7.0.3" />
-        <PackageReference Include="NSwag.AspNetCore" Version="13.18.2" />
-        <PackageReference Include="NSwag.MSBuild" Version="13.18.2">
+        <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="7.0.5" />
+        <PackageReference Include="NSwag.AspNetCore" Version="13.19.0" />
+        <PackageReference Include="NSwag.MSBuild" Version="13.19.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-		<PackageReference Include="ZymLabs.NSwag.FluentValidation.AspNetCore" Version="0.6.2" />
+        <PackageReference Include="ZymLabs.NSwag.FluentValidation.AspNetCore" Version="0.6.2" />
     </ItemGroup>
 
     <ItemGroup>
@@ -48,7 +48,7 @@
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
     </ItemGroup>
-    
+
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
         <!-- Ensure Node.js is installed -->
         <Exec Command="node --version" ContinueOnError="true">
@@ -63,7 +63,7 @@
     <PropertyGroup>
         <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     </PropertyGroup>
-    
+
     <Target Name="NSwag" AfterTargets="PostBuildEvent" Condition=" '$(Configuration)' == 'Debug' ">
         <Exec ConsoleToMSBuild="true" ContinueOnError="true" WorkingDirectory="$(ProjectDir)" EnvironmentVariables="ASPNETCORE_ENVIRONMENT=Development" Command="$(NSwagExe_Net70) run /variables:Configuration=$(Configuration)">
             <Output TaskParameter="ExitCode" PropertyName="NSwagExitCode" />
