@@ -1,4 +1,4 @@
- <img align="left" width="116" height="116" src="https://raw.githubusercontent.com/jasontaylordev/CleanArchitecture/main/.github/icon.png" />
+ <img align="left" width="84" height="84" src="https://github.com/jasontaylordev/CleanArchitecture/raw/main/.github/icon.png" />
  
  # Clean Architecture Solution Template
 [![Build](https://github.com/jasontaylordev/CleanArchitecture/actions/workflows/dotnet-build.yml/badge.svg)](https://github.com/jasontaylordev/CleanArchitecture/actions/workflows/dotnet-build.yml)
@@ -8,10 +8,7 @@
 [![Discord](https://img.shields.io/discord/893301913662148658?label=Discord)](https://discord.gg/p9YtBjfgGe)
 ![Twitter Follow](https://img.shields.io/twitter/follow/jasontaylordev?label=Follow&style=social)
 
-
-<br/>
-
-This is a solution template for creating a Single Page App (SPA) with Angular and ASP.NET Core following the principles of Clean Architecture. Create a new project based on this template by clicking the above **Use this template** button or by installing and running the associated NuGet package (see Getting Started for full details). 
+The goal of this template is to provide a straightforward and efficient approach to enterprise application development, leveraging the power of Clean Architecture and ASP.NET Core. Using this template, you can effortlessly create a Single Page App (SPA) with Angular and ASP.NET Core, while adhering to the principles of Clean Architecture. Getting started is easy - simply click **Use this template** above or install the **.NET template** (see below for full details).
 
 ## Technologies
 
@@ -25,11 +22,11 @@ This is a solution template for creating a Single Page App (SPA) with Angular an
 
 ## Getting Started
 
-The easiest way to get started is to install the [NuGet package](https://www.nuget.org/packages/Clean.Architecture.Solution.Template) and run `dotnet new ca-sln`:
+The easiest way to get started is to install the [.NET template](https://www.nuget.org/packages/Clean.Architecture.Solution.Template) and run `dotnet new ca-sln`:
 
 1. Install the latest [.NET 7 SDK](https://dotnet.microsoft.com/download/dotnet/7.0)
 2. Install the latest [Node.js LTS](https://nodejs.org/en/)
-3. Run `dotnet new install Clean.Architecture.Solution.Template` to install the project template
+3. Run `dotnet new install Clean.Architecture.Solution.Template` to install the .NET template
 4. Create a folder for your solution and cd into it (the template will use it as project name)
 5. Run `dotnet new ca-sln` to create a new project
 6. Navigate to `src/WebUI` and launch the project using `dotnet run`
