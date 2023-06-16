@@ -1,5 +1,5 @@
 {
-  "x-generator": "NSwag v13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))",
+  "x-generator": "NSwag v13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v10.0.0.0))",
   "openapi": "3.0.0",
   "info": {
     "title": "CleanArchitecture API",
@@ -52,12 +52,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
+        }
       },
       "post": {
         "tags": [
@@ -88,12 +83,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
+        }
       }
     },
     "/api/TodoItems/{id}": {
@@ -150,12 +140,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
+        }
       },
       "delete": {
         "tags": [
@@ -188,12 +173,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
+        }
       }
     },
     "/api/TodoItems/UpdateItemDetails": {
@@ -249,12 +229,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
+        }
       }
     },
     "/api/TodoLists": {
@@ -274,12 +249,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
+        }
       },
       "post": {
         "tags": [
@@ -310,12 +280,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
+        }
       }
     },
     "/api/TodoLists/{id}": {
@@ -348,12 +313,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
+        }
       },
       "put": {
         "tags": [
@@ -408,12 +368,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
+        }
       },
       "delete": {
         "tags": [
@@ -446,12 +401,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
+        }
       }
     },
     "/api/WeatherForecast": {
@@ -534,9 +484,6 @@
       "CreateTodoItemCommand": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "title"
-        ],
         "properties": {
           "listId": {
             "type": "integer",
@@ -544,9 +491,7 @@
           },
           "title": {
             "type": "string",
-            "maxLength": 200,
-            "minLength": 1,
-            "nullable": false
+            "nullable": true
           }
         }
       },
@@ -582,9 +527,6 @@
       "UpdateTodoItemCommand": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "title"
-        ],
         "properties": {
           "id": {
             "type": "integer",
@@ -592,9 +534,7 @@
           },
           "title": {
             "type": "string",
-            "maxLength": 200,
-            "minLength": 1,
-            "nullable": false
+            "nullable": true
           },
           "done": {
             "type": "boolean"
@@ -726,24 +666,16 @@
       "CreateTodoListCommand": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "title"
-        ],
         "properties": {
           "title": {
             "type": "string",
-            "maxLength": 200,
-            "minLength": 1,
-            "nullable": false
+            "nullable": true
           }
         }
       },
       "UpdateTodoListCommand": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "title"
-        ],
         "properties": {
           "id": {
             "type": "integer",
@@ -751,9 +683,7 @@
           },
           "title": {
             "type": "string",
-            "maxLength": 200,
-            "minLength": 1,
-            "nullable": false
+            "nullable": true
           }
         }
       },
@@ -779,19 +709,6 @@
           }
         }
       }
-    },
-    "securitySchemes": {
-      "JWT": {
-        "type": "apiKey",
-        "description": "Type into the textbox: Bearer {your JWT token}.",
-        "name": "Authorization",
-        "in": "header"
-      }
     }
-  },
-  "security": [
-    {
-      "JWT": []
-    }
-  ]
+  }
 }
