@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <RootNamespace>CleanArchitecture.Application</RootNamespace>
         <AssemblyName>CleanArchitecture.Application</AssemblyName>
         <ImplicitUsings>enable</ImplicitUsings>
@@ -9,9 +9,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.5.2" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.7" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0-preview.5.23280.1" />
     </ItemGroup>
 
     <ItemGroup>

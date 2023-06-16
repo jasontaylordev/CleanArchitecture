@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <IsPackable>true</IsPackable>
         <SpaRoot>ClientApp\</SpaRoot>
@@ -21,24 +21,23 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
-        <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="7.0.7" />
-        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.7" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.7" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.7" />
-        <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="7.0.7" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.7" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.7" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.7">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.0-preview.5.23302.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0-preview.5.23302.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.0-preview.5.23302.2" />
+        <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="8.0.0-preview.5.23302.2">
+            <!-- The SPA Proxy is only used at development time -->
+            <Publish>false</Publish>
         </PackageReference>
-        <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="7.0.7" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.0-preview.5.23280.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0-preview.5.23280.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0-preview.5.23280.1" />
+        <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="8.0.0-preview.5.23302.2" />
         <PackageReference Include="NSwag.AspNetCore" Version="13.19.0" />
         <PackageReference Include="NSwag.MSBuild" Version="13.19.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
         <PackageReference Include="ZymLabs.NSwag.FluentValidation.AspNetCore" Version="0.6.2" />
     </ItemGroup>
 
