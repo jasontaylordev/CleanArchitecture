@@ -8,7 +8,7 @@
     "Clean Architecture"
   ],
   "name": "Clean Architecture Solution",
-  "description":  "This is a test.",
+  "description":  "A Clean Architecture solution template for creating a single-page application (SPA) with Angular and ASP.NET Core.",
   "identity": "Clean.Architecture.Solution.CSharp",
   "groupIdentity": "Clean.Architecture.Solution",
   "shortName": "ca-sln",
