@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using CleanArchitecture.Application.Common.Interfaces;
+﻿using CleanArchitecture.Application.Common.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
