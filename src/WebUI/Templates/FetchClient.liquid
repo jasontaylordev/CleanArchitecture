@@ -1,0 +1,89 @@
+﻿{% if HasOperations -%}
+{% if GenerateClientInterfaces -%}
+{% if ExportTypes %}export {% endif %}interface I{{ Class }} {
+{%    for operation in Operations %}
+
+    {% template Client.Method.Documentation %}
+    {{ operation.MethodAccessModifier }}{{ operation.ActualOperationName }}({% for parameter in operation.Parameters %}{{ parameter.VariableName }}{% if GenerateOptionalParameters and parameter.IsOptional %}?{% endif %}: {{ parameter.Type }}{{ parameter.TypePostfix }}{% if parameter.IsLast == false %}, {% endif %}{% endfor %}): Promise<{{ operation.ResultType }}>;
+{%-    endfor %}}
+{%- endif -%}
+
+{% if UseAureliaHttpInjection -%}
+@inject({% if HasConfigurationClass %}{{ ConfigurationClass }}, {% endif %}String, HttpClient)
+{%- endif -%}
+{% if ExportTypes %}export {% endif %}class {{ Class }} {% if HasBaseClass %}extends {{ BaseClass }} {% endif %}{% if GenerateClientInterfaces %}implements I{{ Class }} {% endif %}{
+    private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
+    private baseUrl: string;
+    protected jsonParseReviver: {% if SupportsStrictNullChecks %}((key: string, value: any) => any) | undefined{% else %}(key: string, value: any) => any{% endif %} = undefined;
+{{ '' }}
+{%- if HasExtendedConstructor == false -%}
+    constructor({% if HasConfigurationClass %}configuration: {{ ConfigurationClass }}, {% endif %}baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
+{%-    if HasBaseClass -%}
+        super({% if HasConfigurationClass %}configuration{% endif %});
+{%-    endif -%}
+        this.http = http ? http : window as any;
+{%-    if UseGetBaseUrlMethod -%}
+        this.baseUrl = this.getBaseUrl("{{ BaseUrl }}", baseUrl);
+{%-    else -%}
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "{{ BaseUrl }}";
+{%-    endif -%}
+    }
+{%- endif -%}
+{%- if HasExtensionCode -%}
+
+    {{ ExtensionCode }}
+{%- endif -%}
+{% for operation in Operations %}
+
+    {% template Client.Method.Documentation %}
+    {{ operation.MethodAccessModifier }}{{ operation.ActualOperationName }}({% for parameter in operation.Parameters %}{{ parameter.VariableName }}{% if GenerateOptionalParameters and parameter.IsOptional %}?{% endif %}: {{ parameter.Type }}{{ parameter.TypePostfix }}{% if parameter.IsLast == false %}, {% endif %}{% endfor %}{% if UseAbortSignal %}{% if operation.Parameters.size > 0 %}, {% endif %}signal?: AbortSignal | undefined{% endif %}): Promise<{{ operation.ResultType }}> {
+        {% template Client.RequestUrl %}
+
+{%-    if operation.HasBody -%}
+        {% template Client.RequestBody %}
+
+{%-    endif -%}
+        let options_: RequestInit = {
+{%-    if operation.HasBody -%}
+            body: content_,
+{%-    endif -%}
+            method: "{{ operation.HttpMethodUpper | upcase }}",
+{%-    if UseAbortSignal -%}
+            signal,
+{%-    endif -%}
+            headers: {
+{%-    for parameter in operation.HeaderParameters -%}
+                "{{ parameter.Name }}": {{ parameter.VariableName }} !== undefined && {{ parameter.VariableName }} !== null ? "" + {{ parameter.VariableName }} : "",
+{%-    endfor -%}
+{%-    if operation.HasContent or operation.ConsumesFormUrlEncoded -%}
+                "Content-Type": "{{ operation.Consumes }}",
+{%-    endif -%}
+{%-    if operation.HasResultType and operation.HasAcceptHeaderParameterParameter == false -%}
+                "Accept": "{{ operation.Produces }}"
+{%-    endif -%}
+            }
+        };
+
+{%-    if UseTransformOptionsMethod -%}
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+{%-    else -%}
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+{%-    endif -%}
+{%-    if UseTransformResultMethod -%}
+            return this.transformResult(url_, _response, (_response: Response) => this.process{{ operation.ActualOperationNameUpper }}(_response));
+{%-    else -%}
+            return this.process{{ operation.ActualOperationNameUpper }}(_response);
+{%-    endif -%}
+        });
+    }
+
+    protected process{{ operation.ActualOperationNameUpper }}(response: Response): Promise<{{ operation.ResultType }}> {
+        followIfLoginRedirect(response);
+        const status = response.status;
+        {% template Client.ProcessResponse %}
+    }
+{% endfor -%}
+}
+{%- endif -%}

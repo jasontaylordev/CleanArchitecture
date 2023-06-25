@@ -2,8 +2,6 @@
 using CleanArchitecture.Infrastructure.Persistence;
 using CleanArchitecture.WebUI.Services;
 using Microsoft.AspNetCore.Mvc;
-using NSwag;
-using NSwag.Generation.Processors.Security;
 using ZymLabs.NSwag.FluentValidation;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -25,7 +23,7 @@ public static class ConfigureServices
 
         services.AddRazorPages();
 
-        services.AddScoped<FluentValidationSchemaProcessor>(provider =>
+        services.AddScoped(provider =>
         {
             var validationRules = provider.GetService<IEnumerable<FluentValidationRule>>();
             var loggerFactory = provider.GetService<ILoggerFactory>();
@@ -37,10 +35,8 @@ public static class ConfigureServices
         services.Configure<ApiBehaviorOptions>(options =>
             options.SuppressModelStateInvalidFilter = true);
 
-        services.AddOpenApiDocument((configure) =>
-        {
-            configure.Title = "CleanArchitecture API";
-        });
+        services.AddOpenApiDocument(configure => 
+            configure.Title = "CleanArchitecture API");
 
         return services;
     }
