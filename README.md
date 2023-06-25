@@ -7,13 +7,13 @@
 
 # Clean Architecture Solution Template
 
-The goal of this template is to provide a straightforward and efficient approach to enterprise application development, leveraging the power of Clean Architecture and ASP.NET Core. Using this template, you can effortlessly create a Single Page App (SPA) with Angular and ASP.NET Core, while adhering to the principles of Clean Architecture. Getting started is easy - simply click **Use this template** above or install the **.NET template** (see below for full details).
+The goal of this template is to provide a straightforward and efficient approach to enterprise application development, leveraging the power of Clean Architecture and ASP.NET Core. Using this template, you can effortlessly create a Single Page App (SPA) with ASP.NET Core and Angular or React, while adhering to the principles of Clean Architecture. Getting started is easy - simply install the **.NET template** (see below for full details).
 
 ## Technologies
 
 * [ASP.NET Core 8](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core)
 * [Entity Framework Core 8](https://docs.microsoft.com/en-us/ef/core/)
-* [Angular 15](https://angular.io/)
+* [Angular 15](https://angular.io/) or [React 18](https://react.dev/)
 * [MediatR](https://github.com/jbogard/MediatR)
 * [AutoMapper](https://automapper.org/)
 * [FluentValidation](https://fluentvalidation.net/)
@@ -25,8 +25,8 @@ The easiest way to get started is to install the [.NET template](https://www.nug
 
 1. Install the latest versions of [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) and [Node.js LTS](https://nodejs.org/en/)
 2. Run `dotnet new install Clean.Architecture.Solution.Template::8.0.0-preview.5` to install the .NET template
-3. Run `dotnet new ca-sln --output YourProjectName` to create a new project
-4. Navigate to `YourProjectName/src/WebUI` and launch the project using `dotnet run`
+4. Run `dotnet new ca-sln -c <Angular|React> --output <YourProjectName>` to create a new project
+5. Navigate to `YourProjectName/src/WebUI` and launch the project using `dotnet run`
 
 ## Database
 
@@ -70,7 +70,7 @@ The main branch is now on .NET 8.0. The following previous versions are availabl
 
 ## Support
 
-If you are having problems, please let us know by [raising a new issue](https://github.com/jasontaylordev/CleanArchitecture/issues/new/choose).
+If you are having problems, please let me know by [raising a new issue](https://github.com/jasontaylordev/CleanArchitecture/issues/new/choose).
 
 ## License
 

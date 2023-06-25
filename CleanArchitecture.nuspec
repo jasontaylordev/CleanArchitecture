@@ -3,15 +3,15 @@
   <metadata>
 
     <id>Clean.Architecture.Solution.Template</id>
-    <version>8.0.0-preview.5</version>
+    <version>8.0.0-preview.5.1</version>
     <title>Clean Architecture Solution Template</title>
     <authors>JasonTaylorDev</authors>
     <description>Clean Architecture Solution Template for .NET 8.</description>
     <summary>
-      This is a solution template for creating a Single Page App (SPA) with ASP.NET Core 8 and Angular 15 following the principles of Clean Architecture.
+      A Clean Architecture Solution Template for creating a Single-Page Application (SPA) with ASP.NET Core.
     </summary>
     <releaseNotes>
-      Upgraded to .NET 8 - Preview 5.
+      Added support for React.
     </releaseNotes>
 
     <projectUrl>https://github.com/JasonTaylorDev/CleanArchitecture</projectUrl>
@@ -19,7 +19,7 @@
 
     <license type="expression">MIT</license>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <tags>clean-architecture project template csharp dotnet angular</tags>
+    <tags>clean-architecture project template csharp dotnet angular react</tags>
     <icon>icon.png</icon>
     <readme>README.md</readme>
 

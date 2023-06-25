@@ -8,7 +8,7 @@
     "Clean Architecture"
   ],
   "name": "Clean Architecture Solution",
-  "description":  "A Clean Architecture solution template for creating a single-page application (SPA) with Angular and ASP.NET Core.",
+  "description": "A Clean Architecture Solution Template for creating a Single-Page Application (SPA) with ASP.NET Core.",
   "identity": "Clean.Architecture.Solution.CSharp",
   "groupIdentity": "Clean.Architecture.Solution",
   "shortName": "ca-sln",
@@ -18,6 +18,32 @@
   },
   "sourceName": "CleanArchitecture",
   "preferNameDirectory": true,
+  "symbols": {
+    "clientFramework": {
+      "type": "parameter",
+      "datatype": "choice",
+      "choices": [
+        {
+          "choice": "angular",
+          "description": "Use Angular"
+        },
+        {
+          "choice": "react",
+          "description": "Use React"
+        }
+      ],
+      "defaultValue": "angular",
+      "description": "The type of client framework to use"
+    },
+    "UseAngular": {
+      "type": "computed",
+      "value": "(clientFramework == \"Angular\")"
+    },
+    "UseReact": {
+      "type": "computed",
+      "value": "(clientFramework == \"React\")"
+    }
+  },
   "sources": [
     {
       "source": "./",
@@ -33,7 +59,30 @@
         "**/*.lock.json",
         "**/.git/**",
         "*.nuspec",
-        "**/node_modules/**"
+        "**/node_modules/**",
+        "**/web-api-client.ts",
+        "src/WebUI/wwwroot/api/**"
+      ],
+      "modifiers": [
+        {
+          "condition": "(UseAngular)",
+          "exclude": [
+            "src/WebUI/config-react.nswag",
+            "src/WebUI/ClientApp-React/**",
+            "src/WebUI/Templates/**"
+          ]
+        },
+        {
+          "condition": "(UseReact)",
+          "exclude": [
+            "src/WebUI/config.nswag",
+            "src/WebUI/ClientApp/**"
+          ],
+          "rename": {
+            "config-react.nswag": "config.nswag",
+            "ClientApp-React": "ClientApp"
+          }
+        }
       ]
     }
   ]
