@@ -126,9 +126,6 @@ csharp_using_directive_placement = outside_namespace:silent
 
 #### C# Formatting Rules ####
 
-# Namespace preferences
-csharp_style_namespace_declarations = file_scoped:warning
-
 # New line preferences
 csharp_new_line_before_catch = true
 csharp_new_line_before_else = true
@@ -222,6 +219,10 @@ dotnet_naming_rule.public_fields_should_be_pascalcase.style = pascalcase
 dotnet_naming_rule.private_fields_should_be__camelcase.severity = suggestion
 dotnet_naming_rule.private_fields_should_be__camelcase.symbols = private_fields
 dotnet_naming_rule.private_fields_should_be__camelcase.style = _camelcase
+
+dotnet_naming_rule.private_static_fields_should_be_s_camelcase.severity = suggestion
+dotnet_naming_rule.private_static_fields_should_be_s_camelcase.symbols = private_static_fields
+dotnet_naming_rule.private_static_fields_should_be_s_camelcase.style = s_camelcase
 
 dotnet_naming_rule.public_constant_fields_should_be_pascalcase.severity = suggestion
 dotnet_naming_rule.public_constant_fields_should_be_pascalcase.symbols = public_constant_fields
@@ -360,4 +361,3 @@ dotnet_naming_style.s_camelcase.required_prefix = s_
 dotnet_naming_style.s_camelcase.required_suffix = 
 dotnet_naming_style.s_camelcase.word_separator = 
 dotnet_naming_style.s_camelcase.capitalization = camel_case
-
