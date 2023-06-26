@@ -1,6 +1,5 @@
-﻿using CleanArchitecture.Application.Common.Exceptions;
+﻿using Ardalis.GuardClauses;
 using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Domain.Entities;
 using MediatR;
 
 namespace CleanArchitecture.Application.TodoLists.Commands.UpdateTodoList;
@@ -26,10 +25,7 @@ public class UpdateTodoListCommandHandler : IRequestHandler<UpdateTodoListComman
         var entity = await _context.TodoLists
             .FindAsync(new object[] { request.Id }, cancellationToken);
 
-        if (entity == null)
-        {
-            throw new NotFoundException(nameof(TodoList), request.Id);
-        }
+        Guard.Against.NotFound(request.Id, entity);
 
         entity.Title = request.Title;
 

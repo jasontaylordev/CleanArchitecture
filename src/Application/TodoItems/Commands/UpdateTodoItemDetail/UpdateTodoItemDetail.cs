@@ -1,6 +1,5 @@
-﻿using CleanArchitecture.Application.Common.Exceptions;
+﻿using Ardalis.GuardClauses;
 using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Enums;
 using MediatR;
 
@@ -31,10 +30,7 @@ public class UpdateTodoItemDetailCommandHandler : IRequestHandler<UpdateTodoItem
         var entity = await _context.TodoItems
             .FindAsync(new object[] { request.Id }, cancellationToken);
 
-        if (entity == null)
-        {
-            throw new NotFoundException(nameof(TodoItem), request.Id);
-        }
+        Guard.Against.NotFound(request.Id, entity);
 
         entity.ListId = request.ListId;
         entity.Priority = request.Priority;
