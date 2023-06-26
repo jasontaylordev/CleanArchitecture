@@ -585,7 +585,7 @@
           "priorityLevels": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PriorityLevelDto"
+              "$ref": "#/components/schemas/LookupDto"
             }
           },
           "lists": {
@@ -596,15 +596,15 @@
           }
         }
       },
-      "PriorityLevelDto": {
+      "LookupDto": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "value": {
+          "id": {
             "type": "integer",
             "format": "int32"
           },
-          "name": {
+          "title": {
             "type": "string",
             "nullable": true
           }

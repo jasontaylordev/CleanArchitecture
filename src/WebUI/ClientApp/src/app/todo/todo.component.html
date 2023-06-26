@@ -120,7 +120,7 @@
       <div class="form-group">
         <label for="priority">Priority</label>
         <select class="form-control" [(ngModel)]="itemDetailsEditor.priority">
-          <option [ngValue]="level.value" *ngFor="let level of priorityLevels">{{ level.name }}</option>
+          <option [ngValue]="level.id" *ngFor="let level of priorityLevels">{{ level.title }}</option>
         </select>
       </div>
       <div class="form-group">

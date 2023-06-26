@@ -996,7 +996,7 @@ export enum PriorityLevel {
 }
 
 export class TodosVm implements ITodosVm {
-    priorityLevels?: PriorityLevelDto[];
+    priorityLevels?: LookupDto[];
     lists?: TodoListDto[];
 
     constructor(data?: ITodosVm) {
@@ -1013,7 +1013,7 @@ export class TodosVm implements ITodosVm {
             if (Array.isArray(_data["priorityLevels"])) {
                 this.priorityLevels = [] as any;
                 for (let item of _data["priorityLevels"])
-                    this.priorityLevels!.push(PriorityLevelDto.fromJS(item));
+                    this.priorityLevels!.push(LookupDto.fromJS(item));
             }
             if (Array.isArray(_data["lists"])) {
                 this.lists = [] as any;
@@ -1047,15 +1047,15 @@ export class TodosVm implements ITodosVm {
 }
 
 export interface ITodosVm {
-    priorityLevels?: PriorityLevelDto[];
+    priorityLevels?: LookupDto[];
     lists?: TodoListDto[];
 }
 
-export class PriorityLevelDto implements IPriorityLevelDto {
-    value?: number;
-    name?: string | undefined;
+export class LookupDto implements ILookupDto {
+    id?: number;
+    title?: string | undefined;
 
-    constructor(data?: IPriorityLevelDto) {
+    constructor(data?: ILookupDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -1066,29 +1066,29 @@ export class PriorityLevelDto implements IPriorityLevelDto {
 
     init(_data?: any) {
         if (_data) {
-            this.value = _data["value"];
-            this.name = _data["name"];
+            this.id = _data["id"];
+            this.title = _data["title"];
         }
     }
 
-    static fromJS(data: any): PriorityLevelDto {
+    static fromJS(data: any): LookupDto {
         data = typeof data === 'object' ? data : {};
-        let result = new PriorityLevelDto();
+        let result = new LookupDto();
         result.init(data);
         return result;
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["value"] = this.value;
-        data["name"] = this.name;
+        data["id"] = this.id;
+        data["title"] = this.title;
         return data;
     }
 }
 
-export interface IPriorityLevelDto {
-    value?: number;
-    name?: string | undefined;
+export interface ILookupDto {
+    id?: number;
+    title?: string | undefined;
 }
 
 export class TodoListDto implements ITodoListDto {
