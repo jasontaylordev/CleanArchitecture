@@ -1,6 +1,6 @@
 ﻿namespace CleanArchitecture.Application.Common.Interfaces;
 
-public interface ICurrentUserService
+public interface IUser
 {
-    string? UserId { get; }
+    string? Id { get; }
 }
