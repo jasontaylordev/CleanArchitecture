@@ -18,7 +18,7 @@ public partial class Testing
     private static IConfiguration _configuration = null!;
     private static IServiceScopeFactory _scopeFactory = null!;
     private static Respawner _checkpoint = null!;
-    private static string? _currentUserId;
+    private static string? _userId;
 
     [OneTimeSetUp]
     public void RunBeforeAnyTests()
@@ -57,9 +57,9 @@ public partial class Testing
         await mediator.Send(request);
     }
 
-    public static string? GetCurrentUserId()
+    public static string? GetUserId()
     {
-        return _currentUserId;
+        return _userId;
     }
 
     public static async Task<string> RunAsDefaultUserAsync()
@@ -96,9 +96,9 @@ public partial class Testing
 
         if (result.Succeeded)
         {
-            _currentUserId = user.Id;
+            _userId = user.Id;
 
-            return _currentUserId;
+            return _userId;
         }
 
         var errors = string.Join(Environment.NewLine, result.ToApplicationResult().Errors);
@@ -116,7 +116,7 @@ public partial class Testing
         {
         }
 
-        _currentUserId = null;
+        _userId = null;
     }
 
     public static async Task<TEntity?> FindAsync<TEntity>(params object[] keyValues)

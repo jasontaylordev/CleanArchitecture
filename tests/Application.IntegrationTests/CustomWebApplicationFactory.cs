@@ -28,9 +28,9 @@ internal class CustomWebApplicationFactory : WebApplicationFactory<Program>
         builder.ConfigureServices((builder, services) =>
         {
             services
-                .Remove<ICurrentUserService>()
-                .AddTransient(provider => Mock.Of<ICurrentUserService>(s =>
-                    s.UserId == GetCurrentUserId()));
+                .Remove<IUser>()
+                .AddTransient(provider => Mock.Of<IUser>(s =>
+                    s.Id == GetUserId()));
 
             services
                 .Remove<DbContextOptions<ApplicationDbContext>>()
