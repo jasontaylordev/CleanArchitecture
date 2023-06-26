@@ -1,4 +1,5 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
+using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Application.Common.Security;
 using CleanArchitecture.Domain.Enums;
 
@@ -24,7 +25,7 @@ public class GetTodosQueryHandler : IRequestHandler<GetTodosQuery, TodosVm>
         {
             PriorityLevels = Enum.GetValues(typeof(PriorityLevel))
                 .Cast<PriorityLevel>()
-                .Select(p => new PriorityLevelDto { Value = (int)p, Name = p.ToString() })
+                .Select(p => new LookupDto { Id = (int)p, Title = p.ToString() })
                 .ToList(),
 
             Lists = await _context.TodoLists
