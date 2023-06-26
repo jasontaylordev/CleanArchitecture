@@ -24,7 +24,7 @@ The goal of this template is to provide a straightforward and efficient approach
 The easiest way to get started is to install the [.NET template](https://www.nuget.org/packages/Clean.Architecture.Solution.Template) and run `dotnet new ca-sln`:
 
 1. Install the latest versions of [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) and [Node.js LTS](https://nodejs.org/en/)
-2. Run `dotnet new install Clean.Architecture.Solution.Template::8.0.0-preview.5` to install the .NET template
+2. Run `dotnet new install Clean.Architecture.Solution.Template::8.0.0-preview.5.1` to install the .NET template
 4. Run `dotnet new ca-sln -c <Angular|React> --output <YourProjectName>` to create a new project
 5. Navigate to `YourProjectName/src/WebUI` and launch the project using `dotnet run`
 
