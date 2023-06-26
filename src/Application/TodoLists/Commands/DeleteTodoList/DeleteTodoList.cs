@@ -1,6 +1,5 @@
-﻿using CleanArchitecture.Application.Common.Exceptions;
+﻿using Ardalis.GuardClauses;
 using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,10 +22,7 @@ public class DeleteTodoListCommandHandler : IRequestHandler<DeleteTodoListComman
             .Where(l => l.Id == request.Id)
             .SingleOrDefaultAsync(cancellationToken);
 
-        if (entity == null)
-        {
-            throw new NotFoundException(nameof(TodoList), request.Id);
-        }
+        Guard.Against.NotFound(request.Id, entity);
 
         _context.TodoLists.Remove(entity);
 

@@ -1,6 +1,5 @@
-﻿using CleanArchitecture.Application.Common.Exceptions;
+﻿using Ardalis.GuardClauses;
 using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Events;
 using MediatR;
 
@@ -22,10 +21,7 @@ public class DeleteTodoItemCommandHandler : IRequestHandler<DeleteTodoItemComman
         var entity = await _context.TodoItems
             .FindAsync(new object[] { request.Id }, cancellationToken);
 
-        if (entity == null)
-        {
-            throw new NotFoundException(nameof(TodoItem), request.Id);
-        }
+        Guard.Against.NotFound(request.Id, entity);
 
         _context.TodoItems.Remove(entity);
 

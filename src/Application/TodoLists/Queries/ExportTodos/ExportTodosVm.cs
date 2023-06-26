@@ -13,5 +13,5 @@ public class ExportTodosVm
 
     public string ContentType { get; init; }
 
-    public byte[] Content { get; init;}
+    public byte[] Content { get; init; }
 }
