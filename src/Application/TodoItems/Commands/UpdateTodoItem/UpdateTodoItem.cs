@@ -1,6 +1,4 @@
-﻿using Ardalis.GuardClauses;
-using CleanArchitecture.Application.Common.Interfaces;
-using MediatR;
+﻿using CleanArchitecture.Application.Common.Interfaces;
 
 namespace CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItem;
 

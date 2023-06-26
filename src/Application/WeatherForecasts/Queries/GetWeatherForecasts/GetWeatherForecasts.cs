@@ -1,6 +1,4 @@
-﻿using MediatR;
-
-namespace CleanArchitecture.Application.WeatherForecasts.Queries.GetWeatherForecasts;
+﻿namespace CleanArchitecture.Application.WeatherForecasts.Queries.GetWeatherForecasts;
 
 public record GetWeatherForecasts : IRequest<IEnumerable<WeatherForecast>>;
 

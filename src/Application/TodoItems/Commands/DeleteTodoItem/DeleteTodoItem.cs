@@ -1,7 +1,5 @@
-﻿using Ardalis.GuardClauses;
-using CleanArchitecture.Application.Common.Interfaces;
+﻿using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Domain.Events;
-using MediatR;
 
 namespace CleanArchitecture.Application.TodoItems.Commands.DeleteTodoItem;
 

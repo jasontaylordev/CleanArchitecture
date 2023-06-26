@@ -1,7 +1,4 @@
-﻿using Ardalis.GuardClauses;
-using CleanArchitecture.Application.Common.Interfaces;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
+﻿using CleanArchitecture.Application.Common.Interfaces;
 
 namespace CleanArchitecture.Application.TodoLists.Commands.DeleteTodoList;
 

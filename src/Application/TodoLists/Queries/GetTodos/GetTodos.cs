@@ -1,8 +1,6 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.Common.Security;
 using CleanArchitecture.Domain.Enums;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Application.TodoLists.Queries.GetTodos;
 

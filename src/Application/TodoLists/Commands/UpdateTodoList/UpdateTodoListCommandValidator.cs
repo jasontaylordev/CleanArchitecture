@@ -1,6 +1,4 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
-using FluentValidation;
-using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Application.TodoLists.Commands.UpdateTodoList;
 
