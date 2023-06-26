@@ -1,5 +1,4 @@
 ﻿using CleanArchitecture.Application.Common.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Application.Common.Mappings;
 

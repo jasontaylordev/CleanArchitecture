@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using CleanArchitecture.Application.Common.Interfaces;
-using MediatR;
 using Microsoft.Extensions.Logging;
 
 namespace CleanArchitecture.Application.Common.Behaviours;
