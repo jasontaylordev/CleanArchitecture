@@ -1,0 +1,109 @@
+﻿# For more info on HTTP files go to https://aka.ms/vs/httpfile
+@WebUI_HostAddress = https://localhost:5001
+@AuthCookieName = .AspNetCore.Identity.Application
+@AuthCookieValue = <AuthCookieValue>
+
+# GET WeatherForecast
+GET {{WebUI_HostAddress}}/api/weatherforecast
+Cookie: {{AuthCookieName}}={{AuthCookieValue}}
+
+###
+
+# GET TodoLists
+GET {{WebUI_HostAddress}}/api/TodoLists
+Cookie: {{AuthCookieName}}={{AuthCookieValue}}
+
+###
+
+#GET TodoList
+GET {{WebUI_HostAddress}}/api/TodoLists/1
+Cookie: {{AuthCookieName}}={{AuthCookieValue}}
+
+###
+
+# POST TodoLists
+POST {{WebUI_HostAddress}}/api/TodoLists
+Cookie: {{AuthCookieName}}={{AuthCookieValue}}
+Content-Type: application/json
+
+// CreateTodoListCommand
+{
+  "Title": "Backlog"
+}
+
+###
+
+# PUT TodoLists
+PUT {{WebUI_HostAddress}}/api/TodoLists/1
+Cookie: {{AuthCookieName}}={{AuthCookieValue}}
+Content-Type: application/json
+
+// UpdateTodoListCommand
+{
+  "Id": 1,
+  "Title": "Product Backlog"
+}
+
+###
+
+# DELETE TodoLists
+DELETE {{WebUI_HostAddress}}/api/TodoLists/1
+Cookie: {{AuthCookieName}}={{AuthCookieValue}}
+
+###
+
+# GET TodoItems
+@PageNumber = 1
+@PageSize = 10
+GET {{WebUI_HostAddress}}/api/TodoItems?ListId=1&PageNumber={{PageNumber}}&PageSize={{PageSize}}
+Cookie: {{AuthCookieName}}={{AuthCookieValue}}
+
+###
+
+# POST TodoItems
+POST {{WebUI_HostAddress}}/api/TodoItems
+Cookie: {{AuthCookieName}}={{AuthCookieValue}}
+Content-Type: application/json
+
+// CreateTodoItemCommand
+{
+  "ListId": 1,
+  "Title": "Eat a burrito 🌯"
+}
+
+###
+
+#PUT TodoItems UpdateItemDetails
+PUT {{WebUI_HostAddress}}/api/TodoItems/UpdateItemDetails?Id=1
+Cookie: {{AuthCookieName}}={{AuthCookieValue}}
+Content-Type: application/json
+
+// UpdateTodoItemDetailCommand
+{
+  "Id": 1,
+  "ListId": 1,
+  "Priority": 3,
+  "Note": "This is a good idea!"
+}
+
+###
+
+# PUT TodoItems
+PUT {{WebUI_HostAddress}}/api/TodoItems/1
+Cookie: {{AuthCookieName}}={{AuthCookieValue}}
+Content-Type: application/json
+
+// UpdateTodoItemCommand
+{
+  "Id": 1,
+  "Title": "Eat a yummy burrito 🌯",
+  "Done": true
+}
+
+###
+
+# DELETE TodoItem
+DELETE {{WebUI_HostAddress}}/api/TodoItems/1
+Cookie: {{AuthCookieName}}={{AuthCookieValue}}
+
+###

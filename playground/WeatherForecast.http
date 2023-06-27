@@ -1,2 +1,0 @@
-#GET WeatherForecast
-GET https://localhost:44447/api/WeatherForecast
