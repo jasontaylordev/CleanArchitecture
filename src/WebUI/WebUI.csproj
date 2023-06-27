@@ -29,6 +29,7 @@
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0-preview.5.23302.2" />
         <!--#if (!UseApiOnly)-->
         <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.0-preview.5.23302.2" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.0-preview.5.23302.2" />
         <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="8.0.0-preview.5.23302.2">
             <!-- The SPA Proxy is only used at development time -->
             <Publish>false</Publish>

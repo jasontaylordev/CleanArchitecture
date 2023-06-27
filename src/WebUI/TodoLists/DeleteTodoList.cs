@@ -2,7 +2,7 @@ using CleanArchitecture.Application.TodoLists.Commands.DeleteTodoList;
 
 namespace CleanArchitecture.WebUI.TodoLists;
 
-public class DeleteTodoList : AbstractEndpoint
+public class DeleteTodoList : EndPointBase
 {
     public override void Map(WebApplication app)
     {

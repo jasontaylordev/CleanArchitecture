@@ -135,7 +135,7 @@ export class TodoComponent implements OnInit {
 
   updateItemDetails(): void {
     const item = this.itemDetailsEditor as UpdateTodoItemDetailCommand;
-    this.itemsClient.updateItemDetails(this.selectedItem.id, item).subscribe(
+    this.itemsClient.updateTodoItemDetail(this.selectedItem.id, item).subscribe(
       () => {
         if (this.selectedItem.listId !== this.itemDetailsEditor.listId) {
           this.selectedList.items = this.selectedList.items.filter(
@@ -194,7 +194,7 @@ export class TodoComponent implements OnInit {
           error => console.error(error)
         );
     } else {
-        this.itemsClient.updateTTodoItem(item.id, item as UpdateTodoItemCommand).subscribe(
+        this.itemsClient.updateTodoItem(item.id, item as UpdateTodoItemCommand).subscribe(
         () => console.log('Update succeeded.'),
         error => console.error(error)
       );
