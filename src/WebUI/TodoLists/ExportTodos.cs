@@ -2,7 +2,7 @@ using CleanArchitecture.Application.TodoLists.Queries.ExportTodos;
 
 namespace CleanArchitecture.WebUI.TodoLists;
 
-public class ExportTodos : AbstractEndpoint
+public class ExportTodos : EndPointBase
 {
     public override void Map(WebApplication app)
     {

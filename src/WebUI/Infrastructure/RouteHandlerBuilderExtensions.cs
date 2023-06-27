@@ -4,7 +4,7 @@ namespace CleanArchitecture.WebUI.Infrastructure;
 
 public static class RouteHandlerBuilderExtensions
 {
-    public static RouteHandlerBuilder WithDefaults(this RouteHandlerBuilder builder, AbstractEndpoint endpoint)
+    public static RouteHandlerBuilder WithDefaults(this RouteHandlerBuilder builder, EndPointBase endpoint)
     {
         return builder
             .WithName($"{endpoint.Group}_{endpoint.Name}")

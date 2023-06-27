@@ -2,7 +2,7 @@ using CleanArchitecture.Application.TodoLists.Commands.CreateTodoList;
 
 namespace CleanArchitecture.WebUI.TodoLists;
 
-public class CreateTodoList : AbstractEndpoint
+public class CreateTodoList : EndPointBase
 {
     public override void Map(WebApplication app)
     {
