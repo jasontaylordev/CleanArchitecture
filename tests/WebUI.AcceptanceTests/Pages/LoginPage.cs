@@ -8,7 +8,7 @@ public class LoginPage : BasePage
         Page = page;
     }
 
-    public override string PagePath => $"{BaseUrl}/authentication/login";
+    public override string PagePath => $"{BaseUrl}/Identity/Account/Login";
 
     public override IBrowser Browser { get; }
 
@@ -24,7 +24,7 @@ public class LoginPage : BasePage
         => Page.Locator("#login-submit").ClickAsync();
 
     public Task<string?> ProfileLinkText()
-        => Page.Locator("a[href='/authentication/profile']").TextContentAsync();
+        => Page.Locator("a[href='/Identity/Account/Manage']").TextContentAsync();
 
     public Task<bool> InvalidLoginAttemptMessageVisible()
         => Page.Locator("text=Invalid login attempt.").IsVisibleAsync();

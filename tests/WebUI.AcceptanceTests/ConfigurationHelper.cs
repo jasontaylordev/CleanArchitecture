@@ -21,6 +21,9 @@ public static class ConfigurationHelper
         if (_baseUrl == null)
         {
             _baseUrl = _configuration["BaseUrl"];
+
+            ArgumentNullException.ThrowIfNull(_baseUrl);
+
             _baseUrl = _baseUrl.TrimEnd('/');
         }
 

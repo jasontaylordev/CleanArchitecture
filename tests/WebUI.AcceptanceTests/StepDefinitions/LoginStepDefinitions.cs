@@ -53,7 +53,7 @@ public sealed class LoginStepDefinitions
         var profileLinkText = await _loginPage.ProfileLinkText();
 
         profileLinkText.Should().NotBeNull();
-        profileLinkText.Should().Be("Hello administrator@localhost");
+        profileLinkText.Should().Be("Account");
     }
 
     [When("the user logs in with invalid credentials")]
