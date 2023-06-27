@@ -2,7 +2,7 @@ using CleanArchitecture.Application.TodoLists.Commands.UpdateTodoList;
 
 namespace CleanArchitecture.WebUI.TodoLists;
 
-public class UpdateTodoList : AbstractEndpoint
+public class UpdateTodoList : EndPointBase
 {
     public override void Map(WebApplication app)
     {
