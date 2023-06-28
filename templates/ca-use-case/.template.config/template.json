@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "JasonTaylorDev",
+  "classifications": [
+    "Clean Architecture"
+  ],
+  "name": "Clean Architecture Solution Use Case",
+  "description":  "Create a new use case (query or command)",
+  "identity": "Clean.Architecture.Solution.UseCase.CSharp",
+  "groupIdentity": "Clean.Architecture.Solution.UseCase",
+  "shortName": "ca-usecase",
+  "tags": {
+    "language": "C#",
+    "type": "item"
+  },
+  "sourceName": "CleanArchitectureUseCase",
+  "preferNameDirectory": false,
+  "symbols": {
+    "DefaultNamespace": {
+      "type": "bind",
+      "binding": "msbuild:RootNamespace",
+      "replaces": "CleanArchitecture.Application",
+      "defaultValue": "CleanArchitecture.Application"
+    },
+    "featureName": {
+      "type": "parameter",
+      "datatype": "string",
+      "isRequired": true,
+      "replaces": "FeatureName",
+      "fileRename": "FeatureName"
+    },
+    "useCaseType": {
+      "type": "parameter",
+      "datatype": "choice",
+      "isRequired": true,
+      "choices": [
+        {
+          "choice": "command",
+          "description": "Create a new command"
+        },
+        {
+          "choice": "query",
+          "description": "Create a new query"
+        }
+      ],
+      "description": "The type of use case to create"
+    },
+    "createCommand": {
+      "type": "computed",
+      "value": "(useCaseType == \"command\")"
+    },
+    "createQuery": {
+      "type": "computed",
+      "value": "(useCaseType == \"query\")"
+    },
+    "returnType": {
+      "type": "parameter",
+      "datatype": "string",
+      "isRequired": false,
+      "replaces": "object",
+      "defaultValue": "object"
+    }
+  },
+  "sources": [
+    {
+      "modifiers": [
+        {
+          "condition": "(createCommand)",
+          "exclude": [ "FeatureName/Queries/**/*" ]
+        },
+        {
+          "condition": "(createQuery)",
+          "exclude": [ "FeatureName/Commands/**/*" ]
+        }
+      ]
+    }
+  ]
+}
