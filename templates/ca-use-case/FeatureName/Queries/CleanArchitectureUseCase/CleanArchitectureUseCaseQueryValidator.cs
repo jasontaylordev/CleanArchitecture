@@ -1,11 +1,10 @@
 ﻿using FluentValidation;
 
-namespace CleanArchitecture.Application.AggregateName.Commands.CleanArchitectureCommand;
+namespace CleanArchitecture.Application.FeatureName.Commands.CleanArchitectureCommand;
 
 public class CleanArchitectureCommandCommandValidator : AbstractValidator<CleanArchitectureCommandCommand>
 {
     public CleanArchitectureCommandCommandValidator()
     {
-      
     }
 }

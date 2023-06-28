@@ -28,6 +28,13 @@ The easiest way to get started is to install the [.NET template](https://www.nug
 4. Run `dotnet new ca-sln -c <Angular|React> --output <YourProjectName>` to create a new project
 5. Navigate to `YourProjectName/src/WebUI` and launch the project using `dotnet run`
 
+## Creating Use Cases
+
+```bash
+dotnet new ca-usecase -us command -n CreateTodoList -f TodoLists -r int
+dotnet new ca-usecase -us query -n GetTodos -f TodoLists -r TodosVm
+```
+
 ## Database
 
 The template is configured to use an in-memory database by default. This ensures that all users will be able to run the solution without needing to set up additional infrastructure (e.g. SQL Server).
