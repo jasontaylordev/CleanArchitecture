@@ -19,20 +19,38 @@ The goal of this template is to provide a straightforward and efficient approach
 * [FluentValidation](https://fluentvalidation.net/)
 * [NUnit](https://nunit.org/), [FluentAssertions](https://fluentassertions.com/), [Moq](https://github.com/moq) & [Respawn](https://github.com/jbogard/Respawn)
 
+## Dependencies
+The template depends on the latest versions of:
+
+* [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
+* [Node.js LTS](https://nodejs.org/en/)
+
 ## Getting Started
 
-The easiest way to get started is to install the [.NET template](https://www.nuget.org/packages/Clean.Architecture.Solution.Template) and run `dotnet new ca-sln`:
+The easiest way to get started is to install the [.NET template](https://www.nuget.org/packages/Clean.Architecture.Solution.Template):
+```
+dotnet new install Clean.Architecture.Solution.Template::8.0.0-preview.5.1
+````
 
-1. Install the latest versions of [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) and [Node.js LTS](https://nodejs.org/en/)
-2. Run `dotnet new install Clean.Architecture.Solution.Template::8.0.0-preview.5.1` to install the .NET template
-4. Run `dotnet new ca-sln -c <Angular|React> --output <YourProjectName>` to create a new project
-5. Navigate to `YourProjectName/src/WebUI` and launch the project using `dotnet run`
+Once installed, create a new solution using the template:
+```
+dotnet new ca-sln -c <Angular|React> --output <YourProjectName>
+```
 
-## Creating Use Cases
+The above command creates a SPA with Angular or React on ASP.NET Core. Start the application by navigating to `./src/WebUI` and running:
+```
+dotnet run
+```
 
-```bash
-dotnet new ca-usecase -us command -n CreateTodoList -f TodoLists -r int
-dotnet new ca-usecase -us query -n GetTodos -f TodoLists -r TodosVm
+Create use cases (commands or queries) by navigating to `./src/Application`, and running:
+```
+dotnet new ca-usecase --feature TodoLists --name CreateTodoList --useCaseType command --returnType int
+```
+
+To learn more, run the following command:
+
+```
+dotnet new ca-usecase --help
 ```
 
 ## Database
