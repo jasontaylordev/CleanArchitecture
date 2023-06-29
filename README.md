@@ -29,7 +29,7 @@ The template depends on the latest versions of:
 
 The easiest way to get started is to install the [.NET template](https://www.nuget.org/packages/Clean.Architecture.Solution.Template):
 ```
-dotnet new install Clean.Architecture.Solution.Template::8.0.0-preview.5.1
+dotnet new install Clean.Architecture.Solution.Template::8.0.0-preview.5.2
 ````
 
 Once installed, create a new solution using the template:
