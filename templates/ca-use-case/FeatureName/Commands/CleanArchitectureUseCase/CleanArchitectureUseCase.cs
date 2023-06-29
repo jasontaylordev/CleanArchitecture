@@ -1,10 +1,16 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
-using MediatR;
 
 namespace CleanArchitecture.Application.FeatureName.Commands.CleanArchitectureUseCase;
 
 public record CleanArchitectureUseCaseCommand : IRequest<object>
 {
+}
+
+public class CleanArchitectureUseCaseCommandValidator : AbstractValidator<CleanArchitectureUseCaseCommand>
+{
+    public CleanArchitectureUseCaseCommandValidator()
+    {
+    }
 }
 
 public class CleanArchitectureUseCaseCommandHandler : IRequestHandler<CleanArchitectureUseCaseCommand, object>
