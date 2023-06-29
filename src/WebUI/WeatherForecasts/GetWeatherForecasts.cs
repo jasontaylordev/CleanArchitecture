@@ -2,7 +2,7 @@ using CleanArchitecture.Application.WeatherForecasts.Queries.GetWeatherForecasts
 
 namespace CleanArchitecture.WebUI.WeatherForecasts;
 
-public class GetWeatherForecasts : EndPointBase
+public class GetWeatherForecasts : EndpointBase
 {
     public override void Map(WebApplication app)
     {
