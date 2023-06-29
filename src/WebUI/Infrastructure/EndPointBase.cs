@@ -1,6 +1,6 @@
 namespace CleanArchitecture.WebUI.Infrastructure;
 
-public abstract class EndPointBase : IEndpoint
+public abstract class EndpointBase : IEndpoint
 {
     public abstract void Map(WebApplication app);
 

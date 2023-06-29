@@ -1,5 +1,4 @@
 using CleanArchitecture.Infrastructure.Persistence;
-using CleanArchitecture.WebUI.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,6 +47,6 @@ app.MapRazorPages();
 app.MapFallbackToFile("index.html");
 
 app.MapEndpoints();
-TodoListEndpoints.Map(app);
+app.MapEndpointGroups();
 
 app.Run();
