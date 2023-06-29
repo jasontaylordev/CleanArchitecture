@@ -9,14 +9,14 @@ namespace CleanArchitecture.Infrastructure.Persistence.Interceptors;
 public class AuditableEntitySaveChangesInterceptor : SaveChangesInterceptor
 {
     private readonly IUser _user;
-    private readonly IDateTime _dateTime;
+    private readonly TimeProvider _timeProvider;
 
     public AuditableEntitySaveChangesInterceptor(
         IUser user,
-        IDateTime dateTime)
+        TimeProvider timeProvider)
     {
         _user = user;
-        _dateTime = dateTime;
+        _timeProvider = timeProvider;
     }
 
     public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
@@ -42,13 +42,13 @@ public class AuditableEntitySaveChangesInterceptor : SaveChangesInterceptor
             if (entry.State == EntityState.Added)
             {
                 entry.Entity.CreatedBy = _user.Id;
-                entry.Entity.Created = _dateTime.Now;
+                entry.Entity.Created = _timeProvider.GetLocalNow().DateTime;
             } 
 
             if (entry.State == EntityState.Added || entry.State == EntityState.Modified || entry.HasChangedOwnedEntities())
             {
                 entry.Entity.LastModifiedBy = _user.Id;
-                entry.Entity.LastModified = _dateTime.Now;
+                entry.Entity.LastModified = _timeProvider.GetLocalNow().DateTime;
             }
         }
     }
