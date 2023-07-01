@@ -9,11 +9,11 @@ public abstract class EndpointGroupBase
 
     public abstract void Map(WebApplication app);
 
-    protected void MapGroup(WebApplication app, string groupName)
+    protected RouteGroupBuilder MapGroup(WebApplication app, string groupName)
     {
         _groupName = groupName;
 
-        _group = app
+        return _group = app
             .MapGroup($"/api/{_groupName}")
             .WithGroupName(_groupName)
             .WithTags(_groupName)
@@ -22,77 +22,77 @@ public abstract class EndpointGroupBase
             .AddEndpointFilter<ApiExceptionFilter>();
     }
 
-    public void MapGet(Delegate handler, string prefix = "")
+    public RouteHandlerBuilder MapGet(Delegate handler, string prefix = "")
     {
         if (handler.Method.IsAnonymous())
         {
             throw new ArgumentException("The endpoint name must be specified when using anonymous handlers.");
         }
 
-        MapGet(handler.Method.Name, prefix, handler);
+        return MapGet(handler.Method.Name, prefix, handler);
     }
 
-    protected void MapGet(string name, Delegate handler)
+    protected RouteHandlerBuilder MapGet(string name, Delegate handler)
     {
-        MapGet(name, "", handler);
+        return MapGet(name, "", handler);
     }
 
-    protected void MapGet(string name, string prefix, Delegate handler)
+    protected RouteHandlerBuilder MapGet(string name, string prefix, Delegate handler)
     {
-        _group!.MapGet(prefix, handler)
+        return _group!.MapGet(prefix, handler)
             .WithName(GetEndpointName(name));
     }
 
-    public void MapPost(Delegate handler, string prefix = "")
+    public RouteHandlerBuilder MapPost(Delegate handler, string prefix = "")
     {
         if (handler.Method.IsAnonymous())
         {
             throw new ArgumentException("The endpoint name must be specified when using anonymous handlers.");
         }
 
-        MapPost(handler.Method.Name, prefix, handler);
+        return MapPost(handler.Method.Name, prefix, handler);
     }
 
-    protected void MapPost(string name, Delegate handler)
+    protected RouteHandlerBuilder MapPost(string name, Delegate handler)
     {
-        MapPost(name, "", handler);
+        return MapPost(name, "", handler);
     }
 
-    protected void MapPost(string name, string prefix, Delegate handler)
+    protected RouteHandlerBuilder MapPost(string name, string prefix, Delegate handler)
     {
-        _group!.MapPost(prefix, handler)
+        return _group!.MapPost(prefix, handler)
             .WithName(GetEndpointName(name));
     }
 
-    protected void MapPut(Delegate handler, string prefix)
+    protected RouteHandlerBuilder MapPut(Delegate handler, string prefix)
     {
         if (handler.Method.IsAnonymous())
         {
             throw new ArgumentException("The endpoint name must be specified when using anonymous handlers.");
         }
 
-        MapPut(handler.Method.Name, prefix, handler);
+        return MapPut(handler.Method.Name, prefix, handler);
     }
 
-    protected void MapPut(string name, string prefix, Delegate handler)
+    protected RouteHandlerBuilder MapPut(string name, string prefix, Delegate handler)
     {
-        _group!.MapPut(prefix, handler)
+        return _group!.MapPut(prefix, handler)
             .WithName(GetEndpointName(name));
     }
 
-    protected void MapDelete(Delegate handler, string prefix)
+    protected RouteHandlerBuilder MapDelete(Delegate handler, string prefix)
     {
         if (handler.Method.IsAnonymous())
         {
             throw new ArgumentException("The endpoint name must be specified when using anonymous handlers.");
         }
 
-        MapDelete(handler.Method.Name, prefix, handler);
+        return MapDelete(handler.Method.Name, prefix, handler);
     }
 
-    protected void MapDelete(string name, string prefix, Delegate handler)
+    protected RouteHandlerBuilder MapDelete(string name, string prefix, Delegate handler)
     {
-        _group!.MapDelete(prefix, handler)
+        return _group!.MapDelete(prefix, handler)
             .WithName(GetEndpointName(name));
     }
 
