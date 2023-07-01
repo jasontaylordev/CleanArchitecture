@@ -33,7 +33,12 @@
     </ItemGroup>
 
     <ItemGroup>
+        <!--#if (!UseApiOnly)-->
         <ProjectReference Include="..\..\src\WebUI\WebUI.csproj" />
+        <!--#endif-->
+        <!--#if (UseApiOnly)-->
+        <ProjectReference Include="..\..\src\WebApi\WebApi.csproj" />
+        <!--#endif-->
     </ItemGroup>
 
 </Project>
