@@ -11,13 +11,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <None Remove="appsettings.json" />
+        <None Remove="appsettings.json" />
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="appsettings.json">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
+        <Content Include="appsettings.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
     <ItemGroup>
@@ -32,13 +32,15 @@
         <PackageReference Include="Respawn" Version="6.0.0" />
     </ItemGroup>
 
-    <ItemGroup>
-        <!--#if (!UseApiOnly)-->
+    <!--#if (!UseApiOnly)-->
+    <ItemGroup Condition=" '$(UseOnlyApi)' != 'True'">
         <ProjectReference Include="..\..\src\WebUI\WebUI.csproj" />
-        <!--#endif-->
-        <!--#if (UseApiOnly)-->
-        <ProjectReference Include="..\..\src\WebApi\WebApi.csproj" />
-        <!--#endif-->
     </ItemGroup>
+    <!--#endif-->
+    <!--#if (UseApiOnly)-->
+    <ItemGroup Condition=" '$(UseOnlyApi)' == 'True'">
+        <ProjectReference Include="..\..\src\WebApi\WebApi.csproj" />
+    </ItemGroup>
+    <!--#endif-->
 
 </Project>
