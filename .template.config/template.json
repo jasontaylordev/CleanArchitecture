@@ -1,12 +1,7 @@
 {
   "$schema": "http://json.schemastore.org/template",
   "author": "JasonTaylorDev",
-  "classifications": [
-    "Web",
-    "SPA",
-    "ASP.NET",
-    "Clean Architecture"
-  ],
+  "classifications": ["Web", "SPA", "ASP.NET", "Clean Architecture"],
   "name": "Clean Architecture Solution",
   "description": "A Clean Architecture Solution Template for creating a Single-Page Application (SPA) with ASP.NET Core.",
   "identity": "Clean.Architecture.Solution.CSharp",
@@ -30,6 +25,10 @@
         {
           "choice": "react",
           "description": "Use React"
+        },
+        {
+          "choice": "none",
+          "description": "Use Api Only"
         }
       ],
       "defaultValue": "angular",
@@ -42,6 +41,10 @@
     "UseReact": {
       "type": "computed",
       "value": "(clientFramework == \"React\")"
+    },
+    "UseApiOnly": {
+      "type": "computed",
+      "value": "(clientFramework == \"None\")"
     }
   },
   "sources": [
@@ -69,6 +72,7 @@
           "condition": "(UseAngular)",
           "exclude": [
             "src/WebUI/config-react.nswag",
+            "src/WebUI/config-webapi.nswag",
             "src/WebUI/ClientApp-React/**",
             "src/WebUI/Templates/**"
           ]
@@ -77,11 +81,26 @@
           "condition": "(UseReact)",
           "exclude": [
             "src/WebUI/config.nswag",
+            "src/WebUI/config-webapi.nswag",
             "src/WebUI/ClientApp/**"
           ],
           "rename": {
             "config-react.nswag": "config.nswag",
             "ClientApp-React": "ClientApp"
+          }
+        },
+        {
+          "condition": "(UseApiOnly)",
+          "exclude": [
+            "src/WebUI/config.nswag",
+            "src/WebUI/ClientApp/**",
+            "src/WebUI/config-react.nswag",
+            "src/WebUI/ClientApp-React/**",
+            "src/WebUI/Templates/**"
+          ],
+          "rename": {
+            "config-webapi.nswag": "config.nswag",
+            "WebUI": "WebApi"
           }
         }
       ]
