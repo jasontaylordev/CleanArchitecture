@@ -3,41 +3,46 @@ using CleanArchitecture.Application.TodoLists.Commands.DeleteTodoList;
 using CleanArchitecture.Application.TodoLists.Commands.UpdateTodoList;
 using CleanArchitecture.Application.TodoLists.Queries.ExportTodos;
 using CleanArchitecture.Application.TodoLists.Queries.GetTodos;
-
 namespace CleanArchitecture.WebUI.Endpoints;
 
 public class TodoListsEndpointGroup : EndpointGroupBase
 {
     public override void Map(WebApplication app)
     {
-        MapGroup("TodoLists", app);
+        MapGroup(app, "TodoLists");
+        MapGet(GetTodoLists);
+        MapGet(ExportTodos, "Export/{id}");
+        MapPost(CreateTodoList);
+        MapPut(UpdateTodoList, "{id}");
+        MapDelete(DeleteTodoList, "{id}");
+    }
 
-        MapGet("GetTodoLists",
-            async (ISender sender) => await sender.Send(new GetTodosQuery()));
+    public async Task<TodosVm> GetTodoLists(ISender sender)
+    {
+        return await sender.Send(new GetTodosQuery());
+    }
 
-        MapGet("ExportTodos", "Export/{id}",
-            async (ISender sender, int id) =>
-            {
-                var vm = await sender.Send(new ExportTodosQuery { ListId = id });
-                return Results.File(vm.Content, vm.ContentType, vm.FileName);
-            });
+    public async Task<IResult> ExportTodos(ISender sender, int id)
+    {
+        var vm = await sender.Send(new ExportTodosQuery { ListId = id });
+        return Results.File(vm.Content, vm.ContentType, vm.FileName);
+    }
 
-        MapPost("CreateTodoList",
-            async (ISender sender, CreateTodoListCommand command) => await sender.Send(command));
+    public async Task<int> CreateTodoList(ISender sender, CreateTodoListCommand command)
+    {
+        return await sender.Send(command);
+    }
 
-        MapPut("UpdateTodoList", "{id}",
-                async (ISender sender, int id, UpdateTodoListCommand command) =>
-                {
-                    if (id != command.Id) return Results.BadRequest();
-                    await sender.Send(command);
-                    return Results.NoContent();
-                });
+    public async Task<IResult> UpdateTodoList(ISender sender, int id, UpdateTodoListCommand command)
+    {
+        if (id != command.Id) return Results.BadRequest();
+        await sender.Send(command);
+        return Results.NoContent();
+    }
 
-        MapDelete("DeleteTodoList", "{id}",
-            async (ISender sender, int id) =>
-            {
-                await sender.Send(new DeleteTodoListCommand(id));
-                return Results.NoContent();
-            });
+    public async Task<IResult> DeleteTodoList(ISender sender, int id)
+    {
+        await sender.Send(new DeleteTodoListCommand(id));
+        return Results.NoContent();
     }
 }
