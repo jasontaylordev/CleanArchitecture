@@ -82,7 +82,8 @@
           "exclude": [
             "src/WebUI/config.nswag",
             "src/WebUI/config-webapi.nswag",
-            "src/WebUI/ClientApp/**"
+            "src/WebUI/ClientApp/**",
+            "src/WebUI/Templates/**"
           ],
           "rename": {
             "config-react.nswag": "config.nswag",
