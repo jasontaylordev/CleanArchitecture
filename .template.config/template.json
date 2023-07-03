@@ -100,8 +100,7 @@
             "src/WebUI/Templates/**"
           ],
           "rename": {
-            "config-webapi.nswag": "config.nswag",
-            "WebUI": "WebApi"
+            "config-webapi.nswag": "config.nswag"
           }
         }
       ]
