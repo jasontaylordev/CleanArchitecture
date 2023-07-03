@@ -31,16 +31,8 @@
         <PackageReference Include="Moq" Version="4.18.4" />
         <PackageReference Include="Respawn" Version="6.0.0" />
     </ItemGroup>
-
-    <!--#if (!UseApiOnly)-->
-    <ItemGroup Condition=" '$(UseOnlyApi)' != 'True'">
+    <ItemGroup>
         <ProjectReference Include="..\..\src\WebUI\WebUI.csproj" />
     </ItemGroup>
-    <!--#endif-->
-    <!--#if (UseApiOnly)-->
-    <ItemGroup Condition=" '$(UseOnlyApi)' == 'True'">
-        <ProjectReference Include="..\..\src\WebApi\WebApi.csproj" />
-    </ItemGroup>
-    <!--#endif-->
 
 </Project>
