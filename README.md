@@ -29,20 +29,34 @@ The template depends on the latest versions of:
 
 The easiest way to get started is to install the [.NET template](https://www.nuget.org/packages/Clean.Architecture.Solution.Template):
 ```
-dotnet new install Clean.Architecture.Solution.Template::8.0.0-preview.5.2
-````
-
-Once installed, create a new solution using the template:
-```
-dotnet new ca-sln -c <Angular|React> --output <YourProjectName>
+dotnet new install Clean.Architecture.Solution.Template::8.0.0-preview.5.3
 ```
 
-The above command creates a SPA with Angular or React on ASP.NET Core. Start the application by navigating to `./src/WebUI` and running:
+Once installed, create a new solution using the template. You can choose to use Angular, React, or create a Web API-only solution. Specify the client framework using the `-c` or `--clientFramework` option, and provide the output directory where your project will be created. Here are some examples:
+
+To create a SPA with Angular:
+```
+dotnet new ca-sln -c Angular --output YourProjectName
+```
+
+To create a SPA with React:
+```
+dotnet new ca-sln -c React --output YourProjectName
+```
+
+To create a Web API-only solution:
+```
+dotnet new ca-sln -c None --output YourProjectName
+```
+
+The above commands will create a Single-Page Application (SPA) with Angular or React on top of ASP.NET Core, or a Web API-only solution.
+
+Start the application by navigating to ``./src/WebUI`` (SPA) or ``./src/WebApi`` and running:
 ```
 dotnet run
 ```
 
-Create use cases (commands or queries) by navigating to `./src/Application`, and running:
+Create use cases (commands or queries) by navigating to `./src/Application` and running:
 ```
 dotnet new ca-usecase --feature TodoLists --name CreateTodoList --useCaseType command --returnType int
 ```
