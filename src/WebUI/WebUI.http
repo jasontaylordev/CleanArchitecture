@@ -3,6 +3,24 @@
 @AuthCookieName = .AspNetCore.Identity.Application
 @AuthCookieValue = <AuthCookieValue>
 
+# GET Identity Account Login
+# Get the @RequestVerificationToken necessary for logging in.
+GET {{WebUI_HostAddress}}/Identity/Account/Login
+
+###
+
+# POST Identity Account Login
+# Get the @AuthCookieValue necessary for authenticating requests.
+@Email=administrator@localhost
+@Password=Administrator1!
+@RequestVerificationToken=<RequestVerificationToken>
+POST {{WebUI_HostAddress}}/Identity/Account/Login
+Content-Type: application/x-www-form-urlencoded
+
+Input.Email={{Email}}&Input.Password={{Password}}&__RequestVerificationToken={{RequestVerificationToken}}
+
+###
+
 # GET WeatherForecast
 GET {{WebUI_HostAddress}}/api/weatherforecast
 Cookie: {{AuthCookieName}}={{AuthCookieValue}}
