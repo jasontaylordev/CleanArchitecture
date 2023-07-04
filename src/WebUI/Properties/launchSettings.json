@@ -8,12 +8,7 @@
     }
   },
   "profiles": {
-    //#if(UseApiOnly)
-    "CleanArchitecture.WebApi": {
-    //#endif
-    //#if(!UseApiOnly)
     "CleanArchitecture.WebUI": {
-    //#endif
         "commandName": "Project",
         "launchBrowser": true,
         "applicationUrl": "https://localhost:5001;http://localhost:5000",
@@ -21,20 +16,20 @@
         "launchUrl": "https://localhost:5001/api",
         //#endif
         "environmentVariables": {
-          "ASPNETCORE_ENVIRONMENT": "Development",
           //#if(!UseApiOnly)
-          "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy"
+          "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy",
           //#endif
+          "ASPNETCORE_ENVIRONMENT": "Development"
         }
       },
       "IIS Express": {
         "commandName": "IISExpress",
         "launchBrowser": true,
         "environmentVariables": {
-          "ASPNETCORE_ENVIRONMENT": "Development",
           //#if(!UseApiOnly)
-          "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy"
+          "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy",
           //#endif
+          "ASPNETCORE_ENVIRONMENT": "Development"
         }
       }
     }

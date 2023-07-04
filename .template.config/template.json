@@ -45,6 +45,25 @@
     "UseApiOnly": {
       "type": "computed",
       "value": "(clientFramework == \"None\")"
+    },
+    "WebProjectName": {
+      "type": "generated",
+      "generator": "switch",
+      "replaces": "WebUI",
+      "parameters": {
+        "evaluator": "C++",
+        "datatype": "text",
+        "cases": [
+          {
+            "condition": "(UseApiOnly)",
+            "value": "WebApi"
+          },
+          {
+            "condition": "",
+            "value": "WebUI"
+          }
+        ]
+      }
     }
   },
   "sources": [
@@ -82,8 +101,7 @@
           "exclude": [
             "src/WebUI/config.nswag",
             "src/WebUI/config-webapi.nswag",
-            "src/WebUI/ClientApp/**",
-            "src/WebUI/Templates/**"
+            "src/WebUI/ClientApp/**"
           ],
           "rename": {
             "config-react.nswag": "config.nswag",
@@ -100,7 +118,8 @@
             "src/WebUI/Templates/**"
           ],
           "rename": {
-            "config-webapi.nswag": "config.nswag"
+            "config-webapi.nswag": "config.nswag",
+            "WebUI": "WebApi"
           }
         }
       ]
