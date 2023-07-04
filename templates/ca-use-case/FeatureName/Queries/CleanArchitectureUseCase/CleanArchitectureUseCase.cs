@@ -6,7 +6,7 @@ public record CleanArchitectureUseCaseQuery : IRequest<object>
 {
 }
 
-public class CleanArchitectureCommandCommandValidator : AbstractValidator<CleanArchitectureCommandCommand>
+public class CleanArchitectureUseCaseQueryValidator : AbstractValidator<CleanArchitectureUseCaseQuery>
 {
     public CleanArchitectureCommandCommandValidator()
     {
