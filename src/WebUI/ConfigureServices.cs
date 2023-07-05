@@ -1,5 +1,5 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Infrastructure.Persistence;
+using CleanArchitecture.Infrastructure.Data;
 using CleanArchitecture.WebUI.Services;
 using Microsoft.AspNetCore.Mvc;
 using ZymLabs.NSwag.FluentValidation;

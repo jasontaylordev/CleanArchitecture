@@ -1,8 +1,8 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Infrastructure.Files;
 using CleanArchitecture.Infrastructure.Identity;
-using CleanArchitecture.Infrastructure.Persistence;
-using CleanArchitecture.Infrastructure.Persistence.Interceptors;
+using CleanArchitecture.Infrastructure.Data;
+using CleanArchitecture.Infrastructure.Data.Interceptors;
 using CleanArchitecture.Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

@@ -2,12 +2,12 @@
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Infrastructure.Identity;
-using CleanArchitecture.Infrastructure.Persistence.Interceptors;
+using CleanArchitecture.Infrastructure.Data.Interceptors;
 using MediatR;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace CleanArchitecture.Infrastructure.Persistence;
+namespace CleanArchitecture.Infrastructure.Data;
 
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
 {
