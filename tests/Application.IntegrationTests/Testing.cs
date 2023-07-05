@@ -1,42 +1,28 @@
-﻿using CleanArchitecture.Infrastructure.Identity;
-using CleanArchitecture.Infrastructure.Data;
+﻿using CleanArchitecture.Infrastructure.Data;
+using CleanArchitecture.Infrastructure.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NUnit.Framework;
-using Respawn;
 
 namespace CleanArchitecture.Application.IntegrationTests;
 
 [SetUpFixture]
 public partial class Testing
 {
-    private static WebApplicationFactory<Program> _factory = null!;
-    private static IConfiguration _configuration = null!;
+    private static TestDatabase _database;
+    private static CustomWebApplicationFactory _factory = null!;
     private static IServiceScopeFactory _scopeFactory = null!;
-    private static Respawner _checkpoint = null!;
     private static string? _userId;
 
     [OneTimeSetUp]
-    public void RunBeforeAnyTests()
+    public async Task RunBeforeAnyTests()
     {
-        _factory = new CustomWebApplicationFactory();
+        _database = await TestDatabase.CreateAsync();
+
+        _factory = new CustomWebApplicationFactory(_database.GetConnection());
+
         _scopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
-        _configuration = _factory.Services.GetRequiredService<IConfiguration>();
-
-        using var scope = _scopeFactory.CreateScope();
-
-        var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-
-        context.Database.Migrate();
-
-        _checkpoint = Respawner.CreateAsync(_configuration.GetConnectionString("DefaultConnection")!, new RespawnerOptions
-        {
-            TablesToIgnore = new Respawn.Graph.Table[] { "__EFMigrationsHistory" }
-        }).GetAwaiter().GetResult();
     }
 
     public static async Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request)
@@ -110,7 +96,7 @@ public partial class Testing
     {
         try
         {
-            await _checkpoint.ResetAsync(_configuration.GetConnectionString("DefaultConnection")!);
+            await _database.ResetAsync();
         }
         catch (Exception) 
         {
@@ -151,7 +137,9 @@ public partial class Testing
     }
 
     [OneTimeTearDown]
-    public void RunAfterAnyTests()
+    public async Task RunAfterAnyTests()
     {
+        await _database.DisposeAsync();
+        await _factory.DisposeAsync();
     }
 }

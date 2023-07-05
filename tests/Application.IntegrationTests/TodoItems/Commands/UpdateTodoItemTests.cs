@@ -1,10 +1,7 @@
-﻿using Ardalis.GuardClauses;
-using CleanArchitecture.Application.TodoItems.Commands.CreateTodoItem;
+﻿using CleanArchitecture.Application.TodoItems.Commands.CreateTodoItem;
 using CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItem;
 using CleanArchitecture.Application.TodoLists.Commands.CreateTodoList;
 using CleanArchitecture.Domain.Entities;
-using FluentAssertions;
-using NUnit.Framework;
 
 namespace CleanArchitecture.Application.IntegrationTests.TodoItems.Commands;
 

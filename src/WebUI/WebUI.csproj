@@ -35,9 +35,6 @@
             <Publish>false</Publish>
         </PackageReference>
         <!--#endif-->
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.0-preview.5.23280.1" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0-preview.5.23280.1" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0-preview.5.23280.1" />
         <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="8.0.0-preview.5.23302.2" />
         <PackageReference Include="NSwag.AspNetCore" Version="13.19.0" />
         <PackageReference Include="NSwag.MSBuild" Version="13.19.0">

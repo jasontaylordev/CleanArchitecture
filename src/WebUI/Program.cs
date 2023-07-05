@@ -43,3 +43,5 @@ app.MapFallbackToFile("index.html");
 app.MapEndpoints();
 
 app.Run();
+
+public partial class Program { }

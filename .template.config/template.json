@@ -1,7 +1,11 @@
 {
   "$schema": "http://json.schemastore.org/template",
   "author": "JasonTaylorDev",
-  "classifications": ["Web", "SPA", "ASP.NET", "Clean Architecture"],
+  "classifications": [
+    "Web",
+    "SPA",
+    "ASP.NET",
+    "Clean Architecture"],
   "name": "Clean Architecture Solution",
   "description": "A Clean Architecture Solution Template for creating a Single-Page Application (SPA) with ASP.NET Core.",
   "identity": "Clean.Architecture.Solution.CSharp",
@@ -14,7 +18,7 @@
   "sourceName": "CleanArchitecture",
   "preferNameDirectory": true,
   "symbols": {
-    "clientFramework": {
+    "ClientFramework": {
       "type": "parameter",
       "datatype": "choice",
       "choices": [
@@ -36,15 +40,25 @@
     },
     "UseAngular": {
       "type": "computed",
-      "value": "(clientFramework == \"Angular\")"
+      "value": "(ClientFramework == \"Angular\")"
     },
     "UseReact": {
       "type": "computed",
-      "value": "(clientFramework == \"React\")"
+      "value": "(ClientFramework == \"React\")"
     },
     "UseApiOnly": {
       "type": "computed",
-      "value": "(clientFramework == \"None\")"
+      "value": "(ClientFramework == \"None\")"
+    },
+    "UseSQLite": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Whether to use SQLite instead of LocalDB."
+    },
+    "UseLocalDB": {
+      "type": "computed",
+      "value": "(!UseSQLite)"
     },
     "WebProjectName": {
       "type": "generated",
@@ -121,6 +135,28 @@
           "rename": {
             "config-webapi.nswag": "config.nswag",
             "WebUI": "WebApi"
+          }
+        },
+        {
+          "condition": "(UseLocalDB)",
+          "exclude": [
+            "src/Infrastructure/Data/SQLite/**",
+            "src/WebUI/appsettings.SQLite.json",
+            "src/WebUI/app.db",
+            "tests/Application.IntegrationTests/TestSqliteDatabase.cs"
+          ]
+        },
+        {
+          "condition": "(UseSQLite)",
+          "exclude": [
+            "src/Infrastructure/Data/Migrations/**",
+            "src/WebUI/appsettings.json",
+            "tests/Application.IntegrationTests/TestDatabase.cs"
+          ],
+          "rename": {
+            "src/Infrastructure/Data/SQLite/" : "src/Infrastructure/Data/Migrations/",
+            "appsettings.SQLite.json": "appsettings.json",
+            "TestSqliteDatabase.cs": "TestDatabase.cs"
           }
         }
       ]
