@@ -22,7 +22,7 @@ Input.Email={{Email}}&Input.Password={{Password}}&__RequestVerificationToken={{R
 ###
 
 # GET WeatherForecast
-GET {{WebUI_HostAddress}}/api/weatherforecast
+GET {{WebUI_HostAddress}}/api/WeatherForecasts
 Cookie: {{AuthCookieName}}={{AuthCookieValue}}
 
 ###

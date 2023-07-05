@@ -3,18 +3,20 @@ using CleanArchitecture.Application.TodoLists.Commands.DeleteTodoList;
 using CleanArchitecture.Application.TodoLists.Commands.UpdateTodoList;
 using CleanArchitecture.Application.TodoLists.Queries.ExportTodos;
 using CleanArchitecture.Application.TodoLists.Queries.GetTodos;
+
 namespace CleanArchitecture.WebUI.Endpoints;
 
-public class TodoListsEndpointGroup : EndpointGroupBase
+public class TodoLists : EndpointGroupBase
 {
     public override void Map(WebApplication app)
     {
-        MapGroup(app, "TodoLists");
-        MapGet(GetTodoLists);
-        MapGet(ExportTodos, "Export/{id}");
-        MapPost(CreateTodoList);
-        MapPut(UpdateTodoList, "{id}");
-        MapDelete(DeleteTodoList, "{id}");
+        app.MapGroup(this)
+            .RequireAuthorization()
+            .MapGet(GetTodoLists)
+            .MapGet(ExportTodos, "Export/{id}")
+            .MapPost(CreateTodoList)
+            .MapPut(UpdateTodoList, "{id}")
+            .MapDelete(DeleteTodoList, "{id}");
     }
 
     public async Task<TodosVm> GetTodoLists(ISender sender)
