@@ -1,0 +1,16 @@
+{
+    "symbolInfo": {
+        "featureName": {
+            "longName": "feature-name",
+            "shortName": "fn"
+        },
+        "returnType": {
+            "longName": "return-type",
+            "shortName": "rt"
+        },
+        "useCaseType": {
+            "longName": "usecase-type",
+            "shortName": "ut"
+        }
+    }
+}

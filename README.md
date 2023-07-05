@@ -29,24 +29,24 @@ The template depends on the latest versions of:
 
 The easiest way to get started is to install the [.NET template](https://www.nuget.org/packages/Clean.Architecture.Solution.Template):
 ```
-dotnet new install Clean.Architecture.Solution.Template::8.0.0-preview.5.3
+dotnet new install Clean.Architecture.Solution.Template::8.0.0-preview.5.4
 ```
 
-Once installed, create a new solution using the template. You can choose to use Angular, React, or create a Web API-only solution. Specify the client framework using the `-c` or `--clientFramework` option, and provide the output directory where your project will be created. Here are some examples:
+Once installed, create a new solution using the template. You can choose to use Angular, React, or create a Web API-only solution. Specify the client framework using the `-cf` or `--client-framework` option, and provide the output directory where your project will be created. Here are some examples:
 
 To create a SPA with Angular:
 ```
-dotnet new ca-sln -c Angular --output YourProjectName
+dotnet new ca-sln --client-framework Angular --output YourProjectName
 ```
 
 To create a SPA with React:
 ```
-dotnet new ca-sln -c React --output YourProjectName
+dotnet new ca-sln -cf React -o YourProjectName
 ```
 
 To create a Web API-only solution:
 ```
-dotnet new ca-sln -c None --output YourProjectName
+dotnet new ca-sln -cf None -o YourProjectName
 ```
 
 The above commands will create a Single-Page Application (SPA) with Angular or React on top of ASP.NET Core, or a Web API-only solution.
@@ -56,13 +56,24 @@ Start the application by navigating to ``./src/WebUI`` (SPA) or ``./src/WebApi``
 dotnet run
 ```
 
-Create use cases (commands or queries) by navigating to `./src/Application` and running:
+To learn more, run the following command:
 ```
-dotnet new ca-usecase --feature TodoLists --name CreateTodoList --useCaseType command --returnType int
+dotnet new ca-sln --help
+```
+
+You can create use cases (commands or queries) by navigating to `./src/Application` and running `dotnet new ca-usecase`. Here are some examples:
+
+To create a new command:
+```
+dotnet new ca-usecase --name CreateTodoList --feature-name TodoLists --usecase-type command --return-type int
+```
+
+To create a query:
+```
+dotnet new ca-usecase -n GetTodos -fn TodoLists -ut query -rt TodosVm
 ```
 
 To learn more, run the following command:
-
 ```
 dotnet new ca-usecase --help
 ```
