@@ -80,13 +80,7 @@ dotnet new ca-usecase --help
 
 ## Database
 
-The template is configured to use an in-memory database by default. This ensures that all users will be able to run the solution without needing to set up additional infrastructure (e.g. SQL Server).
-
-If you would like to use SQL Server, you will need to update **WebUI/appsettings.json** as follows:
-
-```json
-  "UseInMemoryDatabase": false,
-```
+The template is configured to use SQL Server Express LocalDb by default.
 
 Verify that the **DefaultConnection** connection string within **appsettings.json** points to a valid SQL Server instance. 
 
@@ -94,8 +88,7 @@ When you run the application the database will be automatically created (if nece
 
 ### Database Migrations
 
-To use `dotnet-ef` for your migrations first ensure that "UseInMemoryDatabase" is disabled, as described within previous section.
-Then, add the following flags to your command (values assume you are executing from repository root)
+Running database migrations is easy. Ensure you add the following flags to your command (values assume you are executing from repository root)
 
 * `--project src/Infrastructure` (optional if in this folder)
 * `--startup-project src/WebUI`
