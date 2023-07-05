@@ -1,6 +1,4 @@
-﻿using NUnit.Framework;
-
-namespace CleanArchitecture.Application.IntegrationTests;
+﻿namespace CleanArchitecture.Application.IntegrationTests;
 
 using static Testing;
 

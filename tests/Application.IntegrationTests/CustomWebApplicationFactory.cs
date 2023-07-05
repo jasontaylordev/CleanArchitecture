@@ -1,42 +1,42 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
+﻿using System.Data.Common;
+using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Infrastructure.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Moq;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace CleanArchitecture.Application.IntegrationTests;
 
 using static Testing;
 
-internal class CustomWebApplicationFactory : WebApplicationFactory<Program>
+public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
+    private readonly DbConnection _connection;
+
+    public CustomWebApplicationFactory(DbConnection connection)
+    {
+        _connection = connection;
+    }
+
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        builder.ConfigureAppConfiguration(configurationBuilder =>
-        {
-            var integrationConfig = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .AddEnvironmentVariables()
-                .Build();
-
-            configurationBuilder.AddConfiguration(integrationConfig);
-        });
-
-        builder.ConfigureServices((builder, services) =>
+        builder.ConfigureTestServices(services =>
         {
             services
-                .Remove<IUser>()
-                .AddTransient(provider => Mock.Of<IUser>(s =>
-                    s.Id == GetUserId()));
+                .RemoveAll<IUser>()
+                .AddTransient(provider => Mock.Of<IUser>(s => s.Id == GetUserId()));
 
             services
-                .Remove<DbContextOptions<ApplicationDbContext>>()
+                .RemoveAll<DbContextOptions<ApplicationDbContext>>()
                 .AddDbContext<ApplicationDbContext>((sp, options) =>
-                    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
-                        builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+#if (UseSQLite)
+                    options.UseSqlite(_connection));
+#else
+                    options.UseSqlServer(_connection));
+#endif
         });
     }
 }

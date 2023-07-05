@@ -1,9 +1,6 @@
-﻿using Ardalis.GuardClauses;
-using CleanArchitecture.Application.TodoLists.Commands.CreateTodoList;
+﻿using CleanArchitecture.Application.TodoLists.Commands.CreateTodoList;
 using CleanArchitecture.Application.TodoLists.Commands.DeleteTodoList;
 using CleanArchitecture.Domain.Entities;
-using FluentAssertions;
-using NUnit.Framework;
 
 namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Commands;
 

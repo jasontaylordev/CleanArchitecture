@@ -1,8 +1,11 @@
 {
   "symbolInfo": {
-    "clientFramework": {
+    "ClientFramework": {
       "longName": "client-framework",
       "shortName": "cf"
+    },
+    "UseSQLite": {
+      "longName": "use-sqlite"
     }
   }
 }

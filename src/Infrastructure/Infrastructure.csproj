@@ -8,13 +8,27 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <!--#if ('True' == 'False')-->
+    <!-- The above expression ensures this block will be excluded when the project is created using `dotnet new ca-sln` -->
+    <ItemGroup>
+      <Compile Remove="Data\SQLite\**" />
+      <EmbeddedResource Remove="Data\SQLite\**" />
+      <None Remove="Data\SQLite\**" />
+    </ItemGroup>
+    <!--#endif-->
     <ItemGroup>
         <PackageReference Include="CsvHelper" Version="30.0.1" />
         <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.0-preview.5.23302.2" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0-preview.5.23302.2" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.0-preview.5.23302.2" />
+        <!--#if (UseSQLite)-->
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0-preview.5.23280.1" />
+        <!--#endif-->
+        <!--#if (UseLocalDB)-->
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0-preview.5.23280.1" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.0-preview.5.23280.1" />
+        <!--#endif-->
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.0-preview.5.23280.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0-preview.5.23280.1" />
     </ItemGroup>
 
     <ItemGroup>

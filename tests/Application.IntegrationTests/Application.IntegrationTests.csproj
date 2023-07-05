@@ -11,16 +11,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Remove="appsettings.json" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Content Include="appsettings.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Content>
-    </ItemGroup>
-
-    <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.0-preview.5.23302.2" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.2" />
         <PackageReference Include="nunit" Version="3.13.3" />
@@ -30,6 +20,7 @@
         <PackageReference Include="FluentAssertions" Version="6.11.0" />
         <PackageReference Include="Moq" Version="4.18.4" />
         <PackageReference Include="Respawn" Version="6.0.0" />
+        <PackageReference Include="Testcontainers.MsSql" Version="3.3.0" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\src\WebUI\WebUI.csproj" />

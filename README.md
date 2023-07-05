@@ -29,7 +29,7 @@ The template depends on the latest versions of:
 
 The easiest way to get started is to install the [.NET template](https://www.nuget.org/packages/Clean.Architecture.Solution.Template):
 ```
-dotnet new install Clean.Architecture.Solution.Template::8.0.0-preview.5.6
+dotnet new install Clean.Architecture.Solution.Template::8.0.0-preview.5.7
 ```
 
 Once installed, create a new solution using the template. You can choose to use Angular, React, or create a Web API-only solution. Specify the client framework using the `-cf` or `--client-framework` option, and provide the output directory where your project will be created. Here are some examples:
@@ -80,9 +80,11 @@ dotnet new ca-usecase --help
 
 ## Database
 
-The template is configured to use SQL Server Express LocalDb by default.
+The template is configured to use SQL Server by default. If you would prefer to use SQLite, create your solution using the following command:
 
-Verify that the **DefaultConnection** connection string within **appsettings.json** points to a valid SQL Server instance. 
+```bash
+dotnet new ca-sln --use-sqlite
+```
 
 When you run the application the database will be automatically created (if necessary) and the latest migrations will be applied.
 
@@ -92,11 +94,11 @@ Running database migrations is easy. Ensure you add the following flags to your 
 
 * `--project src/Infrastructure` (optional if in this folder)
 * `--startup-project src/WebUI`
-* `--output-dir Persistence/Migrations`
+* `--output-dir Data/Migrations`
 
 For example, to add a new migration from the root folder:
 
- `dotnet ef migrations add "SampleMigration" --project src\Infrastructure --startup-project src\WebUI --output-dir Persistence\Migrations`
+ `dotnet ef migrations add "SampleMigration" --project src\Infrastructure --startup-project src\WebUI --output-dir Data\Migrations`
 
 ## Versions
 The main branch is now on .NET 8.0. The following previous versions are available:
