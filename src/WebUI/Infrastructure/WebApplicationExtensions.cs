@@ -1,31 +1,23 @@
 ﻿using System.Reflection;
+using CleanArchitecture.WebUI.Filters;
 
 namespace CleanArchitecture.WebUI.Infrastructure;
 
 public static class WebApplicationExtensions
 {
-    public static WebApplication MapEndpoints(this WebApplication app)
+    public static RouteGroupBuilder MapGroup(this WebApplication app, EndpointGroupBase group)
     {
-        var endpointType = typeof(IEndpoint);
+        var groupName = group.GetType().Name;
 
-        var assembly = Assembly.GetExecutingAssembly();
-
-        var endpointTypes = assembly.GetExportedTypes()
-            .Where(t => t.IsAbstract == false &&
-                        t.GetInterfaces().Contains(endpointType));
-
-        foreach (var type in endpointTypes)
-        {
-            if (Activator.CreateInstance(type) is IEndpoint instance)
-            {
-                instance.Map(app);
-            }
-        }
-
-        return app;
+        return app
+            .MapGroup($"/api/{groupName}")
+            .WithGroupName(groupName)
+            .WithTags(groupName)
+            .WithOpenApi()
+            .AddEndpointFilter<ApiExceptionFilter>();
     }
 
-    public static WebApplication MapEndpointGroups(this WebApplication app)
+    public static WebApplication MapEndpoints(this WebApplication app)
     {
         var endpointGroupType = typeof(EndpointGroupBase);
 

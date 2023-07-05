@@ -6,35 +6,62 @@
     "version": "1.0.0"
   },
   "paths": {
-    "/api/WeatherForecasts": {
+    "/api/TodoItems": {
       "get": {
         "tags": [
-          "WeatherForecasts"
+          "TodoItems"
         ],
-        "operationId": "WeatherForecasts_GetWeatherForecasts",
+        "operationId": "GetTodoItemsWithPagination",
+        "parameters": [
+          {
+            "name": "ListId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "PageNumber",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 2
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 3
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
+                  "$ref": "#/components/schemas/PaginatedListOfTodoItemBriefDto"
                 }
               }
             }
           }
         }
-      }
-    },
-    "/api/TodoItems": {
+      },
       "post": {
         "tags": [
           "TodoItems"
         ],
-        "operationId": "TodoItems_CreateTodoItem",
+        "operationId": "CreateTodoItem",
         "requestBody": {
           "x-name": "command",
           "description": "",
@@ -64,34 +91,11 @@
       }
     },
     "/api/TodoItems/{id}": {
-      "delete": {
-        "tags": [
-          "TodoItems"
-        ],
-        "operationId": "TodoItems_DeleteTodoItem",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "x-position": 1
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
       "put": {
         "tags": [
           "TodoItems"
         ],
-        "operationId": "TodoItems_UpdateTodoItem",
+        "operationId": "UpdateTodoItem",
         "parameters": [
           {
             "name": "id",
@@ -122,6 +126,29 @@
             "description": ""
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "TodoItems"
+        ],
+        "operationId": "DeleteTodoItem",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
       }
     },
     "/api/TodoItems/UpdateDetail/{id}": {
@@ -129,7 +156,7 @@
         "tags": [
           "TodoItems"
         ],
-        "operationId": "TodoItems_UpdateTodoItemDetail",
+        "operationId": "UpdateTodoItemDetail",
         "parameters": [
           {
             "name": "id",
@@ -167,7 +194,7 @@
         "tags": [
           "TodoLists"
         ],
-        "operationId": "TodoLists_GetTodoLists",
+        "operationId": "GetTodoLists",
         "responses": {
           "200": {
             "description": "",
@@ -185,7 +212,7 @@
         "tags": [
           "TodoLists"
         ],
-        "operationId": "TodoLists_CreateTodoList",
+        "operationId": "CreateTodoList",
         "requestBody": {
           "x-name": "command",
           "description": "",
@@ -219,7 +246,7 @@
         "tags": [
           "TodoLists"
         ],
-        "operationId": "TodoLists_ExportTodos",
+        "operationId": "ExportTodos",
         "parameters": [
           {
             "name": "id",
@@ -244,7 +271,7 @@
         "tags": [
           "TodoLists"
         ],
-        "operationId": "TodoLists_UpdateTodoList",
+        "operationId": "UpdateTodoList",
         "parameters": [
           {
             "name": "id",
@@ -280,7 +307,7 @@
         "tags": [
           "TodoLists"
         ],
-        "operationId": "TodoLists_DeleteTodoList",
+        "operationId": "DeleteTodoList",
         "parameters": [
           {
             "name": "id",
@@ -299,29 +326,81 @@
           }
         }
       }
+    },
+    "/api/WeatherForecasts": {
+      "get": {
+        "tags": [
+          "WeatherForecasts"
+        ],
+        "operationId": "GetWeatherForecasts",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
-      "WeatherForecast": {
+      "PaginatedListOfTodoItemBriefDto": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "date": {
-            "type": "string",
-            "format": "date-time"
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TodoItemBriefDto"
+            }
           },
-          "temperatureC": {
+          "pageNumber": {
             "type": "integer",
             "format": "int32"
           },
-          "temperatureF": {
+          "totalPages": {
             "type": "integer",
             "format": "int32"
           },
-          "summary": {
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "hasPreviousPage": {
+            "type": "boolean"
+          },
+          "hasNextPage": {
+            "type": "boolean"
+          }
+        }
+      },
+      "TodoItemBriefDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "listId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": {
             "type": "string",
             "nullable": true
+          },
+          "done": {
+            "type": "boolean"
           }
         }
       },
@@ -497,6 +576,28 @@
             "format": "int32"
           },
           "title": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "WeatherForecast": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "temperatureC": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "temperatureF": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "summary": {
             "type": "string",
             "nullable": true
           }

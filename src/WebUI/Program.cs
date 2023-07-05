@@ -47,6 +47,5 @@ app.MapRazorPages();
 app.MapFallbackToFile("index.html");
 
 app.MapEndpoints();
-app.MapEndpointGroups();
 
 app.Run();
