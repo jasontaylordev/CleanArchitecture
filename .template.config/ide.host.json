@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json.schemastore.org/vs-2017.3.host",
+  "order": 0,
+  "icon": "icon.png",
+  "symbolInfo": [
+    {
+      "id": "ClientFramework",
+      "name": {
+        "text": "Client Framework"
+      },
+      "description": {
+        "text": "Select the Client Framework type, or select None for Web API only."
+      },
+      "isVisible": true
+    },
+    {
+      "id": "UseSQLite",
+      "name": {
+        "text": "Use SQLite"
+      },
+      "description": {
+        "text": "Use SQLite for database (default is LocalDB)."
+      },
+      "isVisible": true
+    }
+  ]
+}
