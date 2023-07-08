@@ -143,7 +143,7 @@
             "src/Infrastructure/Data/SQLite/**",
             "src/WebUI/appsettings.SQLite.json",
             "src/WebUI/app.db",
-            "tests/Application.IntegrationTests/TestSqliteDatabase.cs"
+            "tests/Application.IntegrationTests/TestDatabase.Sqlite.cs"
           ]
         },
         {
@@ -156,7 +156,7 @@
           "rename": {
             "src/Infrastructure/Data/SQLite/" : "src/Infrastructure/Data/Migrations/",
             "appsettings.SQLite.json": "appsettings.json",
-            "TestSqliteDatabase.cs": "TestDatabase.cs"
+            "TestDatabase.Sqlite.cs": "TestDatabase.cs"
           }
         }
       ]
