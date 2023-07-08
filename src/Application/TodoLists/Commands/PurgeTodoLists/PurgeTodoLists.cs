@@ -1,10 +1,11 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.Common.Security;
+using CleanArchitecture.Domain.Constants;
 
 namespace CleanArchitecture.Application.TodoLists.Commands.PurgeTodoLists;
 
-[Authorize(Roles = "Administrator")]
-[Authorize(Policy = "CanPurge")]
+[Authorize(Roles = Roles.Administrator)]
+[Authorize(Policy = Policies.CanPurge)]
 public record PurgeTodoListsCommand : IRequest;
 
 public class PurgeTodoListsCommandHandler : IRequestHandler<PurgeTodoListsCommand>
