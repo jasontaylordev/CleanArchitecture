@@ -17,7 +17,6 @@
     </ItemGroup>
     <!--#endif-->
     <ItemGroup>
-        <PackageReference Include="CsvHelper" />
         <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.UI" />
