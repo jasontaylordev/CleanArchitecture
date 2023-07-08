@@ -23,19 +23,19 @@
       "datatype": "choice",
       "choices": [
         {
-          "choice": "angular",
+          "choice": "Angular",
           "description": "Use Angular"
         },
         {
-          "choice": "react",
+          "choice": "React",
           "description": "Use React"
         },
         {
-          "choice": "none",
-          "description": "Use Api Only"
+          "choice": "None",
+          "description": "Web API only"
         }
       ],
-      "defaultValue": "angular",
+      "defaultValue": "Angular",
       "description": "The type of client framework to use"
     },
     "UseAngular": {
