@@ -15,8 +15,8 @@
         <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0-preview.5.23302.2" />
         <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.0-preview.5.23302.2" />
         <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="8.0.0-preview.5.23302.2" />
-        <!--#if (!UseApiOnly)-->
         <PackageVersion Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.0-preview.5.23302.2" />
+        <!--#if (!UseApiOnly)-->
         <PackageVersion Include="Microsoft.AspNetCore.SpaProxy" Version="8.0.0-preview.5.23302.2" />
         <!--#endif-->
         <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.0-preview.5.23280.1" />
