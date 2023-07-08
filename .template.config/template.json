@@ -130,7 +130,7 @@
             "src/WebUI/config-react.nswag",
             "src/WebUI/ClientApp-React/**",
             "src/WebUI/Templates/**",
-            "src/WebUI/AcceptanceTests/**"
+            "tests/WebUI.AcceptanceTests/**"
           ],
           "rename": {
             "config-webapi.nswag": "config.nswag",
