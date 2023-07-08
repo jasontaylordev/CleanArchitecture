@@ -3,7 +3,7 @@
   <metadata>
 
     <id>Clean.Architecture.Solution.Template</id>
-    <version>8.0.0-preview.5.9</version>
+    <version>8.0.0-preview.5.10</version>
     <title>Clean Architecture Solution Template</title>
     <authors>JasonTaylorDev</authors>
     <description>Clean Architecture Solution Template for .NET 8.</description>
@@ -11,8 +11,7 @@
       A Clean Architecture Solution Template for creating a Single-Page Application (SPA) with ASP.NET Core.
     </summary>
     <releaseNotes>
-      Add Central Package Management (CPM)
-      Enable Treat Warnings As Errors
+      Removed ExportTodos feature to simplify the template.
     </releaseNotes>
 
     <projectUrl>https://github.com/JasonTaylorDev/CleanArchitecture</projectUrl>
