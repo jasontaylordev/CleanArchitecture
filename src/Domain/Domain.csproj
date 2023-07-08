@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+    <Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.1.3" />
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
         <RootNamespace>CleanArchitecture.Domain</RootNamespace>
         <AssemblyName>CleanArchitecture.Domain</AssemblyName>
         <ImplicitUsings>enable</ImplicitUsings>
@@ -9,7 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="MediatR" Version="12.0.1" />
+      <PackageReference Include="MediatR" />
     </ItemGroup>
 
 </Project>
