@@ -1,4 +1,5 @@
-﻿using CleanArchitecture.Infrastructure.Data;
+﻿using CleanArchitecture.Domain.Constants;
+using CleanArchitecture.Infrastructure.Data;
 using CleanArchitecture.Infrastructure.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -55,7 +56,7 @@ public partial class Testing
 
     public static async Task<string> RunAsAdministratorAsync()
     {
-        return await RunAsUserAsync("administrator@local", "Administrator1234!", new[] { "Administrator" });
+        return await RunAsUserAsync("administrator@local", "Administrator1234!", new[] { Roles.Administrator });
     }
 
     public static async Task<string> RunAsUserAsync(string userName, string password, string[] roles)
