@@ -1,14 +1,18 @@
 name: Package
+
 on:
   push:
     branches:
       - main
     paths:
       - 'CleanArchitecture.nuspec'
+
 jobs:
   publish:
     name: Publish to NuGet.org
+
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
 

@@ -1,0 +1,26 @@
+name: Build
+
+on:
+  workflow_call:
+  # pull_request:
+  #   branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install .NET
+      uses: actions/setup-dotnet@v1
+
+    - name: Restore
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
+      
+    - name: Test
+      run: dotnet test --no-build --configuration Release --filter "FullyQualifiedName!~AcceptanceTests"

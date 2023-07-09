@@ -42,7 +42,7 @@ public class TestDatabase
             .UseSqlServer(_connectionString)
             .Options;
 
-        var context = new ApplicationDbContext(options);
+        var context = new ApplicationDbContext(options, null, null);
 
         context.Database.Migrate();
 

@@ -1,0 +1,52 @@
+name: Build+Deploy
+
+on: 
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  # Build the website
+  build:
+    uses: ./.github/workflows/build.yml
+
+  # Publish the website
+  publish:
+    uses: ./.github/workflows/publish.yml
+    needs: [build]
+
+  # Generate the EF bundle
+  efbundle:
+    uses: ./.github/workflows/efbundle.yml
+    needs: [build]
+
+  # Deploy to the test environment.
+  deploy-test:
+    uses: ./.github/workflows/deploy.yml
+    needs: [publish]
+    with:
+      environmentType: Test
+      resourceGroupName: CleanArchitectureTest
+      sqlServerAdministratorLogin: SqlAdmin
+    secrets:
+      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID_TEST }}
+      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      SQL_SERVER_ADMINISTRATOR_LOGIN_PASSWORD: ${{ secrets.SQL_SERVER_ADMINISTRATOR_LOGIN_PASSWORD_TEST }}
+
+  # Deploy to the production environment.
+  deploy-prod:
+    uses: ./.github/workflows/deploy.yml
+    needs: [deploy-test]
+    with:
+      environmentType: Production
+      resourceGroupName: CleanArchitectureProduction
+      sqlServerAdministratorLogin: SqlAdmin
+    secrets:
+      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID_PRODUCTION }}
+      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      SQL_SERVER_ADMINISTRATOR_LOGIN_PASSWORD: ${{ secrets.SQL_SERVER_ADMINISTRATOR_LOGIN_PASSWORD_PRODUCTION }}
