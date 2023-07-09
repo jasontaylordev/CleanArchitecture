@@ -1,0 +1,36 @@
+name: EFBundle
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install .NET
+        uses: actions/setup-dotnet@v1
+
+      - name: Install EF Core CLI
+        run: |
+          dotnet new tool-manifest
+          dotnet tool install dotnet-ef --prerelease
+
+      - name: EF Core Migrations Bundle
+        run: |
+          dotnet ef migrations bundle --configuration Release -p ./src/Infrastructure/ -s ./src/WebUI/ -o efbundle.exe
+        env:
+          SkipNSwag: True
+
+      - name: Compress bundle
+        run: |
+          zip -r ./efbundle.zip efbundle.exe
+
+      - name: Upload bundle
+        uses: actions/upload-artifact@v2
+        with:
+          name: efbundle
+          path: ./efbundle.zip
+          if-no-files-found: error

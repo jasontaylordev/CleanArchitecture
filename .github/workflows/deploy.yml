@@ -1,0 +1,132 @@
+name: Deploy
+
+on:
+  workflow_call:
+    inputs:
+      environmentType:
+        required: true
+        type: string
+      resourceGroupName:
+        required: true
+        type: string
+      sqlServerAdministratorLogin:
+        required: true
+        type: string
+    secrets:
+      AZURE_CLIENT_ID:
+        required: true
+      AZURE_TENANT_ID:
+        required: true
+      AZURE_SUBSCRIPTION_ID:
+        required: true
+      SQL_SERVER_ADMINISTRATOR_LOGIN_PASSWORD:
+        required: true
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  validate:
+     runs-on: ubuntu-latest
+     steps: 
+     - uses: actions/checkout@v2
+     - uses: azure/login@v1
+       name: Sign in to Azure
+       with:
+         client-id: ${{ secrets.AZURE_CLIENT_ID }}
+         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+     - if: inputs.environmentType != 'Production'
+       uses: azure/arm-deploy@v1
+       name: Run preflight validation
+       with:
+         deploymentName: ${{ github.run_number }}
+         resourceGroupName: ${{ inputs.resourceGroupName }}
+         template: ./.azure/bicep/main.bicep
+         parameters: >
+           environmentType=${{ inputs.environmentType }}
+           sqlServerAdministratorLogin=${{ inputs.sqlServerAdministratorLogin }}
+           sqlServerAdministratorLoginPassword=${{ secrets.SQL_SERVER_ADMINISTRATOR_LOGIN_PASSWORD }}
+         deploymentMode: Validate
+     - if: inputs.environmentType == 'Production'
+       uses: azure/arm-deploy@v1
+       name: Run what-if
+       with:
+         failOnStdErr: false
+         resourceGroupName: ${{ inputs.resourceGroupName }}
+         template: ./.azure/bicep/main.bicep
+         parameters: >
+           environmentType=${{ inputs.environmentType }}
+           sqlServerAdministratorLogin=${{ inputs.sqlServerAdministratorLogin }}
+           sqlServerAdministratorLoginPassword=${{ secrets.SQL_SERVER_ADMINISTRATOR_LOGIN_PASSWORD }}
+         additionalArguments: --what-if
+ 
+  deploy:
+    needs: validate
+    environment: ${{ inputs.environmentType }}
+    runs-on: ubuntu-latest
+    outputs:
+      appServiceAppName: ${{ steps.deploy.outputs.appServiceAppName }}
+      appServiceAppHostName: ${{ steps.deploy.outputs.appServiceAppHostName }}
+      sqlServerFullyQualifiedDomainName: ${{ steps.deploy.outputs.sqlServerFullyQualifiedDomainName }}
+      sqlDatabaseName: ${{ steps.deploy.outputs.sqlDatabaseName }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: azure/login@v1
+      name: Sign in to Azure
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    - uses: azure/arm-deploy@v1
+      id: deploy
+      name: Deploy Bicep file
+      with:
+        failOnStdErr: false
+        deploymentName: ${{ github.run_number }}
+        resourceGroupName: ${{ inputs.resourceGroupName }}
+        template: ./.azure/bicep/main.bicep
+        parameters: >
+           environmentType=${{ inputs.environmentType }}
+           sqlServerAdministratorLogin=${{ inputs.sqlServerAdministratorLogin }}
+           sqlServerAdministratorLoginPassword=${{ secrets.SQL_SERVER_ADMINISTRATOR_LOGIN_PASSWORD }}
+
+  initialise-database:
+    needs: deploy
+    environment: ${{ inputs.environmentType }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/download-artifact@v3
+      with:
+        name: efbundle
+    - name: Unzip efbundle
+      run: |
+        unzip -o ./efbundle.zip
+    - name: Install .NET
+      uses: actions/setup-dotnet@v3
+    - name: Initialise Database
+      run: |
+        echo '{ "ConnectionStrings": { "DefaultConnection": "" } }' > appsettings.json
+        ./efbundle.exe --connection "Server=${{ needs.deploy.outputs.sqlServerFullyQualifiedDomainName }};Initial Catalog=${{ needs.deploy.outputs.sqlDatabaseName }};Persist Security Info=False;User ID=${{ inputs.sqlServerAdministratorLogin }};Password=${{ secrets.SQL_SERVER_ADMINISTRATOR_LOGIN_PASSWORD }};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" --verbose
+
+  deploy-website:
+    needs: deploy
+    environment: ${{ inputs.environmentType }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/download-artifact@v3
+      with:
+        name: website
+    - uses: azure/login@v1
+      name: Sign in to Azure
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    - uses: azure/webapps-deploy@v2
+      name: Deploy website
+      with:
+        app-name: ${{ needs.deploy.outputs.appServiceAppName }}
+        package: publish.zip
