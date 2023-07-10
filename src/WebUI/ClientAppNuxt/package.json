@@ -1,0 +1,20 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@nuxtjs/style-resources": "^1.2.1",
+    "nuxt": "^3.3.1"
+  },
+  "dependencies": {
+    "@pinia/nuxt": "^0.4.7",
+    "bootstrap": "^5.2.3",
+    "oidc-client-ts": "^2.2.2",
+    "pinia": "^2.0.33"
+  }
+}
