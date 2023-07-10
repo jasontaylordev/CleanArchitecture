@@ -2,7 +2,6 @@ import { IdTokenClaims, User, UserManager } from 'oidc-client-ts';
 import { Pinia, storeToRefs } from 'pinia';
 import { ApplicationName, ApplicationPaths } from '~~/constants/authentication';
 import { useAuth } from '~~/stores/auth';
-import { useUserStore } from '~~/stores/user.store';
 
 export type IAuthenticationResult =
   SuccessAuthenticationResult |
