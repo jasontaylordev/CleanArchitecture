@@ -13,11 +13,20 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - uses: actions/setup-node@v3
+    - name: Install Node.js & Cache npm packages
+      uses: actions/setup-node@v3
       with:
         node-version: '18.x'
         cache: 'npm'
         cache-dependency-path: src/WebUI/ClientApp/package-lock.json
+
+    - name: Cache NuGet packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
 
     - name: Install .NET
       uses: actions/setup-dotnet@v1
