@@ -9,72 +9,58 @@
 
 The goal of this template is to provide a straightforward and efficient approach to enterprise application development, leveraging the power of Clean Architecture and ASP.NET Core. Using this template, you can effortlessly create a Single Page App (SPA) with ASP.NET Core and Angular or React, while adhering to the principles of Clean Architecture. Getting started is easy - simply install the **.NET template** (see below for full details).
 
-## Technologies
-
-* [ASP.NET Core 8](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core)
-* [Entity Framework Core 8](https://docs.microsoft.com/en-us/ef/core/)
-* [Angular 15](https://angular.io/) or [React 18](https://react.dev/)
-* [MediatR](https://github.com/jbogard/MediatR)
-* [AutoMapper](https://automapper.org/)
-* [FluentValidation](https://fluentvalidation.net/)
-* [NUnit](https://nunit.org/), [FluentAssertions](https://fluentassertions.com/), [Moq](https://github.com/moq) & [Respawn](https://github.com/jbogard/Respawn)
-
-## Dependencies
-The template depends on the latest versions of:
-
-* [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
-* [Node.js LTS](https://nodejs.org/en/)
+If you find this project useful, please give it a star. Thanks! ⭐
 
 ## Getting Started
 
-The easiest way to get started is to install the [.NET template](https://www.nuget.org/packages/Clean.Architecture.Solution.Template):
-```
+The solution template requires the latest version of [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) and [Node.js LTS](https://nodejs.org/en/) (optional). Node.js is only required for Angular and React solutions.
+
+First, install the [.NET template](https://www.nuget.org/packages/Clean.Architecture.Solution.Template):
+```bash
 dotnet new install Clean.Architecture.Solution.Template::8.0.0-preview.5.14
 ```
 
 Once installed, create a new solution using the template. You can choose to use Angular, React, or create a Web API-only solution. Specify the client framework using the `-cf` or `--client-framework` option, and provide the output directory where your project will be created. Here are some examples:
 
-To create a SPA with Angular:
-```
+To create a Single-Page Application (SPA) with Angular and ASP.NET Core:
+```bash
 dotnet new ca-sln --client-framework Angular --output YourProjectName
 ```
 
-To create a SPA with React:
-```
+To create a SPA with React and ASP.NET Core:
+```bash
 dotnet new ca-sln -cf React -o YourProjectName
 ```
 
-To create a Web API-only solution:
-```
+To create a ASP.NET Core Web API-only solution:
+```bash
 dotnet new ca-sln -cf None -o YourProjectName
 ```
 
-The above commands will create a Single-Page Application (SPA) with Angular or React on top of ASP.NET Core, or a Web API-only solution.
-
-Start the application by navigating to ``./src/WebUI`` (SPA) or ``./src/WebApi`` and running:
-```
+Launch the app by navigating to ``./src/WebUI`` (SPA) or ``./src/WebApi`` and running:
+```bash
 dotnet run
 ```
 
 To learn more, run the following command:
-```
+```bash
 dotnet new ca-sln --help
 ```
 
 You can create use cases (commands or queries) by navigating to `./src/Application` and running `dotnet new ca-usecase`. Here are some examples:
 
 To create a new command:
-```
+```bash
 dotnet new ca-usecase --name CreateTodoList --feature-name TodoLists --usecase-type command --return-type int
 ```
 
 To create a query:
-```
+```bash
 dotnet new ca-usecase -n GetTodos -fn TodoLists -ut query -rt TodosVm
 ```
 
 To learn more, run the following command:
-```
+```bash
 dotnet new ca-usecase --help
 ```
 
@@ -99,6 +85,16 @@ Running database migrations is easy. Ensure you add the following flags to your 
 For example, to add a new migration from the root folder:
 
  `dotnet ef migrations add "SampleMigration" --project src\Infrastructure --startup-project src\WebUI --output-dir Data\Migrations`
+
+## Technologies
+
+* [ASP.NET Core 8](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core)
+* [Entity Framework Core 8](https://docs.microsoft.com/en-us/ef/core/)
+* [Angular 15](https://angular.io/) or [React 18](https://react.dev/)
+* [MediatR](https://github.com/jbogard/MediatR)
+* [AutoMapper](https://automapper.org/)
+* [FluentValidation](https://fluentvalidation.net/)
+* [NUnit](https://nunit.org/), [FluentAssertions](https://fluentassertions.com/), [Moq](https://github.com/moq) & [Respawn](https://github.com/jbogard/Respawn)
 
 ## Versions
 The main branch is now on .NET 8.0. The following previous versions are available:
