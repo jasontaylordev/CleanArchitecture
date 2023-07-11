@@ -1,7 +1,6 @@
 name: Build+Deploy
 
 on: 
-  workflow_dispatch:
   push:
     branches: [ main ]
 
@@ -10,21 +9,13 @@ jobs:
   # Build the website
   build:
     uses: ./.github/workflows/build.yml
-
-  # Publish the website
-  publish:
-    uses: ./.github/workflows/publish.yml
-    needs: [build]
-
-  # Generate the EF bundle
-  efbundle:
-    uses: ./.github/workflows/efbundle.yml
-    needs: [build]
+    with:
+      build-artifacts: true
 
   # Deploy to the test environment.
   deploy-test:
     uses: ./.github/workflows/deploy.yml
-    needs: [publish]
+    needs: [ build ]
     with:
       environmentType: Test
       resourceGroupName: CleanArchitectureTest
@@ -38,7 +29,7 @@ jobs:
   # Deploy to the production environment.
   deploy-prod:
     uses: ./.github/workflows/deploy.yml
-    needs: [deploy-test]
+    needs: [ deploy-test ]
     with:
       environmentType: Production
       resourceGroupName: CleanArchitectureProduction
