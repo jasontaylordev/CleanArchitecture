@@ -1,0 +1,127 @@
+﻿# For more info on HTTP files go to https://aka.ms/vs/httpfile
+@Web_HostAddress = https://localhost:5001
+@AuthCookieName = .AspNetCore.Identity.Application
+@AuthCookieValue = <AuthCookieValue>
+
+# GET Identity Account Login
+# Get the @RequestVerificationToken necessary for logging in.
+GET {{Web_HostAddress}}/Identity/Account/Login
+
+###
+
+# POST Identity Account Login
+# Get the @AuthCookieValue necessary for authenticating requests.
+@Email=administrator@localhost
+@Password=Administrator1!
+@RequestVerificationToken=<RequestVerificationToken>
+POST {{Web_HostAddress}}/Identity/Account/Login
+Content-Type: application/x-www-form-urlencoded
+
+Input.Email={{Email}}&Input.Password={{Password}}&__RequestVerificationToken={{RequestVerificationToken}}
+
+###
+
+# GET WeatherForecast
+GET {{Web_HostAddress}}/api/WeatherForecasts
+Cookie: {{AuthCookieName}}={{AuthCookieValue}}
+
+###
+
+# GET TodoLists
+GET {{Web_HostAddress}}/api/TodoLists
+Cookie: {{AuthCookieName}}={{AuthCookieValue}}
+
+###
+
+#GET TodoList
+GET {{Web_HostAddress}}/api/TodoLists/1
+Cookie: {{AuthCookieName}}={{AuthCookieValue}}
+
+###
+
+# POST TodoLists
+POST {{Web_HostAddress}}/api/TodoLists
+Cookie: {{AuthCookieName}}={{AuthCookieValue}}
+Content-Type: application/json
+
+// CreateTodoListCommand
+{
+  "Title": "Backlog"
+}
+
+###
+
+# PUT TodoLists
+PUT {{Web_HostAddress}}/api/TodoLists/1
+Cookie: {{AuthCookieName}}={{AuthCookieValue}}
+Content-Type: application/json
+
+// UpdateTodoListCommand
+{
+  "Id": 1,
+  "Title": "Product Backlog"
+}
+
+###
+
+# DELETE TodoLists
+DELETE {{Web_HostAddress}}/api/TodoLists/1
+Cookie: {{AuthCookieName}}={{AuthCookieValue}}
+
+###
+
+# GET TodoItems
+@PageNumber = 1
+@PageSize = 10
+GET {{Web_HostAddress}}/api/TodoItems?ListId=1&PageNumber={{PageNumber}}&PageSize={{PageSize}}
+Cookie: {{AuthCookieName}}={{AuthCookieValue}}
+
+###
+
+# POST TodoItems
+POST {{Web_HostAddress}}/api/TodoItems
+Cookie: {{AuthCookieName}}={{AuthCookieValue}}
+Content-Type: application/json
+
+// CreateTodoItemCommand
+{
+  "ListId": 1,
+  "Title": "Eat a burrito 🌯"
+}
+
+###
+
+#PUT TodoItems UpdateItemDetails
+PUT {{Web_HostAddress}}/api/TodoItems/UpdateItemDetails?Id=1
+Cookie: {{AuthCookieName}}={{AuthCookieValue}}
+Content-Type: application/json
+
+// UpdateTodoItemDetailCommand
+{
+  "Id": 1,
+  "ListId": 1,
+  "Priority": 3,
+  "Note": "This is a good idea!"
+}
+
+###
+
+# PUT TodoItems
+PUT {{Web_HostAddress}}/api/TodoItems/1
+Cookie: {{AuthCookieName}}={{AuthCookieValue}}
+Content-Type: application/json
+
+// UpdateTodoItemCommand
+{
+  "Id": 1,
+  "Title": "Eat a yummy burrito 🌯",
+  "Done": true
+}
+
+###
+
+# DELETE TodoItem
+DELETE {{Web_HostAddress}}/api/TodoItems/1
+Cookie: {{AuthCookieName}}={{AuthCookieValue}}
+
+###

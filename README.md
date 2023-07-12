@@ -15,7 +15,7 @@ If you find this project useful, please give it a star. Thanks! ⭐
 
 The easiest way to get started is to install the [.NET template](https://www.nuget.org/packages/Clean.Architecture.Solution.Template):
 ```
-dotnet new install Clean.Architecture.Solution.Template::8.0.0-preview.6
+dotnet new install Clean.Architecture.Solution.Template::8.0.0-preview.6.1
 ```
 
 Once installed, create a new solution using the template. You can choose to use Angular, React, or create a Web API-only solution. Specify the client framework using the `-cf` or `--client-framework` option, and provide the output directory where your project will be created. Here are some examples:
@@ -35,8 +35,9 @@ To create a ASP.NET Core Web API-only solution:
 dotnet new ca-sln -cf None -o YourProjectName
 ```
 
-Launch the app by navigating to ``./src/WebUI`` (SPA) or ``./src/WebApi`` and running:
+Launch the app:
 ```bash
+cd src/Web
 dotnet run
 ```
 
@@ -75,12 +76,12 @@ When you run the application the database will be automatically created (if nece
 Running database migrations is easy. Ensure you add the following flags to your command (values assume you are executing from repository root)
 
 * `--project src/Infrastructure` (optional if in this folder)
-* `--startup-project src/WebUI` or `--startup-project src/WebApi` (Web API only)
+* `--startup-project src/Web`
 * `--output-dir Data/Migrations`
 
 For example, to add a new migration from the root folder:
 
- `dotnet ef migrations add "SampleMigration" --project src\Infrastructure --startup-project src\WebUI --output-dir Data\Migrations`
+ `dotnet ef migrations add "SampleMigration" --project src\Infrastructure --startup-project src\Web --output-dir Data\Migrations`
 
 ## Deploy
 

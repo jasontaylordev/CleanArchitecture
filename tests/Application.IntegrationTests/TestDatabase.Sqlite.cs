@@ -40,7 +40,7 @@ public class TestDatabase
             .UseSqlite(_connection)
             .Options;
 
-        var context = new ApplicationDbContext(options);
+        var context = new ApplicationDbContext(options, null, null);
 
         context.Database.Migrate();
     }
