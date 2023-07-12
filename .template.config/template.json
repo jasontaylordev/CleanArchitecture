@@ -85,20 +85,12 @@
       "source": "./",
       "target": "./",
       "exclude": [
-        "README.md",
-        "**/[Bb]in/**",
-        "**/[Oo]bj/**",
         ".template.config/**/*",
         "templates/**/*",
-        ".vs/**/*",
         "**/*.filelist",
         "**/*.user",
         "**/*.lock.json",
-        "**/.git/**",
-        "*.nuspec",
-        "**/node_modules/**",
-        "**/web-api-client.ts",
-        "src/WebUI/wwwroot/api/**"
+        "*.nuspec"
       ],
       "modifiers": [
         {

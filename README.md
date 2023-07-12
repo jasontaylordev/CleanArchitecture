@@ -13,11 +13,9 @@ If you find this project useful, please give it a star. Thanks! ⭐
 
 ## Getting Started
 
-The solution template requires the latest version of [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) and [Node.js LTS](https://nodejs.org/en/) (optional). Node.js is only required for Angular and React solutions.
-
-First, install the [.NET template](https://www.nuget.org/packages/Clean.Architecture.Solution.Template):
-```bash
-dotnet new install Clean.Architecture.Solution.Template::8.0.0-preview.5.14
+The easiest way to get started is to install the [.NET template](https://www.nuget.org/packages/Clean.Architecture.Solution.Template):
+```
+dotnet new install Clean.Architecture.Solution.Template::8.0.0-preview.5.15
 ```
 
 Once installed, create a new solution using the template. You can choose to use Angular, React, or create a Web API-only solution. Specify the client framework using the `-cf` or `--client-framework` option, and provide the output directory where your project will be created. Here are some examples:
@@ -74,8 +72,6 @@ dotnet new ca-sln --use-sqlite
 
 When you run the application the database will be automatically created (if necessary) and the latest migrations will be applied.
 
-### Database Migrations
-
 Running database migrations is easy. Ensure you add the following flags to your command (values assume you are executing from repository root)
 
 * `--project src/Infrastructure` (optional if in this folder)
@@ -85,6 +81,10 @@ Running database migrations is easy. Ensure you add the following flags to your 
 For example, to add a new migration from the root folder:
 
  `dotnet ef migrations add "SampleMigration" --project src\Infrastructure --startup-project src\WebUI --output-dir Data\Migrations`
+
+## Deploy
+
+The template includes a full CI/CD pipeline. The pipeline is responsible for building, testing, publishing and deploying the solution to Azure. If you would like to learn more, read the [deployment instructions](https://github.com/jasontaylordev/CleanArchitecture/wiki/Deployment).
 
 ## Technologies
 
