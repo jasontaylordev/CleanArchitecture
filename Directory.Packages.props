@@ -1,50 +1,50 @@
 <!-- For more info on central package management go to https://devblogs.microsoft.com/nuget/introducing-central-package-management/ -->
 <Project>
-    <PropertyGroup>
-        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-    </PropertyGroup>
-    <ItemGroup>
-        <PackageVersion Include="Ardalis.GuardClauses" Version="4.0.1" />
-        <PackageVersion Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
-        <PackageVersion Include="coverlet.collector" Version="6.0.0" />
-        <PackageVersion Include="FluentAssertions" Version="6.11.0" />
-        <PackageVersion Include="FluentValidation.AspNetCore" Version="11.3.0" />
-        <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="11.5.2" />
-        <PackageVersion Include="MediatR" Version="12.0.1" />
-        <PackageVersion Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.0-preview.5.23302.2" />
-        <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0-preview.5.23302.2" />
-        <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.0-preview.5.23302.2" />
-        <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="8.0.0-preview.5.23302.2" />
-        <PackageVersion Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.0-preview.5.23302.2" />
-        <!--#if (!UseApiOnly)-->
-        <PackageVersion Include="Microsoft.AspNetCore.SpaProxy" Version="8.0.0-preview.5.23302.2" />
-        <!--#endif-->
-        <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.0-preview.5.23280.1" />
-        <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.0-preview.5.23280.1" />
-        <!--#if (UseSQLite)-->
-        <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0-preview.5.23280.1" />
-        <!--#endif-->
-        <!--#if (UseLocalDB)-->
-        <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0-preview.5.23280.1" />
-        <!--#endif-->
-        <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0-preview.5.23280.1" />
-        <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0-preview.5.23280.8" />
-        <PackageVersion Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="8.0.0-preview.5.23280.8" />
-        <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="8.0.0-preview.5.23302.2" />
-        <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.6.2" />
-        <PackageVersion Include="Moq" Version="4.18.4" />
-        <PackageVersion Include="NSwag.AspNetCore" Version="13.19.0" />
-        <PackageVersion Include="NSwag.MSBuild" Version="13.19.0" />
-        <PackageVersion Include="nunit" Version="3.13.3" />
-        <PackageVersion Include="NUnit.Analyzers" Version="3.6.1" />
-        <PackageVersion Include="NUnit3TestAdapter" Version="4.5.0" />
-        <PackageVersion Include="Respawn" Version="6.0.0" />
-        <PackageVersion Include="Testcontainers.MsSql" Version="3.3.0" />
-        <PackageVersion Include="ZymLabs.NSwag.FluentValidation.AspNetCore" Version="0.6.2" />
-        <!--#if(!UseApiOnly)-->
-        <PackageVersion Include="Microsoft.Playwright" Version="1.35.0" />
-        <PackageVersion Include="SpecFlow.Plus.LivingDocPlugin" Version="3.9.57" />
-        <PackageVersion Include="SpecFlow.NUnit" Version="3.9.74" />
-        <!--#endif-->
-    </ItemGroup>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="Ardalis.GuardClauses" Version="4.0.1" />
+    <PackageVersion Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageVersion Include="coverlet.collector" Version="6.0.0" />
+    <PackageVersion Include="FluentAssertions" Version="6.11.0" />
+    <PackageVersion Include="FluentValidation.AspNetCore" Version="11.3.0" />
+    <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="11.6.0" />
+    <PackageVersion Include="MediatR" Version="12.1.1" />
+    <PackageVersion Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.0-preview.5.23302.2" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0-preview.5.23302.2" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.0-preview.5.23302.2" />
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="8.0.0-preview.5.23302.2" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.0-preview.5.23302.2" />
+    <!--#if (!UseApiOnly)-->
+    <PackageVersion Include="Microsoft.AspNetCore.SpaProxy" Version="8.0.0-preview.5.23302.2" />
+    <!--#endif-->
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.0-preview.5.23280.1" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.0-preview.5.23280.1" />
+    <!--#if (UseSQLite)-->
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0-preview.5.23280.1" />
+    <!--#endif-->
+    <!--#if (UseLocalDB)-->
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0-preview.5.23280.1" />
+    <!--#endif-->
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0-preview.5.23280.1" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0-preview.5.23280.8" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="8.0.0-preview.5.23280.8" />
+    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="8.0.0-preview.5.23302.2" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
+    <PackageVersion Include="Moq" Version="4.18.4" />
+    <PackageVersion Include="NSwag.AspNetCore" Version="13.19.0" />
+    <PackageVersion Include="NSwag.MSBuild" Version="13.19.0" />
+    <PackageVersion Include="nunit" Version="3.13.3" />
+    <PackageVersion Include="NUnit.Analyzers" Version="3.6.1" />
+    <PackageVersion Include="NUnit3TestAdapter" Version="4.5.0" />
+    <PackageVersion Include="Respawn" Version="6.1.0" />
+    <PackageVersion Include="Testcontainers.MsSql" Version="3.3.0" />
+    <PackageVersion Include="ZymLabs.NSwag.FluentValidation.AspNetCore" Version="0.6.2" />
+    <!--#if(!UseApiOnly)-->
+    <PackageVersion Include="Microsoft.Playwright" Version="1.35.0" />
+    <PackageVersion Include="SpecFlow.Plus.LivingDocPlugin" Version="3.9.57" />
+    <PackageVersion Include="SpecFlow.NUnit" Version="3.9.74" />
+    <!--#endif-->
+  </ItemGroup>
 </Project>
