@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import followIfLoginRedirect from './api-authorization/followIfLoginRedirect';
-import { WeatherForecastClient } from '../web-api-client.ts';
+import { WeatherForecastsClient } from '../web-api-client.ts';
 
 export class FetchData extends Component {
   static displayName = FetchData.name;
@@ -54,7 +54,7 @@ export class FetchData extends Component {
   }
 
   async populateWeatherData() {
-    let client = new WeatherForecastClient();
+    let client = new WeatherForecastsClient();
     const data = await client.get();
     this.setState({ forecasts: data, loading: false });
   }
