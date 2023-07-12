@@ -59,25 +59,6 @@
     "UseLocalDB": {
       "type": "computed",
       "value": "(!UseSQLite)"
-    },
-    "WebProjectName": {
-      "type": "generated",
-      "generator": "switch",
-      "replaces": "WebUI",
-      "parameters": {
-        "evaluator": "C++",
-        "datatype": "text",
-        "cases": [
-          {
-            "condition": "(UseApiOnly)",
-            "value": "WebApi"
-          },
-          {
-            "condition": "",
-            "value": "WebUI"
-          }
-        ]
-      }
     }
   },
   "sources": [
@@ -96,18 +77,18 @@
         {
           "condition": "(UseAngular)",
           "exclude": [
-            "src/WebUI/config-react.nswag",
-            "src/WebUI/config-webapi.nswag",
-            "src/WebUI/ClientApp-React/**",
-            "src/WebUI/Templates/**"
+            "src/Web/config-react.nswag",
+            "src/Web/config-webapi.nswag",
+            "src/Web/ClientApp-React/**",
+            "src/Web/Templates/**"
           ]
         },
         {
           "condition": "(UseReact)",
           "exclude": [
-            "src/WebUI/config.nswag",
-            "src/WebUI/config-webapi.nswag",
-            "src/WebUI/ClientApp/**"
+            "src/Web/config.nswag",
+            "src/Web/config-webapi.nswag",
+            "src/Web/ClientApp/**"
           ],
           "rename": {
             "config-react.nswag": "config.nswag",
@@ -117,24 +98,23 @@
         {
           "condition": "(UseApiOnly)",
           "exclude": [
-            "src/WebUI/config.nswag",
-            "src/WebUI/ClientApp/**",
-            "src/WebUI/config-react.nswag",
-            "src/WebUI/ClientApp-React/**",
-            "src/WebUI/Templates/**",
-            "tests/WebUI.AcceptanceTests/**"
+            "src/Web/config.nswag",
+            "src/Web/ClientApp/**",
+            "src/Web/config-react.nswag",
+            "src/Web/ClientApp-React/**",
+            "src/Web/Templates/**",
+            "tests/Web.AcceptanceTests/**"
           ],
           "rename": {
-            "config-webapi.nswag": "config.nswag",
-            "WebUI": "WebApi"
+            "config-webapi.nswag": "config.nswag"
           }
         },
         {
           "condition": "(UseLocalDB)",
           "exclude": [
             "src/Infrastructure/Data/SQLite/**",
-            "src/WebUI/appsettings.SQLite.json",
-            "src/WebUI/app.db",
+            "src/Web/appsettings.SQLite.json",
+            "src/Web/app.db",
             "tests/Application.IntegrationTests/TestDatabase.Sqlite.cs"
           ]
         },
@@ -142,7 +122,7 @@
           "condition": "(UseSQLite)",
           "exclude": [
             "src/Infrastructure/Data/Migrations/**",
-            "src/WebUI/appsettings.json",
+            "src/Web/appsettings.json",
             "tests/Application.IntegrationTests/TestDatabase.cs"
           ],
           "rename": {

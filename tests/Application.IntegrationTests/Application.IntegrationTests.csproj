@@ -22,8 +22,9 @@
         <PackageReference Include="Respawn" />
         <PackageReference Include="Testcontainers.MsSql" />
     </ItemGroup>
+    
     <ItemGroup>
-        <ProjectReference Include="..\..\src\WebUI\WebUI.csproj" />
+        <ProjectReference Include="..\..\src\Web\Web.csproj" />
     </ItemGroup>
 
 </Project>

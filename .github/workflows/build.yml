@@ -24,7 +24,7 @@ jobs:
       with:
         node-version: '18.x'
         cache: 'npm'
-        cache-dependency-path: src/WebUI/ClientApp/package-lock.json
+        cache-dependency-path: src/Web/ClientApp/package-lock.json
 
     - name: Cache NuGet packages
       uses: actions/cache@v3
@@ -52,14 +52,14 @@ jobs:
         dotnet publish --configuration Release --runtime win-x86 --self-contained --output ./publish
         cd publish
         zip -r ./publish.zip .
-      working-directory: ./src/WebUI/
+      working-directory: ./src/Web/
 
     - name: Upload Website Artifact
       if: ${{ inputs.build-artifacts == true }}
       uses: actions/upload-artifact@v2
       with:
         name: website
-        path: ./src/WebUI/publish/publish.zip
+        path: ./src/Web/publish/publish.zip
         if-no-files-found: error
     
     - name: Create EFBundle Artifact
@@ -67,7 +67,7 @@ jobs:
       run: |
         dotnet new tool-manifest
         dotnet tool install dotnet-ef --prerelease
-        dotnet ef migrations bundle --configuration Release -p ./src/Infrastructure/ -s ./src/WebUI/ -o efbundle.exe
+        dotnet ef migrations bundle --configuration Release -p ./src/Infrastructure/ -s ./src/Web/ -o efbundle.exe
         zip -r ./efbundle.zip efbundle.exe
       env:
         SkipNSwag: True
