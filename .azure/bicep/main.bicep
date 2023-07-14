@@ -83,6 +83,7 @@ resource keyVault 'Microsoft.KeyVault/vaults@2019-09-01' = {
   properties: {
     enabledForTemplateDeployment: true
     tenantId: subscription().tenantId
+    accessPolicies: []
     sku: {
       name: 'standard'
       family: 'A'
@@ -145,7 +146,7 @@ resource keyVaultAccessPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2022-07-
           secrets: [
             'Get'
             'List'
-            
+
           ]
           certificates: [
             'Get'
