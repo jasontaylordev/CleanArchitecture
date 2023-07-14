@@ -9,10 +9,8 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class ConfigureServices
 {
-    public static IServiceCollection AddWebServices(this IServiceCollection services, ConfigurationManager configuration)
+    public static IServiceCollection AddWebServices(this IServiceCollection services)
     {
-        services.AddKeyVaultIfConfigured(configuration);
-
         services.AddDatabaseDeveloperPageExceptionFilter();
 
         services.AddScoped<IUser, CurrentUser>();
@@ -44,7 +42,7 @@ public static class ConfigureServices
         return services;
     }
 
-    private static IServiceCollection AddKeyVaultIfConfigured(this IServiceCollection services, ConfigurationManager configuration)
+    public static IServiceCollection AddKeyVaultIfConfigured(this IServiceCollection services, ConfigurationManager configuration)
     {
         var keyVaultUri = configuration["KeyVaultUri"];
         if (!string.IsNullOrWhiteSpace(keyVaultUri))

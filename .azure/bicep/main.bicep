@@ -114,6 +114,7 @@ resource appServiceApp 'Microsoft.Web/sites@2021-01-15' = {
     serverFarmId: appServicePlan.id
     httpsOnly: true
     siteConfig: {
+      healthCheckPath: '/health'
       netFrameworkVersion: 'v7.0'
       appSettings: [
         {
