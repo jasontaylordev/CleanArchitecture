@@ -1,4 +1,5 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
+﻿using Azure.Identity;
+using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Infrastructure.Data;
 using CleanArchitecture.Web.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -8,8 +9,10 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class ConfigureServices
 {
-    public static IServiceCollection AddWebServices(this IServiceCollection services)
+    public static IServiceCollection AddWebServices(this IServiceCollection services, ConfigurationManager configuration)
     {
+        services.AddKeyVaultIfConfigured(configuration);
+
         services.AddDatabaseDeveloperPageExceptionFilter();
 
         services.AddScoped<IUser, CurrentUser>();
@@ -35,8 +38,21 @@ public static class ConfigureServices
 
         services.AddEndpointsApiExplorer();
 
-        services.AddOpenApiDocument(configure => 
+        services.AddOpenApiDocument(configure =>
             configure.Title = "CleanArchitecture API");
+
+        return services;
+    }
+
+    private static IServiceCollection AddKeyVaultIfConfigured(this IServiceCollection services, ConfigurationManager configuration)
+    {
+        var keyVaultUri = configuration["KeyVaultUri"];
+        if (!string.IsNullOrWhiteSpace(keyVaultUri))
+        {
+            configuration.AddAzureKeyVault(
+                new Uri(keyVaultUri),
+                new DefaultAzureCredential());
+        }
 
         return services;
     }
