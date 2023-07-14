@@ -6,12 +6,12 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace CleanArchitecture.Infrastructure.Data.Interceptors;
 
-public class AuditableEntitySaveChangesInterceptor : SaveChangesInterceptor
+public class AuditableEntityInterceptor : SaveChangesInterceptor
 {
     private readonly IUser _user;
     private readonly IDateTime _dateTime;
 
-    public AuditableEntitySaveChangesInterceptor(
+    public AuditableEntityInterceptor(
         IUser user,
         IDateTime dateTime)
     {
