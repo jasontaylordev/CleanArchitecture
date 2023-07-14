@@ -25,6 +25,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="Azure.Extensions.AspNetCore.Configuration.Secrets" />
         <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" />

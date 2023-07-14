@@ -83,25 +83,6 @@ resource keyVault 'Microsoft.KeyVault/vaults@2019-09-01' = {
   properties: {
     enabledForTemplateDeployment: true
     tenantId: subscription().tenantId
-    accessPolicies: [
-      {
-        tenantId: appServiceApp.identity.tenantId
-        objectId: appServiceApp.identity.principalId
-        permissions: {
-          keys: [
-            'Get'
-          ]
-          secrets: [
-            'List'
-            'Get'
-          ]
-          certificates: [
-            'List'
-            'Get'
-          ]
-        }
-      }
-    ]
     sku: {
       name: 'standard'
       family: 'A'
@@ -140,11 +121,38 @@ resource appServiceApp 'Microsoft.Web/sites@2021-01-15' = {
           value: applicationInsights.properties.ConnectionString
         }
         {
-          name: 'KeyVaultName'
-          value: keyVaultName
+          name: 'KeyVaultUri'
+          value: keyVault.properties.vaultUri
         }
       ]
     }
+  }
+}
+
+resource keyVaultAccessPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2022-07-01' = {
+  name: 'add'
+  parent: keyVault
+  properties: {
+    accessPolicies: [
+      {
+        tenantId: appServiceApp.identity.tenantId
+        objectId: appServiceApp.identity.principalId
+        permissions: {
+          keys: [
+            'Get'
+          ]
+          secrets: [
+            'Get'
+            'List'
+            
+          ]
+          certificates: [
+            'Get'
+            'List'
+          ]
+        }
+      }
+    ]
   }
 }
 
