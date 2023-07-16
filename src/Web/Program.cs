@@ -11,12 +11,14 @@ builder.Services.AddWebServices();
 
 var app = builder.Build();
 
+#if DEBUG
+await app.InitialiseDatabaseAsync();
+#endif
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
-
-    await app.InitialiseDatabaseAsync();
 }
 else
 {
