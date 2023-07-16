@@ -1,0 +1,38 @@
+name: CICD
+
+on: 
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - .gitignore
+      - CODE_OF_CONDUCT.md
+      - LICENSE
+      - README.md
+
+jobs:
+
+  build:
+    uses: ./.github/workflows/build.yml
+    with:
+      build-artifacts: true
+
+  deploy-development:
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit
+    needs: [ build ]
+    with:
+      environmentName: Development
+
+  deploy-staging:
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit
+    needs: [ deploy-development ]
+    with:
+      environmentName: Staging
+
+  deploy-production:
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit
+    needs: [ deploy-staging ]
+    with:
+      environmentName: Production
