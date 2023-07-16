@@ -71,7 +71,7 @@ jobs:
       env:
         SkipNSwag: True
 
-    - name: Create EF Core migrations bundle artifact (efbundle)
+    - name: Upload EF Core migrations bundle artifact (efbundle)
       if: ${{ inputs.build-artifacts == true }}
       uses: actions/upload-artifact@v3
       with:
