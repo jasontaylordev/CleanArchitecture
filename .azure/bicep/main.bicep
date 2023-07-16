@@ -4,20 +4,21 @@ param location string = resourceGroup().location
 @description('Select the type of environment you want to provision. Allowed values are Production and Test.')
 @allowed([
   'Production'
-  'Test'
+  'Staging'
+  'Development'
 ])
-param environmentType string
+param environmentName string
 
 @description('A unique suffix to add to resource names that need to be globally unique.')
 @maxLength(13)
 param resourceNameSuffix string = uniqueString(resourceGroup().id)
 
 @description('The administrator login username for the SQL server.')
-param sqlServerAdministratorLogin string
+param sqlAdministratorUsername string
 
 @secure()
 @description('The administrator login password for the SQL server.')
-param sqlServerAdministratorLoginPassword string
+param sqlAdministratorPassword string
 
 @description('The name of the project.')
 param projectName string = 'CleanArchitecture'
@@ -32,9 +33,18 @@ var environmentConfigurationMap = {
         capacity: 1
       }
     }
-    storageAccount: {
+    sqlDatabase: {
       sku: {
-        name: 'Standard_LRS'
+        name: 'Standard'
+        tier: 'Standard'
+      }
+    }
+  }
+  Staging: {
+    environmentAbbreviation: 'stg'
+    appServicePlan: {
+      sku: {
+        name: 'B1'
       }
     }
     sqlDatabase: {
@@ -44,8 +54,8 @@ var environmentConfigurationMap = {
       }
     }
   }
-  Test: {
-    environmentAbbreviation: 'tst'
+  Development: {
+    environmentAbbreviation: 'dev'
     appServicePlan: {
       sku: {
         name: 'B1'
@@ -61,7 +71,7 @@ var environmentConfigurationMap = {
 }
 
 // Define the names for resources.
-var environmentAbbreviation = environmentConfigurationMap[environmentType].environmentAbbreviation
+var environmentAbbreviation = environmentConfigurationMap[environmentName].environmentAbbreviation
 var keyVaultName = 'kv-${projectName}-${environmentAbbreviation}'
 var appServiceAppName = 'as-${projectName}-${resourceNameSuffix}-${environmentAbbreviation}'
 var appServicePlanName = 'plan-${projectName}-${environmentAbbreviation}'
@@ -71,11 +81,11 @@ var sqlServerName = 'sql-${projectName}-${resourceNameSuffix}-${environmentAbbre
 var sqlDatabaseName = '${projectName}-${environmentAbbreviation}'
 
 // Define the connection string to access Azure SQL.
-var sqlDatabaseConnectionString = 'Server=tcp:${sqlServer.properties.fullyQualifiedDomainName},1433;Initial Catalog=${sqlDatabase.name};Persist Security Info=False;User ID=${sqlServerAdministratorLogin};Password=${sqlServerAdministratorLoginPassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
+var sqlDatabaseConnectionString = 'Server=tcp:${sqlServer.properties.fullyQualifiedDomainName},1433;Initial Catalog=${sqlDatabase.name};Persist Security Info=False;User ID=${sqlAdministratorUsername};Password=${sqlAdministratorPassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
 
 // Define the SKUs for each component based on the environment type.
-var appServicePlanSku = environmentConfigurationMap[environmentType].appServicePlan.sku
-var sqlDatabaseSku = environmentConfigurationMap[environmentType].sqlDatabase.sku
+var appServicePlanSku = environmentConfigurationMap[environmentName].appServicePlan.sku
+var sqlDatabaseSku = environmentConfigurationMap[environmentName].sqlDatabase.sku
 
 resource keyVault 'Microsoft.KeyVault/vaults@2019-09-01' = {
   name: keyVaultName
@@ -182,8 +192,8 @@ resource sqlServer 'Microsoft.Sql/servers@2021-02-01-preview' = {
   name: sqlServerName
   location: location
   properties: {
-    administratorLogin: sqlServerAdministratorLogin
-    administratorLoginPassword: sqlServerAdministratorLoginPassword
+    administratorLogin: sqlAdministratorUsername
+    administratorLoginPassword: sqlAdministratorPassword
   }
 }
 

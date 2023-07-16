@@ -3,8 +3,20 @@ name: CodeQL
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - .gitignore
+      - CODE_OF_CONDUCT.md
+      - LICENSE
+      - README.md
+
   pull_request:
     branches: [ main ]
+    paths-ignore:
+      - .gitignore
+      - CODE_OF_CONDUCT.md
+      - LICENSE
+      - README.md
+
   schedule:
     - cron: '00 0 * * 1'
 

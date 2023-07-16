@@ -3,6 +3,11 @@ name: Build
 on:
   pull_request:
     branches: [ main ]
+    paths-ignore:
+      - .gitignore
+      - CODE_OF_CONDUCT.md
+      - LICENSE
+      - README.md
 
   workflow_call:
     inputs:
@@ -17,14 +22,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-
-    - name: Install Node.js & Cache npm packages
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18.x'
-        cache: 'npm'
-        cache-dependency-path: src/Web/ClientApp/package-lock.json
+    - uses: actions/checkout@v3
+      name: Checkout code
 
     - name: Cache NuGet packages
       uses: actions/cache@v3
@@ -35,18 +34,18 @@ jobs:
           ${{ runner.os }}-nuget-
 
     - name: Install .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3
 
-    - name: Restore
+    - name: Restore solution
       run: dotnet restore
 
-    - name: Build
+    - name: Build solution
       run: dotnet build --no-restore --configuration Release
       
-    - name: Test
+    - name: Test solution
       run: dotnet test --no-build --configuration Release --filter "FullyQualifiedName!~AcceptanceTests"
 
-    - name: Create Website Artifact
+    - name: Publish website
       if: ${{ inputs.build-artifacts == true }}
       run: |
         dotnet publish --configuration Release --runtime win-x86 --self-contained --output ./publish
@@ -54,15 +53,15 @@ jobs:
         zip -r ./publish.zip .
       working-directory: ./src/Web/
 
-    - name: Upload Website Artifact
+    - name: Upload website artifact (website)
       if: ${{ inputs.build-artifacts == true }}
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: website
         path: ./src/Web/publish/publish.zip
         if-no-files-found: error
     
-    - name: Create EFBundle Artifact
+    - name: Create EF Core migrations bundle
       if: ${{ inputs.build-artifacts == true }}
       run: |
         dotnet new tool-manifest
@@ -72,9 +71,9 @@ jobs:
       env:
         SkipNSwag: True
 
-    - name: Upload EFBundle Artifact
+    - name: Create EF Core migrations bundle artifact (efbundle)
       if: ${{ inputs.build-artifacts == true }}
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: efbundle
         path: ./efbundle.zip
