@@ -115,7 +115,7 @@
             "src/Infrastructure/Data/SQLite/**",
             "src/Web/appsettings.SQLite.json",
             "src/Web/app.db",
-            "tests/Application.IntegrationTests/TestDatabase.Sqlite.cs"
+            "tests/Application.IntegrationTests/SqliteTestDatabase.cs"
           ]
         },
         {
@@ -123,7 +123,8 @@
           "exclude": [
             "src/Infrastructure/Data/Migrations/**",
             "src/Web/appsettings.json",
-            "tests/Application.IntegrationTests/TestDatabase.cs"
+            "tests/Application.IntegrationTests/SqlServerTestDatabase.cs",
+            "tests/Application.IntegrationTests/TestcontainersTestDatabase.cs"
           ],
           "rename": {
             "src/Infrastructure/Data/SQLite/" : "src/Infrastructure/Data/Migrations/",

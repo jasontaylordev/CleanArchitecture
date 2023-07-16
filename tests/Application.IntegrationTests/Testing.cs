@@ -11,7 +11,7 @@ namespace CleanArchitecture.Application.IntegrationTests;
 [SetUpFixture]
 public partial class Testing
 {
-    private static TestDatabase _database;
+    private static ITestDatabase _database;
     private static CustomWebApplicationFactory _factory = null!;
     private static IServiceScopeFactory _scopeFactory = null!;
     private static string? _userId;
@@ -19,7 +19,7 @@ public partial class Testing
     [OneTimeSetUp]
     public async Task RunBeforeAnyTests()
     {
-        _database = await TestDatabase.CreateAsync();
+        _database = await TestDatabaseFactory.CreateAsync();
 
         _factory = new CustomWebApplicationFactory(_database.GetConnection());
 
