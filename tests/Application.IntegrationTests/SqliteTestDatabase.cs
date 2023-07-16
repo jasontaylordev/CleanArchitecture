@@ -1,5 +1,4 @@
-﻿#if (UseSQLite)
-using System.Data;
+﻿using System.Data;
 using System.Data.Common;
 using CleanArchitecture.Infrastructure.Data;
 using Microsoft.Data.Sqlite;
@@ -7,24 +6,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Application.IntegrationTests;
 
-public class TestDatabase
+public class SqliteTestDatabase : ITestDatabase
 {
     private readonly string _connectionString;
     private readonly SqliteConnection _connection;
 
-    private TestDatabase()
+    public SqliteTestDatabase()
     {
         _connectionString = "DataSource=:memory:";
         _connection = new SqliteConnection(_connectionString);
-    }
-
-    public static async Task<TestDatabase> CreateAsync()
-    {
-        var database = new TestDatabase();
-
-        await database.InitialiseAsync();
-
-        return database;
     }
 
     public async Task InitialiseAsync()
@@ -40,7 +30,7 @@ public class TestDatabase
             .UseSqlite(_connection)
             .Options;
 
-        var context = new ApplicationDbContext(options, null, null);
+        var context = new ApplicationDbContext(options);
 
         context.Database.Migrate();
     }
@@ -60,4 +50,3 @@ public class TestDatabase
         await _connection.DisposeAsync();
     }
 }
-#endif
