@@ -11,14 +11,11 @@ builder.Services.AddWebServices();
 
 var app = builder.Build();
 
-#if DEBUG
-await app.InitialiseDatabaseAsync();
-#endif
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+    await app.InitialiseDatabaseAsync();
 }
 else
 {
@@ -44,8 +41,10 @@ app.MapRazorPages();
 
 app.MapFallbackToFile("index.html");
 
+#if (UseApiOnly)
+app.Map("/", () => Results.Redirect("/api"));
+#endif
+
 app.MapEndpoints();
 
-app.Run();
-
-public partial class Program { }
+app.Run();public partial class Program { }

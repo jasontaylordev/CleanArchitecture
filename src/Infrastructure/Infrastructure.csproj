@@ -19,7 +19,9 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
+        <!--#if (!UseApiOnly)-->
         <PackageReference Include="Microsoft.AspNetCore.Identity.UI" />
+        <!--#endif-->
         <!--#if (UseSQLite)-->
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
         <!--#endif-->
