@@ -73,6 +73,9 @@
         "**/*.lock.json",
         "*.nuspec"
       ],
+      "rename": {
+        "README-template.md": "README.md"
+      },
       "modifiers": [
         {
           "condition": "(UseAngular)",
