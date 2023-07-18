@@ -98,15 +98,17 @@
         {
           "condition": "(UseApiOnly)",
           "exclude": [
-            "src/Web/config.nswag",
             "src/Web/ClientApp/**",
-            "src/Web/config-react.nswag",
             "src/Web/ClientApp-React/**",
             "src/Web/Templates/**",
+            "src/Web/config.nswag",
+            "src/Web/config-react.nswag",
+            "src/Web/Web.http",
             "tests/Web.AcceptanceTests/**"
           ],
           "rename": {
-            "config-webapi.nswag": "config.nswag"
+            "config-webapi.nswag": "config.nswag",
+            "Web-webapi.http": "Web.http"
           }
         },
         {
