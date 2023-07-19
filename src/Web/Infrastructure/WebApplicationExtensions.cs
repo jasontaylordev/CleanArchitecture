@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using CleanArchitecture.Web.Filters;
 
 namespace CleanArchitecture.Web.Infrastructure;
 
@@ -13,8 +12,7 @@ public static class WebApplicationExtensions
             .MapGroup($"/api/{groupName}")
             .WithGroupName(groupName)
             .WithTags(groupName)
-            .WithOpenApi()
-            .AddEndpointFilter<ApiExceptionFilter>();
+            .WithOpenApi();
     }
 
     public static WebApplication MapEndpoints(this WebApplication app)
