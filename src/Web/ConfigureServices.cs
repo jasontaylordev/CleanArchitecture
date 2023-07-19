@@ -24,6 +24,8 @@ public static class ConfigureServices
         services.AddHealthChecks()
             .AddDbContextCheck<ApplicationDbContext>();
 
+        services.AddExceptionHandler<CustomExceptionHandler>();
+
         services.AddRazorPages();
 
         services.AddScoped(provider =>
