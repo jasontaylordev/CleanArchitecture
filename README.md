@@ -13,7 +13,7 @@ The goal of this template is to provide a straightforward and efficient approach
 
 * [ASP.NET Core 8](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core)
 * [Entity Framework Core 8](https://docs.microsoft.com/en-us/ef/core/)
-* [Angular 15](https://angular.io/) or [React 18](https://react.dev/)
+* [Angular 15](https://angular.io/) or [React 18](https://react.dev/) or [Nuxt 3](https://nuxt.com)
 * [MediatR](https://github.com/jbogard/MediatR)
 * [AutoMapper](https://automapper.org/)
 * [FluentValidation](https://fluentvalidation.net/)
