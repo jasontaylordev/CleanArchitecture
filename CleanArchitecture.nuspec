@@ -3,15 +3,15 @@
   <metadata>
 
     <id>Clean.Architecture.Solution.Template</id>
-    <version>8.0.0-preview.6.9</version>
+    <version>8.0.0-preview.6.10</version>
     <title>Clean Architecture Solution Template</title>
     <authors>JasonTaylorDev</authors>
     <description>Clean Architecture Solution Template for .NET 8.</description>
     <summary>
-      A Clean Architecture Solution Template for creating a Single-Page Application (SPA) with ASP.NET Core.
+      A Clean Architecture Solution Template for creating apps using Angular, React, or Web API only with ASP.NET Core.
     </summary>
     <releaseNotes>
-      Improved implementation of web exception handling.
+      General improvements and bug fixes.
     </releaseNotes>
 
     <projectUrl>https://github.com/JasonTaylorDev/CleanArchitecture</projectUrl>
