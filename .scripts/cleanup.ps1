@@ -5,7 +5,13 @@ Param(
 $scriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $checksScript = Join-Path $scriptRoot "checks.ps1"
 
-. $checksScript
+try {
+    . $checksScript
+} catch {
+    Write-Host $_.Exception.Message -ForegroundColor Red
+    Write-Host "Setup script terminated due to the checks failure." -ForegroundColor Red
+    exit 1
+}
 
 $MissingParameterValues = $false
 
