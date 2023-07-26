@@ -4,6 +4,7 @@ on:
   pull_request:
     branches: [ main ]
     paths-ignore:
+      - '.scripts/**'
       - .gitignore
       - CODE_OF_CONDUCT.md
       - LICENSE
