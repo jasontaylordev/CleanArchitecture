@@ -2,7 +2,10 @@ Param(
     [String]$ProjectName
 )
 
-. ".\checks.ps1"
+$scriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
+$checksScript = Join-Path $scriptRoot "checks.ps1"
+
+. $checksScript
 
 $MissingParameterValues = $false
 
