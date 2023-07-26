@@ -9,7 +9,11 @@ Param(
   [String]$AzureSqlLogin = "SqlAdmin"
 )
 
-. ".\checks.ps1"
+$scriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
+$checksScript = Join-Path $scriptRoot "checks.ps1"
+$environmentsFile = Join-Path $scriptRoot "environments.json"
+
+. $checksScript
 
 $MissingParameterValues = $false
 
@@ -52,7 +56,7 @@ if (-not $ProjectName) {
 
 $repoUrl = "https://github.com/$GitHubOrganisationName/$GitHubRepositoryName"
 
-$environments = Get-Content -Raw -Path "environments.json" | ConvertFrom-Json
+$environments = Get-Content -Raw -Path $environmentsFile | ConvertFrom-Json
 
 $ParametersTableData = @{
   "AzureLocation"          = $AzureLocation
@@ -72,7 +76,7 @@ $ParametersTableData | Format-Table -AutoSize
 
 if ($MissingParameterValues) {
   Write-Host "Script execution cancelled. Missing parameter values." -ForegroundColor Red
-  return
+  exit 1
 }
 
 $EnvironmentTableData = foreach ($environment in $environments.PSObject.Properties) {
