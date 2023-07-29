@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.Application.IntegrationTests;
+﻿namespace CleanArchitecture.Application.FunctionalTests;
 
 using static Testing;
 

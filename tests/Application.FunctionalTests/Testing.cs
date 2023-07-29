@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CleanArchitecture.Application.IntegrationTests;
+namespace CleanArchitecture.Application.FunctionalTests;
 
 [SetUpFixture]
 public partial class Testing

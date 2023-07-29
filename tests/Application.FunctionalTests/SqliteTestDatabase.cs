@@ -4,7 +4,7 @@ using CleanArchitecture.Infrastructure.Data;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
-namespace CleanArchitecture.Application.IntegrationTests;
+namespace CleanArchitecture.Application.FunctionalTests;
 
 public class SqliteTestDatabase : ITestDatabase
 {

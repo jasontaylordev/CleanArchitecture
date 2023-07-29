@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Respawn;
 
-namespace CleanArchitecture.Application.IntegrationTests;
+namespace CleanArchitecture.Application.FunctionalTests;
 
 public class SqlServerTestDatabase : ITestDatabase
 {

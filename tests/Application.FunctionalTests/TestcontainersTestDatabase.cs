@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Respawn;
 using Testcontainers.MsSql;
 
-namespace CleanArchitecture.Application.IntegrationTests;
+namespace CleanArchitecture.Application.FunctionalTests;
 
 public class TestcontainersTestDatabase : ITestDatabase
 {
