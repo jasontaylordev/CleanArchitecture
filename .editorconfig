@@ -5,7 +5,11 @@ root = true
 indent_style = space
 
 # Xml files
-[*.xml]
+[*.{xml,csproj,props,targets,ruleset,nuspec,resx}]
+indent_size = 2
+
+# Json files
+[*.{json,config,nswag}]
 indent_size = 2
 
 # C# files
@@ -18,8 +22,8 @@ indent_size = 4
 tab_width = 4
 
 # New line preferences
-end_of_line = crlf
-insert_final_newline = false
+end_of_line = lf
+insert_final_newline = true
 
 #### .NET Coding Conventions ####
 [*.{cs,vb}]
@@ -370,7 +374,5 @@ dotnet_naming_style.s_camelcase.required_prefix = s_
 dotnet_naming_style.s_camelcase.required_suffix = 
 dotnet_naming_style.s_camelcase.word_separator = 
 dotnet_naming_style.s_camelcase.capitalization = camel_case
-tab_width = 4
-indent_size = 4
-end_of_line = cr
+
 dotnet_style_namespace_match_folder = true:suggestion
