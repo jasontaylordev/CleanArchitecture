@@ -5,7 +5,7 @@ using CleanArchitecture.Application.TodoLists.Commands.CreateTodoList;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Enums;
 
-namespace CleanArchitecture.Application.IntegrationTests.TodoItems.Commands;
+namespace CleanArchitecture.Application.FunctionalTests.TodoItems.Commands;
 
 using static Testing;
 

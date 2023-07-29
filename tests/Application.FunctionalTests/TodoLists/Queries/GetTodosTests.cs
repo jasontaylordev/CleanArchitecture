@@ -2,7 +2,7 @@
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.ValueObjects;
 
-namespace CleanArchitecture.Application.IntegrationTests.TodoLists.Queries;
+namespace CleanArchitecture.Application.FunctionalTests.TodoLists.Queries;
 
 using static Testing;
 

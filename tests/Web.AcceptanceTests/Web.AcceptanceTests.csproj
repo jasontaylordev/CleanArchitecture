@@ -4,6 +4,7 @@
     <PropertyGroup>
         <RootNamespace>CleanArchitecture.Web.AcceptanceTests</RootNamespace>
         <AssemblyName>CleanArchitecture.Web.AcceptanceTests</AssemblyName>
+        
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
