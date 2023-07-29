@@ -43,9 +43,17 @@ dotnet new install Clean.Architecture.Solution.Template::8.0.0-preview.6.12
 
 ## Test
 
-The solution contains unit, integration, and acceptance tests.
+<!--#if (UseApiOnly) -->
+The solution contains unit, integration, and functional tests.
 
-To run the unit and integration tests (excluding acceptance tests):
+To run the tests:
+```bash
+dotnet test"
+```
+<!--#else -->
+The solution contains unit, integration, functional, and acceptance tests.
+
+To run the unit, integration, and functional tests (excluding acceptance tests):
 ```bash
 dotnet test --filter "FullyQualifiedName!~AcceptanceTests"
 ```
@@ -62,6 +70,7 @@ Then, in a new console, run the tests:
 cd .\src\Web\
 dotnet test
 ```
+<!--#endif -->
 
 ## Help
 To learn more about the template go to the [project website](https://github.com/JasonTaylorDev/CleanArchitecture). Here you can find additional guidance, request new features, report a bug, and discuss the template with other users.
