@@ -179,6 +179,7 @@ function GenerateRandomPassword {
 function SetVariables() {    
   gh variable set AZURE_TENANT_ID --body $AzureTenantId --repo $repoUrl
   gh variable set AZURE_SUBSCRIPTION_ID --body $AzureSubscriptionId --repo $repoUrl
+  gh variable set PROJECT_NAME --body $ProjectName --repo $repoUrl
 }
 
 function SetEnvironmentVariablesAndSecrets {
