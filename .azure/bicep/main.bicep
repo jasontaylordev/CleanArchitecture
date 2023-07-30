@@ -21,7 +21,7 @@ param sqlAdministratorUsername string
 param sqlAdministratorPassword string
 
 @description('The name of the project.')
-param projectName string = 'CleanArchitecture'
+param projectName string
 
 // Define the environment configuration map.
 var environmentConfigurationMap = {
@@ -80,12 +80,19 @@ var applicationInsightsName = 'appi-${projectName}-${environmentAbbreviation}'
 var sqlServerName = 'sql-${projectName}-${resourceNameSuffix}-${environmentAbbreviation}'
 var sqlDatabaseName = '${projectName}-${environmentAbbreviation}'
 
-// Define the connection string to access Azure SQL.
-var sqlDatabaseConnectionString = 'Server=tcp:${sqlServer.properties.fullyQualifiedDomainName},1433;Initial Catalog=${sqlDatabase.name};Persist Security Info=False;User ID=${sqlAdministratorUsername};Password=${sqlAdministratorPassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
-
 // Define the SKUs for each component based on the environment type.
 var appServicePlanSku = environmentConfigurationMap[environmentName].appServicePlan.sku
 var sqlDatabaseSku = environmentConfigurationMap[environmentName].sqlDatabase.sku
+
+resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2020-10-01' = {
+  name: logAnalyticsWorkspaceName
+  location: location
+  properties: {
+    sku: {
+      name: 'PerGB2018'
+    }
+  }
+}
 
 resource keyVault 'Microsoft.KeyVault/vaults@2019-09-01' = {
   name: keyVaultName
@@ -101,11 +108,34 @@ resource keyVault 'Microsoft.KeyVault/vaults@2019-09-01' = {
   }
 }
 
-resource connectionStringSecret 'Microsoft.KeyVault/vaults/secrets@2019-09-01' = {
+resource keyVault_ConnectionStringSecret 'Microsoft.KeyVault/vaults/secrets@2019-09-01' = {
   parent: keyVault
   name: 'ConnectionStrings--DefaultConnection'
   properties: {
-    value: sqlDatabaseConnectionString
+    value: 'Server=tcp:${sqlServer.properties.fullyQualifiedDomainName},1433;Initial Catalog=${sqlDatabaseName};Persist Security Info=False;User ID=${sqlAdministratorUsername};Password=${sqlAdministratorPassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
+  }
+  dependsOn: [
+    sqlDatabase
+  ]
+}
+
+resource keyVault_DiagnosticSettings 'Microsoft.Insights/diagnosticSettings@2021-05-01-preview' = {
+  scope: keyVault
+  name: 'keyVaultDiagnosticSettings'
+  properties: {
+    workspaceId: logAnalyticsWorkspace.id
+    logs: [
+      {
+        category: 'AuditEvent'
+        enabled: true
+      }
+    ]
+    metrics: [
+      {
+        category: 'AllMetrics'
+        enabled: true
+      }
+    ]
   }
 }
 
@@ -113,6 +143,20 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2021-01-15' = {
   name: appServicePlanName
   location: location
   sku: appServicePlanSku
+}
+
+resource appServicePlan_DiagnosticSettings 'Microsoft.Insights/diagnosticSettings@2021-05-01-preview' = {
+  scope: appServicePlan
+  name: 'appServicePlanDiagnosticSettings'
+  properties: {
+    workspaceId: logAnalyticsWorkspace.id
+    metrics: [
+      {
+        category: 'AllMetrics'
+        enabled: true
+      }
+    ]
+  }
 }
 
 resource appServiceApp 'Microsoft.Web/sites@2021-01-15' = {
@@ -141,9 +185,49 @@ resource appServiceApp 'Microsoft.Web/sites@2021-01-15' = {
   }
 }
 
-resource keyVaultAccessPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2022-07-01' = {
-  name: 'add'
+resource appServiceApp_DiagnosticSettings 'Microsoft.Insights/diagnosticSettings@2021-05-01-preview' = {
+  scope: appServiceApp
+  name: 'appServiceAppDiagnosticSettings'
+  properties: {
+    workspaceId: logAnalyticsWorkspace.id
+    logs: [
+      {
+        category: 'AppServiceHTTPLogs'
+        enabled: true
+      }
+      {
+        category: 'AppServiceConsoleLogs'
+        enabled: true
+      }
+      {
+        category: 'AppServiceAppLogs'
+        enabled: true
+      }
+      {
+        category: 'AppServiceAuditLogs'
+        enabled: true
+      }
+      {
+        category: 'AppServiceIPSecAuditLogs'
+        enabled: true
+      }
+      {
+        category: 'AppServicePlatformLogs'
+        enabled: true
+      }
+    ]
+    metrics: [
+      {
+        category: 'AllMetrics'
+        enabled: true
+      }
+    ]
+  }
+}
+
+resource keyVault_AccessPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2022-07-01' = {
   parent: keyVault
+  name: 'add'
   properties: {
     accessPolicies: [
       {
@@ -168,16 +252,6 @@ resource keyVaultAccessPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2022-07-
   }
 }
 
-resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2020-10-01' = {
-  name: logAnalyticsWorkspaceName
-  location: location
-  properties: {
-    sku: {
-      name: 'PerGB2018'
-    }
-  }
-}
-
 resource applicationInsights 'Microsoft.Insights/components@2020-02-02' = {
   name: applicationInsightsName
   location: location
@@ -197,7 +271,23 @@ resource sqlServer 'Microsoft.Sql/servers@2021-02-01-preview' = {
   }
 }
 
-resource sqlServerFirewallRule 'Microsoft.Sql/servers/firewallRules@2021-02-01-preview' = {
+resource sqlDatabase 'Microsoft.Sql/servers/databases@2021-02-01-preview' = {
+  parent: sqlServer
+  name: sqlDatabaseName
+  location: location
+  sku: sqlDatabaseSku
+}
+
+resource sqlServer_AuditingSettings 'Microsoft.Sql/servers/auditingSettings@2021-11-01-preview' = {
+  parent: sqlServer
+  name: 'default'
+  properties: {
+    state: 'Enabled'
+    isAzureMonitorTargetEnabled: true
+  }
+}
+
+resource sqlServer_FirewallRule 'Microsoft.Sql/servers/firewallRules@2021-02-01-preview' = {
   parent: sqlServer
   name: 'AllowAllWindowsAzureIps'
   properties: {
@@ -206,11 +296,64 @@ resource sqlServerFirewallRule 'Microsoft.Sql/servers/firewallRules@2021-02-01-p
   }
 }
 
-resource sqlDatabase 'Microsoft.Sql/servers/databases@2021-02-01-preview' = {
-  parent: sqlServer
-  name: sqlDatabaseName
-  location: location
-  sku: sqlDatabaseSku
+resource sqlDatabase_DiagnosticSettings 'Microsoft.Insights/diagnosticSettings@2021-05-01-preview' = {
+  scope: sqlDatabase
+  name: 'sqlDatabaseDiagnosticSettings'
+  properties: {
+    workspaceId: logAnalyticsWorkspace.id
+    logs: [
+      {
+        category: 'SQLInsights'
+        enabled: true
+      }
+      {
+        category: 'AutomaticTuning'
+        enabled: true
+      }
+      {
+        category: 'QueryStoreRuntimeStatistics'
+        enabled: true
+      }
+      {
+        category: 'QueryStoreWaitStatistics'
+        enabled: true
+      }
+      {
+        category: 'Errors'
+        enabled: true
+      }
+      {
+        category: 'DatabaseWaitStatistics'
+        enabled: true
+      }
+      {
+        category: 'Timeouts'
+        enabled: true
+      }
+      {
+        category: 'Blocks'
+        enabled: true
+      }
+      {
+        category: 'Deadlocks'
+        enabled: true
+      }
+    ]
+    metrics: [
+      {
+        category: 'Basic'
+        enabled: true
+      }
+      {
+        category: 'InstanceAndAppAdvanced'
+        enabled: true
+      }
+      {
+        category: 'WorkloadManagement'
+        enabled: true
+      }
+    ]
+  }
 }
 
 output appServiceAppName string = appServiceApp.name

@@ -3,7 +3,7 @@
   <metadata>
 
     <id>Clean.Architecture.Solution.Template</id>
-    <version>8.0.0-preview.6.12</version>
+    <version>8.0.0-preview.6.13</version>
     <title>Clean Architecture Solution Template</title>
     <authors>JasonTaylorDev</authors>
     <description>Clean Architecture Solution Template for .NET 8.</description>
@@ -11,9 +11,7 @@
       A Clean Architecture Solution Template for creating apps using Angular, React, or Web API only with ASP.NET Core.
     </summary>
     <releaseNotes>
-      Rename Application.IntegrationTests to Application.FunctionalTests.
-      Add starter project for Infrastructure.IntegrationTests.
-      Fixed issue with AcceptanceTests incorrectly included in Web API template.
+      Update IaC to include diagnostic logs and metrics across all resources.
     </releaseNotes>
 
     <projectUrl>https://github.com/JasonTaylorDev/CleanArchitecture</projectUrl>
