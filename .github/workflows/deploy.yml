@@ -40,6 +40,7 @@ jobs:
            environmentName=${{ inputs.environmentName }}
            sqlAdministratorUsername=${{ vars.AZURE_SQL_ADMINISTRATOR_USERNAME }}
            sqlAdministratorPassword=${{ secrets.AZURE_SQL_ADMINISTRATOR_PASSWORD }}
+           projectName=${{ vars.PROJECT_NAME }}
          deploymentMode: Validate
 
      - if: inputs.environmentName != 'Development'
@@ -53,6 +54,7 @@ jobs:
            environmentName=${{ inputs.environmentName }}
            sqlAdministratorUsername=${{ vars.AZURE_SQL_ADMINISTRATOR_USERNAME }}
            sqlAdministratorPassword=${{ secrets.AZURE_SQL_ADMINISTRATOR_PASSWORD }}
+           projectName=${{ vars.PROJECT_NAME }}
          additionalArguments: --what-if
  
   deploy:
@@ -90,6 +92,7 @@ jobs:
            environmentName=${{ inputs.environmentName }}
            sqlAdministratorUsername=${{ vars.AZURE_SQL_ADMINISTRATOR_USERNAME }}
            sqlAdministratorPassword=${{ secrets.AZURE_SQL_ADMINISTRATOR_PASSWORD }}
+           projectName=${{ vars.PROJECT_NAME }}
 
     - name: Initialise database
       run: |
