@@ -1,15 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.1.3" />
 
-    <PropertyGroup>
-        <RootNamespace>CleanArchitecture.Domain</RootNamespace>
-        <AssemblyName>CleanArchitecture.Domain</AssemblyName>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>CleanArchitecture.Domain</RootNamespace>
+    <AssemblyName>CleanArchitecture.Domain</AssemblyName>
+  </PropertyGroup>
 
-    <ItemGroup>
-      <PackageReference Include="MediatR" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MediatR" />
+  </ItemGroup>
 
 </Project>
