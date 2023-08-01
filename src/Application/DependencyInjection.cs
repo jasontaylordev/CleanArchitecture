@@ -3,7 +3,7 @@ using CleanArchitecture.Application.Common.Behaviours;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
-public static class ConfigureServices
+public static class DependencyInjection
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
