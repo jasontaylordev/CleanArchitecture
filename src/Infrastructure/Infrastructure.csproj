@@ -1,39 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.1.3" />
 
-    <PropertyGroup>
-        <RootNamespace>CleanArchitecture.Infrastructure</RootNamespace>
-        <AssemblyName>CleanArchitecture.Infrastructure</AssemblyName>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>CleanArchitecture.Infrastructure</RootNamespace>
+    <AssemblyName>CleanArchitecture.Infrastructure</AssemblyName>
+  </PropertyGroup>
 
-    <!--#if ('True' == 'False')-->
-    <!-- The above expression ensures this block will be excluded when the project is created using `dotnet new ca-sln` -->
-    <ItemGroup>
-      <Compile Remove="Data\SQLite\**" />
-      <EmbeddedResource Remove="Data\SQLite\**" />
-      <None Remove="Data\SQLite\**" />
-    </ItemGroup>
+  <!--#if ('True' == 'False')-->
+  <!-- The above expression ensures this block will be excluded when the project is created using `dotnet new ca-sln` -->
+  <ItemGroup>
+    <Compile Remove="Data\SQLite\**" />
+    <EmbeddedResource Remove="Data\SQLite\**" />
+    <None Remove="Data\SQLite\**" />
+  </ItemGroup>
+  <!--#endif-->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
+    <!--#if (!UseApiOnly)-->
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" />
     <!--#endif-->
-    <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
-        <!--#if (!UseApiOnly)-->
-        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" />
-        <!--#endif-->
-        <!--#if (UseSQLite)-->
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
-        <!--#endif-->
-        <!--#if (UseLocalDB)-->
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
-        <!--#endif-->
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" />
-    </ItemGroup>
+    <!--#if (UseSQLite)-->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
+    <!--#endif-->
+    <!--#if (UseLocalDB)-->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
+    <!--#endif-->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\Application\Application.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Application\Application.csproj" />
+  </ItemGroup>
 
 </Project>

@@ -1,14 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    <Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.1.3" />
 
     <PropertyGroup>
         <RootNamespace>CleanArchitecture.Infrastructure.IntegrationTests</RootNamespace>
         <AssemblyName>CleanArchitecture.Infrastructure.IntegrationTests</AssemblyName>
-        
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <IsPackable>false</IsPackable>
-        <IsTestProject>true</IsTestProject>
     </PropertyGroup>
 
     <ItemGroup>
