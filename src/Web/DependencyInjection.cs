@@ -3,6 +3,7 @@ using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Infrastructure.Data;
 using CleanArchitecture.Web.Services;
 using Microsoft.AspNetCore.Mvc;
+
 #if (UseApiOnly)
 using NSwag;
 using NSwag.Generation.Processors.Security;
@@ -42,18 +43,18 @@ public static class DependencyInjection
 
         services.AddEndpointsApiExplorer();
 
-#if (!UseApiOnly)
-        services.AddOpenApiDocument(configure =>
-            configure.Title = "CleanArchitecture API");
-#else
         services.AddOpenApiDocument((configure, sp) =>
         {
-            var fluentValidationSchemaProcessor = sp.CreateScope().ServiceProvider.GetRequiredService<FluentValidationSchemaProcessor>();
+            configure.Title = "CleanArchitecture API";
 
             // Add the fluent validations schema processor
+            var fluentValidationSchemaProcessor = 
+                sp.CreateScope().ServiceProvider.GetRequiredService<FluentValidationSchemaProcessor>();
+
             configure.SchemaProcessors.Add(fluentValidationSchemaProcessor);
 
-            configure.Title = "CleanArchitecture API";
+#if (UseApiOnly)
+            // Add JWT
             configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
             {
                 Type = OpenApiSecuritySchemeType.ApiKey,
@@ -63,8 +64,8 @@ public static class DependencyInjection
             });
 
             configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
-        });
 #endif
+        });
 
         return services;
     }

@@ -543,7 +543,7 @@ export interface ITodoItemBriefDto {
 
 export class CreateTodoItemCommand implements ICreateTodoItemCommand {
     listId?: number;
-    title?: string | undefined;
+    title!: string;
 
     constructor(data?: ICreateTodoItemCommand) {
         if (data) {
@@ -578,12 +578,12 @@ export class CreateTodoItemCommand implements ICreateTodoItemCommand {
 
 export interface ICreateTodoItemCommand {
     listId?: number;
-    title?: string | undefined;
+    title: string;
 }
 
 export class UpdateTodoItemCommand implements IUpdateTodoItemCommand {
     id?: number;
-    title?: string | undefined;
+    title!: string;
     done?: boolean;
 
     constructor(data?: IUpdateTodoItemCommand) {
@@ -621,7 +621,7 @@ export class UpdateTodoItemCommand implements IUpdateTodoItemCommand {
 
 export interface IUpdateTodoItemCommand {
     id?: number;
-    title?: string | undefined;
+    title: string;
     done?: boolean;
 }
 
@@ -889,7 +889,7 @@ export interface ITodoItemDto {
 }
 
 export class CreateTodoListCommand implements ICreateTodoListCommand {
-    title?: string | undefined;
+    title!: string;
 
     constructor(data?: ICreateTodoListCommand) {
         if (data) {
@@ -921,12 +921,12 @@ export class CreateTodoListCommand implements ICreateTodoListCommand {
 }
 
 export interface ICreateTodoListCommand {
-    title?: string | undefined;
+    title: string;
 }
 
 export class UpdateTodoListCommand implements IUpdateTodoListCommand {
     id?: number;
-    title?: string | undefined;
+    title!: string;
 
     constructor(data?: IUpdateTodoListCommand) {
         if (data) {
@@ -961,7 +961,7 @@ export class UpdateTodoListCommand implements IUpdateTodoListCommand {
 
 export interface IUpdateTodoListCommand {
     id?: number;
-    title?: string | undefined;
+    title: string;
 }
 
 export class WeatherForecast implements IWeatherForecast {

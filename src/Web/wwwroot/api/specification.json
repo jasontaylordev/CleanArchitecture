@@ -302,116 +302,6 @@
         }
       }
     },
-    "/api/Users/register": {
-      "post": {
-        "tags": [
-          "Users"
-        ],
-        "operationId": "PostApiUsersRegister",
-        "requestBody": {
-          "x-name": "registration",
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegisterRequest"
-              }
-            }
-          },
-          "x-position": 1
-        },
-        "responses": {
-          "200": {
-            "description": ""
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HttpValidationProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Users/login": {
-      "post": {
-        "tags": [
-          "Users"
-        ],
-        "operationId": "PostApiUsersLogin",
-        "parameters": [
-          {
-            "name": "cookieMode",
-            "in": "query",
-            "schema": {
-              "type": "boolean",
-              "nullable": true
-            },
-            "x-position": 2
-          }
-        ],
-        "requestBody": {
-          "x-name": "login",
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginRequest"
-              }
-            }
-          },
-          "x-position": 1
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AccessTokenResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Users/refresh": {
-      "post": {
-        "tags": [
-          "Users"
-        ],
-        "operationId": "PostApiUsersRefresh",
-        "requestBody": {
-          "x-name": "refreshRequest",
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RefreshRequest"
-              }
-            }
-          },
-          "x-position": 1
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AccessTokenResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/WeatherForecasts": {
       "get": {
         "tags": [
@@ -492,6 +382,9 @@
       "CreateTodoItemCommand": {
         "type": "object",
         "additionalProperties": false,
+        "required": [
+          "title"
+        ],
         "properties": {
           "listId": {
             "type": "integer",
@@ -499,13 +392,18 @@
           },
           "title": {
             "type": "string",
-            "nullable": true
+            "maxLength": 200,
+            "minLength": 1,
+            "nullable": false
           }
         }
       },
       "UpdateTodoItemCommand": {
         "type": "object",
         "additionalProperties": false,
+        "required": [
+          "title"
+        ],
         "properties": {
           "id": {
             "type": "integer",
@@ -513,7 +411,9 @@
           },
           "title": {
             "type": "string",
-            "nullable": true
+            "maxLength": 200,
+            "minLength": 1,
+            "nullable": false
           },
           "done": {
             "type": "boolean"
@@ -645,16 +545,24 @@
       "CreateTodoListCommand": {
         "type": "object",
         "additionalProperties": false,
+        "required": [
+          "title"
+        ],
         "properties": {
           "title": {
             "type": "string",
-            "nullable": true
+            "maxLength": 200,
+            "minLength": 1,
+            "nullable": false
           }
         }
       },
       "UpdateTodoListCommand": {
         "type": "object",
         "additionalProperties": false,
+        "required": [
+          "title"
+        ],
         "properties": {
           "id": {
             "type": "integer",
@@ -662,112 +570,9 @@
           },
           "title": {
             "type": "string",
-            "nullable": true
-          }
-        }
-      },
-      "HttpValidationProblemDetails": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/ProblemDetails"
-          },
-          {
-            "type": "object",
-            "additionalProperties": {
-              "nullable": true
-            },
-            "properties": {
-              "errors": {
-                "type": "object",
-                "additionalProperties": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        ]
-      },
-      "ProblemDetails": {
-        "type": "object",
-        "additionalProperties": {
-          "nullable": true
-        },
-        "properties": {
-          "type": {
-            "type": "string",
-            "nullable": true
-          },
-          "title": {
-            "type": "string",
-            "nullable": true
-          },
-          "status": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "detail": {
-            "type": "string",
-            "nullable": true
-          },
-          "instance": {
-            "type": "string",
-            "nullable": true
-          }
-        }
-      },
-      "RegisterRequest": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "username": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string"
-          }
-        }
-      },
-      "AccessTokenResponse": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "token_type": {
-            "type": "string"
-          },
-          "access_token": {
-            "type": "string"
-          },
-          "expires_in": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "refresh_token": {
-            "type": "string"
-          }
-        }
-      },
-      "LoginRequest": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "username": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string"
-          }
-        }
-      },
-      "RefreshRequest": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "refreshToken": {
-            "type": "string"
+            "maxLength": 200,
+            "minLength": 1,
+            "nullable": false
           }
         }
       },
