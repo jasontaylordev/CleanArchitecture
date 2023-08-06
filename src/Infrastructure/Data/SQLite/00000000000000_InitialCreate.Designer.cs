@@ -18,7 +18,7 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.0-preview.5.23280.1");
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.0-preview.6.23329.4");
 
             modelBuilder.Entity("CleanArchitecture.Domain.Entities.TodoItem", b =>
                 {
@@ -26,7 +26,7 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Created")
+                    b.Property<DateTimeOffset>("Created")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CreatedBy")
@@ -35,7 +35,7 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
                     b.Property<bool>("Done")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime?>("LastModified")
+                    b.Property<DateTimeOffset>("LastModified")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LastModifiedBy")
@@ -71,13 +71,13 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Created")
+                    b.Property<DateTimeOffset>("Created")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("LastModified")
+                    b.Property<DateTimeOffset>("LastModified")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LastModifiedBy")
@@ -232,11 +232,9 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderDisplayName")
@@ -274,11 +272,9 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Value")

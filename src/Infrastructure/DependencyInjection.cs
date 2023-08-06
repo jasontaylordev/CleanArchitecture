@@ -3,7 +3,6 @@ using CleanArchitecture.Domain.Constants;
 using CleanArchitecture.Infrastructure.Data;
 using CleanArchitecture.Infrastructure.Data.Interceptors;
 using CleanArchitecture.Infrastructure.Identity;
-using CleanArchitecture.Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -55,7 +54,7 @@ public static class DependencyInjection
             .AddEntityFrameworkStores<ApplicationDbContext>();
 #endif
 
-        services.AddTransient<IDateTime, DateTimeService>();
+        services.AddSingleton(TimeProvider.System);
         services.AddTransient<IIdentityService, IdentityService>();
 
         services.AddAuthorization(options =>
