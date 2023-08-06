@@ -58,9 +58,9 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
                     Colour_Code = table.Column<string>(type: "TEXT", nullable: false),
-                    Created = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Created = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
                     CreatedBy = table.Column<string>(type: "TEXT", nullable: true),
-                    LastModified = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    LastModified = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
                     LastModifiedBy = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -114,8 +114,8 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "TEXT", nullable: false),
+                    ProviderKey = table.Column<string>(type: "TEXT", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "TEXT", nullable: true),
                     UserId = table.Column<string>(type: "TEXT", nullable: false)
                 },
@@ -159,8 +159,8 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    LoginProvider = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
                     Value = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -186,9 +186,9 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
                     Priority = table.Column<int>(type: "INTEGER", nullable: false),
                     Reminder = table.Column<DateTime>(type: "TEXT", nullable: true),
                     Done = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Created = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Created = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
                     CreatedBy = table.Column<string>(type: "TEXT", nullable: true),
-                    LastModified = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    LastModified = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
                     LastModifiedBy = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>

@@ -9,11 +9,11 @@ namespace CleanArchitecture.Infrastructure.Data.Interceptors;
 public class AuditableEntityInterceptor : SaveChangesInterceptor
 {
     private readonly IUser _user;
-    private readonly IDateTime _dateTime;
+    private readonly TimeProvider _dateTime;
 
     public AuditableEntityInterceptor(
         IUser user,
-        IDateTime dateTime)
+        TimeProvider dateTime)
     {
         _user = user;
         _dateTime = dateTime;
@@ -42,13 +42,13 @@ public class AuditableEntityInterceptor : SaveChangesInterceptor
             if (entry.State == EntityState.Added)
             {
                 entry.Entity.CreatedBy = _user.Id;
-                entry.Entity.Created = _dateTime.Now;
+                entry.Entity.Created = _dateTime.GetUtcNow();
             } 
 
             if (entry.State == EntityState.Added || entry.State == EntityState.Modified || entry.HasChangedOwnedEntities())
             {
                 entry.Entity.LastModifiedBy = _user.Id;
-                entry.Entity.LastModified = _dateTime.Now;
+                entry.Entity.LastModified = _dateTime.GetUtcNow();
             }
         }
     }
