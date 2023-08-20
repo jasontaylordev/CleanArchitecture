@@ -31,6 +31,10 @@
           "description": "Use React"
         },
         {
+          "choice": "Nuxt",
+          "description": "Use Nuxt"
+        },
+        {
           "choice": "None",
           "description": "Web API only"
         }
@@ -45,6 +49,10 @@
     "UseReact": {
       "type": "computed",
       "value": "(ClientFramework == \"React\")"
+    },
+	"UseNuxt": {
+      "type": "computed",
+      "value": "(ClientFramework == \"Nuxt\")"
     },
     "UseApiOnly": {
       "type": "computed",
@@ -120,6 +128,18 @@
           "rename": {
             "config-react.nswag": "config.nswag",
             "ClientApp-React": "ClientApp"
+          }
+        },,
+        {
+          "condition": "(UseNuxt)",
+          "exclude": [
+            "src/WebUI/config.nswag",
+            "src/WebUI/config-webapi.nswag",
+            "src/WebUI/ClientApp/**"
+          ],
+          "rename": {
+            "config-react.nswag": "config.nswag",
+            "ClientApp-Nuxt": "ClientApp"
           }
         },
         {

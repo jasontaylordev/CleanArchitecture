@@ -52,6 +52,10 @@
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
     </ItemGroup>
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="ClientApp-Sidebase\package.json" />
+      <_ContentIncludedByDefault Remove="ClientApp-Sidebase\tsconfig.json" />
+    </ItemGroup>
     
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
         <!-- Ensure Node.js is installed -->
@@ -67,6 +71,7 @@
     <!-- Auto-generated Open API specification and Angular TypeScript clients -->
     <PropertyGroup>
         <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+        <AnalysisLevel>preview</AnalysisLevel>
     </PropertyGroup>
 
     <Target Name="NSwag" AfterTargets="PostBuildEvent" Condition=" '$(Configuration)' == 'Debug' And '$(SkipNSwag)' != 'True' ">
@@ -84,12 +89,13 @@
         <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
         <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
         <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --configuration production" Condition="'$(UseAngular)' != 'True'" />
-        <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" Condition="'$(UseReact)' != 'True'" />
+        <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" Condition="'$(UseReact)' == 'True' Or $(UseNuxt)' == 'True'" />
 
         <!-- Include the newly-built files in the publish output -->
         <ItemGroup>
-            <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" Condition="'$(UseAngular)' != 'True'" />
-            <DistFiles Include="$(SpaRoot)build\**" Condition="'$(UseReact)' != 'True'" />
+            <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" Condition="'$(UseAngular)' == 'True'" />
+            <DistFiles Include="$(SpaRoot)build\**" Condition="'$(UseReact)' == 'True'" />
+            <DistFiles Include="$(SpaRoot)dist\**" Condition="'$(UseNuxt)' == 'True'" />
             <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
                 <RelativePath>wwwroot\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
                 <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
