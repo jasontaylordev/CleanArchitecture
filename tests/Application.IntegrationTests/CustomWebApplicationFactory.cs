@@ -1,6 +1,7 @@
 ﻿using System.Data.Common;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Infrastructure.Data;
+using FluentAssertions.Common;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
@@ -26,8 +27,13 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         builder.ConfigureTestServices(services =>
         {
             services
-                .RemoveAll<IUser>()
-                .AddTransient(provider => Mock.Of<IUser>(s => s.Id == GetUserId()));
+            .RemoveAll<IUser>()
+                .AddTransient(provider =>
+            {
+                var user = Substitute.For<IUser>();
+                user.Id.Returns(GetUserId());
+                return user;
+            });
 
             services
                 .RemoveAll<DbContextOptions<ApplicationDbContext>>()

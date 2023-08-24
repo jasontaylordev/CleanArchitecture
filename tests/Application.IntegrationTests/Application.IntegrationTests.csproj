@@ -13,12 +13,12 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" />
+        <PackageReference Include="NSubstitute" />
         <PackageReference Include="nunit" />
         <PackageReference Include="NUnit.Analyzers" />
         <PackageReference Include="NUnit3TestAdapter" />
         <PackageReference Include="coverlet.collector" />
         <PackageReference Include="FluentAssertions" />
-        <PackageReference Include="Moq" />
         <PackageReference Include="Respawn" />
         <PackageReference Include="Testcontainers.MsSql" />
     </ItemGroup>
