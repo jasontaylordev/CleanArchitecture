@@ -9,6 +9,10 @@ on:
       - LICENSE
       - README.md
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
 
   build:
