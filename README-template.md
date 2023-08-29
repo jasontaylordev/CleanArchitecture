@@ -1,6 +1,6 @@
 ﻿# CleanArchitecture
 
-The project was generated using the [Clean.Architecture.Solution.Template](https://github.com/jasontaylordev/CleanArchitecture) version 8.0.0-preview.6.18.
+The project was generated using the [Clean.Architecture.Solution.Template](https://github.com/jasontaylordev/CleanArchitecture) version 8.0.0-preview.7.1.
 
 ## Build
 
@@ -42,7 +42,7 @@ dotnet new ca-usecase -n GetTodos -fn TodoLists -ut query -rt TodosVm
 If you encounter the error *"No templates or subcommands found matching: 'ca-usecase'."*, install the template and try again:
 
 ```bash
-dotnet new install Clean.Architecture.Solution.Template::8.0.0-preview.6.18
+dotnet new install Clean.Architecture.Solution.Template::8.0.0-preview.7.1
 ```
 
 ## Test
