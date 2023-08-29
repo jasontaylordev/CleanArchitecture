@@ -38,7 +38,7 @@ public static class DependencyInjection
 
 #if (UseApiOnly)
         services.AddAuthentication()
-            .AddIdentityBearerToken<ApplicationUser>();
+            .AddBearerToken(IdentityConstants.BearerScheme);
 
         services.AddAuthorizationBuilder();
 
