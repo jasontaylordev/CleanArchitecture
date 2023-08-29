@@ -13,26 +13,26 @@
     <PackageVersion Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="11.6.0" />
     <PackageVersion Include="MediatR" Version="12.1.1" />
-    <PackageVersion Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.0-preview.6.23329.11" />
-    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0-preview.6.23329.11" />
+    <PackageVersion Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.0-preview.7.23375.9" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0-preview.7.23375.9" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.0-preview.6.23329.11" />
-    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="8.0.0-preview.6.23329.11" />
-    <PackageVersion Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.0-preview.6.23329.11" />
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="8.0.0-preview.7.23375.9" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.0-preview.7.23375.9" />
     <!--#if (!UseApiOnly)-->
-    <PackageVersion Include="Microsoft.AspNetCore.SpaProxy" Version="8.0.0-preview.6.23329.11" />
+    <PackageVersion Include="Microsoft.AspNetCore.SpaProxy" Version="8.0.0-preview.7.23375.9" />
     <!--#endif-->
-    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.0-preview.6.23329.4" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.0-preview.6.23329.4" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.0-preview.7.23375.4" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.0-preview.7.23375.4" />
     <!--#if (UseSQLite)-->
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0-preview.6.23329.4" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0-preview.7.23375.4" />
     <!--#endif-->
     <!--#if (UseLocalDB)-->
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0-preview.6.23329.4" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0-preview.7.23375.4" />
     <!--#endif-->
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0-preview.6.23329.4" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0-preview.6.23329.7" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="8.0.0-preview.6.23329.7" />
-    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="8.0.0-preview.6.23329.11" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0-preview.7.23375.4" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0-preview.7.23375.6" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="8.0.0-preview.7.23375.6" />
+    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="8.0.0-preview.7.23375.9" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
     <PackageVersion Include="Moq" Version="4.18.4" />
     <PackageVersion Include="NSwag.AspNetCore" Version="13.19.0" />
