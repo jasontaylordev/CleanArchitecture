@@ -2,7 +2,7 @@ name: CodeQL
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, master ]
     paths-ignore:
       - .gitignore
       - CODE_OF_CONDUCT.md
