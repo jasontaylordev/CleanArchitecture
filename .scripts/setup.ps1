@@ -170,7 +170,7 @@ function GenerateRandomPassword {
     [int]$Length = 16
   )
 
-  $ValidChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!#^_-+=?<>|~"
+  $ValidChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!#^_-+=?<>|~".ToCharArray()
   $Password = -join ((Get-Random -Count $Length -InputObject $ValidChars) | Get-Random -Count $Length)
 
   return $Password
