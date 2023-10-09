@@ -1,5 +1,3 @@
-<img align="left" width="84" height="84" src="https://github.com/jasontaylordev/CleanArchitecture/raw/main/.github/icon.png" />
- 
 # Live Coding Interview Assessment using Clean Architecture Solution Template for ASP.NET Core
 
 This repository is a fork of the Clean Architecture Solution Template for ASP.NET Core, customized for the purpose of conducting live coding interviews. It serves as a valuable tool for evaluating candidates' technical skills and problem-solving abilities in real-time coding scenarios.
