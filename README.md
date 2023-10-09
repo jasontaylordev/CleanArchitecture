@@ -14,6 +14,7 @@ This repository is a fork of the Clean Architecture Solution Template for ASP.NE
 1. Install the latest [.NET 7 SDK](https://dotnet.microsoft.com/download/dotnet/7.0)
 2. Install the latest [Node.js LTS](https://nodejs.org/en/)
 3. Clone this repository.
+
 Check out [blog post](https://jasontaylor.dev/clean-architecture-getting-started/) for more information.
 
 # Coding Challenge Description
