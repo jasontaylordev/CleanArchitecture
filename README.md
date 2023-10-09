@@ -57,4 +57,4 @@ We have already prepared infrastructure with a Clean Architecture template.
 
 ## For task removal, the Task's ID is only needed.
 
-<b>Note: It's recommended to use Dependency Injection and other patterns and practices to create scalable web applications.</>
+<b>Note: It's recommended to use Dependency Injection and other patterns and practices to create scalable web applications.</b>
