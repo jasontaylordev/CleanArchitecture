@@ -1,55 +1,76 @@
 {
-  "name": "cleanarchitecture.webui",
-  "version": "0.0.0",
-  "scripts": {
-    "ng": "ng",
-    "prestart": "node aspnetcore-https",
-    "start": "run-script-os",
-    "start:windows": "ng serve --port 44447 --ssl --ssl-cert \"%APPDATA%\\ASP.NET\\https\\%npm_package_name%.pem\" --ssl-key \"%APPDATA%\\ASP.NET\\https\\%npm_package_name%.key\"",
-    "start:default": "ng serve --port 44447 --ssl --ssl-cert \"$HOME/.aspnet/https/${npm_package_name}.pem\" --ssl-key \"$HOME/.aspnet/https/${npm_package_name}.key\"",
-    "build": "ng build",
-    "build:ssr": "ng run CleanArchitecture.WebUI:server:dev",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
-  },
+  "name": "benivo_demo_app",
+  "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@angular/animations": "^15.2.9",
-    "@angular/common": "^15.2.9",
-    "@angular/compiler": "^15.2.9",
-    "@angular/core": "^15.2.9",
-    "@angular/forms": "^15.2.9",
-    "@angular/platform-browser": "^15.2.9",
-    "@angular/platform-browser-dynamic": "^15.2.9",
-    "@angular/platform-server": "^15.2.9",
-    "@angular/router": "^15.2.9",
-    "bootstrap": "^5.3.0",
-    "bootstrap-icons": "^1.10.5",
-    "jquery": "^3.6.3",
-    "ngx-bootstrap": "10.2.0",
+    "bootstrap": "^5.2.3",
+    "http-proxy-middleware": "^2.0.6",
+    "jquery": "^3.6.4",
+    "merge": "^2.1.1",
     "oidc-client": "^1.11.5",
-    "@popperjs/core": "^2.11.8",
-    "run-script-os": "^1.1.6",
-    "rxjs": "~7.8.0",
-    "tslib": "^2.5.0",
-    "zone.js": "~0.12.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-bootstrap": "^0.26.2",
+    "react-router-dom": "^6.11.0",
+    "react-scripts": "^5.0.1",
+    "reactstrap": "^9.1.9",
+    "rimraf": "^5.0.0",
+    "web-vitals": "^3.3.1",
+    "workbox-background-sync": "^6.5.4",
+    "workbox-broadcast-update": "^6.5.4",
+    "workbox-cacheable-response": "^6.5.4",
+    "workbox-core": "^6.5.4",
+    "workbox-expiration": "^6.5.4",
+    "workbox-google-analytics": "^6.5.4",
+    "workbox-navigation-preload": "^6.5.4",
+    "workbox-precaching": "^6.5.4",
+    "workbox-range-requests": "^6.5.4",
+    "workbox-routing": "^6.5.4",
+    "workbox-strategies": "^6.5.4",
+    "workbox-streams": "^6.5.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^15.2.8",
-    "@angular/cli": "^15.2.8",
-    "@angular/compiler-cli": "^15.2.9",
-    "@types/jasmine": "~4.3.1",
-    "@types/jasminewd2": "~2.0.10",
-    "@types/node": "^18.14.0",
-    "jasmine-core": "~4.5.0",
-    "karma": "~6.4.1",
-    "karma-chrome-launcher": "~3.1.1",
-    "karma-coverage": "~2.2.0",
-    "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "^2.0.0",
-    "typescript": "~4.9.5"
+    "ajv": "^8.12.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.39.0",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-flowtype": "^8.0.3",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react": "^7.32.2",
+    "nan": "^2.17.0",
+    "typescript": "^4.9.5"
   },
   "overrides": {
-    "autoprefixer": "10.4.5"
+    "autoprefixer": "10.4.5",
+    "nth-check": "2.1.1",
+    "webpack": "5.81.0"
+  },
+  "scripts": {
+    "prestart": "node aspnetcore-https && node aspnetcore-react",
+    "start": "rimraf ./build && react-scripts start",
+    "build": "react-scripts build",
+    "test": "cross-env CI=true react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "lint": "eslint ./src/",
+    "build:ssr": "npm run CleanArchitecture.WebUI:server:dev",
+    "watch": "npm build --watch --configuration development"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
