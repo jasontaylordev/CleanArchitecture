@@ -9,6 +9,7 @@ const AppRoutes = [
     },
     {
         path: '/say-hello',
+        requireAuth: true,
         element: <SayHello />
     },
     ...ApiAuthorzationRoutes
