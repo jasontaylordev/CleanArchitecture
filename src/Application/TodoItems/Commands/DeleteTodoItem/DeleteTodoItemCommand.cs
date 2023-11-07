@@ -1,8 +1,9 @@
 ﻿using CleanArchitecture.Application.Common.Exceptions;
 using CleanArchitecture.Application.Common.Interfaces;
+using CleanArchitecture.Domain.Common;
 using CleanArchitecture.Domain.Entities;
-using CleanArchitecture.Domain.Events;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace CleanArchitecture.Application.TodoItems.Commands.DeleteTodoItem;
 
@@ -29,7 +30,11 @@ public class DeleteTodoItemCommandHandler : IRequestHandler<DeleteTodoItemComman
 
         _context.TodoItems.Remove(entity);
 
-        entity.AddDomainEvent(new TodoItemDeletedEvent(entity));
+        entity.AddDomainEvent(new BaseEvent(entity)
+        {
+            Level = LogLevel.Warning,
+            Message = "Deleted To Do Item"
+        });
 
         await _context.SaveChangesAsync(cancellationToken);
     }

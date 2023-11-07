@@ -1,6 +1,6 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Domain.Entities;
-using CleanArchitecture.Domain.Events;
+using CleanArchitecture.Domain.Common;
 using MediatR;
 
 namespace CleanArchitecture.Application.TodoItems.Commands.CreateTodoItem;
@@ -30,7 +30,10 @@ public class CreateTodoItemCommandHandler : IRequestHandler<CreateTodoItemComman
             Done = false
         };
 
-        entity.AddDomainEvent(new TodoItemCreatedEvent(entity));
+        entity.AddDomainEvent(new BaseEvent(entity) 
+        {
+            Message = "Created To Do Item"
+        });
 
         _context.TodoItems.Add(entity);
 
