@@ -51,7 +51,8 @@ public static class DependencyInjection
             var fluentValidationSchemaProcessor = 
                 sp.CreateScope().ServiceProvider.GetRequiredService<FluentValidationSchemaProcessor>();
 
-            configure.SchemaProcessors.Add(fluentValidationSchemaProcessor);
+            // BUG: SchemaProcessors is missing in NSwag 14 (https://github.com/RicoSuter/NSwag/issues/4524#issuecomment-1811897079)
+            // configure.SchemaProcessors.Add(fluentValidationSchemaProcessor);
 
 #if (UseApiOnly)
             // Add JWT
