@@ -15,7 +15,7 @@ If you find this project useful, please give it a star. Thanks! ⭐
 
 The easiest way to get started is to install the [.NET template](https://www.nuget.org/packages/Clean.Architecture.Solution.Template):
 ```
-dotnet new install Clean.Architecture.Solution.Template::8.0.0-preview.7.2
+dotnet new install Clean.Architecture.Solution.Template::8.0.0
 ```
 
 Once installed, create a new solution using the template. You can choose to use Angular, React, or create a Web API-only solution. Specify the client framework using the `-cf` or `--client-framework` option, and provide the output directory where your project will be created. Here are some examples:
