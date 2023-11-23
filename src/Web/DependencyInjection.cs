@@ -47,12 +47,12 @@ public static class DependencyInjection
         {
             configure.Title = "CleanArchitecture API";
 
+
             // Add the fluent validations schema processor
             var fluentValidationSchemaProcessor = 
                 sp.CreateScope().ServiceProvider.GetRequiredService<FluentValidationSchemaProcessor>();
 
-            // BUG: SchemaProcessors is missing in NSwag 14 (https://github.com/RicoSuter/NSwag/issues/4524#issuecomment-1811897079)
-            // configure.SchemaProcessors.Add(fluentValidationSchemaProcessor);
+            configure.SchemaSettings.SchemaProcessors.Add(fluentValidationSchemaProcessor);
 
 #if (UseApiOnly)
             // Add JWT
