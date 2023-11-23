@@ -377,6 +377,9 @@
       "CreateTodoItemCommand": {
         "type": "object",
         "additionalProperties": false,
+        "required": [
+          "title"
+        ],
         "properties": {
           "listId": {
             "type": "integer",
@@ -384,6 +387,8 @@
           },
           "title": {
             "type": "string",
+            "maxLength": 200,
+            "minLength": 0,
             "nullable": true
           }
         }
@@ -391,6 +396,9 @@
       "UpdateTodoItemCommand": {
         "type": "object",
         "additionalProperties": false,
+        "required": [
+          "title"
+        ],
         "properties": {
           "id": {
             "type": "integer",
@@ -398,6 +406,8 @@
           },
           "title": {
             "type": "string",
+            "maxLength": 200,
+            "minLength": 0,
             "nullable": true
           },
           "done": {
@@ -530,9 +540,14 @@
       "CreateTodoListCommand": {
         "type": "object",
         "additionalProperties": false,
+        "required": [
+          "title"
+        ],
         "properties": {
           "title": {
             "type": "string",
+            "maxLength": 200,
+            "minLength": 0,
             "nullable": true
           }
         }
@@ -540,6 +555,9 @@
       "UpdateTodoListCommand": {
         "type": "object",
         "additionalProperties": false,
+        "required": [
+          "title"
+        ],
         "properties": {
           "id": {
             "type": "integer",
@@ -547,6 +565,8 @@
           },
           "title": {
             "type": "string",
+            "maxLength": 200,
+            "minLength": 0,
             "nullable": true
           }
         }
