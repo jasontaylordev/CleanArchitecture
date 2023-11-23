@@ -59,6 +59,22 @@
     "UseLocalDB": {
       "type": "computed",
       "value": "(!UseSQLite)"
+    },
+    "caRepositoryUrl": {
+      "type": "generated",
+      "generator": "constant",
+      "replaces": "caRepositoryUrl",
+      "parameters": {
+        "value": "https://github.com/jasontaylordev/CleanArchitecture"
+      }
+    },
+    "caPackageVersion": {
+      "type": "generated",
+      "generator": "constant",
+      "replaces": "caPackageVersion",
+      "parameters": {
+        "value": "8.0.2"
+      }
     }
   },
   "sources": [
