@@ -26,7 +26,7 @@ public static class WebApplicationExtensions
 
         foreach (var type in endpointGroupTypes)
         {
-            if (Activator.CreateInstance(type) is EndpointGroupBase instance)
+            if (Activator.CreateInstance(type, new object[] { app.Services.GetRequiredService<ISender>() }) is EndpointGroupBase instance)
             {
                 instance.Map(app);
             }

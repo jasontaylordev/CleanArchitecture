@@ -2,8 +2,10 @@
 
 namespace CleanArchitecture.Web.Endpoints;
 
-public class WeatherForecasts : EndpointGroupBase
+public class WeatherForecasts: EndpointGroupBase
 {
+    public WeatherForecasts(ISender sender) : base(sender) { }
+
     public override void Map(WebApplication app)
     {
         app.MapGroup(this)
@@ -11,8 +13,8 @@ public class WeatherForecasts : EndpointGroupBase
             .MapGet(GetWeatherForecasts);
     }
 
-    public async Task<IEnumerable<WeatherForecast>> GetWeatherForecasts(ISender sender)
+    public async Task<IEnumerable<WeatherForecast>> GetWeatherForecasts()
     {
-        return await sender.Send(new GetWeatherForecastsQuery());
+        return await _sender.Send(new GetWeatherForecastsQuery());
     }
 }

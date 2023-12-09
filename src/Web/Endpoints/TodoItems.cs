@@ -9,6 +9,8 @@ namespace CleanArchitecture.Web.Endpoints;
 
 public class TodoItems : EndpointGroupBase
 {
+    public TodoItems(ISender sender) : base(sender) { }
+
     public override void Map(WebApplication app)
     {
         app.MapGroup(this)
@@ -20,33 +22,33 @@ public class TodoItems : EndpointGroupBase
             .MapDelete(DeleteTodoItem, "{id}");
     }
 
-    public async Task<PaginatedList<TodoItemBriefDto>> GetTodoItemsWithPagination(ISender sender, [AsParameters] GetTodoItemsWithPaginationQuery query)
+    public async Task<PaginatedList<TodoItemBriefDto>> GetTodoItemsWithPagination([AsParameters] GetTodoItemsWithPaginationQuery query)
     {
-        return await sender.Send(query);
+        return await _sender.Send(query);
     }
 
-    public async Task<int> CreateTodoItem(ISender sender, CreateTodoItemCommand command)
+    public async Task<int> CreateTodoItem(CreateTodoItemCommand command)
     {
-        return await sender.Send(command);
+        return await _sender.Send(command);
     }
 
-    public async Task<IResult> UpdateTodoItem(ISender sender, int id, UpdateTodoItemCommand command)
+    public async Task<IResult> UpdateTodoItem(int id, UpdateTodoItemCommand command)
     {
         if (id != command.Id) return Results.BadRequest();
-        await sender.Send(command);
+        await _sender.Send(command);
         return Results.NoContent();
     }
 
-    public async Task<IResult> UpdateTodoItemDetail(ISender sender, int id, UpdateTodoItemDetailCommand command)
+    public async Task<IResult> UpdateTodoItemDetail(int id, UpdateTodoItemDetailCommand command)
     {
         if (id != command.Id) return Results.BadRequest();
-        await sender.Send(command);
+        await _sender.Send(command);
         return Results.NoContent();
     }
 
-    public async Task<IResult> DeleteTodoItem(ISender sender, int id)
+    public async Task<IResult> DeleteTodoItem(int id)
     {
-        await sender.Send(new DeleteTodoItemCommand(id));
+        await _sender.Send(new DeleteTodoItemCommand(id));
         return Results.NoContent();
     }
 }
