@@ -8,6 +8,10 @@ indent_style = space
 [*.{xml,csproj,props,targets,ruleset,nuspec,resx}]
 indent_size = 2
 
+# Javascript files
+[*.js]
+indent_size = 2
+
 # Json files
 [*.{json,config,nswag}]
 indent_size = 2
