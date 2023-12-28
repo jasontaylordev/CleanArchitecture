@@ -5,7 +5,7 @@ namespace CleanArchitecture.Domain.Entities;
 public class TodoList : BaseAuditableEntity
 {
     [MaxLength(200)]
-    public required string Title { get; set; }
+    public string Title { get; set; } = default!;
 
     public Colour Colour { get; set; } = Colour.White;
 

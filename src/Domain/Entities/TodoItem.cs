@@ -5,7 +5,7 @@ public class TodoItem : BaseAuditableEntity
     public int ListId { get; set; }
 
     [MaxLength(200)]
-    public required string Title { get; set; }
+    public string Title { get; set; } = default!;
 
     public string? Note { get; set; }
 

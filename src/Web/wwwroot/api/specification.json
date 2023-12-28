@@ -388,8 +388,7 @@
           "title": {
             "type": "string",
             "maxLength": 200,
-            "minLength": 0,
-            "nullable": true
+            "minLength": 0
           }
         }
       },
@@ -407,8 +406,7 @@
           "title": {
             "type": "string",
             "maxLength": 200,
-            "minLength": 0,
-            "nullable": true
+            "minLength": 0
           },
           "done": {
             "type": "boolean"
@@ -547,8 +545,7 @@
           "title": {
             "type": "string",
             "maxLength": 200,
-            "minLength": 0,
-            "nullable": true
+            "minLength": 0
           }
         }
       },
@@ -566,8 +563,7 @@
           "title": {
             "type": "string",
             "maxLength": 200,
-            "minLength": 0,
-            "nullable": true
+            "minLength": 0
           }
         }
       },
