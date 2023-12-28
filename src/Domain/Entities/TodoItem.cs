@@ -3,7 +3,7 @@
 public class TodoItem : BaseAuditableEntity
 {
     public int ListId { get; set; }
-
+    [MaxLength(200)]
     public string? Title { get; set; }
 
     public string? Note { get; set; }
