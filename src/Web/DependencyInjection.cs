@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using NSwag;
 using NSwag.Generation.Processors.Security;
 #endif
-using ZymLabs.NSwag.FluentValidation;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -29,14 +28,6 @@ public static class DependencyInjection
 
         services.AddRazorPages();
 
-        services.AddScoped(provider =>
-        {
-            var validationRules = provider.GetService<IEnumerable<FluentValidationRule>>();
-            var loggerFactory = provider.GetService<ILoggerFactory>();
-
-            return new FluentValidationSchemaProcessor(provider, validationRules, loggerFactory);
-        });
-
         // Customise default API behaviour
         services.Configure<ApiBehaviorOptions>(options =>
             options.SuppressModelStateInvalidFilter = true);
@@ -46,13 +37,6 @@ public static class DependencyInjection
         services.AddOpenApiDocument((configure, sp) =>
         {
             configure.Title = "CleanArchitecture API";
-
-
-            // Add the fluent validations schema processor
-            var fluentValidationSchemaProcessor = 
-                sp.CreateScope().ServiceProvider.GetRequiredService<FluentValidationSchemaProcessor>();
-
-            configure.SchemaSettings.SchemaProcessors.Add(fluentValidationSchemaProcessor);
 
 #if (UseApiOnly)
             // Add JWT
