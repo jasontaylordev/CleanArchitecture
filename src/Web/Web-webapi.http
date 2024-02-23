@@ -98,7 +98,7 @@ Content-Type: application/json
 ###
 
 #PUT TodoItems UpdateItemDetails
-PUT {{Web_HostAddress}}/api/TodoItems/UpdateItemDetail/1
+PUT {{Web_HostAddress}}/api/TodoItems/UpdateDetail/1
 Authorization: Bearer {{BearerToken}}
 Content-Type: application/json
 
