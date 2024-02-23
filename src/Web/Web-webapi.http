@@ -4,24 +4,25 @@
 @Username=administrator@localhost
 @Password=Administrator1!
 @BearerToken=<YourToken>
+@RefreshToken=<YourRefreshToken>
 
 # POST Users Register
-POST {{Web_HostAddress}}/api/Users/Register
+POST {{Web_HostAddress}}/api/Users/register
 Content-Type: application/json
 
 {
-  "username": "{{Username}}",
+  "email": "{{Username}}",
   "password": "{{Password}}"
 }
 
 ###
 
 # POST Users Login
-POST {{Web_HostAddress}}/api/Users/Login
+POST {{Web_HostAddress}}/api/Users/login
 Content-Type: application/json
 
 {
-  "username": "{{Username}}",
+  "email": "{{Username}}",
   "password": "{{Password}}"
 }
 
@@ -33,7 +34,7 @@ Authorization: Bearer {{BearerToken}}
 Content-Type: application/json
 
 {
-  "refreshToken": ""
+  "refreshToken": "{{RefreshToken}}"
 }
 
 ###
@@ -75,17 +76,10 @@ Content-Type: application/json
 
 ###
 
-# DELETE TodoLists
-DELETE {{Web_HostAddress}}/api/TodoLists/1
-Authorization: Bearer {{BearerToken}}
-
-###
-
 # GET TodoItems
 @PageNumber = 1
 @PageSize = 10
 GET {{Web_HostAddress}}/api/TodoItems?ListId=1&PageNumber={{PageNumber}}&PageSize={{PageSize}}
-
 Authorization: Bearer {{BearerToken}}
 
 ###
@@ -96,7 +90,7 @@ Authorization: Bearer {{BearerToken}}
 Content-Type: application/json
 
 // CreateTodoItemCommand
-{
+{ 
   "ListId": 1,
   "Title": "Eat a burrito 🌯"
 }
@@ -104,7 +98,7 @@ Content-Type: application/json
 ###
 
 #PUT TodoItems UpdateItemDetails
-PUT {{Web_HostAddress}}/api/TodoItems/UpdateItemDetails?Id=1
+PUT {{Web_HostAddress}}/api/TodoItems/UpdateItemDetail/1
 Authorization: Bearer {{BearerToken}}
 Content-Type: application/json
 
@@ -134,6 +128,12 @@ Content-Type: application/json
 
 # DELETE TodoItem
 DELETE {{Web_HostAddress}}/api/TodoItems/1
+Authorization: Bearer {{BearerToken}}
+
+###
+
+# DELETE TodoLists
+DELETE {{Web_HostAddress}}/api/TodoLists/1
 Authorization: Bearer {{BearerToken}}
 
 ###
