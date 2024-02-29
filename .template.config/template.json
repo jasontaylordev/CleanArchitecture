@@ -73,7 +73,7 @@
       "generator": "constant",
       "replaces": "caPackageVersion",
       "parameters": {
-        "value": "8.0.3"
+        "value": "8.0.4"
       }
     }
   },
