@@ -19,7 +19,7 @@ jobs:
 
      steps: 
 
-     - uses: actions/checkout@v3
+     - uses: actions/checkout@v4
        name: Checkout code
 
      - uses: azure/login@v1
@@ -30,7 +30,7 @@ jobs:
          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
 
      - if: inputs.environmentName == 'Development'
-       uses: azure/arm-deploy@v1
+       uses: azure/arm-deploy@v2
        name: Run preflight validation
        with:
          deploymentName: ${{ github.run_number }}
@@ -44,7 +44,7 @@ jobs:
          deploymentMode: Validate
 
      - if: inputs.environmentName != 'Development'
-       uses: azure/arm-deploy@v1
+       uses: azure/arm-deploy@v2
        name: Run what-if
        with:
          failOnStdErr: false
@@ -64,14 +64,14 @@ jobs:
 
     steps:
 
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       name: Checkout code
 
-    - uses: actions/download-artifact@v3
+    - uses: actions/download-artifact@v4
       name: Download artifacts
 
     - name: Install .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
 
     - uses: azure/login@v1
       name: Login to Azure
@@ -80,7 +80,7 @@ jobs:
         tenant-id: ${{ vars.AZURE_TENANT_ID }}
         subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
 
-    - uses: azure/arm-deploy@v1
+    - uses: azure/arm-deploy@v2
       id: deploy
       name: Deploy infrastructure
       with:
