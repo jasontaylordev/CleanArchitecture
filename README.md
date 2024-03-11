@@ -15,7 +15,7 @@ If you find this project useful, please give it a star. Thanks! ⭐
 The following prerequisites are required to build and run the solution:
 
 - [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) (latest version)
-- [Node.js](https://nodejs.org/) (latest LTS version)
+- [Node.js](https://nodejs.org/) (latest LTS, only required if you are using Angular or React)
 
 The easiest way to get started is to install the [.NET template](https://www.nuget.org/packages/Clean.Architecture.Solution.Template):
 ```
