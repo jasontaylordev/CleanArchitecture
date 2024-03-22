@@ -12,9 +12,14 @@ If you find this project useful, please give it a star. Thanks! ⭐
 
 ## Getting Started
 
+The following prerequisites are required to build and run the solution:
+
+- [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) (latest version)
+- [Node.js](https://nodejs.org/) (latest LTS, only required if you are using Angular or React)
+
 The easiest way to get started is to install the [.NET template](https://www.nuget.org/packages/Clean.Architecture.Solution.Template):
 ```
-dotnet new install Clean.Architecture.Solution.Template::8.0.4
+dotnet new install Clean.Architecture.Solution.Template::8.0.5
 ```
 
 Once installed, create a new solution using the template. You can choose to use Angular, React, or create a Web API-only solution. Specify the client framework using the `-cf` or `--client-framework` option, and provide the output directory where your project will be created. Here are some examples:
