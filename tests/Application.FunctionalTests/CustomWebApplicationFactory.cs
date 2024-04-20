@@ -28,8 +28,13 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         {
             services
                 .RemoveAll<IUser>()
-                .AddTransient(provider => Mock.Of<IUser>(s => s.Id == GetUserId()));
-
+                .AddTransient(provider =>
+                {
+                    var mock = new Mock<IUser>();
+                    mock.SetupGet(x => x.Roles).Returns(GetRoles());
+                    mock.SetupGet(x => x.Id).Returns(GetUserId());
+                    return mock.Object;
+                });
             services
                 .RemoveAll<DbContextOptions<ApplicationDbContext>>()
                 .AddDbContext<ApplicationDbContext>((sp, options) =>
