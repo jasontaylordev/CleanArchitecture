@@ -25,21 +25,18 @@ public class GetTodosTests : BaseTestFixture
     {
         await RunAsDefaultUserAsync();
 
-        await AddAsync(new TodoList
-        {
-            Title = "Shopping",
-            Colour = Colour.Blue,
-            Items =
-                    {
-                        new TodoItem { Title = "Apples", Done = true },
-                        new TodoItem { Title = "Milk", Done = true },
-                        new TodoItem { Title = "Bread", Done = true },
-                        new TodoItem { Title = "Toilet paper" },
-                        new TodoItem { Title = "Pasta" },
-                        new TodoItem { Title = "Tissues" },
-                        new TodoItem { Title = "Tuna" }
-                    }
-        });
+        List<TodoItem> todoItems =
+            [
+                new TodoItem(0, "Apples", true),
+                new TodoItem(0, "Milk", true),
+                new TodoItem(0, "Bread", true),
+                new TodoItem(0, "Toilet paper", false),
+                new TodoItem(0, "Pasta", false),
+                new TodoItem(0, "Tissues", false),
+                new TodoItem(0, "Tuna", false)
+            ];
+
+        await AddAsync(new TodoList("Shopping", Colour.Blue, todoItems));
 
         var query = new GetTodosQuery();
 
@@ -55,7 +52,7 @@ public class GetTodosTests : BaseTestFixture
         var query = new GetTodosQuery();
 
         var action = () => SendAsync(query);
-        
+
         await action.Should().ThrowAsync<UnauthorizedAccessException>();
     }
 }
