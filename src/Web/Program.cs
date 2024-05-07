@@ -14,7 +14,11 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    await app.InitialiseDatabaseAsync();
+    var lineArgs = Environment.GetCommandLineArgs();
+    if(!lineArgs.Any(p => p.Contains("NSwag.AspNetCore.Launcher.dll")))
+    {
+        await app.InitialiseDatabaseAsync();
+    }
 }
 else
 {
