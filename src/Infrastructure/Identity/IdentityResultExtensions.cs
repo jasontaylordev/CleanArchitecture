@@ -5,10 +5,8 @@ namespace CleanArchitecture.Infrastructure.Identity;
 
 public static class IdentityResultExtensions
 {
-    public static Result ToApplicationResult(this IdentityResult result)
-    {
-        return result.Succeeded
+    public static Result ToApplicationResult(this IdentityResult result) => 
+        result.Succeeded
             ? Result.Success()
             : Result.Failure(result.Errors.Select(e => e.Description));
-    }
 }

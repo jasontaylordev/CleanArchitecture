@@ -9,14 +9,9 @@ public record UpdateTodoListCommand : IRequest
     public string? Title { get; init; }
 }
 
-public class UpdateTodoListCommandHandler : IRequestHandler<UpdateTodoListCommand>
+public class UpdateTodoListCommandHandler(IApplicationDbContext context) : IRequestHandler<UpdateTodoListCommand>
 {
-    private readonly IApplicationDbContext _context;
-
-    public UpdateTodoListCommandHandler(IApplicationDbContext context)
-    {
-        _context = context;
-    }
+    private readonly IApplicationDbContext _context = context;
 
     public async Task Handle(UpdateTodoListCommand request, CancellationToken cancellationToken)
     {
