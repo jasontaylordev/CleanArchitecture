@@ -5,11 +5,15 @@ import { TodoListsClient, TodoItemsClient,
   CreateTodoListCommand, UpdateTodoListCommand,
   CreateTodoItemCommand, UpdateTodoItemCommand, UpdateTodoItemDetailCommand
 } from '../web-api-client';
+import { FormsModule } from '@angular/forms';
+import { NgIf, NgFor, NgClass, JsonPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-todo-component',
-  templateUrl: './todo.component.html',
-  styleUrls: ['./todo.component.scss']
+    selector: 'app-todo-component',
+    templateUrl: './todo.component.html',
+    styleUrls: ['./todo.component.scss'],
+    standalone: true,
+    imports: [NgIf, NgFor, NgClass, FormsModule, JsonPipe]
 })
 export class TodoComponent implements OnInit {
   debug = false;
