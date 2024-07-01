@@ -23,11 +23,11 @@
     "@angular/platform-browser-dynamic": "^16.2.12",
     "@angular/platform-server": "^16.2.12",
     "@angular/router": "^16.2.12",
+    "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.0",
     "bootstrap-icons": "^1.10.5",
-    "ngx-bootstrap": "10.2.0",
     "jquery": "^3.6.4",
-    "@popperjs/core": "^2.11.8",
+    "ngx-bootstrap": "^11.0.2",
     "run-script-os": "^1.1.6",
     "rxjs": "~7.8.1",
     "tslib": "^2.5.0",
@@ -51,6 +51,5 @@
   "overrides": {
     "autoprefixer": "10.4.5",
     "webpack": "5.81.0"
-  },
-  "optionalDependencies": {}
+  }
 }
