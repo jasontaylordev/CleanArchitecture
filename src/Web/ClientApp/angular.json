@@ -71,11 +71,11 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "CleanArchitecture.Web:build:production"
+              "buildTarget": "CleanArchitecture.Web:build:production"
             },
             "development": {
-              "browserTarget": "CleanArchitecture.Web:build:development",
-              "proxyConfig": "proxy.conf.js"
+              "proxyConfig": "proxy.conf.js",
+              "buildTarget": "CleanArchitecture.Web:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "CleanArchitecture.Web:build"
+            "buildTarget": "CleanArchitecture.Web:build"
           }
         },
         "test": {
