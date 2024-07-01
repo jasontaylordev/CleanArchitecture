@@ -29,17 +29,19 @@ if (environment.production) {
 }
 
 bootstrapApplication(AppComponent, {
-    providers: [
-        importProvidersFrom(BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }), FormsModule, ModalModule.forRoot()),
-        { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
-        provideHttpClient(withInterceptorsFromDi()),
-        provideRouter([
-            { path: '', component: HomeComponent, pathMatch: 'full' },
-            { path: 'counter', component: CounterComponent },
-            { path: 'fetch-data', component: FetchDataComponent },
-            { path: 'todo', component: TodoComponent }
-        ]),
-        provideAnimations()
-    ]
+  providers: [
+    providers,
+    importProvidersFrom(BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }), FormsModule, ModalModule.forRoot()),
+    { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
+    provideHttpClient(withInterceptorsFromDi()),
+    provideRouter([
+      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: 'counter', component: CounterComponent },
+      { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'todo', component: TodoComponent }
+    ]),
+    provideAnimations(),
+
+  ]
 })
   .catch(err => console.log(err));
