@@ -6,21 +6,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Infrastructure.Identity;
 
-public class IdentityService : IIdentityService
+public class IdentityService(
+    UserManager<ApplicationUser> userManager,
+    IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
+    IAuthorizationService authorizationService) : IIdentityService
 {
-    private readonly UserManager<ApplicationUser> _userManager;
-    private readonly IUserClaimsPrincipalFactory<ApplicationUser> _userClaimsPrincipalFactory;
-    private readonly IAuthorizationService _authorizationService;
-
-    public IdentityService(
-        UserManager<ApplicationUser> userManager,
-        IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
-        IAuthorizationService authorizationService)
-    {
-        _userManager = userManager;
-        _userClaimsPrincipalFactory = userClaimsPrincipalFactory;
-        _authorizationService = authorizationService;
-    }
+    private readonly UserManager<ApplicationUser> _userManager = userManager;
+    private readonly IUserClaimsPrincipalFactory<ApplicationUser> _userClaimsPrincipalFactory = userClaimsPrincipalFactory;
+    private readonly IAuthorizationService _authorizationService = authorizationService;
 
     public async Task<string?> GetUserNameAsync(string userId)
     {

@@ -8,8 +8,7 @@ public class CustomExceptionHandler : IExceptionHandler
 {
     private readonly Dictionary<Type, Func<HttpContext, Exception, Task>> _exceptionHandlers;
 
-    public CustomExceptionHandler()
-    {
+    public CustomExceptionHandler() =>
         // Register known exception types and handlers.
         _exceptionHandlers = new()
             {
@@ -18,7 +17,6 @@ public class CustomExceptionHandler : IExceptionHandler
                 { typeof(UnauthorizedAccessException), HandleUnauthorizedAccessException },
                 { typeof(ForbiddenAccessException), HandleForbiddenAccessException },
             };
-    }
 
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {

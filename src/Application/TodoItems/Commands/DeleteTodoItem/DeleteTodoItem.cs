@@ -5,14 +5,9 @@ namespace CleanArchitecture.Application.TodoItems.Commands.DeleteTodoItem;
 
 public record DeleteTodoItemCommand(int Id) : IRequest;
 
-public class DeleteTodoItemCommandHandler : IRequestHandler<DeleteTodoItemCommand>
+public class DeleteTodoItemCommandHandler(IApplicationDbContext context) : IRequestHandler<DeleteTodoItemCommand>
 {
-    private readonly IApplicationDbContext _context;
-
-    public DeleteTodoItemCommandHandler(IApplicationDbContext context)
-    {
-        _context = context;
-    }
+    private readonly IApplicationDbContext _context = context;
 
     public async Task Handle(DeleteTodoItemCommand request, CancellationToken cancellationToken)
     {

@@ -13,10 +13,7 @@ public abstract class ValueObject
         return left?.Equals(right!) != false;
     }
 
-    protected static bool NotEqualOperator(ValueObject left, ValueObject right)
-    {
-        return !(EqualOperator(left, right));
-    }
+    protected static bool NotEqualOperator(ValueObject left, ValueObject right) => !(EqualOperator(left, right));
 
     protected abstract IEnumerable<object> GetEqualityComponents();
 

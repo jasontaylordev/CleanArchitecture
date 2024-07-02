@@ -1,9 +1,5 @@
 ﻿namespace CleanArchitecture.Domain.Exceptions;
 
-public class UnsupportedColourException : Exception
+public class UnsupportedColourException(string code) : Exception($"Colour \"{code}\" is unsupported.")
 {
-    public UnsupportedColourException(string code)
-        : base($"Colour \"{code}\" is unsupported.")
-    {
-    }
 }

@@ -18,10 +18,8 @@ public class TodoItemDto
 
     private class Mapping : Profile
     {
-        public Mapping()
-        {
-            CreateMap<TodoItem, TodoItemDto>().ForMember(d => d.Priority, 
+        public Mapping() => CreateMap<TodoItem, TodoItemDto>()
+            .ForMember(d => d.Priority,
                 opt => opt.MapFrom(s => (int)s.Priority));
-        }
     }
 }

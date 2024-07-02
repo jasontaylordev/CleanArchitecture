@@ -14,9 +14,6 @@ public class TodoItemBriefDto
 
     private class Mapping : Profile
     {
-        public Mapping()
-        {
-            CreateMap<TodoItem, TodoItemBriefDto>();
-        }
+        public Mapping() => CreateMap<TodoItem, TodoItemBriefDto>();
     }
 }

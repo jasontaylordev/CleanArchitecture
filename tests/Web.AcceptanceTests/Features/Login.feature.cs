@@ -77,7 +77,7 @@ namespace CleanArchitecture.Web.AcceptanceTests.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("User can log in with valid credentials")]
-        public void UserCanLogInWithValidCredentials()
+        public void UserCanLogİnWithValidCredentials()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
@@ -107,7 +107,7 @@ this.ScenarioInitialize(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("User cannot log in with invalid credentials")]
-        public void UserCannotLogInWithInvalidCredentials()
+        public void UserCannotLogİnWithİnvalidCredentials()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();

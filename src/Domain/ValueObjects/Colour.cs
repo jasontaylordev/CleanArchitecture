@@ -37,15 +37,9 @@ public class Colour(string code) : ValueObject
         return colour.ToString();
     }
 
-    public static explicit operator Colour(string code)
-    {
-        return From(code);
-    }
+    public static explicit operator Colour(string code) => From(code);
 
-    public override string ToString()
-    {
-        return Code;
-    }
+    public override string ToString() => Code;
 
     protected static IEnumerable<Colour> SupportedColours
     {
