@@ -1,4 +1,5 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
+using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Domain.Constants;
 using CleanArchitecture.Infrastructure.Data;
 using CleanArchitecture.Infrastructure.Data.Interceptors;
@@ -18,6 +19,8 @@ public static class DependencyInjection
 
         Guard.Against.Null(connectionString, message: "Connection string 'DefaultConnection' not found.");
 
+        // configure strongly typed settings object
+        services.Configure<AppSettingsSection>(configuration.GetSection("AppSettings"));
         services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
         services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
 
