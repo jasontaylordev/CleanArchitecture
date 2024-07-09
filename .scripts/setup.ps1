@@ -116,6 +116,9 @@ function CreateWorkloadIdentity {
     $environmentName
   )
 
+  # set correct subscription id
+  az account set --name $AzureSubscriptionId
+
   # Create Azure AD Application Registration
   $applicationRegistrationDetails=$(az ad app create --display-name "$ProjectName$environmentAbbr") | ConvertFrom-Json
 

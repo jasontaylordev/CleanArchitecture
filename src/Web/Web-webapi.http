@@ -1,7 +1,7 @@
 ﻿# For more info on HTTP files go to https://aka.ms/vs/httpfile
 @Web_HostAddress = https://localhost:5001
 
-@Username=administrator@localhost
+@Email=administrator@localhost
 @Password=Administrator1!
 @BearerToken=<YourToken>
 
@@ -10,7 +10,7 @@ POST {{Web_HostAddress}}/api/Users/Register
 Content-Type: application/json
 
 {
-  "username": "{{Username}}",
+  "email": "{{Email}}",
   "password": "{{Password}}"
 }
 
@@ -21,7 +21,7 @@ POST {{Web_HostAddress}}/api/Users/Login
 Content-Type: application/json
 
 {
-  "username": "{{Username}}",
+  "email": "{{Email}}",
   "password": "{{Password}}"
 }
 

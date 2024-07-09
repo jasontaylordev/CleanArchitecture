@@ -20,14 +20,14 @@ public class TodoItems : EndpointGroupBase
             .MapDelete(DeleteTodoItem, "{id}");
     }
 
-    public async Task<PaginatedList<TodoItemBriefDto>> GetTodoItemsWithPagination(ISender sender, [AsParameters] GetTodoItemsWithPaginationQuery query)
+    public Task<PaginatedList<TodoItemBriefDto>> GetTodoItemsWithPagination(ISender sender, [AsParameters] GetTodoItemsWithPaginationQuery query)
     {
-        return await sender.Send(query);
+        return sender.Send(query);
     }
 
-    public async Task<int> CreateTodoItem(ISender sender, CreateTodoItemCommand command)
+    public Task<int> CreateTodoItem(ISender sender, CreateTodoItemCommand command)
     {
-        return await sender.Send(command);
+        return sender.Send(command);
     }
 
     public async Task<IResult> UpdateTodoItem(ISender sender, int id, UpdateTodoItemCommand command)
