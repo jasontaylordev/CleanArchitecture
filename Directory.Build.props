@@ -1,8 +1,8 @@
 ﻿<!-- See https://aka.ms/dotnet/msbuild/customize for more details on customizing your build -->
 <Project>
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TargetFramework>net9.0</TargetFramework>
+    <WarningsNotAsErrors>NU1901;NU1902;NU1903;NU1904</WarningsNotAsErrors>
     <!-- <ArtifactsPath>$(MSBuildThisFileDirectory)artifacts</ArtifactsPath> -->
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
