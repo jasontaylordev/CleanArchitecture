@@ -57,7 +57,7 @@ public static class DependencyInjection
 
     public static IServiceCollection AddKeyVaultIfConfigured(this IServiceCollection services, ConfigurationManager configuration)
     {
-        var keyVaultUri = configuration["KeyVaultUri"];
+        var keyVaultUri = configuration["AZURE_KEY_VAULT_ENDPOINT"];
         if (!string.IsNullOrWhiteSpace(keyVaultUri))
         {
             configuration.AddAzureKeyVault(
