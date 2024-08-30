@@ -56,6 +56,30 @@
       "defaultValue": "false",
       "description": "Whether to use SQLite instead of LocalDB."
     },
+    "PipelineProvider": {
+      "type": "parameter",
+      "datatype": "choice",
+      "choices": [
+        {
+          "choice": "azdo",
+          "description": "Azure Pipelines"
+        },
+        {
+          "choice": "github",
+          "description": "GitHub Actions"
+        }
+      ],
+      "defaultValue": "Azure",
+      "description": "The pipeline provider to use (github for Github Actions and azdo for Azure Pipelines)."
+    },
+    "UseAzurePipelines": {
+      "type": "computed",
+      "value": "(PipelineProvider == \"azdo\")"
+    },
+    "UseGithubActions": {
+      "type": "computed",
+      "value": "(PipelineProvider == \"github\")"
+    },
     "UseLocalDB": {
       "type": "computed",
       "value": "(!UseSQLite)"
@@ -134,6 +158,18 @@
             "config-webapi.nswag": "config.nswag",
             "Web-webapi.http": "Web.http"
           }
+        },
+        {
+          "condition": "(UseAzurePipelines)",
+          "exclude": [
+            ".github/**/*"
+          ]
+        },
+        {
+          "condition": "(UseGithubActions)",
+          "exclude": [
+            ".azdo/**/*"
+          ]
         },
         {
           "condition": "(UseLocalDB)",
