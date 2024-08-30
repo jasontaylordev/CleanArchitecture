@@ -82,6 +82,7 @@
       "source": "./",
       "target": "./",
       "exclude": [
+        ".azure/**/*",
         ".template.config/**/*",
         "templates/**/*",
         "**/*.filelist",
