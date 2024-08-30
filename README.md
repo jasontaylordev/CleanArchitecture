@@ -95,11 +95,11 @@ The template includes a full CI/CD pipeline. The pipeline is responsible for bui
 
 * [ASP.NET Core 8](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core)
 * [Entity Framework Core 8](https://docs.microsoft.com/en-us/ef/core/)
-* [Angular 15](https://angular.io/) or [React 18](https://react.dev/)
+* [Angular 17](https://angular.dev/) or [React 18](https://react.dev/)
 * [MediatR](https://github.com/jbogard/MediatR)
 * [AutoMapper](https://automapper.org/)
 * [FluentValidation](https://fluentvalidation.net/)
-* [NUnit](https://nunit.org/), [FluentAssertions](https://fluentassertions.com/), [Moq](https://github.com/moq) & [Respawn](https://github.com/jbogard/Respawn)
+* [NUnit](https://nunit.org/), [FluentAssertions](https://fluentassertions.com/), [Moq](https://github.com/devlooped/moq) & [Respawn](https://github.com/jbogard/Respawn)
 
 ## Versions
 The main branch is now on .NET 8.0. The following previous versions are available:
@@ -108,6 +108,8 @@ The main branch is now on .NET 8.0. The following previous versions are availabl
 * [6.0](https://github.com/jasontaylordev/CleanArchitecture/tree/net6.0)
 * [5.0](https://github.com/jasontaylordev/CleanArchitecture/tree/net5.0)
 * [3.1](https://github.com/jasontaylordev/CleanArchitecture/tree/netcore3.1)
+
+There is also a [9.0 preview](https://github.com/jasontaylordev/CleanArchitecture/tree/net9.0) version available.
 
 ## Learn More
 
