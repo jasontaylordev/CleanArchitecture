@@ -8,6 +8,10 @@
     <!--#endif-->
     <RootNamespace>CleanArchitecture.Web</RootNamespace>
     <AssemblyName>CleanArchitecture.Web</AssemblyName>
+    <!-- Self-contained deployment for .NET 9 preview versions. -->
+    <PublishSelfContained>true</PublishSelfContained>
+    <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
+    <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
   </PropertyGroup>
 
   <ItemGroup>
@@ -86,7 +90,7 @@
       <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
       <!--#endif-->
       <DistFiles Include="$(SpaRoot)build\**" Condition="'$(UseReact)' == 'True'" />
-      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+      <ResolvedFileToPublish Include="@(DistFiles-&gt;'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>wwwroot\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
