@@ -104,6 +104,7 @@ The template includes a full CI/CD pipeline. The pipeline is responsible for bui
 ## Versions
 The main branch is now on .NET 8.0. The following previous versions are available:
 
+* [9.0](https://github.com/jasontaylordev/CleanArchitecture/tree/net9.0)
 * [7.0](https://github.com/jasontaylordev/CleanArchitecture/tree/net7.0)
 * [6.0](https://github.com/jasontaylordev/CleanArchitecture/tree/net6.0)
 * [5.0](https://github.com/jasontaylordev/CleanArchitecture/tree/net5.0)
