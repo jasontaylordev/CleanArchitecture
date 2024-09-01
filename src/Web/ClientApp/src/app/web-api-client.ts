@@ -18,9 +18,9 @@ export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 export interface ITodoItemsClient {
     getTodoItemsWithPagination(listId: number, pageNumber: number, pageSize: number): Observable<PaginatedListOfTodoItemBriefDto>;
     createTodoItem(command: CreateTodoItemCommand): Observable<number>;
-    updateTodoItem(id: number, command: UpdateTodoItemCommand): Observable<IResult>;
-    deleteTodoItem(id: number): Observable<IResult>;
-    updateTodoItemDetail(id: number, command: UpdateTodoItemDetailCommand): Observable<IResult>;
+    updateTodoItem(id: number, command: UpdateTodoItemCommand): Observable<void>;
+    deleteTodoItem(id: number): Observable<void>;
+    updateTodoItemDetail(id: number, command: UpdateTodoItemDetailCommand): Observable<void>;
 }
 
 @Injectable({
@@ -149,7 +149,7 @@ export class TodoItemsClient implements ITodoItemsClient {
         return _observableOf(null as any);
     }
 
-    updateTodoItem(id: number, command: UpdateTodoItemCommand): Observable<IResult> {
+    updateTodoItem(id: number, command: UpdateTodoItemCommand): Observable<void> {
         let url_ = this.baseUrl + "/api/TodoItems/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -164,7 +164,6 @@ export class TodoItemsClient implements ITodoItemsClient {
             responseType: "blob",
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
-                "Accept": "application/json"
             })
         };
 
@@ -175,14 +174,14 @@ export class TodoItemsClient implements ITodoItemsClient {
                 try {
                     return this.processUpdateTodoItem(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<IResult>;
+                    return _observableThrow(e) as any as Observable<void>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<IResult>;
+                return _observableThrow(response_) as any as Observable<void>;
         }));
     }
 
-    protected processUpdateTodoItem(response: HttpResponseBase): Observable<IResult> {
+    protected processUpdateTodoItem(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -191,10 +190,7 @@ export class TodoItemsClient implements ITodoItemsClient {
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = IResult.fromJS(resultData200);
-            return _observableOf(result200);
+            return _observableOf(null as any);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
@@ -204,7 +200,7 @@ export class TodoItemsClient implements ITodoItemsClient {
         return _observableOf(null as any);
     }
 
-    deleteTodoItem(id: number): Observable<IResult> {
+    deleteTodoItem(id: number): Observable<void> {
         let url_ = this.baseUrl + "/api/TodoItems/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -215,7 +211,6 @@ export class TodoItemsClient implements ITodoItemsClient {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json"
             })
         };
 
@@ -226,14 +221,14 @@ export class TodoItemsClient implements ITodoItemsClient {
                 try {
                     return this.processDeleteTodoItem(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<IResult>;
+                    return _observableThrow(e) as any as Observable<void>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<IResult>;
+                return _observableThrow(response_) as any as Observable<void>;
         }));
     }
 
-    protected processDeleteTodoItem(response: HttpResponseBase): Observable<IResult> {
+    protected processDeleteTodoItem(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -242,10 +237,7 @@ export class TodoItemsClient implements ITodoItemsClient {
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = IResult.fromJS(resultData200);
-            return _observableOf(result200);
+            return _observableOf(null as any);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
@@ -255,7 +247,7 @@ export class TodoItemsClient implements ITodoItemsClient {
         return _observableOf(null as any);
     }
 
-    updateTodoItemDetail(id: number, command: UpdateTodoItemDetailCommand): Observable<IResult> {
+    updateTodoItemDetail(id: number, command: UpdateTodoItemDetailCommand): Observable<void> {
         let url_ = this.baseUrl + "/api/TodoItems/UpdateDetail/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -270,7 +262,6 @@ export class TodoItemsClient implements ITodoItemsClient {
             responseType: "blob",
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
-                "Accept": "application/json"
             })
         };
 
@@ -281,14 +272,14 @@ export class TodoItemsClient implements ITodoItemsClient {
                 try {
                     return this.processUpdateTodoItemDetail(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<IResult>;
+                    return _observableThrow(e) as any as Observable<void>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<IResult>;
+                return _observableThrow(response_) as any as Observable<void>;
         }));
     }
 
-    protected processUpdateTodoItemDetail(response: HttpResponseBase): Observable<IResult> {
+    protected processUpdateTodoItemDetail(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -297,10 +288,7 @@ export class TodoItemsClient implements ITodoItemsClient {
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = IResult.fromJS(resultData200);
-            return _observableOf(result200);
+            return _observableOf(null as any);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
@@ -314,8 +302,8 @@ export class TodoItemsClient implements ITodoItemsClient {
 export interface ITodoListsClient {
     getTodoLists(): Observable<TodosVm>;
     createTodoList(command: CreateTodoListCommand): Observable<number>;
-    updateTodoList(id: number, command: UpdateTodoListCommand): Observable<IResult>;
-    deleteTodoList(id: number): Observable<IResult>;
+    updateTodoList(id: number, command: UpdateTodoListCommand): Observable<void>;
+    deleteTodoList(id: number): Observable<void>;
 }
 
 @Injectable({
@@ -432,7 +420,7 @@ export class TodoListsClient implements ITodoListsClient {
         return _observableOf(null as any);
     }
 
-    updateTodoList(id: number, command: UpdateTodoListCommand): Observable<IResult> {
+    updateTodoList(id: number, command: UpdateTodoListCommand): Observable<void> {
         let url_ = this.baseUrl + "/api/TodoLists/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -447,7 +435,6 @@ export class TodoListsClient implements ITodoListsClient {
             responseType: "blob",
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
-                "Accept": "application/json"
             })
         };
 
@@ -458,14 +445,14 @@ export class TodoListsClient implements ITodoListsClient {
                 try {
                     return this.processUpdateTodoList(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<IResult>;
+                    return _observableThrow(e) as any as Observable<void>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<IResult>;
+                return _observableThrow(response_) as any as Observable<void>;
         }));
     }
 
-    protected processUpdateTodoList(response: HttpResponseBase): Observable<IResult> {
+    protected processUpdateTodoList(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -474,10 +461,7 @@ export class TodoListsClient implements ITodoListsClient {
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = IResult.fromJS(resultData200);
-            return _observableOf(result200);
+            return _observableOf(null as any);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
@@ -487,7 +471,7 @@ export class TodoListsClient implements ITodoListsClient {
         return _observableOf(null as any);
     }
 
-    deleteTodoList(id: number): Observable<IResult> {
+    deleteTodoList(id: number): Observable<void> {
         let url_ = this.baseUrl + "/api/TodoLists/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -498,7 +482,6 @@ export class TodoListsClient implements ITodoListsClient {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json"
             })
         };
 
@@ -509,14 +492,14 @@ export class TodoListsClient implements ITodoListsClient {
                 try {
                     return this.processDeleteTodoList(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<IResult>;
+                    return _observableThrow(e) as any as Observable<void>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<IResult>;
+                return _observableThrow(response_) as any as Observable<void>;
         }));
     }
 
-    protected processDeleteTodoList(response: HttpResponseBase): Observable<IResult> {
+    protected processDeleteTodoList(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -525,10 +508,7 @@ export class TodoListsClient implements ITodoListsClient {
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = IResult.fromJS(resultData200);
-            return _observableOf(result200);
+            return _observableOf(null as any);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
@@ -762,34 +742,6 @@ export class CreateTodoItemCommand implements ICreateTodoItemCommand {
 export interface ICreateTodoItemCommand {
     listId?: number;
     title?: string | undefined;
-}
-
-export abstract class IResult implements IIResult {
-
-    constructor(data?: IIResult) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-    }
-
-    static fromJS(data: any): IResult {
-        data = typeof data === 'object' ? data : {};
-        throw new Error("The abstract class 'IResult' cannot be instantiated.");
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        return data;
-    }
-}
-
-export interface IIResult {
 }
 
 export class UpdateTodoItemCommand implements IUpdateTodoItemCommand {
