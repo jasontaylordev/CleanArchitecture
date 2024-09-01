@@ -8,10 +8,6 @@
     <!--#endif-->
     <RootNamespace>CleanArchitecture.Web</RootNamespace>
     <AssemblyName>CleanArchitecture.Web</AssemblyName>
-    <!-- Self-contained deployment for .NET 9 preview versions. -->
-    <PublishSelfContained>true</PublishSelfContained>
-    <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
-    <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
   </PropertyGroup>
 
   <ItemGroup>

@@ -2,6 +2,9 @@
 <Project>
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
+    <!-- Use this runtime for a framework-dependent deployment (https://azure.github.io/AppService/2024/08/19/net-9-preview-6-available-on-app-service.html). -->
+    <!-- Remove when newer runtimes are supported, or if doing a self-contained deployment. -->
+    <RuntimeFrameworkVersion>9.0.0-preview.6.24327.7</RuntimeFrameworkVersion>
     <WarningsNotAsErrors>NU1901;NU1902;NU1903;NU1904</WarningsNotAsErrors>
     <!-- <ArtifactsPath>$(MSBuildThisFileDirectory)artifacts</ArtifactsPath> -->
     <ImplicitUsings>enable</ImplicitUsings>
