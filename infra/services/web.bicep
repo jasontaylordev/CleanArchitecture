@@ -15,7 +15,6 @@ module appServicePlan '../core/host/appserviceplan.bicep' = {
     sku: {
       name: 'B1'
     }
-    kind: 'linux'
   }
 }
 
@@ -29,7 +28,7 @@ module appService '../core/host/appservice.bicep' = {
     applicationInsightsName: applicationInsightsName
     keyVaultName: keyVaultName
     runtimeName: 'dotnetcore'
-    runtimeVersion: '8.0'
+    runtimeVersion: '9.0'
     healthCheckPath: '/health'
     appSettings: {
       ASPNETCORE_ENVIRONMENT: 'Development'

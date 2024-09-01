@@ -121,14 +121,7 @@
         },
         "responses": {
           "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IResult"
-                }
-              }
-            }
+            "description": ""
           }
         }
       },
@@ -151,14 +144,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IResult"
-                }
-              }
-            }
+            "description": ""
           }
         }
       }
@@ -195,14 +181,7 @@
         },
         "responses": {
           "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IResult"
-                }
-              }
-            }
+            "description": ""
           }
         }
       }
@@ -290,14 +269,7 @@
         },
         "responses": {
           "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IResult"
-                }
-              }
-            }
+            "description": ""
           }
         }
       },
@@ -320,14 +292,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IResult"
-                }
-              }
-            }
+            "description": ""
           }
         }
       }
@@ -422,11 +387,6 @@
             "nullable": true
           }
         }
-      },
-      "IResult": {
-        "type": "object",
-        "x-abstract": true,
-        "additionalProperties": false
       },
       "UpdateTodoItemCommand": {
         "type": "object",
