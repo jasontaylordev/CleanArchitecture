@@ -42,6 +42,7 @@
     <PackageVersion Include="NUnit.Analyzers" Version="3.10.0" />
     <PackageVersion Include="NUnit3TestAdapter" Version="4.5.0" />
     <PackageVersion Include="Respawn" Version="6.2.1" />
+    <PackageVersion Include="System.Drawing.Common" Version="4.7.3" />
     <PackageVersion Include="Testcontainers.MsSql" Version="3.9.0" />
     <!--#if(!UseApiOnly)-->
     <PackageVersion Include="Microsoft.Playwright" Version="1.46.0" />
