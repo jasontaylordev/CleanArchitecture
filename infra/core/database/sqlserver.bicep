@@ -15,6 +15,8 @@ param sqlAdminPassword string
 @secure()
 param appUserPassword string
 
+param utcNowString string = utcNow('yyyyMMddHHmm')
+
 resource sqlServer 'Microsoft.Sql/servers@2022-05-01-preview' = {
   name: name
   location: location
@@ -123,6 +125,7 @@ resource sqlDeploymentScript 'Microsoft.Resources/deploymentScripts@2020-10-01' 
     retentionInterval: 'PT1H' // Retain the script resource for 1 hour after it ends running
     timeout: 'PT5M' // Five minutes
     cleanupPreference: 'OnSuccess'
+    forceUpdateTag: utcNowString
     environmentVariables: [
       {
         name: 'APPUSERNAME'
