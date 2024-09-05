@@ -97,7 +97,7 @@
       "generator": "constant",
       "replaces": "caPackageVersion",
       "parameters": {
-        "value": "9.0.0-preview.6"
+        "value": "9.0.0-preview.6.1"
       }
     }
   },
