@@ -1,9 +1,11 @@
-﻿using CleanArchitecture.Application.WeatherForecasts.Queries.GetWeatherForecasts;
+﻿using System.Runtime.CompilerServices;
+using CleanArchitecture.Application.WeatherForecasts.Queries.GetWeatherForecasts;
 
 namespace CleanArchitecture.Web.Endpoints;
 
 public class WeatherForecasts : EndpointGroupBase
 {
+    
     public override void Map(WebApplication app)
     {
         app.MapGroup(this)

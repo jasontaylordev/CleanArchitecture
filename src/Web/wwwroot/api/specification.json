@@ -6,6 +6,27 @@
     "version": "1.0.0"
   },
   "paths": {
+    "/api/Test1": {
+      "get": {
+        "tags": [
+          "Test1"
+        ],
+        "operationId": "GetSuma",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/TodoItems": {
       "get": {
         "tags": [
