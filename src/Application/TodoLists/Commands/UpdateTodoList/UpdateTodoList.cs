@@ -25,7 +25,7 @@ public class UpdateTodoListCommandHandler : IRequestHandler<UpdateTodoListComman
 
         Guard.Against.NotFound(request.Id, entity);
 
-        entity.Title = request.Title;
+        entity.UpdateTitle(request.Title);
 
         await _context.SaveChangesAsync(cancellationToken);
 
