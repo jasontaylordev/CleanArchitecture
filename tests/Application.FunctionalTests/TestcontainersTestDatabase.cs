@@ -35,7 +35,7 @@ public class TestcontainersTestDatabase : ITestDatabase
 
         var context = new ApplicationDbContext(options);
 
-        context.Database.Migrate();
+        await context.Database.MigrateAsync();
 
         _respawner = await Respawner.CreateAsync(_connectionString, new RespawnerOptions
         {
