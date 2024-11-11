@@ -20,7 +20,6 @@
         </PackageReference>
         <PackageReference Include="FluentAssertions" />
         <PackageReference Include="Moq" />
-        <PackageReference Include="System.Drawing.Common" />
     </ItemGroup>
 
     <ItemGroup>
