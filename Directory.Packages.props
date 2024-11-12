@@ -2,8 +2,9 @@
 <Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-    <AspnetVersion>9.0.0-rc.2.24474.3</AspnetVersion>
-    <EfcoreVersion>9.0.0-rc.2.24474.1</EfcoreVersion>
+    <AspnetVersion>9.0.0</AspnetVersion>
+    <EfcoreVersion>9.0.0</EfcoreVersion>
+    <MicrosoftExtensionsVersion>9.0.0</MicrosoftExtensionsVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="Ardalis.GuardClauses" Version="4.6.0" />
@@ -33,9 +34,9 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(EfcoreVersion)" />
     <!--#endif-->
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="$(EfcoreVersion)" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0-preview.6.24327.7" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="9.0.0-preview.6.24327.7" />
-    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="9.0.0-preview.6.24328.4" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="$(MicrosoftExtensionsVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="$(MicrosoftExtensionsVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="$(MicrosoftExtensionsVersion)" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
     <PackageVersion Include="Moq" Version="4.20.72" />
     <PackageVersion Include="NSwag.AspNetCore" Version="14.1.0" />
