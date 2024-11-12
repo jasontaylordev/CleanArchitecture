@@ -19,7 +19,7 @@ The following prerequisites are required to build and run the solution:
 
 The easiest way to get started is to install the [.NET template](https://www.nuget.org/packages/Clean.Architecture.Solution.Template):
 ```
-dotnet new install Clean.Architecture.Solution.Template::9.0.0-preview.6.1
+dotnet new install Clean.Architecture.Solution.Template::9.0.0
 ```
 
 Once installed, create a new solution using the template. You can choose to use Angular, React, or create a Web API-only solution. Specify the client framework using the `-cf` or `--client-framework` option, and provide the output directory where your project will be created. Here are some examples:
@@ -99,13 +99,6 @@ azd auth login
 azd up
 ```
 
-
-The template is configured to publish and deploy a framework-dependent application. At this stage, only [.NET 9 Preview 6](https://azure.github.io/AppService/2024/08/19/net-9-preview-6-available-on-app-service.html) is supported, however this will be updated as new versions are released. Alternatively, you can modify the template to use a self-contained deployment. You can learrn more about .NET application publishing in the [official documentation](https://learn.microsoft.com/en-us/dotnet/core/deploying).
-
-
-
-
-
 ## Technologies
 
 * [ASP.NET Core 9](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core)
@@ -117,9 +110,9 @@ The template is configured to publish and deploy a framework-dependent applicati
 * [NUnit](https://nunit.org/), [FluentAssertions](https://fluentassertions.com/), [Moq](https://github.com/devlooped/moq) & [Respawn](https://github.com/jbogard/Respawn)
 
 ## Versions
-The main branch is now on .NET 8.0. The following previous versions are available:
+The main branch is now on .NET 9.0. The following previous versions are available:
 
-* [9.0](https://github.com/jasontaylordev/CleanArchitecture/tree/net9.0)
+* [8.0](https://github.com/jasontaylordev/CleanArchitecture/tree/net8.0)
 * [7.0](https://github.com/jasontaylordev/CleanArchitecture/tree/net7.0)
 * [6.0](https://github.com/jasontaylordev/CleanArchitecture/tree/net6.0)
 * [5.0](https://github.com/jasontaylordev/CleanArchitecture/tree/net5.0)
