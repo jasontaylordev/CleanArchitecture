@@ -2,6 +2,7 @@
 using CleanArchitecture.Infrastructure.Data;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Respawn;
 
@@ -33,15 +34,17 @@ public class SqlServerTestDatabase : ITestDatabase
 
         var options = new DbContextOptionsBuilder<ApplicationDbContext>()
             .UseSqlServer(_connectionString)
+            .ConfigureWarnings(warnings => warnings.Log(RelationalEventId.PendingModelChangesWarning))
             .Options;
 
         var context = new ApplicationDbContext(options);
 
+        context.Database.EnsureDeleted();
         context.Database.Migrate();
 
         _respawner = await Respawner.CreateAsync(_connectionString, new RespawnerOptions
         {
-            TablesToIgnore = new Respawn.Graph.Table[] { "__EFMigrationsHistory" }
+            TablesToIgnore = ["__EFMigrationsHistory"]
         });
     }
 

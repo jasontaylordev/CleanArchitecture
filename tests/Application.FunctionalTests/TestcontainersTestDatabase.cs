@@ -2,6 +2,7 @@
 using CleanArchitecture.Infrastructure.Data;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Respawn;
 using Testcontainers.MsSql;
 
@@ -9,6 +10,7 @@ namespace CleanArchitecture.Application.FunctionalTests;
 
 public class TestcontainersTestDatabase : ITestDatabase
 {
+    private const string DefaultDatabase = "CleanArchitectureTestDb";
     private readonly MsSqlContainer _container;
     private DbConnection _connection = null!;
     private string _connectionString = null!;
@@ -18,19 +20,27 @@ public class TestcontainersTestDatabase : ITestDatabase
     {
         _container = new MsSqlBuilder()
             .WithAutoRemove(true)
+            //.WithCleanUp(true)// Check if dispose is needed
             .Build();
     }
 
     public async Task InitialiseAsync()
     {
         await _container.StartAsync();
+        await _container.ExecScriptAsync($"CREATE DATABASE {DefaultDatabase}");
 
-        _connectionString = _container.GetConnectionString();
+        var builder = new SqlConnectionStringBuilder(_container.GetConnectionString())
+        {
+            InitialCatalog = DefaultDatabase
+        };
+
+        _connectionString = builder.ConnectionString;
 
         _connection = new SqlConnection(_connectionString);
 
         var options = new DbContextOptionsBuilder<ApplicationDbContext>()
             .UseSqlServer(_connectionString)
+            .ConfigureWarnings(warnings => warnings.Log(RelationalEventId.PendingModelChangesWarning))
             .Options;
 
         var context = new ApplicationDbContext(options);
@@ -39,7 +49,7 @@ public class TestcontainersTestDatabase : ITestDatabase
 
         _respawner = await Respawner.CreateAsync(_connectionString, new RespawnerOptions
         {
-            TablesToIgnore = new Respawn.Graph.Table[] { "__EFMigrationsHistory" }
+            TablesToIgnore = ["__EFMigrationsHistory"]
         });
     }
 

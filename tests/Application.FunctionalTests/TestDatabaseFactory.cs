@@ -7,11 +7,9 @@ public static class TestDatabaseFactory
 #if (UseSQLite)
         var database = new SqliteTestDatabase();
 #else
-#if DEBUG
-        var database = new SqlServerTestDatabase();
-    #else
+        // Testcontainers requires Docker. To use a local SQL Server database instead,
+        // switch to `SQLServerTestDatabase`.
         var database = new TestcontainersTestDatabase();
-    #endif
 #endif
 
         await database.InitialiseAsync();
