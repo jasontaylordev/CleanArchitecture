@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using CleanArchitecture.Domain.Constants;
+﻿using CleanArchitecture.Domain.Constants;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Infrastructure.Identity;
 using Microsoft.AspNetCore.Builder;

@@ -176,7 +176,6 @@
           "exclude": [
             "src/Infrastructure/Data/SQLite/**",
             "src/Web/appsettings.SQLite.json",
-            "src/Web/app.db",
             "tests/Application.FunctionalTests/SqliteTestDatabase.cs"
           ]
         },
