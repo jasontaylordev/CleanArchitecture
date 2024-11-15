@@ -19,6 +19,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
+        <PackageReference Include="Microsoft.Data.SqlClient" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" />
         <PackageReference Include="nunit" />
         <PackageReference Include="NUnit.Analyzers">
@@ -33,6 +34,7 @@
         <PackageReference Include="FluentAssertions" />
         <PackageReference Include="Moq" />
         <PackageReference Include="Respawn" />
+        <PackageReference Include="System.Configuration.ConfigurationManager" />
         <PackageReference Include="Testcontainers.MsSql" />
     </ItemGroup>
     
