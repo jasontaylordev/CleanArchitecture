@@ -56,6 +56,12 @@
       "defaultValue": "false",
       "description": "Whether to use SQLite instead of LocalDB."
     },
+    "UseAspire": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Use .NET Aspire"
+    },
     "PipelineProvider": {
       "type": "parameter",
       "datatype": "choice",
@@ -192,6 +198,13 @@
             "appsettings.SQLite.json": "appsettings.json",
             "TestDatabase.Sqlite.cs": "TestDatabase.cs"
           }
+        },
+        {
+          "condition": "(!UseAspire)",
+          "exclude": [
+            "src/AppHost/**",
+            "src/ServiceDefaults/**"
+          ]
         }
       ]
     }

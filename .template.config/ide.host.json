@@ -22,6 +22,26 @@
         "text": "Use SQLite for database (default is LocalDB)."
       },
       "isVisible": true
+    },
+    {
+      "id": "PipelineProvider",
+      "name": {
+        "text": "Pipeline Provider"
+      },
+      "description": {
+        "text": "Select the pipeline provider."
+      },
+      "isVisible": true
+    },
+    {
+      "id": "UseAspire",
+      "name": {
+        "text": "Use Aspire"
+      },
+      "description": {
+        "text": "Use .NET Aspire"
+      },
+      "isVisible": true
     }
   ]
 }

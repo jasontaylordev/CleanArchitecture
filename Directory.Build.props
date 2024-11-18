@@ -6,6 +6,7 @@
     <WarningsNotAsErrors>NU1901;NU1902;NU1903;NU1904</WarningsNotAsErrors>
     <!-- <ArtifactsPath>$(MSBuildThisFileDirectory)artifacts</ArtifactsPath> -->
     <ImplicitUsings>enable</ImplicitUsings>
+    <DefineConstants>UseAspire</DefineConstants>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 </Project>

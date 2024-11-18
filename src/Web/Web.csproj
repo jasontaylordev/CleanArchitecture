@@ -13,6 +13,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+    <!--#if(UseAspire)-->
+    <ProjectReference Include="..\ServiceDefaults\ServiceDefaults.csproj" />
+    <!--#endif-->
   </ItemGroup>
 
   <ItemGroup>
@@ -90,7 +93,7 @@
       <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
       <!--#endif-->
       <DistFiles Include="$(SpaRoot)build\**" Condition="'$(UseReact)' == 'True'" />
-      <ResolvedFileToPublish Include="@(DistFiles-&gt;'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>wwwroot\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
