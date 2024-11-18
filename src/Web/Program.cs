@@ -2,6 +2,10 @@ using CleanArchitecture.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+#if (UseAspire)
+builder.AddServiceDefaults();
+#endif
+
 // Add services to the container.
 builder.Services.AddKeyVaultIfConfigured(builder.Configuration);
 
@@ -46,6 +50,9 @@ app.UseExceptionHandler(options => { });
 app.Map("/", () => Results.Redirect("/api"));
 #endif
 
+#if (UseAspire)
+app.MapDefaultEndpoints();
+#endif
 app.MapEndpoints();
 
 app.Run();

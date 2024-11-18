@@ -10,6 +10,9 @@
     },
     "UseSQLite": {
       "longName": "use-sqlite"
+    },
+    "UseAspire": {
+      "longName": "use-aspire"
     }
   }
 }
