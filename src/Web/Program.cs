@@ -2,16 +2,14 @@ using CleanArchitecture.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
 #if (UseAspire)
 builder.AddServiceDefaults();
 #endif
-
-// Add services to the container.
-builder.Services.AddKeyVaultIfConfigured(builder.Configuration);
-
-builder.Services.AddApplicationServices();
-builder.Services.AddInfrastructureServices(builder.Configuration);
-builder.Services.AddWebServices();
+builder.AddKeyVaultIfConfigured();
+builder.AddApplicationServices();
+builder.AddInfrastructureServices();
+builder.AddWebServices();
 
 var app = builder.Build();
 
