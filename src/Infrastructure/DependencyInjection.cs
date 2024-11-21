@@ -15,23 +15,33 @@ public static class DependencyInjection
 {
     public static void AddInfrastructureServices(this IHostApplicationBuilder builder)
     {
-        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
-        Guard.Against.Null(connectionString, message: "Connection string 'DefaultConnection' not found.");
-
         builder.Services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
         builder.Services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
 
+        var connectionString = builder.Configuration.GetConnectionString("CleanArchitectureDb");
+        Guard.Against.Null(connectionString, message: "Connection string 'CleanArchitectureDb' not found.");
+
+#if (UseSqlite)
         builder.Services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
             options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
-
-#if (UseSQLite)
             options.UseSqlite(connectionString);
-#else
-            options.UseSqlServer(connectionString);
-#endif
         });
+#else
+    #if (UseAspire)
+        builder.AddSqlServerDbContext<ApplicationDbContext>("CleanArchitectureDb", null, options =>
+        {
+            var sp = builder.Services.BuildServiceProvider();
+            options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
+        });
+    #else
+        builder.Services.AddDbContext<ApplicationDbContext>((sp, options) =>
+        {
+            options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
+            options.UseSqlServer(connectionString);
+        });
+    #endif
+#endif
 
         builder.Services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
 

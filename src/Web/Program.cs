@@ -24,7 +24,9 @@ else
     app.UseHsts();
 }
 
+#if (!UseAspire)
 app.UseHealthChecks("/health");
+#endif
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

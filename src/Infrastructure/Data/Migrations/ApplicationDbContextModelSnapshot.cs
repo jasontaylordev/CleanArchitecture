@@ -244,7 +244,7 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
             {
                 b.Property<string>("LoginProvider")
-#if (UseApiOnly && UseLocalDB)
+#if (UseApiOnly && UseSqlServer)
                     .HasColumnType("nvarchar(450)");
 #else
                     .HasMaxLength(128)
@@ -252,7 +252,7 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
 #endif
 
                 b.Property<string>("ProviderKey")
-#if (UseApiOnly && UseLocalDB)
+#if (UseApiOnly && UseSqlServer)
                     .HasColumnType("nvarchar(450)");
 #else
                     .HasMaxLength(128)
@@ -294,7 +294,7 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
                     .HasColumnType("nvarchar(450)");
 
                 b.Property<string>("LoginProvider")
-#if (UseApiOnly && UseLocalDB)
+#if (UseApiOnly && UseSqlServer)
                     .HasColumnType("nvarchar(450)");
 #else
                     .HasMaxLength(128)
@@ -302,7 +302,7 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
 #endif
 
                 b.Property<string>("Name")
-#if (UseApiOnly && UseLocalDB)
+#if (UseApiOnly && UseSqlServer)
                     .HasColumnType("nvarchar(450)");
 #else
                     .HasMaxLength(128)

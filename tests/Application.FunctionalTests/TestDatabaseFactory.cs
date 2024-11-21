@@ -4,7 +4,7 @@ public static class TestDatabaseFactory
 {
     public static async Task<ITestDatabase> CreateAsync()
     {
-#if (UseSQLite)
+#if (UseSqlite)
         var database = new SqliteTestDatabase();
 #else
         // Testcontainers requires Docker. To use a local SQL Server database instead,

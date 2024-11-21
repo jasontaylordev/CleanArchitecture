@@ -3,7 +3,7 @@
   <metadata>
 
     <id>Clean.Architecture.Solution.Template</id>
-    <version>9.0.1</version>
+    <version>9.0.2</version>
     <title>Clean Architecture Solution Template</title>
     <authors>JasonTaylorDev</authors>
     <description>Clean Architecture Solution Template for .NET 9.</description>
@@ -11,8 +11,7 @@
       A Clean Architecture Solution Template for creating apps using Angular, React, or Web API only with ASP.NET Core.
     </summary>
     <releaseNotes>
-      📦 Upgrade to Angular 18
-      🐛 Miscellaneous bug fixes
+      📦 Add Aspire
     </releaseNotes>
 
     <projectUrl>https://github.com/JasonTaylorDev/CleanArchitecture</projectUrl>
@@ -20,7 +19,7 @@
 
     <license type="expression">MIT</license>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <tags>clean-architecture project template csharp dotnet angular react</tags>
+    <tags>clean-architecture project template csharp dotnet angular react aspire</tags>
     <icon>icon.png</icon>
     <readme>README.md</readme>
 

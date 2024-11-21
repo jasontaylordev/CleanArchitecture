@@ -8,8 +8,9 @@
       "longName": "pipeline-provider",
       "shortName": "pp"
     },
-    "UseSQLite": {
-      "longName": "use-sqlite"
+    "Database": {
+      "longName": "database",
+      "shortName": "db"
     },
     "UseAspire": {
       "longName": "use-aspire"

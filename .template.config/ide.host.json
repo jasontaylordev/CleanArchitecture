@@ -14,22 +14,22 @@
       "isVisible": true
     },
     {
-      "id": "UseSQLite",
-      "name": {
-        "text": "Use SQLite"
-      },
-      "description": {
-        "text": "Use SQLite for database (default is LocalDB)."
-      },
-      "isVisible": true
-    },
-    {
       "id": "PipelineProvider",
       "name": {
         "text": "Pipeline Provider"
       },
       "description": {
         "text": "Select the pipeline provider."
+      },
+      "isVisible": true
+    },
+    {
+      "id": "Database",
+      "name": {
+        "text": "Database"
+      },
+      "description": {
+        "text": "Select the database type."
       },
       "isVisible": true
     },
