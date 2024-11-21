@@ -19,7 +19,7 @@ The following prerequisites are required to build and run the solution:
 
 The easiest way to get started is to install the [.NET template](https://www.nuget.org/packages/Clean.Architecture.Solution.Template):
 ```
-dotnet new install Clean.Architecture.Solution.Template::9.0.1
+dotnet new install Clean.Architecture.Solution.Template::9.0.2
 ```
 
 Once installed, create a new solution using the template. You can choose to use Angular, React, or create a Web API-only solution. Specify the client framework using the `-cf` or `--client-framework` option, and provide the output directory where your project will be created. Here are some examples:
@@ -69,10 +69,10 @@ dotnet new ca-usecase --help
 
 ## Database
 
-The template is configured to use SQL Server by default. If you would prefer to use SQLite, create your solution using the following command:
+The templates supports both SQL Server (default) and SQLite. Specify the database to use with the `--database` option:
 
 ```bash
-dotnet new ca-sln --use-sqlite
+dotnet new ca-sln --database [sqlite|sqlserver]
 ```
 
 When you run the application the database will be automatically created (if necessary) and the latest migrations will be applied.

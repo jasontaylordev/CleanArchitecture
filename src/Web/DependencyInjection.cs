@@ -20,9 +20,10 @@ public static class DependencyInjection
         builder.Services.AddScoped<IUser, CurrentUser>();
 
         builder.Services.AddHttpContextAccessor();
-
+#if (!UseAspire)
         builder.Services.AddHealthChecks()
             .AddDbContextCheck<ApplicationDbContext>();
+#endif
 
         builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 

@@ -114,7 +114,7 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-#if (UseApiOnly && UseLocalDB)
+#if (UseApiOnly && UseSqlServer)
                     LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
 #else
@@ -164,7 +164,7 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-#if (UseApiOnly && UseLocalDB)
+#if (UseApiOnly && UseSqlServer)
                     LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
 #else

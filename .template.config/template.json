@@ -2,6 +2,7 @@
   "$schema": "http://json.schemastore.org/template",
   "author": "JasonTaylorDev",
   "classifications": [
+    "Aspire",
     "Web",
     "SPA",
     "ASP.NET",
@@ -50,17 +51,27 @@
       "type": "computed",
       "value": "(ClientFramework == \"None\")"
     },
-    "UseSQLite": {
-      "type": "parameter",
-      "datatype": "bool",
-      "defaultValue": "false",
-      "description": "Whether to use SQLite instead of LocalDB."
-    },
     "UseAspire": {
       "type": "parameter",
       "datatype": "bool",
       "defaultValue": "false",
       "description": "Use .NET Aspire"
+    },
+    "Database": {
+      "type": "parameter",
+      "datatype": "choice",
+      "choices": [
+        {
+          "choice": "sqlite",
+          "description": "SQLite. This option only applies if --aspire is not specified."
+        },
+        {
+          "choice": "sqlserver",
+          "description": "SQL Server."
+        }
+      ],
+      "defaultValue": "sqlserver",
+      "description": "The database type to use."
     },
     "PipelineProvider": {
       "type": "parameter",
@@ -86,9 +97,13 @@
       "type": "computed",
       "value": "(PipelineProvider == \"github\")"
     },
-    "UseLocalDB": {
+    "UseSqlite": {
       "type": "computed",
-      "value": "(!UseSQLite)"
+      "value": "(Database == \"sqlite\")"
+    },
+    "UseSqlServer": {
+      "type": "computed",
+      "value": "(Database == \"sqlserver\")"
     },
     "caRepositoryUrl": {
       "type": "generated",
@@ -103,7 +118,7 @@
       "generator": "constant",
       "replaces": "caPackageVersion",
       "parameters": {
-        "value": "9.0.1"
+        "value": "9.0.2"
       }
     }
   },
@@ -178,7 +193,7 @@
           ]
         },
         {
-          "condition": "(UseLocalDB)",
+          "condition": "(UseSqlServer)",
           "exclude": [
             "src/Infrastructure/Data/SQLite/**",
             "src/Web/appsettings.SQLite.json",
@@ -186,7 +201,7 @@
           ]
         },
         {
-          "condition": "(UseSQLite)",
+          "condition": "(UseSqlite)",
           "exclude": [
             "src/Infrastructure/Data/Migrations/**",
             "src/Web/appsettings.json",

@@ -14,6 +14,9 @@
 
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.AppHost" />
+    <!--#if (UseSqlServer)-->
+    <PackageReference Include="Aspire.Hosting.SqlServer" />
+    <!--#endif-->
   </ItemGroup>
 
   <ItemGroup>

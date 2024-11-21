@@ -106,7 +106,7 @@ module database 'core/database/sqlserver.bicep' = {
     tags: tags
     databaseName: !empty(sqlDatabaseName) ? sqlDatabaseName : '${abbrs.sqlServersDatabases}${resourceToken}'
     keyVaultName: keyVault.outputs.name
-    connectionStringKey: 'ConnectionStrings--DefaultConnection'
+    connectionStringKey: 'ConnectionStrings--CleanArchitectureDb'
     sqlAdminPassword: sqlAdminPassword
     appUserPassword: appUserPassword
   }
