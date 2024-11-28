@@ -24,23 +24,27 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
+#if (UseAspire)
+        builder.UseSetting("ConnectionStrings:CleanArchitectureDb", _connection.ConnectionString);
+#endif
         builder.ConfigureTestServices(services =>
         {
             services
                 .RemoveAll<IUser>()
                 .AddTransient(provider => Mock.Of<IUser>(s => s.Id == GetUserId()));
-
+#if (!UseAspire || UseSqlite)
             services
                 .RemoveAll<DbContextOptions<ApplicationDbContext>>()
                 .AddDbContext<ApplicationDbContext>((sp, options) =>
                 {
                     options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
-#if (UseSqlite)
+    #if (UseSqlite)
                     options.UseSqlite(_connection);
-#else
+    #else
                     options.UseSqlServer(_connection);
-#endif
+    #endif
                 });
+#endif
         });
     }
 }

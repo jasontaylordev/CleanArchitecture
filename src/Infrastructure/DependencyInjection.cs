@@ -15,11 +15,11 @@ public static class DependencyInjection
 {
     public static void AddInfrastructureServices(this IHostApplicationBuilder builder)
     {
-        builder.Services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
-        builder.Services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
-
         var connectionString = builder.Configuration.GetConnectionString("CleanArchitectureDb");
         Guard.Against.Null(connectionString, message: "Connection string 'CleanArchitectureDb' not found.");
+
+        builder.Services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
+        builder.Services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
 
 #if (UseSqlite)
         builder.Services.AddDbContext<ApplicationDbContext>((sp, options) =>
@@ -28,18 +28,14 @@ public static class DependencyInjection
             options.UseSqlite(connectionString);
         });
 #else
-    #if (UseAspire)
-        builder.AddSqlServerDbContext<ApplicationDbContext>("CleanArchitectureDb", null, options =>
-        {
-            var sp = builder.Services.BuildServiceProvider();
-            options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
-        });
-    #else
         builder.Services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
             options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
             options.UseSqlServer(connectionString);
         });
+    #if (UseAspire)
+
+        builder.EnrichSqlServerDbContext<ApplicationDbContext>();
     #endif
 #endif
 
