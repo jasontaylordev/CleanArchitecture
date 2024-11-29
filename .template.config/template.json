@@ -118,7 +118,7 @@
       "generator": "constant",
       "replaces": "caPackageVersion",
       "parameters": {
-        "value": "9.0.2"
+        "value": "9.0.3"
       }
     }
   },
