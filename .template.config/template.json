@@ -147,7 +147,8 @@
             "src/Web/Templates/**",
             "src/Web/config-react.nswag",
             "src/Web/config-webapi.nswag",
-            "src/Web/Web-webapi.http"
+            "src/Web/Web-webapi.http",
+            "src/Web/wwwroot/api/specification-webapi.json"
           ]
         },
         {
@@ -157,7 +158,8 @@
             "src/Web/Endpoints/Users.cs",
             "src/Web/config.nswag",
             "src/Web/config-webapi.nswag",
-            "src/Web/Web-webapi.http"
+            "src/Web/Web-webapi.http",
+            "src/Web/wwwroot/api/specification-webapi.json"
           ],
           "rename": {
             "config-react.nswag": "config.nswag",
@@ -173,11 +175,13 @@
             "src/Web/config.nswag",
             "src/Web/config-react.nswag",
             "src/Web/Web.http",
-            "tests/Web.AcceptanceTests/**"
+            "tests/Web.AcceptanceTests/**",
+            "src/Web/wwwroot/api/specification.json"
           ],
           "rename": {
             "config-webapi.nswag": "config.nswag",
-            "Web-webapi.http": "Web.http"
+            "Web-webapi.http": "Web.http",
+            "specification-webapi.json": "specification.json"
           }
         },
         {
