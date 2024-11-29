@@ -86,7 +86,7 @@
           "description": "GitHub Actions"
         }
       ],
-      "defaultValue": "Azure",
+      "defaultValue": "github",
       "description": "The pipeline provider to use (github for Github Actions and azdo for Azure Pipelines)."
     },
     "UseAzurePipelines": {
