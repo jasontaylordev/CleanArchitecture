@@ -2,7 +2,7 @@
   "x-generator": "NSwag v14.2.0.0 (NJsonSchema v11.1.0.0 (Newtonsoft.Json v13.0.0.0))",
   "openapi": "3.0.0",
   "info": {
-    "title": "CleanArchitecture API",
+    "title": "CaApi3 API",
     "version": "1.0.0"
   },
   "paths": {
@@ -81,6 +81,12 @@
         },
         "responses": {
           "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "201": {
             "description": "",
             "content": {
               "application/json": {
@@ -131,6 +137,15 @@
         },
         "responses": {
           "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "204": {
+            "description": ""
+          },
+          "400": {
             "description": ""
           }
         },
@@ -159,6 +174,12 @@
         ],
         "responses": {
           "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "204": {
             "description": ""
           }
         },
@@ -201,6 +222,15 @@
         },
         "responses": {
           "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "204": {
+            "description": ""
+          },
+          "400": {
             "description": ""
           }
         },
@@ -254,6 +284,12 @@
         },
         "responses": {
           "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "201": {
             "description": "",
             "content": {
               "application/json": {
@@ -304,6 +340,15 @@
         },
         "responses": {
           "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "204": {
+            "description": ""
+          },
+          "400": {
             "description": ""
           }
         },
@@ -332,6 +377,12 @@
         ],
         "responses": {
           "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "204": {
             "description": ""
           }
         },

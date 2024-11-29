@@ -76,6 +76,12 @@
         },
         "responses": {
           "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "201": {
             "description": "",
             "content": {
               "application/json": {
@@ -121,6 +127,15 @@
         },
         "responses": {
           "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "204": {
+            "description": ""
+          },
+          "400": {
             "description": ""
           }
         }
@@ -144,6 +159,12 @@
         ],
         "responses": {
           "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "204": {
             "description": ""
           }
         }
@@ -181,6 +202,15 @@
         },
         "responses": {
           "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "204": {
+            "description": ""
+          },
+          "400": {
             "description": ""
           }
         }
@@ -224,6 +254,12 @@
         },
         "responses": {
           "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "201": {
             "description": "",
             "content": {
               "application/json": {
@@ -269,6 +305,15 @@
         },
         "responses": {
           "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "204": {
+            "description": ""
+          },
+          "400": {
             "description": ""
           }
         }
@@ -292,6 +337,12 @@
         ],
         "responses": {
           "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "204": {
             "description": ""
           }
         }

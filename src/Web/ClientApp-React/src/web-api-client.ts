@@ -54,20 +54,23 @@ export class TodoItemsClient {
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PaginatedListOfTodoItemBriefDto.fromJS(resultData200);
-            return result200;
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = PaginatedListOfTodoItemBriefDto.fromJS(resultData200);
+                return result200;
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<PaginatedListOfTodoItemBriefDto>(null as any);
     }
 
-    createTodoItem(command: CreateTodoItemCommand): Promise<number> {
+    /**
+     * @return OK
+     */
+    createTodoItem(command: CreateTodoItemCommand): Promise<void> {
         let url_ = this.baseUrl + "/api/TodoItems";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -87,26 +90,33 @@ export class TodoItemsClient {
         });
     }
 
-    protected processCreateTodoItem(response: Response): Promise<number> {
+    protected processCreateTodoItem(response: Response): Promise<void> {
         followIfLoginRedirect(response);
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = resultData200 !== undefined ? resultData200 : <any>null;
-    
-            return result200;
+                return null;
+            });
+        } else if (status === 201) {
+            return response.text().then((_responseText) => {
+                let result201: any = null;
+                let resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result201 = resultData201 !== undefined ? resultData201 : <any>null;
+
+                return throwException("A server side error occurred.", status, _responseText, _headers, result201);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<number>(null as any);
+        return Promise.resolve<void>(null as any);
     }
 
+    /**
+     * @return OK
+     */
     updateTodoItem(id: number, command: UpdateTodoItemCommand): Promise<void> {
         let url_ = this.baseUrl + "/api/TodoItems/{id}";
         if (id === undefined || id === null)
@@ -121,6 +131,7 @@ export class TodoItemsClient {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
+                "Accept": "application/json"
             }
         };
 
@@ -135,16 +146,27 @@ export class TodoItemsClient {
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-            return;
+                return null;
+            });
+        } else if (status === 204) {
+            return response.text().then((_responseText) => {
+                return null;
+            });
+        } else if (status === 400) {
+            return response.text().then((_responseText) => {
+                return throwException("A server side error occurred.", status, _responseText, _headers);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<void>(null as any);
     }
 
+    /**
+     * @return OK
+     */
     deleteTodoItem(id: number): Promise<void> {
         let url_ = this.baseUrl + "/api/TodoItems/{id}";
         if (id === undefined || id === null)
@@ -155,6 +177,7 @@ export class TodoItemsClient {
         let options_: RequestInit = {
             method: "DELETE",
             headers: {
+                "Accept": "application/json"
             }
         };
 
@@ -169,16 +192,23 @@ export class TodoItemsClient {
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-            return;
+                return null;
+            });
+        } else if (status === 204) {
+            return response.text().then((_responseText) => {
+                return null;
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<void>(null as any);
     }
 
+    /**
+     * @return OK
+     */
     updateTodoItemDetail(id: number, command: UpdateTodoItemDetailCommand): Promise<void> {
         let url_ = this.baseUrl + "/api/TodoItems/UpdateDetail/{id}";
         if (id === undefined || id === null)
@@ -193,6 +223,7 @@ export class TodoItemsClient {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
+                "Accept": "application/json"
             }
         };
 
@@ -207,11 +238,19 @@ export class TodoItemsClient {
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-            return;
+                return null;
+            });
+        } else if (status === 204) {
+            return response.text().then((_responseText) => {
+                return null;
+            });
+        } else if (status === 400) {
+            return response.text().then((_responseText) => {
+                return throwException("A server side error occurred.", status, _responseText, _headers);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<void>(null as any);
@@ -250,20 +289,23 @@ export class TodoListsClient {
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = TodosVm.fromJS(resultData200);
-            return result200;
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = TodosVm.fromJS(resultData200);
+                return result200;
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<TodosVm>(null as any);
     }
 
-    createTodoList(command: CreateTodoListCommand): Promise<number> {
+    /**
+     * @return OK
+     */
+    createTodoList(command: CreateTodoListCommand): Promise<void> {
         let url_ = this.baseUrl + "/api/TodoLists";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -283,26 +325,33 @@ export class TodoListsClient {
         });
     }
 
-    protected processCreateTodoList(response: Response): Promise<number> {
+    protected processCreateTodoList(response: Response): Promise<void> {
         followIfLoginRedirect(response);
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = resultData200 !== undefined ? resultData200 : <any>null;
-    
-            return result200;
+                return null;
+            });
+        } else if (status === 201) {
+            return response.text().then((_responseText) => {
+                let result201: any = null;
+                let resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result201 = resultData201 !== undefined ? resultData201 : <any>null;
+
+                return throwException("A server side error occurred.", status, _responseText, _headers, result201);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<number>(null as any);
+        return Promise.resolve<void>(null as any);
     }
 
+    /**
+     * @return OK
+     */
     updateTodoList(id: number, command: UpdateTodoListCommand): Promise<void> {
         let url_ = this.baseUrl + "/api/TodoLists/{id}";
         if (id === undefined || id === null)
@@ -317,6 +366,7 @@ export class TodoListsClient {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
+                "Accept": "application/json"
             }
         };
 
@@ -331,16 +381,27 @@ export class TodoListsClient {
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-            return;
+                return null;
+            });
+        } else if (status === 204) {
+            return response.text().then((_responseText) => {
+                return null;
+            });
+        } else if (status === 400) {
+            return response.text().then((_responseText) => {
+                return throwException("A server side error occurred.", status, _responseText, _headers);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<void>(null as any);
     }
 
+    /**
+     * @return OK
+     */
     deleteTodoList(id: number): Promise<void> {
         let url_ = this.baseUrl + "/api/TodoLists/{id}";
         if (id === undefined || id === null)
@@ -351,6 +412,7 @@ export class TodoListsClient {
         let options_: RequestInit = {
             method: "DELETE",
             headers: {
+                "Accept": "application/json"
             }
         };
 
@@ -365,11 +427,15 @@ export class TodoListsClient {
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-            return;
+                return null;
+            });
+        } else if (status === 204) {
+            return response.text().then((_responseText) => {
+                return null;
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<void>(null as any);
@@ -408,21 +474,21 @@ export class WeatherForecastsClient {
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200!.push(WeatherForecast.fromJS(item));
-            }
-            else {
-                result200 = <any>null;
-            }
-            return result200;
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                if (Array.isArray(resultData200)) {
+                    result200 = [] as any;
+                    for (let item of resultData200)
+                        result200!.push(WeatherForecast.fromJS(item));
+                }
+                else {
+                    result200 = <any>null;
+                }
+                return result200;
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<WeatherForecast[]>(null as any);
