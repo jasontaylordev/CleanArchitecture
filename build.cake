@@ -4,12 +4,11 @@
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
-var webPath = "./src/Web";
-// #if (!UseApiOnly)
-var clientAppPath = "./src/Web/ClientApp";
-var webUrl = "https://localhost:44447/";
-// #else
+var webServerPath = "./src/Web";
+var webClientPath = "./src/Web/ClientApp";
 var webUrl = "https://localhost:5001/";
+// #if (!UseApiOnly)
+webUrl = "https://localhost:44447/";
 // #endif
 
 IProcess webProcess = null;
@@ -21,11 +20,11 @@ Task("Build")
             Configuration = configuration
         });
 // #if (!UseApiOnly)
-        if (DirectoryExists(clientAppPath)) {
+        if (DirectoryExists(webClientPath)) {
             Information("Installing client app dependencies...");
-            NpmInstall(settings => settings.WorkingDirectory = clientAppPath);
+            NpmInstall(settings => settings.WorkingDirectory = webClientPath);
             Information("Building client app...");
-            NpmRunScript("build", settings => settings.WorkingDirectory = clientAppPath);
+            NpmRunScript("build", settings => settings.WorkingDirectory = webClientPath);
         }
 // #endif
     });
@@ -34,7 +33,7 @@ Task("Run")
     .Does(() => {
         Information("Starting web project...");
         var processSettings = new ProcessSettings {
-            Arguments = $"run --project {webPath} --configuration {configuration} --no-build --no-restore",
+            Arguments = $"run --project {webServerPath} --configuration {configuration} --no-build --no-restore",
             RedirectStandardOutput = true,
             RedirectStandardError = true
         };
