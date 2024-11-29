@@ -1,9 +1,9 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
+#if (!UseSqlite)
 // Note: To run without Docker, simply remove sql and database:
 //       builder.AddProject<Projects.Web>("web");
 
-#if (!UseSqlite)
 var sql = builder.AddSqlServer("sql");
 
 var database = sql.AddDatabase("CleanArchitectureDb");

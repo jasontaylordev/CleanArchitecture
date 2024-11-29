@@ -210,7 +210,8 @@
             "src/Infrastructure/Data/Migrations/**",
             "src/Web/appsettings.json",
             "tests/Application.FunctionalTests/SqlServerTestDatabase.cs",
-            "tests/Application.FunctionalTests/TestcontainersTestDatabase.cs"
+            "tests/Application.FunctionalTests/TestcontainersTestDatabase.cs",
+            "tests/Application.FunctionalTests/appsettings.json"
           ],
           "rename": {
             "src/Infrastructure/Data/SQLite/" : "src/Infrastructure/Data/Migrations/",
