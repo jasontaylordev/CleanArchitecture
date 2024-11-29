@@ -2,7 +2,7 @@
   "x-generator": "NSwag v14.2.0.0 (NJsonSchema v11.1.0.0 (Newtonsoft.Json v13.0.0.0))",
   "openapi": "3.0.0",
   "info": {
-    "title": "CaApi3 API",
+    "title": "CleanArchitecture API",
     "version": "1.0.0"
   },
   "paths": {
@@ -80,12 +80,6 @@
           "x-position": 1
         },
         "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {}
-            }
-          },
           "201": {
             "description": "",
             "content": {
@@ -136,12 +130,6 @@
           "x-position": 2
         },
         "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {}
-            }
-          },
           "204": {
             "description": ""
           },
@@ -173,12 +161,6 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {}
-            }
-          },
           "204": {
             "description": ""
           }
@@ -221,12 +203,6 @@
           "x-position": 2
         },
         "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {}
-            }
-          },
           "204": {
             "description": ""
           },
@@ -283,12 +259,6 @@
           "x-position": 1
         },
         "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {}
-            }
-          },
           "201": {
             "description": "",
             "content": {
@@ -339,12 +309,6 @@
           "x-position": 2
         },
         "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {}
-            }
-          },
           "204": {
             "description": ""
           },
@@ -376,12 +340,6 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {}
-            }
-          },
           "204": {
             "description": ""
           }

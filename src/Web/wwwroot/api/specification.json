@@ -75,12 +75,6 @@
           "x-position": 1
         },
         "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {}
-            }
-          },
           "201": {
             "description": "",
             "content": {
@@ -126,12 +120,6 @@
           "x-position": 2
         },
         "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {}
-            }
-          },
           "204": {
             "description": ""
           },
@@ -158,12 +146,6 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {}
-            }
-          },
           "204": {
             "description": ""
           }
@@ -201,12 +183,6 @@
           "x-position": 2
         },
         "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {}
-            }
-          },
           "204": {
             "description": ""
           },
@@ -253,12 +229,6 @@
           "x-position": 1
         },
         "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {}
-            }
-          },
           "201": {
             "description": "",
             "content": {
@@ -304,12 +274,6 @@
           "x-position": 2
         },
         "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {}
-            }
-          },
           "204": {
             "description": ""
           },
@@ -336,12 +300,6 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {}
-            }
-          },
           "204": {
             "description": ""
           }
