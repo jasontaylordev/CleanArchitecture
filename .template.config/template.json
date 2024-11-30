@@ -62,12 +62,16 @@
       "datatype": "choice",
       "choices": [
         {
+          "choice": "postgresql",
+          "description": "PostgreSQL"
+        },
+        {
           "choice": "sqlite",
-          "description": "SQLite. This option only applies if --aspire is not specified."
+          "description": "SQLite"
         },
         {
           "choice": "sqlserver",
-          "description": "SQL Server."
+          "description": "SQL Server"
         }
       ],
       "defaultValue": "sqlserver",
@@ -96,6 +100,10 @@
     "UseGithubActions": {
       "type": "computed",
       "value": "(PipelineProvider == \"github\")"
+    },
+    "UsePostgreSQL": {
+      "type": "computed",
+      "value": "(Database == \"postgresql\")"
     },
     "UseSqlite": {
       "type": "computed",
@@ -133,7 +141,22 @@
         "**/*.filelist",
         "**/*.user",
         "**/*.lock.json",
-        "*.nuspec"
+        "*.nuspec",
+        "src/Infrastructure/Data/Migrations/**",
+        "src/Infrastructure/Data/SQLite/**",
+        "src/Infrastructure/Data/PostgreSQL/**",
+        "src/Web/appsettings.Development.json",
+        "src/Web/appsettings.PostgreSQL.json",
+        "src/Web/appsettings.SQLite.json",
+        "tests/Application.FunctionalTests/PostgreSQLTestcontainersTestDatabase.cs",
+        "tests/Application.FunctionalTests/PostgreSQLTestDatabase.cs",
+        "tests/Application.FunctionalTests/SqliteTestDatabase.cs",
+        "tests/Application.FunctionalTests/SqlTestcontainersTestDatabase.cs",
+        "tests/Application.FunctionalTests/SqlTestDatabase.cs",
+        "tests/Application.FunctionalTests/appsettings.json",
+        "tests/Application.FunctionalTests/appsettings.PostgreSQL.json",
+        ".azdo/**/*",
+        ".github/**/*"
       ],
       "rename": {
         "README-template.md": "README.md"
@@ -186,37 +209,54 @@
         },
         {
           "condition": "(UseAzurePipelines)",
-          "exclude": [
-            ".github/**/*"
-          ]
-        },
-        {
-          "condition": "(UseGithubActions)",
-          "exclude": [
+          "include": [
             ".azdo/**/*"
           ]
         },
         {
+          "condition": "(UseGithubActions)",
+          "include": [
+            ".github/**/*"
+          ]
+        },
+        {
+          "condition": "(UsePostgreSQL)",
+          "include": [
+            "src/Infrastructure/Data/PostgreSQL/**",
+            "src/Web/appsettings.PostgreSQL.json",
+            "tests/Application.FunctionalTests/PostgreSQLTestcontainersTestDatabase.cs",
+            "tests/Application.FunctionalTests/PostgreSQLTestDatabase.cs",
+            "tests/Application.FunctionalTests/appsettings.PostgreSQL.json"
+          ],
+          "rename": {
+            "src/Infrastructure/Data/PostgreSQL/" : "src/Infrastructure/Data/Migrations/",
+            "src/Web/appsettings.PostgreSQL.json": "src/Web/appsettings.Development.json",
+            "tests/Application.FunctionalTests/appsettings.PostgreSQL.json": "tests/Application.FunctionalTests/appsettings.json"
+          }
+        },
+        {
           "condition": "(UseSqlServer)",
-          "exclude": [
-            "src/Infrastructure/Data/SQLite/**",
-            "src/Web/appsettings.SQLite.json",
-            "tests/Application.FunctionalTests/SqliteTestDatabase.cs"
+          "include": [
+            "src/Infrastructure/Data/Migrations/**",
+            "src/Web/appsettings.Development.json",
+            "tests/Application.FunctionalTests/SqlTestcontainersTestDatabase.cs",
+            "tests/Application.FunctionalTests/SqlTestDatabase.cs",
+            "tests/Application.FunctionalTests/appsettings.json"
           ]
         },
         {
           "condition": "(UseSqlite)",
+          "include": [
+            "src/Infrastructure/Data/SQLite/**",
+            "src/Web/appsettings.SQLite.json",
+            "tests/Application.FunctionalTests/SqliteTestDatabase.cs"
+          ],
           "exclude": [
-            "src/Infrastructure/Data/Migrations/**",
-            "src/Web/appsettings.json",
-            "tests/Application.FunctionalTests/SqlServerTestDatabase.cs",
-            "tests/Application.FunctionalTests/TestcontainersTestDatabase.cs",
             "tests/Application.FunctionalTests/appsettings.json"
           ],
           "rename": {
             "src/Infrastructure/Data/SQLite/" : "src/Infrastructure/Data/Migrations/",
-            "appsettings.SQLite.json": "appsettings.json",
-            "TestDatabase.Sqlite.cs": "TestDatabase.cs"
+            "src/Web/appsettings.SQLite.json": "src/Web/appsettings.Development.json"
           }
         },
         {

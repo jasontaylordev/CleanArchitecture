@@ -3,33 +3,38 @@ using CleanArchitecture.Infrastructure.Data;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.Extensions.Configuration;
 using Respawn;
+using Testcontainers.MsSql;
 
 namespace CleanArchitecture.Application.FunctionalTests;
 
-public class SqlServerTestDatabase : ITestDatabase
+public class SqlTestcontainersTestDatabase : ITestDatabase
 {
-    private readonly string _connectionString = null!;
-    private SqlConnection _connection = null!;
+    private const string DefaultDatabase = "CleanArchitectureTestDb";
+    private readonly MsSqlContainer _container;
+    private DbConnection _connection = null!;
+    private string _connectionString = null!;
     private Respawner _respawner = null!;
 
-    public SqlServerTestDatabase()
+    public SqlTestcontainersTestDatabase()
     {
-        var configuration = new ConfigurationBuilder()
-            .AddJsonFile("appsettings.json")
-            .AddEnvironmentVariables()
+        _container = new MsSqlBuilder()
+            .WithAutoRemove(true)
             .Build();
-
-        var connectionString = configuration.GetConnectionString("DefaultConnection");
-
-        Guard.Against.Null(connectionString);
-
-        _connectionString = connectionString;
     }
 
     public async Task InitialiseAsync()
     {
+        await _container.StartAsync();
+        await _container.ExecScriptAsync($"CREATE DATABASE {DefaultDatabase}");
+
+        var builder = new SqlConnectionStringBuilder(_container.GetConnectionString())
+        {
+            InitialCatalog = DefaultDatabase
+        };
+
+        _connectionString = builder.ConnectionString;
+
         _connection = new SqlConnection(_connectionString);
 
         var options = new DbContextOptionsBuilder<ApplicationDbContext>()
@@ -39,8 +44,7 @@ public class SqlServerTestDatabase : ITestDatabase
 
         var context = new ApplicationDbContext(options);
 
-        context.Database.EnsureDeleted();
-        context.Database.Migrate();
+        await context.Database.MigrateAsync();
 
         _respawner = await Respawner.CreateAsync(_connectionString, new RespawnerOptions
         {
@@ -53,6 +57,11 @@ public class SqlServerTestDatabase : ITestDatabase
         return _connection;
     }
 
+    public string GetConnectionString()
+    {
+        return _connectionString;
+    }
+
     public async Task ResetAsync()
     {
         await _respawner.ResetAsync(_connectionString);
@@ -61,5 +70,6 @@ public class SqlServerTestDatabase : ITestDatabase
     public async Task DisposeAsync()
     {
         await _connection.DisposeAsync();
+        await _container.DisposeAsync();
     }
 }

@@ -21,20 +21,22 @@ public static class DependencyInjection
         builder.Services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
         builder.Services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
 
-#if (UseSqlite)
         builder.Services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
             options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
+#if (UsePostgreSQL)
+            options.UseNpgsql(connectionString);
+#elif (UseSqlite)
             options.UseSqlite(connectionString);
-        });
 #else
-        builder.Services.AddDbContext<ApplicationDbContext>((sp, options) =>
-        {
-            options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
             options.UseSqlServer(connectionString);
+#endif
         });
-    #if (UseAspire)
 
+#if (UseAspire)
+    #if (UsePostgreSQL)
+        builder.EnrichNpgsqlDbContext<ApplicationDbContext>();
+    #elif (UseSqlServer)
         builder.EnrichSqlServerDbContext<ApplicationDbContext>();
     #endif
 #endif
