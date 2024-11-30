@@ -19,6 +19,22 @@
   "sourceName": "CleanArchitecture",
   "preferNameDirectory": true,
   "symbols": {
+    "caPackageVersion": {
+      "type": "generated",
+      "generator": "constant",
+      "replaces": "caPackageVersion",
+      "parameters": {
+        "value": "9.0.5"
+      }
+    },
+    "caRepositoryUrl": {
+      "type": "generated",
+      "generator": "constant",
+      "replaces": "caRepositoryUrl",
+      "parameters": {
+        "value": "https://github.com/jasontaylordev/CleanArchitecture"
+      }
+    },
     "ClientFramework": {
       "type": "parameter",
       "datatype": "choice",
@@ -112,22 +128,6 @@
     "UseSqlServer": {
       "type": "computed",
       "value": "(Database == \"sqlserver\")"
-    },
-    "caRepositoryUrl": {
-      "type": "generated",
-      "generator": "constant",
-      "replaces": "caRepositoryUrl",
-      "parameters": {
-        "value": "https://github.com/jasontaylordev/CleanArchitecture"
-      }
-    },
-    "caPackageVersion": {
-      "type": "generated",
-      "generator": "constant",
-      "replaces": "caPackageVersion",
-      "parameters": {
-        "value": "9.0.4"
-      }
     }
   },
   "sources": [
