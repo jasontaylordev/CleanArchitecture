@@ -2,17 +2,22 @@
 <Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <AspireVersion>9.0.0</AspireVersion>
     <AspnetVersion>9.0.0</AspnetVersion>
     <EfcoreVersion>9.0.0</EfcoreVersion>
     <MicrosoftExtensionsVersion>9.0.0</MicrosoftExtensionsVersion>
   </PropertyGroup>
   <ItemGroup>
     <!--#if (UseAspire)-->
-    <!--#if (UseSqlServer)-->
-    <PackageVersion Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
-    <PackageVersion Include="Aspire.Hosting.SqlServer" Version="9.0.0" />
+    <!--#if (UsePostgreSQL)-->
+    <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="$(AspireVersion)" />
+    <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="$(AspireVersion)" />
     <!--#endif-->
-    <PackageVersion Include="Aspire.Hosting.AppHost" Version="9.0.0" />
+    <!--#if (UseSqlServer)-->
+    <PackageVersion Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="$(AspireVersion)" />
+    <PackageVersion Include="Aspire.Hosting.SqlServer" Version="$(AspireVersion)" />
+    <!--#endif-->
+    <PackageVersion Include="Aspire.Hosting.AppHost" Version="$(AspireVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="9.0.0" />
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="9.0.0" />
     <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.10.0" />
@@ -42,11 +47,16 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(EfcoreVersion)" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="$(EfcoreVersion)" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="$(EfcoreVersion)" />
+    <!--#if (UsePostgreSQL)-->
+    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.1" />
+    <PackageVersion Include="Testcontainers.PostgreSql" Version="4.0.0" />
+    <!--#endif-->
     <!--#if (UseSqlite)-->
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EfcoreVersion)" />
     <!--#endif-->
     <!--#if (UseSqlServer)-->
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(EfcoreVersion)" />
+    <PackageVersion Include="Testcontainers.MsSql" Version="4.0.0" />
     <!--#endif-->
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="$(EfcoreVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="$(MicrosoftExtensionsVersion)" />
@@ -62,7 +72,6 @@
     <PackageVersion Include="NUnit3TestAdapter" Version="4.6.0" />
     <PackageVersion Include="Respawn" Version="6.2.1" />
     <PackageVersion Include="System.Configuration.ConfigurationManager" Version="9.0.0" />
-    <PackageVersion Include="Testcontainers.MsSql" Version="4.0.0" />
     <!--#if(!UseApiOnly)-->
     <PackageVersion Include="Microsoft.Playwright" Version="1.48.0" />
     <PackageVersion Include="SpecFlow.Plus.LivingDocPlugin" Version="3.9.57" />
