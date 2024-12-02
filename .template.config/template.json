@@ -24,7 +24,7 @@
       "generator": "constant",
       "replaces": "caPackageVersion",
       "parameters": {
-        "value": "9.0.5"
+        "value": "9.0.6"
       }
     },
     "caRepositoryUrl": {
@@ -194,6 +194,7 @@
           "exclude": [
             "src/Web/ClientApp/**",
             "src/Web/ClientApp-React/**",
+            "src/Web/Pages/**",
             "src/Web/Templates/**",
             "src/Web/config.nswag",
             "src/Web/config-react.nswag",
