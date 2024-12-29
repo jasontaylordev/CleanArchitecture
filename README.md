@@ -69,13 +69,13 @@ dotnet new ca-usecase --help
 
 ## Database
 
-The templates supports [PostgresSQL](https://www.postgresql.org), [SQLite](https://www.sqlite.org/), and [SQL Server](https://learn.microsoft.com/en-us/sql/sql-server/what-is-sql-server) (default option). Specify the database to use with the `--database` option:
+The template supports [PostgresSQL](https://www.postgresql.org), [SQLite](https://www.sqlite.org/), and [SQL Server](https://learn.microsoft.com/en-us/sql/sql-server/what-is-sql-server) (default option). Specify the database to use with the `--database` option:
 
 ```bash
 dotnet new ca-sln --database [postgresql|sqlite|sqlserver]
 ```
 
-When you run the application the database will be automatically created (if necessary) and the latest migrations will be applied.
+When you run the application, the database will be automatically created (if necessary) and the latest migrations will be applied.
 
 Running database migrations is easy. Ensure you add the following flags to your command (values assume you are executing from repository root)
 
@@ -95,7 +95,7 @@ This template is structured to follow the Azure Developer CLI (azd). You can lea
 # Log in to Azure
 azd auth login
 
-# Provsion and deploy to Azure
+# Provision and deploy to Azure
 azd up
 ```
 
