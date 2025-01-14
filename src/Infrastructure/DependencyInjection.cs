@@ -25,20 +25,20 @@ public static class DependencyInjection
         {
             options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
 #if (UsePostgreSQL)
-            options.UseNpgsql(connectionString);
+            options.UseNpgsql(connectionString).AddAsyncSeeding(sp);
 #elif (UseSqlite)
-            options.UseSqlite(connectionString);
+            options.UseSqlite(connectionString).AddAsyncSeeding(sp);
 #else
-            options.UseSqlServer(connectionString);
+            options.UseSqlServer(connectionString).AddAsyncSeeding(sp);
 #endif
         });
 
 #if (UseAspire)
-    #if (UsePostgreSQL)
+#if (UsePostgreSQL)
         builder.EnrichNpgsqlDbContext<ApplicationDbContext>();
-    #elif (UseSqlServer)
+#elif (UseSqlServer)
         builder.EnrichSqlServerDbContext<ApplicationDbContext>();
-    #endif
+#endif
 #endif
 
         builder.Services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
