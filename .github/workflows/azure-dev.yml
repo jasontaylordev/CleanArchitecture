@@ -1,3 +1,5 @@
+name: Azure deployment
+
 on:
   workflow_dispatch:
   push:
