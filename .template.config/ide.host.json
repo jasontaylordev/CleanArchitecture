@@ -14,12 +14,32 @@
       "isVisible": true
     },
     {
-      "id": "UseSQLite",
+      "id": "PipelineProvider",
       "name": {
-        "text": "Use SQLite"
+        "text": "Pipeline Provider"
       },
       "description": {
-        "text": "Use SQLite for database (default is LocalDB)."
+        "text": "Select the pipeline provider."
+      },
+      "isVisible": true
+    },
+    {
+      "id": "Database",
+      "name": {
+        "text": "Database"
+      },
+      "description": {
+        "text": "Select the database type."
+      },
+      "isVisible": true
+    },
+    {
+      "id": "UseAspire",
+      "name": {
+        "text": "Use Aspire"
+      },
+      "description": {
+        "text": "Use .NET Aspire"
       },
       "isVisible": true
     }

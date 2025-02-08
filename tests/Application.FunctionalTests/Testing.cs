@@ -11,7 +11,7 @@ namespace CleanArchitecture.Application.FunctionalTests;
 [SetUpFixture]
 public partial class Testing
 {
-    private static ITestDatabase _database;
+    private static ITestDatabase _database = null!;
     private static CustomWebApplicationFactory _factory = null!;
     private static IServiceScopeFactory _scopeFactory = null!;
     private static string? _userId;
@@ -21,7 +21,7 @@ public partial class Testing
     {
         _database = await TestDatabaseFactory.CreateAsync();
 
-        _factory = new CustomWebApplicationFactory(_database.GetConnection());
+        _factory = new CustomWebApplicationFactory(_database.GetConnection(), _database.GetConnectionString());
 
         _scopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
     }

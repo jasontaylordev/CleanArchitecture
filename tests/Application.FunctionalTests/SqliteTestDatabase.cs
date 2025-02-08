@@ -40,6 +40,11 @@ public class SqliteTestDatabase : ITestDatabase
         return _connection;
     }
 
+    public string GetConnectionString()
+    {
+        return _connectionString;
+    }
+
     public async Task ResetAsync()
     {
         await InitialiseAsync();
