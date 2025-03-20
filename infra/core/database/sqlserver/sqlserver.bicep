@@ -173,7 +173,7 @@ SCRIPT_END
 
 resource sqlAdminPasswordSecret 'Microsoft.KeyVault/vaults/secrets@2022-07-01' = {
   parent: keyVault
-  name: 'sqlAdminPassword'
+  name: 'dbAdminPassword'
   properties: {
     value: sqlAdminPassword
   }
@@ -181,7 +181,7 @@ resource sqlAdminPasswordSecret 'Microsoft.KeyVault/vaults/secrets@2022-07-01' =
 
 resource appUserPasswordSecret 'Microsoft.KeyVault/vaults/secrets@2022-07-01' = {
   parent: keyVault
-  name: 'appUserPassword'
+  name: 'dbAppUserPassword'
   properties: {
     value: appUserPassword
   }
