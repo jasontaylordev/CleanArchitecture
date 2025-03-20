@@ -123,7 +123,7 @@ psql "host=$DBSERVER.postgres.database.azure.com user=$ADMINLOGIN dbname=$DBNAME
 
 resource administratorLoginPasswordSecret 'Microsoft.KeyVault/vaults/secrets@2022-07-01' = {
   parent: keyVault
-  name: 'administratorLoginPassword'
+  name: 'dbAdminPassword'
   properties: {
     value: administratorLoginPassword
   }
@@ -131,7 +131,7 @@ resource administratorLoginPasswordSecret 'Microsoft.KeyVault/vaults/secrets@202
 
 resource appUserLoginPasswordSecret 'Microsoft.KeyVault/vaults/secrets@2022-07-01' = {
   parent: keyVault
-  name: 'appUserLoginPassword'
+  name: 'dbAppUserPassword'
   properties: {
     value: appUserLoginPassword
   }
