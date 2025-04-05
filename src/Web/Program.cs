@@ -14,7 +14,7 @@ builder.AddWebServices();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() && args.Contains("--init"))
 {
     await app.InitialiseDatabaseAsync();
 }
