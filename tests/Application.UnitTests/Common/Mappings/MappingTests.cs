@@ -1,53 +1,106 @@
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
-using AutoMapper;
-using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Application.Common.Models;
+﻿using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Application.TodoItems.Queries.GetTodoItemsWithPagination;
 using CleanArchitecture.Application.TodoLists.Queries.GetTodos;
 using CleanArchitecture.Domain.Entities;
+using Shouldly;
 using NUnit.Framework;
+using CleanArchitecture.Domain.Enums;
+using CleanArchitecture.Domain.ValueObjects;
 
 namespace CleanArchitecture.Application.UnitTests.Common.Mappings;
 
 public class MappingTests
 {
-    private readonly IConfigurationProvider _configuration;
-    private readonly IMapper _mapper;
-
-    public MappingTests()
+    [Test]
+    public void Should_Map_TodoList_To_TodoListDto()
     {
-        _configuration = new MapperConfiguration(config => 
-            config.AddMaps(Assembly.GetAssembly(typeof(IApplicationDbContext))));
+        var list = new TodoList
+        {
+            Id = 1,
+            Title = "Groceries",
+            Colour = Colour.Red
+        };
 
-        _mapper = _configuration.CreateMapper();
+        list.Items.Add(new TodoItem
+        {
+            Id = 10,
+            ListId = 1,
+            Title = "Buy milk",
+            Done = true,
+            Priority = PriorityLevel.High,
+            Note = "2 liters"
+        });
+
+        var dto = TodoListDtoMapper.FromEntity(list);
+
+        dto.Id.ShouldBe(list.Id);
+        dto.Title.ShouldBe(list.Title);
+        dto.Colour.ShouldBe(list.Colour.ToString());
+        dto.Items.Count.ShouldBe(1);
+        dto.Items.First().Title.ShouldBe("Buy milk");
     }
 
     [Test]
-    public void ShouldHaveValidConfiguration()
+    public void Should_Map_TodoItem_To_TodoItemDto()
     {
-        _configuration.AssertConfigurationIsValid();
+        var item = new TodoItem
+        {
+            Id = 5,
+            ListId = 2,
+            Title = "Walk the dog",
+            Done = false,
+            Priority = PriorityLevel.Medium,
+            Note = "Evening"
+        };
+
+        var dto = TodoItemDtoMapper.FromEntity(item);
+
+        dto.Id.ShouldBe(item.Id);
+        dto.ListId.ShouldBe(item.ListId);
+        dto.Title.ShouldBe(item.Title);
+        dto.Done.ShouldBe(item.Done);
+        dto.Priority.ShouldBe((int)item.Priority);
+        dto.Note.ShouldBe(item.Note);
     }
 
     [Test]
-    [TestCase(typeof(TodoList), typeof(TodoListDto))]
-    [TestCase(typeof(TodoItem), typeof(TodoItemDto))]
-    [TestCase(typeof(TodoList), typeof(LookupDto))]
-    [TestCase(typeof(TodoItem), typeof(LookupDto))]
-    [TestCase(typeof(TodoItem), typeof(TodoItemBriefDto))]
-    public void ShouldSupportMappingFromSourceToDestination(Type source, Type destination)
+    public void Should_Map_TodoList_To_LookupDto()
     {
-        var instance = GetInstanceOf(source);
+        var list = new TodoList { Id = 99, Title = "Chores" };
 
-        _mapper.Map(instance, source, destination);
+        var dto = LookupDtoMapper.FromTodoList(list);
+
+        dto.Id.ShouldBe(list.Id);
+        dto.Title.ShouldBe(list.Title);
     }
 
-    private object GetInstanceOf(Type type)
+    [Test]
+    public void Should_Map_TodoItem_To_LookupDto()
     {
-        if (type.GetConstructor(Type.EmptyTypes) != null)
-            return Activator.CreateInstance(type)!;
+        var item = new TodoItem { Id = 42, Title = "Do laundry" };
 
-        // Type without parameterless constructor
-        return RuntimeHelpers.GetUninitializedObject(type);
+        var dto = LookupDtoMapper.FromTodoItem(item);
+
+        dto.Id.ShouldBe(item.Id);
+        dto.Title.ShouldBe(item.Title);
+    }
+
+    [Test]
+    public void Should_Map_TodoItem_To_BriefDto()
+    {
+        var item = new TodoItem
+        {
+            Id = 7,
+            ListId = 3,
+            Title = "Read book",
+            Done = true
+        };
+
+        var dto = TodoItemBriefDtoMapper.FromEntity(item);
+
+        dto.Id.ShouldBe(item.Id);
+        dto.ListId.ShouldBe(item.ListId);
+        dto.Title.ShouldBe(item.Title);
+        dto.Done.ShouldBe(item.Done);
     }
 }
