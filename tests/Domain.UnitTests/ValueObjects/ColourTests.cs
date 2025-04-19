@@ -1,7 +1,7 @@
 ﻿using CleanArchitecture.Domain.Exceptions;
 using CleanArchitecture.Domain.ValueObjects;
-using FluentAssertions;
 using NUnit.Framework;
+using Shouldly;
 
 namespace CleanArchitecture.Domain.UnitTests.ValueObjects;
 
@@ -14,7 +14,7 @@ public class ColourTests
 
         var colour = Colour.From(code);
 
-        colour.Code.Should().Be(code);
+        colour.Code.ShouldBe(code);
     }
 
     [Test]
@@ -22,7 +22,7 @@ public class ColourTests
     {
         var colour = Colour.White;
 
-        colour.ToString().Should().Be(colour.Code);
+        colour.ToString().ShouldBe(colour.Code);
     }
 
     [Test]
@@ -30,7 +30,7 @@ public class ColourTests
     {
         string code = Colour.White;
 
-        code.Should().Be("#FFFFFF");
+        code.ShouldBe("#FFFFFF");
     }
 
     [Test]
@@ -38,13 +38,12 @@ public class ColourTests
     {
         var colour = (Colour)"#FFFFFF";
 
-        colour.Should().Be(Colour.White);
+        colour.ShouldBe(Colour.White);
     }
 
     [Test]
     public void ShouldThrowUnsupportedColourExceptionGivenNotSupportedColourCode()
     {
-        FluentActions.Invoking(() => Colour.From("##FF33CC"))
-            .Should().Throw<UnsupportedColourException>();
+        Should.Throw<UnsupportedColourException>(() => Colour.From("##FF33CC"));
     }
 }
