@@ -20,11 +20,11 @@
         <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" />
         <PackageReference Include="Microsoft.Playwright" />
+        <PackageReference Include="Shouldly" />
         <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" />
         <PackageReference Include="SpecFlow.NUnit" />
         <PackageReference Include="nunit" />
         <PackageReference Include="NUnit3TestAdapter" />
-        <PackageReference Include="FluentAssertions" />
     </ItemGroup>
 
 </Project>
