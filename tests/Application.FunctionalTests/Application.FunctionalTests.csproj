@@ -32,9 +32,9 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="FluentAssertions" />
       <PackageReference Include="Moq" />
       <PackageReference Include="Respawn" />
+      <PackageReference Include="Shouldly" />
       <PackageReference Include="System.Configuration.ConfigurationManager" />
       <!--#if (UsePostgreSQL)-->
       <PackageReference Include="Testcontainers.PostgreSql" />
