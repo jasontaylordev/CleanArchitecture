@@ -1,4 +1,5 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
+using CleanArchitecture.Application.Common.Mappings;
 using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Application.Common.Security;
 using CleanArchitecture.Domain.Enums;
@@ -11,16 +12,19 @@ public record GetTodosQuery : IRequest<TodosVm>;
 public class GetTodosQueryHandler : IRequestHandler<GetTodosQuery, TodosVm>
 {
     private readonly IApplicationDbContext _context;
-    private readonly IMapper _mapper;
 
-    public GetTodosQueryHandler(IApplicationDbContext context, IMapper mapper)
+    public GetTodosQueryHandler(IApplicationDbContext context)
     {
         _context = context;
-        _mapper = mapper;
     }
 
     public async Task<TodosVm> Handle(GetTodosQuery request, CancellationToken cancellationToken)
     {
+        var lists = await _context.TodoLists
+            .Include(l => l.Items)
+            .OrderBy(t => t.Title)
+            .ProjectToListAsync(TodoListDtoMapper.FromEntity, cancellationToken);
+
         return new TodosVm
         {
             PriorityLevels = Enum.GetValues(typeof(PriorityLevel))
@@ -28,11 +32,8 @@ public class GetTodosQueryHandler : IRequestHandler<GetTodosQuery, TodosVm>
                 .Select(p => new LookupDto { Id = (int)p, Title = p.ToString() })
                 .ToList(),
 
-            Lists = await _context.TodoLists
-                .AsNoTracking()
-                .ProjectTo<TodoListDto>(_mapper.ConfigurationProvider)
-                .OrderBy(t => t.Title)
-                .ToListAsync(cancellationToken)
+            Lists = lists
         };
     }
 }
+

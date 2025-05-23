@@ -7,13 +7,19 @@ public class LookupDto
     public int Id { get; init; }
 
     public string? Title { get; init; }
+}
 
-    private class Mapping : Profile
+public static class LookupDtoMapper
+{
+    public static LookupDto FromTodoList(TodoList list) => new()
     {
-        public Mapping()
-        {
-            CreateMap<TodoList, LookupDto>();
-            CreateMap<TodoItem, LookupDto>();
-        }
-    }
+        Id = list.Id,
+        Title = list.Title
+    };
+
+    public static LookupDto FromTodoItem(TodoItem item) => new()
+    {
+        Id = item.Id,
+        Title = item.Title
+    };
 }

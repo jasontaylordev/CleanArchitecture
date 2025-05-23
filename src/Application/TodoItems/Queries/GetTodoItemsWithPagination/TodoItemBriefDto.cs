@@ -11,12 +11,15 @@ public class TodoItemBriefDto
     public string? Title { get; init; }
 
     public bool Done { get; init; }
+}
 
-    private class Mapping : Profile
+public static class TodoItemBriefDtoMapper
+{
+    public static TodoItemBriefDto FromEntity(TodoItem item) => new()
     {
-        public Mapping()
-        {
-            CreateMap<TodoItem, TodoItemBriefDto>();
-        }
-    }
+        Id = item.Id,
+        ListId = item.ListId,
+        Title = item.Title,
+        Done = item.Done
+    };
 }

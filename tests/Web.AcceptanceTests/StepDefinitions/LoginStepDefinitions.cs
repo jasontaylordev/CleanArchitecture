@@ -52,8 +52,8 @@ public sealed class LoginStepDefinitions
     {
         var profileLinkText = await _loginPage.ProfileLinkText();
 
-        profileLinkText.Should().NotBeNull();
-        profileLinkText.Should().Be("Account");
+        profileLinkText.ShouldNotBeNull();
+        profileLinkText.ShouldBe("Account");
     }
 
     [When("the user logs in with invalid credentials")]
@@ -69,7 +69,7 @@ public sealed class LoginStepDefinitions
     {
         var errorVisible = await _loginPage.InvalidLoginAttemptMessageVisible();
 
-        errorVisible.Should().BeTrue();
+        errorVisible.ShouldBeTrue();
     }
 
     [AfterFeature]

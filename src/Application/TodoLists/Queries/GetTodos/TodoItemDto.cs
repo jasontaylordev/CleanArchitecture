@@ -15,13 +15,18 @@ public class TodoItemDto
     public int Priority { get; init; }
 
     public string? Note { get; init; }
+}
 
-    private class Mapping : Profile
+
+public static class TodoItemDtoMapper
+{
+    public static TodoItemDto FromEntity(TodoItem item) => new()
     {
-        public Mapping()
-        {
-            CreateMap<TodoItem, TodoItemDto>().ForMember(d => d.Priority, 
-                opt => opt.MapFrom(s => (int)s.Priority));
-        }
-    }
+        Id = item.Id,
+        ListId = item.ListId,
+        Title = item.Title,
+        Done = item.Done,
+        Priority = (int)item.Priority,
+        Note = item.Note
+    };
 }
