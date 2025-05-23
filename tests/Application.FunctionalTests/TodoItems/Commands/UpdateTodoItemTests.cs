@@ -13,7 +13,7 @@ public class UpdateTodoItemTests : BaseTestFixture
     public async Task ShouldRequireValidTodoItemId()
     {
         var command = new UpdateTodoItemCommand { Id = 99, Title = "New Title" };
-        await FluentActions.Invoking(() => SendAsync(command)).Should().ThrowAsync<NotFoundException>();
+        await Should.ThrowAsync<NotFoundException>(() => SendAsync(command));
     }
 
     [Test]
@@ -42,10 +42,10 @@ public class UpdateTodoItemTests : BaseTestFixture
 
         var item = await FindAsync<TodoItem>(itemId);
 
-        item.Should().NotBeNull();
-        item!.Title.Should().Be(command.Title);
-        item.LastModifiedBy.Should().NotBeNull();
-        item.LastModifiedBy.Should().Be(userId);
-        item.LastModified.Should().BeCloseTo(DateTime.Now, TimeSpan.FromMilliseconds(10000));
+        item.ShouldNotBeNull();
+        item!.Title.ShouldBe(command.Title);
+        item.LastModifiedBy.ShouldNotBeNull();
+        item.LastModifiedBy.ShouldBe(userId);
+        item.LastModified.ShouldBe(DateTime.Now, TimeSpan.FromMilliseconds(10000));
     }
 }
