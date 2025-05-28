@@ -1,5 +1,7 @@
-﻿using System.Reflection;
+﻿using System.Linq.Expressions;
+using System.Reflection;
 using CleanArchitecture.Application.Common.Interfaces;
+using CleanArchitecture.Domain.Common;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -19,5 +21,16 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     {
         base.OnModelCreating(builder);
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        foreach (var entityType in builder.Model.GetEntityTypes()
+                                            .Where(t => typeof(ISoftDelete)
+                                            .IsAssignableFrom(t.ClrType)))
+        {
+            var parameter = Expression.Parameter(entityType.ClrType, "e");
+            var deleted = Expression.Property(parameter, nameof(ISoftDelete.Deleted));
+            var hasValue = Expression.Property(deleted, nameof(Nullable<DateTimeOffset>.HasValue));
+            var filter = Expression.Lambda(Expression.Not(hasValue), parameter);
+
+            builder.Entity(entityType.ClrType).HasQueryFilter(filter);
+        }
     }
 }
