@@ -10,15 +10,13 @@ namespace CleanArchitecture.Web.Endpoints;
 
 public class TodoItems : EndpointGroupBase
 {
-    public override void Map(WebApplication app)
+    public override void Map(RouteGroupBuilder groupBuilder)
     {
-        app.MapGroup(this)
-            .RequireAuthorization()
-            .MapGet(GetTodoItemsWithPagination)
-            .MapPost(CreateTodoItem)
-            .MapPut(UpdateTodoItem, "{id}")
-            .MapPut(UpdateTodoItemDetail, "UpdateDetail/{id}")
-            .MapDelete(DeleteTodoItem, "{id}");
+        groupBuilder.MapGet(GetTodoItemsWithPagination).RequireAuthorization();
+        groupBuilder.MapPost(CreateTodoItem).RequireAuthorization();
+        groupBuilder.MapPut(UpdateTodoItem, "{id}").RequireAuthorization();
+        groupBuilder.MapPut(UpdateTodoItemDetail, "UpdateDetail/{id}").RequireAuthorization();
+        groupBuilder.MapDelete(DeleteTodoItem, "{id}").RequireAuthorization();
     }
 
     public async Task<Ok<PaginatedList<TodoItemBriefDto>>> GetTodoItemsWithPagination(ISender sender, [AsParameters] GetTodoItemsWithPaginationQuery query)
@@ -47,9 +45,9 @@ public class TodoItems : EndpointGroupBase
     public async Task<Results<NoContent, BadRequest>> UpdateTodoItemDetail(ISender sender, int id, UpdateTodoItemDetailCommand command)
     {
         if (id != command.Id) return TypedResults.BadRequest();
-        
+
         await sender.Send(command);
-        
+
         return TypedResults.NoContent();
     }
 
