@@ -5,17 +5,18 @@ namespace CleanArchitecture.Web.Endpoints;
 
 public class WeatherForecasts : EndpointGroupBase
 {
-    public override void Map(WebApplication app)
+    public override void Map(RouteGroupBuilder groupBuilder)
     {
-        app.MapGroup(this)
-            .RequireAuthorization()
-            .MapGet(GetWeatherForecasts);
+        groupBuilder.RequireAuthorization();
+
+        groupBuilder.MapGet(GetWeatherForecasts);
     }
 
     public async Task<Ok<IEnumerable<WeatherForecast>>> GetWeatherForecasts(ISender sender)
     {
         var forecasts = await sender.Send(new GetWeatherForecastsQuery());
-        
+
         return TypedResults.Ok(forecasts);
     }
+
 }
