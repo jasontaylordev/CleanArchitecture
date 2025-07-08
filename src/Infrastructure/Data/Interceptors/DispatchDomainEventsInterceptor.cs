@@ -34,7 +34,7 @@ public class DispatchDomainEventsInterceptor : SaveChangesInterceptor
         if (context == null) return;
 
         var entities = context.ChangeTracker
-            .Entries<BaseEntity>()
+            .Entries<IDomainEvent>()
             .Where(e => e.Entity.DomainEvents.Any())
             .Select(e => e.Entity);
 
