@@ -114,13 +114,8 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-#if (UseApiOnly && UseSqlServer)
                     LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
-#else
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-#endif
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -164,13 +159,8 @@ namespace CleanArchitecture.Infrastructure.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-#if (UseApiOnly && UseSqlServer)
                     LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
-#else
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-#endif
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>

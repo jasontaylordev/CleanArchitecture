@@ -7,5 +7,6 @@
     <!-- <ArtifactsPath>$(MSBuildThisFileDirectory)artifacts</ArtifactsPath> -->
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <DefineConstants>$(DefineConstants);UseApiOnly</DefineConstants>
   </PropertyGroup>
 </Project>

@@ -12,10 +12,13 @@ public class WeatherForecasts : EndpointGroupBase
             .MapGet(GetWeatherForecasts);
     }
 
+    [EndpointName(nameof(GetWeatherForecasts))]
+    [EndpointSummary("Get Weather Forecasts")]
+    [EndpointDescription("Retrieves a list of weather forecasts for the next few days.")]
     public async Task<Ok<IEnumerable<WeatherForecast>>> GetWeatherForecasts(ISender sender)
     {
         var forecasts = await sender.Send(new GetWeatherForecastsQuery());
-        
+
         return TypedResults.Ok(forecasts);
     }
 }
