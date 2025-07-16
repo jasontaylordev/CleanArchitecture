@@ -3,10 +3,10 @@ using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Infrastructure.Data;
 using CleanArchitecture.Web.Services;
 using Microsoft.AspNetCore.Mvc;
-
 #if (UseApiOnly)
-using NSwag;
-using NSwag.Generation.Processors.Security;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.OpenApi;
+using Microsoft.OpenApi.Models;
 #endif
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -37,23 +37,14 @@ public static class DependencyInjection
 
         builder.Services.AddEndpointsApiExplorer();
 
-        builder.Services.AddOpenApiDocument((configure, sp) =>
+#if (!UseApiOnly)
+        builder.Services.AddOpenApi();
+#else
+        builder.Services.AddOpenApi(options =>
         {
-            configure.Title = "CleanArchitecture API";
-
-#if (UseApiOnly)
-            // Add JWT
-            configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
-            {
-                Type = OpenApiSecuritySchemeType.ApiKey,
-                Name = "Authorization",
-                In = OpenApiSecurityApiKeyLocation.Header,
-                Description = "Type into the textbox: Bearer {your JWT token}."
-            });
-
-            configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
-#endif
+            options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
         });
+#endif
     }
 
     public static void AddKeyVaultIfConfigured(this IHostApplicationBuilder builder)
@@ -67,3 +58,28 @@ public static class DependencyInjection
         }
     }
 }
+
+#if (UseApiOnly)
+internal sealed class BearerSecuritySchemeTransformer(IAuthenticationSchemeProvider authenticationSchemeProvider) : IOpenApiDocumentTransformer
+{
+    public async Task TransformAsync(OpenApiDocument document, OpenApiDocumentTransformerContext context, CancellationToken cancellationToken)
+    {
+        var authenticationSchemes = await authenticationSchemeProvider.GetAllSchemesAsync();
+        if (authenticationSchemes.Any(authScheme => authScheme.Name == "Bearer"))
+        {
+            var requirements = new Dictionary<string, OpenApiSecurityScheme>
+            {
+                ["Bearer"] = new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer", // "bearer" refers to the header name here
+                    In = ParameterLocation.Header,
+                    BearerFormat = "Json Web Token"
+                }
+            };
+            document.Components ??= new OpenApiComponents();
+            document.Components.SecuritySchemes = requirements;
+        }
+    }
+}
+#endif

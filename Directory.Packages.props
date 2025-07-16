@@ -18,6 +18,7 @@
     <PackageVersion Include="Aspire.Hosting.SqlServer" Version="$(AspireVersion)" />
     <!--#endif-->
     <PackageVersion Include="Aspire.Hosting.AppHost" Version="$(AspireVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.ApiDescription.Server" Version="9.0.5" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="9.0.0" />
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="9.0.0" />
     <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.10.0" />
@@ -49,6 +50,7 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="$(EfcoreVersion)" />
     <!--#if (UsePostgreSQL)-->
     <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.1" />
+    <PackageVersion Include="Scalar.AspNetCore" Version="2.4.4" />
     <PackageVersion Include="Testcontainers.PostgreSql" Version="4.0.0" />
     <!--#endif-->
     <!--#if (UseSqlite)-->
@@ -65,8 +67,6 @@
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="$(MicrosoftExtensionsVersion)" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
     <PackageVersion Include="Moq" Version="4.20.72" />
-    <PackageVersion Include="NSwag.AspNetCore" Version="14.2.0" />
-    <PackageVersion Include="NSwag.MSBuild" Version="14.2.0" />
     <PackageVersion Include="nunit" Version="3.14.0" />
     <PackageVersion Include="NUnit.Analyzers" Version="3.10.0" />
     <PackageVersion Include="NUnit3TestAdapter" Version="4.6.0" />
