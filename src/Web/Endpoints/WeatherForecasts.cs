@@ -12,9 +12,9 @@ public class WeatherForecasts : EndpointGroupBase
             .MapGet(GetWeatherForecasts);
     }
 
-    public async Task<Ok<IEnumerable<WeatherForecast>>> GetWeatherForecasts(ISender sender)
+    public async Task<Ok<IEnumerable<WeatherForecast>>> GetWeatherForecasts(IMediator sender, CancellationToken cancellationToken)
     {
-        var forecasts = await sender.Send(new GetWeatherForecastsQuery());
+        var forecasts = await sender.Send(new GetWeatherForecastsQuery(), cancellationToken);
         
         return TypedResults.Ok(forecasts);
     }

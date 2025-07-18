@@ -2,7 +2,7 @@
 
 public record GetWeatherForecastsQuery : IRequest<IEnumerable<WeatherForecast>>;
 
-public class GetWeatherForecastsQueryHandler : IRequestHandler<GetWeatherForecastsQuery, IEnumerable<WeatherForecast>>
+public class GetWeatherForecastsQueryHandler : MitMediator.Tasks.IRequestHandler<GetWeatherForecastsQuery, IEnumerable<WeatherForecast>>
 {
     private static readonly string[] Summaries = new[]
     {

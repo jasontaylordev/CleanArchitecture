@@ -11,7 +11,7 @@ public record CreateTodoItemCommand : IRequest<int>
     public string? Title { get; init; }
 }
 
-public class CreateTodoItemCommandHandler : IRequestHandler<CreateTodoItemCommand, int>
+public class CreateTodoItemCommandHandler : MitMediator.Tasks.IRequestHandler<CreateTodoItemCommand, int>
 {
     private readonly IApplicationDbContext _context;
 

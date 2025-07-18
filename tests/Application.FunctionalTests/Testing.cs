@@ -1,7 +1,7 @@
 ﻿using CleanArchitecture.Domain.Constants;
 using CleanArchitecture.Infrastructure.Data;
 using CleanArchitecture.Infrastructure.Identity;
-using MediatR;
+using MitMediator;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,19 +30,19 @@ public partial class Testing
     {
         using var scope = _scopeFactory.CreateScope();
 
-        var mediator = scope.ServiceProvider.GetRequiredService<ISender>();
+        var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
 
-        return await mediator.Send(request);
+        return await mediator.Send(request, CancellationToken.None);
     }
 
-    public static async Task SendAsync(IBaseRequest request)
-    {
-        using var scope = _scopeFactory.CreateScope();
-
-        var mediator = scope.ServiceProvider.GetRequiredService<ISender>();
-
-        await mediator.Send(request);
-    }
+    // public static async Task SendAsync(IBaseRequest request)
+    // {
+    //     using var scope = _scopeFactory.CreateScope();
+    //
+    //     var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+    //
+    //     await mediator.Send(request);
+    // }
 
     public static string? GetUserId()
     {

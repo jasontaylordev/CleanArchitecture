@@ -5,7 +5,7 @@ namespace CleanArchitecture.Application.TodoItems.Commands.DeleteTodoItem;
 
 public record DeleteTodoItemCommand(int Id) : IRequest;
 
-public class DeleteTodoItemCommandHandler : IRequestHandler<DeleteTodoItemCommand>
+public class DeleteTodoItemCommandHandler  : MitMediator.Tasks.IRequestHandler<DeleteTodoItemCommand>
 {
     private readonly IApplicationDbContext _context;
 
@@ -14,7 +14,7 @@ public class DeleteTodoItemCommandHandler : IRequestHandler<DeleteTodoItemComman
         _context = context;
     }
 
-    public async Task Handle(DeleteTodoItemCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(DeleteTodoItemCommand request, CancellationToken cancellationToken)
     {
         var entity = await _context.TodoItems
             .FindAsync(new object[] { request.Id }, cancellationToken);
@@ -26,6 +26,7 @@ public class DeleteTodoItemCommandHandler : IRequestHandler<DeleteTodoItemComman
         entity.AddDomainEvent(new TodoItemDeletedEvent(entity));
 
         await _context.SaveChangesAsync(cancellationToken);
+        return Unit.Value;
     }
 
 }

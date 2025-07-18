@@ -1,10 +1,9 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
-using MediatR.Pipeline;
 using Microsoft.Extensions.Logging;
 
 namespace CleanArchitecture.Application.Common.Behaviours;
 
-public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest> where TRequest : notnull
+public class LoggingBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull, IRequest<TResponse>
 {
     private readonly ILogger _logger;
     private readonly IUser _user;
@@ -16,8 +15,7 @@ public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest> where T
         _user = user;
         _identityService = identityService;
     }
-
-    public async Task Process(TRequest request, CancellationToken cancellationToken)
+    public async ValueTask<TResponse> HandleAsync(TRequest request, IRequestHandlerNext<TRequest, TResponse> next, CancellationToken cancellationToken)
     {
         var requestName = typeof(TRequest).Name;
         var userId = _user.Id ?? string.Empty;
@@ -30,5 +28,6 @@ public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest> where T
 
         _logger.LogInformation("CleanArchitecture Request: {Name} {@UserId} {@UserName} {@Request}",
             requestName, userId, userName, request);
+        return await next.InvokeAsync(request, cancellationToken);
     }
 }

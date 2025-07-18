@@ -8,7 +8,7 @@ public record CreateTodoListCommand : IRequest<int>
     public string? Title { get; init; }
 }
 
-public class CreateTodoListCommandHandler : IRequestHandler<CreateTodoListCommand, int>
+public class CreateTodoListCommandHandler : MitMediator.Tasks.IRequestHandler<CreateTodoListCommand, int>
 {
     private readonly IApplicationDbContext _context;
 

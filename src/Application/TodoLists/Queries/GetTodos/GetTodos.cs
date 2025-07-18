@@ -8,7 +8,7 @@ namespace CleanArchitecture.Application.TodoLists.Queries.GetTodos;
 [Authorize]
 public record GetTodosQuery : IRequest<TodosVm>;
 
-public class GetTodosQueryHandler : IRequestHandler<GetTodosQuery, TodosVm>
+public class GetTodosQueryHandler : MitMediator.Tasks.IRequestHandler<GetTodosQuery, TodosVm>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;

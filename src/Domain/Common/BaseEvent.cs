@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using MitMediator;
 
 namespace CleanArchitecture.Domain.Common;
 

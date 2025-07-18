@@ -8,7 +8,7 @@ namespace CleanArchitecture.Application.TodoLists.Commands.PurgeTodoLists;
 [Authorize(Policy = Policies.CanPurge)]
 public record PurgeTodoListsCommand : IRequest;
 
-public class PurgeTodoListsCommandHandler : IRequestHandler<PurgeTodoListsCommand>
+public class PurgeTodoListsCommandHandler : MitMediator.Tasks.IRequestHandler<PurgeTodoListsCommand>
 {
     private readonly IApplicationDbContext _context;
 
@@ -17,10 +17,11 @@ public class PurgeTodoListsCommandHandler : IRequestHandler<PurgeTodoListsComman
         _context = context;
     }
 
-    public async Task Handle(PurgeTodoListsCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(PurgeTodoListsCommand request, CancellationToken cancellationToken)
     {
         _context.TodoLists.RemoveRange(_context.TodoLists);
 
         await _context.SaveChangesAsync(cancellationToken);
+        return Unit.Value;
     }
 }

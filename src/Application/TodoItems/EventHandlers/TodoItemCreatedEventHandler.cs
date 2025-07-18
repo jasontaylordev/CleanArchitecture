@@ -12,10 +12,10 @@ public class TodoItemCreatedEventHandler : INotificationHandler<TodoItemCreatedE
         _logger = logger;
     }
 
-    public Task Handle(TodoItemCreatedEvent notification, CancellationToken cancellationToken)
+    public ValueTask HandleAsync(TodoItemCreatedEvent notification, CancellationToken cancellationToken)
     {
         _logger.LogInformation("CleanArchitecture Domain Event: {DomainEvent}", notification.GetType().Name);
 
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 }

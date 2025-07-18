@@ -9,7 +9,7 @@ public record UpdateTodoListCommand : IRequest
     public string? Title { get; init; }
 }
 
-public class UpdateTodoListCommandHandler : IRequestHandler<UpdateTodoListCommand>
+public class UpdateTodoListCommandHandler : MitMediator.Tasks.IRequestHandler<UpdateTodoListCommand>
 {
     private readonly IApplicationDbContext _context;
 
@@ -18,7 +18,7 @@ public class UpdateTodoListCommandHandler : IRequestHandler<UpdateTodoListComman
         _context = context;
     }
 
-    public async Task Handle(UpdateTodoListCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(UpdateTodoListCommand request, CancellationToken cancellationToken)
     {
         var entity = await _context.TodoLists
             .FindAsync(new object[] { request.Id }, cancellationToken);
@@ -28,6 +28,6 @@ public class UpdateTodoListCommandHandler : IRequestHandler<UpdateTodoListComman
         entity.Title = request.Title;
 
         await _context.SaveChangesAsync(cancellationToken);
-
+        return Unit.Value;
     }
 }

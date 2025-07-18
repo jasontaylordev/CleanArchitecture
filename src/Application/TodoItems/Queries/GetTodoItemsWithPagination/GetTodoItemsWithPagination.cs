@@ -11,7 +11,7 @@ public record GetTodoItemsWithPaginationQuery : IRequest<PaginatedList<TodoItemB
     public int PageSize { get; init; } = 10;
 }
 
-public class GetTodoItemsWithPaginationQueryHandler : IRequestHandler<GetTodoItemsWithPaginationQuery, PaginatedList<TodoItemBriefDto>>
+public class GetTodoItemsWithPaginationQueryHandler : MitMediator.Tasks.IRequestHandler<GetTodoItemsWithPaginationQuery, PaginatedList<TodoItemBriefDto>>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
