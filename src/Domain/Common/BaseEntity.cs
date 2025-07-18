@@ -1,12 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CleanArchitecture.Domain.Common;
 
-public abstract class BaseEntity
+// Non-generic version defaults to int
+public abstract class BaseEntity : BaseEntity<int>
 {
-    // This can easily be modified to be BaseEntity<T> and public T Id to support different key types.
-    // Using non-generic integer types for simplicity
-    public int Id { get; set; }
+}
+
+public abstract class BaseEntity<TKey>
+{
+    [Key]
+    public TKey? Id { get; set; }
 
     private readonly List<BaseEvent> _domainEvents = new();
 
