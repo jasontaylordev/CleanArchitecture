@@ -5,17 +5,6 @@
     <AssemblyName>CleanArchitecture.Infrastructure</AssemblyName>
   </PropertyGroup>
 
-  <!--#if ('True' == 'False')-->
-  <!-- The above expression ensures this block will be excluded when the project is created using `dotnet new ca-sln` -->
-  <ItemGroup>
-    <Compile Remove="Data\PostgreSQL\**" />
-    <Compile Remove="Data\SQLite\**" />
-    <EmbeddedResource Remove="Data\PostgreSQL\**" />
-    <EmbeddedResource Remove="Data\SQLite\**" />
-    <None Remove="Data\PostgreSQL\**" />
-    <None Remove="Data\SQLite\**" />
-  </ItemGroup>
-  <!--#endif-->
   <ItemGroup>
     <!--#if (UseAspire)-->
     <!--#if (UseSqlServer)-->

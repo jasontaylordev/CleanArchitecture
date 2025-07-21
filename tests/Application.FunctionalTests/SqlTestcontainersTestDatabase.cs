@@ -44,12 +44,10 @@ public class SqlTestcontainersTestDatabase : ITestDatabase
 
         var context = new ApplicationDbContext(options);
 
-        await context.Database.MigrateAsync();
+        await context.Database.EnsureDeletedAsync();
+        await context.Database.EnsureCreatedAsync();
 
-        _respawner = await Respawner.CreateAsync(_connectionString, new RespawnerOptions
-        {
-            TablesToIgnore = ["__EFMigrationsHistory"]
-        });
+        _respawner = await Respawner.CreateAsync(_connectionString);
     }
 
     public DbConnection GetConnection()

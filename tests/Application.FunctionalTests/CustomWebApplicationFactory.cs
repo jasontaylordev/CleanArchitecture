@@ -26,9 +26,10 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-#if (UseAspire)
-        builder.UseSetting("ConnectionStrings:CleanArchitectureDb", _connectionString);
-#endif
+        builder
+            .UseEnvironment("Testing")
+            .UseSetting("ConnectionStrings:CleanArchitectureDb", _connectionString);
+
         builder.ConfigureTestServices(services =>
         {
             services
