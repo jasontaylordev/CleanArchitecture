@@ -39,15 +39,11 @@ public class PostgreSQLTestDatabase : ITestDatabase
 
         var context = new ApplicationDbContext(options);
 
-        context.Database.EnsureDeleted();
-        context.Database.Migrate();
+        await context.Database.EnsureDeletedAsync();
+        await context.Database.EnsureCreatedAsync();
 
         await _connection.OpenAsync();
-        _respawner = await Respawner.CreateAsync(_connection, new RespawnerOptions
-        {
-            DbAdapter = DbAdapter.Postgres,
-            TablesToIgnore = ["__EFMigrationsHistory"]
-        });
+        _respawner = await Respawner.CreateAsync(_connection);
         await _connection.CloseAsync();
     }
 
