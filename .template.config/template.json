@@ -142,7 +142,6 @@
         "**/*.user",
         "**/*.lock.json",
         "*.nuspec",
-        "src/Infrastructure/Data/Migrations/**",
         "src/Infrastructure/Data/SQLite/**",
         "src/Infrastructure/Data/PostgreSQL/**",
         "src/Web/appsettings.Development.json",
@@ -230,7 +229,6 @@
             "tests/Application.FunctionalTests/appsettings.PostgreSQL.json"
           ],
           "rename": {
-            "src/Infrastructure/Data/PostgreSQL/" : "src/Infrastructure/Data/Migrations/",
             "src/Web/appsettings.PostgreSQL.json": "src/Web/appsettings.Development.json",
             "tests/Application.FunctionalTests/appsettings.PostgreSQL.json": "tests/Application.FunctionalTests/appsettings.json"
           }
@@ -238,7 +236,6 @@
         {
           "condition": "(UseSqlServer)",
           "include": [
-            "src/Infrastructure/Data/Migrations/**",
             "src/Web/appsettings.Development.json",
             "tests/Application.FunctionalTests/SqlTestcontainersTestDatabase.cs",
             "tests/Application.FunctionalTests/SqlTestDatabase.cs",
@@ -256,7 +253,6 @@
             "tests/Application.FunctionalTests/appsettings.json"
           ],
           "rename": {
-            "src/Infrastructure/Data/SQLite/" : "src/Infrastructure/Data/Migrations/",
             "src/Web/appsettings.SQLite.json": "src/Web/appsettings.Development.json"
           }
         },
