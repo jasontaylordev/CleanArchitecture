@@ -69,23 +69,22 @@ dotnet new ca-usecase --help
 
 ## Database
 
-The template supports [PostgresSQL](https://www.postgresql.org), [SQLite](https://www.sqlite.org/), and [SQL Server](https://learn.microsoft.com/en-us/sql/sql-server/what-is-sql-server) (default option). Specify the database to use with the `--database` option:
+The template supports [PostgreSQL](https://www.postgresql.org), [SQLite](https://www.sqlite.org/), and [SQL Server](https://learn.microsoft.com/en-us/sql/sql-server/what-is-sql-server) (default option). Specify the database to use with the `--database` option:
 
 ```bash
 dotnet new ca-sln --database [postgresql|sqlite|sqlserver]
 ```
 
-When you run the application, the database will be automatically created (if necessary) and the latest migrations will be applied.
+On application startup, the database is automatically **deleted**, **recreated**, and **seeded** using `ApplicationDbContextInitialiser`. This is a practical strategy for early development, avoiding the overhead of maintaining migrations while keeping the schema and sample data in sync with the domain model.
 
-Running database migrations is easy. Ensure you add the following flags to your command (values assume you are executing from repository root)
+This process includes:
 
-* `--project src/Infrastructure` (optional if in this folder)
-* `--startup-project src/Web`
-* `--output-dir Data/Migrations`
+- Deleting the existing database  
+- Recreating the schema from the current model  
+- Seeding default roles, users, and data  
 
-For example, to add a new migration from the root folder:
-
- `dotnet ef migrations add "SampleMigration" --project src\Infrastructure --startup-project src\Web --output-dir Data\Migrations`
+For production environments, consider using EF Core migrations or migration bundles during deployment.  
+For more information, see [Database Initialisation Strategies for EF Core](https://jasontaylor.dev/ef-core-database-initialisation-strategies).
 
 ## Deploy
 
