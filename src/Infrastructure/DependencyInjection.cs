@@ -25,11 +25,11 @@ public static class DependencyInjection
         {
             options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
 #if (UsePostgreSQL)
-            options.UseNpgsql(connectionString).AddAsyncSeeding(sp);
+            options.UseNpgsql(connectionString);
 #elif (UseSqlite)
-            options.UseSqlite(connectionString).AddAsyncSeeding(sp);
+            options.UseSqlite(connectionString);
 #else
-            options.UseSqlServer(connectionString).AddAsyncSeeding(sp);
+            options.UseSqlServer(connectionString);
 #endif
         });
 

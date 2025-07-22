@@ -3,7 +3,6 @@ using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Infrastructure.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -11,16 +10,6 @@ namespace CleanArchitecture.Infrastructure.Data;
 
 public static class InitialiserExtensions
 {
-    public static void AddAsyncSeeding(this DbContextOptionsBuilder builder, IServiceProvider serviceProvider)
-    {
-        builder.UseAsyncSeeding(async (context, _, ct) =>
-        {
-            var initialiser = serviceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
-
-            await initialiser.SeedAsync();
-        });
-    }
-
     public static async Task InitialiseDatabaseAsync(this WebApplication app)
     {
         using var scope = app.Services.CreateScope();
@@ -28,6 +17,7 @@ public static class InitialiserExtensions
         var initialiser = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
 
         await initialiser.InitialiseAsync();
+        await initialiser.SeedAsync();
     }
 }
 
