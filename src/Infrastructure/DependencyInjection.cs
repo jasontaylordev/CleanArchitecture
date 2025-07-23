@@ -31,6 +31,7 @@ public static class DependencyInjection
 #else
             options.UseSqlServer(connectionString);
 #endif
+            options.ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
         });
 
 #if (UseAspire)
