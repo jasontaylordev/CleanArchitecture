@@ -17,6 +17,7 @@
 mono_crash.*
 
 # Build results
+tools/
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
@@ -478,3 +479,4 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+.azure

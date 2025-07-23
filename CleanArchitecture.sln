@@ -37,6 +37,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.FunctionalTests
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.IntegrationTests", "tests\Infrastructure.IntegrationTests\Infrastructure.IntegrationTests.csproj", "{01FA6786-921D-4CE8-8C50-4FDA66C9477D}"
 EndProject
+#if (UseAspire)
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppHost", "src\AppHost\AppHost.csproj", "{36483B25-E165-46F3-AA1C-ADE75A46BD8E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceDefaults", "src\ServiceDefaults\ServiceDefaults.csproj", "{15AFAC17-7E6E-4DB9-A5D9-EA96C5287CD2}"
+EndProject
+#endif
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,12 +73,12 @@ Global
 		{4E4EE20C-F06A-4A1B-851F-C5577796941C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E4EE20C-F06A-4A1B-851F-C5577796941C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E4EE20C-F06A-4A1B-851F-C5577796941C}.Release|Any CPU.Build.0 = Release|Any CPU
-		#if (!UseApiOnly)
+#if (!UseApiOnly)
 		{21334974-6B07-47BB-B664-AC62FE58C12B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{21334974-6B07-47BB-B664-AC62FE58C12B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21334974-6B07-47BB-B664-AC62FE58C12B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21334974-6B07-47BB-B664-AC62FE58C12B}.Release|Any CPU.Build.0 = Release|Any CPU
-		#endif
+#endif
 		{EA6127A5-94C9-4C31-AD11-E6811B92B520}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EA6127A5-94C9-4C31-AD11-E6811B92B520}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA6127A5-94C9-4C31-AD11-E6811B92B520}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -81,6 +87,16 @@ Global
 		{01FA6786-921D-4CE8-8C50-4FDA66C9477D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01FA6786-921D-4CE8-8C50-4FDA66C9477D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01FA6786-921D-4CE8-8C50-4FDA66C9477D}.Release|Any CPU.Build.0 = Release|Any CPU
+		#if (UseAspire)
+		{36483B25-E165-46F3-AA1C-ADE75A46BD8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36483B25-E165-46F3-AA1C-ADE75A46BD8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36483B25-E165-46F3-AA1C-ADE75A46BD8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36483B25-E165-46F3-AA1C-ADE75A46BD8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15AFAC17-7E6E-4DB9-A5D9-EA96C5287CD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15AFAC17-7E6E-4DB9-A5D9-EA96C5287CD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15AFAC17-7E6E-4DB9-A5D9-EA96C5287CD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15AFAC17-7E6E-4DB9-A5D9-EA96C5287CD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		#endif
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -97,6 +113,10 @@ Global
 		#endif
 		{EA6127A5-94C9-4C31-AD11-E6811B92B520} = {664D406C-2F83-48F0-BFC3-408D5CB53C65}
 		{01FA6786-921D-4CE8-8C50-4FDA66C9477D} = {664D406C-2F83-48F0-BFC3-408D5CB53C65}
+		#if (UseAspire)
+		{36483B25-E165-46F3-AA1C-ADE75A46BD8E} = {6ED356A7-8B47-4613-AD01-C85CF28491BD}
+		{15AFAC17-7E6E-4DB9-A5D9-EA96C5287CD2} = {6ED356A7-8B47-4613-AD01-C85CF28491BD}
+		#endif
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3CB609D9-5D54-4C11-A371-DAAC8B74E430}

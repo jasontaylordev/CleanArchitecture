@@ -4,8 +4,16 @@
       "longName": "client-framework",
       "shortName": "cf"
     },
-    "UseSQLite": {
-      "longName": "use-sqlite"
+    "PipelineProvider": {
+      "longName": "pipeline-provider",
+      "shortName": "pp"
+    },
+    "Database": {
+      "longName": "database",
+      "shortName": "db"
+    },
+    "UseAspire": {
+      "longName": "use-aspire"
     }
   }
 }

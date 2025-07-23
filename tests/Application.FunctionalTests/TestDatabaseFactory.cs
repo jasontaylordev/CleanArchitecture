@@ -4,14 +4,16 @@ public static class TestDatabaseFactory
 {
     public static async Task<ITestDatabase> CreateAsync()
     {
-#if (UseSQLite)
+#if (UsePostgreSQL)
+        // Testcontainers requires Docker. To use a local PostgreSQL database instead,
+        // switch to `PostgreSQLTestDatabase` and update appsettings.json.
+        var database = new PostgreSQLTestcontainersTestDatabase();
+#elif (UseSqlite)
         var database = new SqliteTestDatabase();
 #else
-#if DEBUG
-        var database = new SqlServerTestDatabase();
-    #else
-        var database = new TestcontainersTestDatabase();
-    #endif
+        // Testcontainers requires Docker. To use a local SQL Server database instead,
+        // switch to `SqlTestDatabase` and update appsettings.json.
+        var database = new SqlTestcontainersTestDatabase();
 #endif
 
         await database.InitialiseAsync();

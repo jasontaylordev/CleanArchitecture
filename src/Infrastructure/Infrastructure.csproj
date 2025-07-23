@@ -5,32 +5,32 @@
     <AssemblyName>CleanArchitecture.Infrastructure</AssemblyName>
   </PropertyGroup>
 
-  <!--#if ('True' == 'False')-->
-  <!-- The above expression ensures this block will be excluded when the project is created using `dotnet new ca-sln` -->
   <ItemGroup>
-    <Compile Remove="Data\SQLite\**" />
-    <EmbeddedResource Remove="Data\SQLite\**" />
-    <None Remove="Data\SQLite\**" />
-  </ItemGroup>
-  <!--#endif-->
-  <ItemGroup>
+    <!--#if (UseAspire)-->
+    <!--#if (UseSqlServer)-->
+    <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" />
+    <!--#endif-->
+    <!--#if (UsePostgreSQL)-->
+    <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" />
+    <!--#endif-->
+    <!--#endif-->
+    <PackageReference Include="Azure.Identity" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
     <!--#if (!UseApiOnly)-->
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" />
     <!--#endif-->
-    <!--#if (UseSQLite)-->
+    <!--#if (UsePostgreSQL)-->
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
+    <!--#endif-->
+    <!--#if (UseSqlite)-->
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
     <!--#endif-->
-    <!--#if (UseLocalDB)-->
+    <!--#if (UseSqlServer)-->
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
     <!--#endif-->
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
