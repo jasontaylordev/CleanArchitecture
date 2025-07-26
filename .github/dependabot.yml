@@ -1,0 +1,32 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: daily
+      time: "05:30"
+      timezone: Europe/Amsterdam
+    open-pull-requests-limit: 99
+  - package-ecosystem: "npm" # See documentation for possible values
+    directory: "/src/Web/ClientApp" # Location of package manifests
+    schedule:
+      interval: daily
+      time: "05:30"
+      timezone: Europe/Amsterdam
+    open-pull-requests-limit: 99
+  - package-ecosystem: nuget
+    directory: "/"
+    groups:
+      nunit:
+        patterns:
+          - nunit*
+    schedule:
+      interval: daily
+      time: "05:30"
+      timezone: Europe/Amsterdam
+    open-pull-requests-limit: 99
