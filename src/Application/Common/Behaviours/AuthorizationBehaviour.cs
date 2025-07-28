@@ -5,7 +5,8 @@ using CleanArchitecture.Application.Common.Security;
 
 namespace CleanArchitecture.Application.Common.Behaviours;
 
-public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
+public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> 
+    where TRequest : notnull
 {
     private readonly IUser _user;
     private readonly IIdentityService _identityService;
