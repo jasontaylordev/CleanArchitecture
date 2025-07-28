@@ -3,7 +3,7 @@
   <metadata>
 
     <id>Clean.Architecture.Solution.Template</id>
-    <version>9.0.11</version>
+    <version>9.0.12</version>
     <title>Clean Architecture Solution Template</title>
     <authors>JasonTaylorDev</authors>
     <description>Clean Architecture Solution Template for .NET 9.</description>
@@ -11,8 +11,15 @@
       A Clean Architecture Solution Template for creating apps using Angular, React, or Web API only with ASP.NET Core.
     </summary>
     <releaseNotes>
-      ✨ Removed migrations to adopt a more flexible approach for database initialization (see README for details).
-      🐛 Reverted to previous seeding approach due to issues with the new implementation.
+      🐛 Fixed bug with registration of LoggingBehaviour.
+      🐛 Fixed bug with reuse of ValidationContext in ValidationBehaviour.
+      ✨ Refactored endpoint mapping to use RouteGroupBuilder.
+      ✨ Implementation of TSX support in React template.
+      🐛 Fix KeyVault / secret name mismatch in Bicep templates.
+      📦 Replace FluentAssertions with Shouldly in tests.
+      🐛 Fix using dotnet-ef with artifacts path.
+      ✨ Improved performance of authorisation.
+      ✨ Enable simplified output paths.
     </releaseNotes>
 
     <projectUrl>https://github.com/JasonTaylorDev/CleanArchitecture</projectUrl>
