@@ -16,6 +16,7 @@
     <PackageVersion Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
     <PackageVersion Include="MediatR" Version="12.4.1" />
+    <PackageVersion Include="MediatR.Contracts" Version="2.0.1" />
     <PackageVersion Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="$(AspnetVersion)" />
     <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="$(AspnetVersion)" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="$(AspnetVersion)" />
@@ -40,25 +41,21 @@
     <PackageVersion Include="Respawn" Version="6.2.1" />
     <PackageVersion Include="Shouldly" Version="4.3.0" />
     <PackageVersion Include="System.Configuration.ConfigurationManager" Version="9.0.0" />
-
     <!--#if(!UseApiOnly)-->
     <PackageVersion Include="Microsoft.AspNetCore.SpaProxy" Version="$(AspnetVersion)" />
     <PackageVersion Include="Microsoft.Playwright" Version="1.48.0" />
     <PackageVersion Include="SpecFlow.Plus.LivingDocPlugin" Version="3.9.57" />
     <PackageVersion Include="SpecFlow.NUnit" Version="3.9.74" />
     <!--#endif-->
-    
     <!--#if (UseAspire)-->
     <!--#if (UsePostgreSQL)-->
     <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="$(AspireVersion)" />
     <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="$(AspireVersion)" />
     <!--#endif-->
-    
     <!--#if (UseSqlServer)-->
     <PackageVersion Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="$(AspireVersion)" />
     <PackageVersion Include="Aspire.Hosting.SqlServer" Version="$(AspireVersion)" />
     <!--#endif-->
-    
     <PackageVersion Include="Aspire.Hosting.AppHost" Version="$(AspireVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="9.0.0" />
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="9.0.0" />
@@ -68,16 +65,13 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.9.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.9.0" />
     <!--#endif-->
-    
     <!--#if (UsePostgreSQL)-->
     <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.1" />
     <PackageVersion Include="Testcontainers.PostgreSql" Version="4.0.0" />
     <!--#endif-->
-    
     <!--#if (UseSqlite)-->
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EfcoreVersion)" />
     <!--#endif-->
-    
     <!--#if (UseSqlServer)-->
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(EfcoreVersion)" />
     <PackageVersion Include="Testcontainers.MsSql" Version="4.0.0" />
