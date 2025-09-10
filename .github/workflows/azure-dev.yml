@@ -1,0 +1,56 @@
+name: Azure deployment
+
+on:
+  workflow_dispatch:
+  push:
+    # Run when commits are pushed to mainline branch (main or master)
+    # Set this to the mainline branch you are using
+    branches:
+      - main
+      - master
+
+# GitHub Actions workflow to deploy to Azure using azd
+# To configure required secrets for connecting to Azure, simply run `azd pipeline config`
+
+# Set up permissions for deploying with secretless Azure federated credentials
+# https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure?tabs=azure-portal%2Clinux#set-up-azure-login-with-openid-connect-authentication
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      AZURE_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+      AZURE_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+      AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      AZURE_ENV_NAME: ${{ vars.AZURE_ENV_NAME }}
+      AZURE_LOCATION: ${{ vars.AZURE_LOCATION }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install azd
+        uses: Azure/setup-azd@v2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: 'global.json'
+
+      - name: Log in with Azure (Federated Credentials)
+        run: |
+          azd auth login `
+            --client-id "$Env:AZURE_CLIENT_ID" `
+            --federated-credential-provider "github" `
+            --tenant-id "$Env:AZURE_TENANT_ID"
+        shell: pwsh
+
+      - name: Provision Infrastructure
+        run: azd provision --no-prompt
+        env:
+          AZD_INITIAL_ENVIRONMENT_CONFIG: ${{ secrets.AZD_INITIAL_ENVIRONMENT_CONFIG }}
+
+      - name: Deploy Application
+        run: azd deploy --no-prompt

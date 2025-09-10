@@ -2,5 +2,6 @@
 
 public abstract class EndpointGroupBase
 {
-    public abstract void Map(WebApplication app);
+    public virtual string? GroupName { get; }
+    public abstract void Map(RouteGroupBuilder groupBuilder);
 }

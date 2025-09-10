@@ -28,6 +28,6 @@ public class GetTodoItemsWithPaginationQueryHandler : IRequestHandler<GetTodoIte
             .Where(x => x.ListId == request.ListId)
             .OrderBy(x => x.Title)
             .ProjectTo<TodoItemBriefDto>(_mapper.ConfigurationProvider)
-            .PaginatedListAsync(request.PageNumber, request.PageSize);
+            .PaginatedListAsync(request.PageNumber, request.PageSize, cancellationToken);
     }
 }

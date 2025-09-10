@@ -5,6 +5,7 @@
         <AssemblyName>CleanArchitecture.Application.FunctionalTests</AssemblyName>
     </PropertyGroup>
 
+    <!--#if (UsePostgreSQL || UseSqlServer)-->
     <ItemGroup>
       <None Remove="appsettings.json" />
     </ItemGroup>
@@ -16,24 +17,31 @@
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       </Content>
     </ItemGroup>
-
+    <!--#endif-->
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" />
-        <PackageReference Include="nunit" />
-        <PackageReference Include="NUnit.Analyzers">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
-        <PackageReference Include="NUnit3TestAdapter" />
-        <PackageReference Include="coverlet.collector">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
-        <PackageReference Include="FluentAssertions" />
-        <PackageReference Include="Moq" />
-        <PackageReference Include="Respawn" />
-        <PackageReference Include="Testcontainers.MsSql" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
+      <PackageReference Include="Microsoft.Data.SqlClient" />
+      <PackageReference Include="Microsoft.NET.Test.Sdk" />
+      <PackageReference Include="nunit" />
+      <PackageReference Include="NUnit.Analyzers">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="NUnit3TestAdapter" />
+      <PackageReference Include="coverlet.collector">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Moq" />
+      <PackageReference Include="Respawn" />
+      <PackageReference Include="Shouldly" />
+      <PackageReference Include="System.Configuration.ConfigurationManager" />
+      <!--#if (UsePostgreSQL)-->
+      <PackageReference Include="Testcontainers.PostgreSql" />
+      <!--#endif-->
+      <!--#if (UseSqlServer)-->
+      <PackageReference Include="Testcontainers.MsSql" />
+      <!--#endif-->
     </ItemGroup>
     
     <ItemGroup>

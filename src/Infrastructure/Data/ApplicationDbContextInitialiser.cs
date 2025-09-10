@@ -1,10 +1,8 @@
-﻿using System.Runtime.InteropServices;
-using CleanArchitecture.Domain.Constants;
+﻿using CleanArchitecture.Domain.Constants;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Infrastructure.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -19,7 +17,6 @@ public static class InitialiserExtensions
         var initialiser = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
 
         await initialiser.InitialiseAsync();
-
         await initialiser.SeedAsync();
     }
 }
@@ -43,7 +40,9 @@ public class ApplicationDbContextInitialiser
     {
         try
         {
-            await _context.Database.MigrateAsync();
+            // See https://jasontaylor.dev/ef-core-database-initialisation-strategies
+            await _context.Database.EnsureDeletedAsync();
+            await _context.Database.EnsureCreatedAsync();
         }
         catch (Exception ex)
         {

@@ -5,7 +5,8 @@ using CleanArchitecture.Application.Common.Security;
 
 namespace CleanArchitecture.Application.Common.Behaviours;
 
-public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
+public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> 
+    where TRequest : notnull
 {
     private readonly IUser _user;
     private readonly IIdentityService _identityService;
@@ -41,7 +42,7 @@ public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRe
                 {
                     foreach (var role in roles)
                     {
-                        var isInRole = await _identityService.IsInRoleAsync(_user.Id, role.Trim());
+                        var isInRole = _user.Roles?.Any(x => role == x)??false;
                         if (isInRole)
                         {
                             authorized = true;

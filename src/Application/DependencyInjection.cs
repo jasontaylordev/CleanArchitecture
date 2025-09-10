@@ -1,24 +1,24 @@
 ﻿using System.Reflection;
 using CleanArchitecture.Application.Common.Behaviours;
+using Microsoft.Extensions.Hosting;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+    public static void AddApplicationServices(this IHostApplicationBuilder builder)
     {
-        services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
-        services.AddMediatR(cfg => {
+        builder.Services.AddMediatR(cfg => {
             cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
-            cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(UnhandledExceptionBehaviour<,>));
-            cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(AuthorizationBehaviour<,>));
-            cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
-            cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(PerformanceBehaviour<,>));
+            cfg.AddOpenRequestPreProcessor(typeof(LoggingBehaviour<>));
+            cfg.AddOpenBehavior(typeof(UnhandledExceptionBehaviour<,>));
+            cfg.AddOpenBehavior(typeof(AuthorizationBehaviour<,>));
+            cfg.AddOpenBehavior(typeof(ValidationBehaviour<,>));
+            cfg.AddOpenBehavior(typeof(PerformanceBehaviour<,>));
         });
-
-        return services;
     }
 }

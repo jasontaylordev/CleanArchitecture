@@ -7,59 +7,67 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
+    public static void AddInfrastructureServices(this IHostApplicationBuilder builder)
     {
-        var connectionString = configuration.GetConnectionString("DefaultConnection");
+        var connectionString = builder.Configuration.GetConnectionString("CleanArchitectureDb");
+        Guard.Against.Null(connectionString, message: "Connection string 'CleanArchitectureDb' not found.");
 
-        Guard.Against.Null(connectionString, message: "Connection string 'DefaultConnection' not found.");
+        builder.Services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
+        builder.Services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
 
-        services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
-        services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
-
-        services.AddDbContext<ApplicationDbContext>((sp, options) =>
+        builder.Services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
             options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
-
-#if (UseSQLite)
+#if (UsePostgreSQL)
+            options.UseNpgsql(connectionString);
+#elif (UseSqlite)
             options.UseSqlite(connectionString);
 #else
             options.UseSqlServer(connectionString);
 #endif
+            options.ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
         });
 
-        services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
+#if (UseAspire)
+#if (UsePostgreSQL)
+        builder.EnrichNpgsqlDbContext<ApplicationDbContext>();
+#elif (UseSqlServer)
+        builder.EnrichSqlServerDbContext<ApplicationDbContext>();
+#endif
+#endif
 
-        services.AddScoped<ApplicationDbContextInitialiser>();
+        builder.Services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
+
+        builder.Services.AddScoped<ApplicationDbContextInitialiser>();
 
 #if (UseApiOnly)
-        services.AddAuthentication()
+        builder.Services.AddAuthentication()
             .AddBearerToken(IdentityConstants.BearerScheme);
 
-        services.AddAuthorizationBuilder();
+        builder.Services.AddAuthorizationBuilder();
 
-        services
+        builder.Services
             .AddIdentityCore<ApplicationUser>()
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddApiEndpoints();
 #else
-        services
+        builder.Services
             .AddDefaultIdentity<ApplicationUser>()
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
 #endif
 
-        services.AddSingleton(TimeProvider.System);
-        services.AddTransient<IIdentityService, IdentityService>();
+        builder.Services.AddSingleton(TimeProvider.System);
+        builder.Services.AddTransient<IIdentityService, IdentityService>();
 
-        services.AddAuthorization(options =>
+        builder.Services.AddAuthorization(options =>
             options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
-
-        return services;
     }
 }

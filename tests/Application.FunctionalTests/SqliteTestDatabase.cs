@@ -32,12 +32,18 @@ public class SqliteTestDatabase : ITestDatabase
 
         var context = new ApplicationDbContext(options);
 
-        context.Database.Migrate();
+        await context.Database.EnsureDeletedAsync();
+        await context.Database.EnsureCreatedAsync();
     }
 
     public DbConnection GetConnection()
     {
         return _connection;
+    }
+
+    public string GetConnectionString()
+    {
+        return _connectionString;
     }
 
     public async Task ResetAsync()

@@ -9,7 +9,9 @@
     <PackageReference Include="Ardalis.GuardClauses" />
     <PackageReference Include="AutoMapper" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+    <PackageReference Include="MediatR" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
   </ItemGroup>
 
   <ItemGroup>

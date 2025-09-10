@@ -11,17 +11,17 @@ namespace CleanArchitecture.Application.FunctionalTests;
 [SetUpFixture]
 public partial class Testing
 {
-    private static ITestDatabase _database;
+    private static ITestDatabase _database = null!;
     private static CustomWebApplicationFactory _factory = null!;
     private static IServiceScopeFactory _scopeFactory = null!;
     private static string? _userId;
-
+    private static List<string>? _roles;
     [OneTimeSetUp]
     public async Task RunBeforeAnyTests()
     {
         _database = await TestDatabaseFactory.CreateAsync();
 
-        _factory = new CustomWebApplicationFactory(_database.GetConnection());
+        _factory = new CustomWebApplicationFactory(_database.GetConnection(), _database.GetConnectionString());
 
         _scopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
     }
@@ -47,6 +47,11 @@ public partial class Testing
     public static string? GetUserId()
     {
         return _userId;
+    }
+    
+    public static List<string>? GetRoles()
+    {
+        return _roles;
     }
 
     public static async Task<string> RunAsDefaultUserAsync()
@@ -84,7 +89,7 @@ public partial class Testing
         if (result.Succeeded)
         {
             _userId = user.Id;
-
+            _roles = roles.ToList();
             return _userId;
         }
 

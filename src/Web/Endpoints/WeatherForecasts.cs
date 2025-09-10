@@ -1,18 +1,22 @@
 ﻿using CleanArchitecture.Application.WeatherForecasts.Queries.GetWeatherForecasts;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace CleanArchitecture.Web.Endpoints;
 
 public class WeatherForecasts : EndpointGroupBase
 {
-    public override void Map(WebApplication app)
+    public override void Map(RouteGroupBuilder groupBuilder)
     {
-        app.MapGroup(this)
-            .RequireAuthorization()
-            .MapGet(GetWeatherForecasts);
+        groupBuilder.RequireAuthorization();
+
+        groupBuilder.MapGet(GetWeatherForecasts);
     }
 
-    public async Task<IEnumerable<WeatherForecast>> GetWeatherForecasts(ISender sender)
+    public async Task<Ok<IEnumerable<WeatherForecast>>> GetWeatherForecasts(ISender sender)
     {
-        return await sender.Send(new GetWeatherForecastsQuery());
+        var forecasts = await sender.Send(new GetWeatherForecastsQuery());
+
+        return TypedResults.Ok(forecasts);
     }
+
 }
