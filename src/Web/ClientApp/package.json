@@ -21,7 +21,7 @@
     "@angular/forms": "^18.2.13",
     "@angular/platform-browser": "^18.2.13",
     "@angular/platform-browser-dynamic": "^18.2.13",
-    "@angular/platform-server": "^18.2.13",
+    "@angular/platform-server": "^18.2.14",
     "@angular/router": "^18.2.13",
     "bootstrap": "^5.3.0",
     "bootstrap-icons": "^1.10.5",
