@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
+
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -25,11 +27,8 @@ public static class DependencyInjection
         {
             options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
 
-#if (UseSQLite)
-            options.UseSqlite(connectionString);
-#else
-            options.UseSqlServer(connectionString);
-#endif
+            options.UseNpgsql(connectionString);
+
         });
 
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());

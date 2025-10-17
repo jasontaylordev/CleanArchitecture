@@ -51,9 +51,12 @@ public class ApplicationDbContextInitialiser
             throw;
         }
     }
-
     public async Task SeedAsync()
     {
+        
+
+        //Original logic (disabled for now)
+        
         try
         {
             await TrySeedAsync();
@@ -63,7 +66,10 @@ public class ApplicationDbContextInitialiser
             _logger.LogError(ex, "An error occurred while seeding the database.");
             throw;
         }
+        
     }
+
+
 
     public async Task TrySeedAsync()
     {
