@@ -1,4 +1,5 @@
-using CleanArchitecture.Infrastructure.Data;
+/*using CleanArchitecture.Infrastructure.Data;
+using CleanArchitecture.Web.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +26,13 @@ else
 app.UseHealthChecks("/health");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.MapEndpoints();
 
+app.UseSwaggerUi(settings =>
+{
+    settings.Path = "/api";
+    settings.DocumentPath = "/api/specification.json";
+});
 app.UseSwaggerUi(settings =>
 {
     settings.Path = "/api";
@@ -46,7 +53,63 @@ app.UseExceptionHandler(options => { });
 app.Map("/", () => Results.Redirect("/api"));
 #endif
 
+
+
+app.Run();
+
+public partial class Program { }*/
+using CleanArchitecture.Infrastructure.Data;
+using CleanArchitecture.Web.Endpoints;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddKeyVaultIfConfigured(builder.Configuration);
+
+builder.Services.AddApplicationServices();
+builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddWebServices(); // This already adds OpenAPI document
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    await app.InitialiseDatabaseAsync();
+}
+else
+{
+    app.UseHsts();
+}
+
+app.UseHealthChecks("/health");
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
 app.MapEndpoints();
+
+// Use OpenAPI middleware (only once)
+app.UseOpenApi();
+app.UseSwaggerUi(settings =>
+{
+    settings.Path = "/api";
+    settings.DocumentPath = "/api/specification.json";
+});
+
+// MVC & Razor Pages
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller}/{action=Index}/{id?}");
+
+app.MapRazorPages();
+
+app.MapFallbackToFile("index.html");
+
+app.UseExceptionHandler(options => { });
+
+#if (UseApiOnly)
+app.Map("/", () => Results.Redirect("/api"));
+#endif
 
 app.Run();
 

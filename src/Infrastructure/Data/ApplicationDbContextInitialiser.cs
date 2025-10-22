@@ -53,20 +53,24 @@ public class ApplicationDbContextInitialiser
     }
     public async Task SeedAsync()
     {
-        
+
+        await _context.Database.EnsureCreatedAsync();
+
+
+
 
         //Original logic (disabled for now)
-        
-        try
-        {
-            await TrySeedAsync();
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "An error occurred while seeding the database.");
-            throw;
-        }
-        
+
+        //  try
+        // {
+        //    await TrySeedAsync();
+        //   }
+        //   catch (Exception ex)
+        //   {
+        //      _logger.LogError(ex, "An error occurred while seeding the database.");
+        //      throw;
+        // }
+
     }
 
 
