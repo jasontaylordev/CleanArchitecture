@@ -1,20 +1,9 @@
 ﻿namespace CleanArchitecture.Domain.Entities;
-public class Product : BaseAuditableEntity
+public class Product
 {
-    public string Name { get; private set; }
-    public string Description { get; private set; }
-    public decimal Price { get; private set; }
-
-
-    // constructor
-    public Product(string name, string description, decimal price)
-    {
-        Name = name;
-        Description = description;
-        Price = price;
-
-    }
-
-    // (optional) methods, validations, etc.
+    public int Id { get; set; } 
+    public string Name { get; set; } = default!;
+    public string Description { get; set; } = default!;
+    public decimal Price { get; set; }
+    public string? ImageUrl { get; set; }
 }
-
