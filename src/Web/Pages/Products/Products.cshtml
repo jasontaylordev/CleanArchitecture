@@ -2,16 +2,111 @@
 
 @model CleanArchitecture.Web.Pages.Products.ProductsModel
 
+<style>
+	body {
+		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		background-color: #ffffff; /* white background */
+		color: #003366; /* dark blue text */
+		margin: 2rem;
+	}
+
+	h1 {
+		color: #006633; /* green */
+		text-align: center;
+		margin-bottom: 1.5rem;
+	}
+
+	form {
+		background-color: #e6f2ff; /* very light blue */
+		border: 2px solid #006633; /* green border */
+		padding: 1rem 1.5rem;
+		border-radius: 8px;
+		max-width: 400px;
+		margin: 0 auto 2rem auto;
+		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	}
+
+	input[type="text"],
+	input[type="number"],
+	textarea {
+		width: 100%;
+		padding: 0.5rem;
+		margin-bottom: 1rem;
+		border: 1px solid #006633;
+		border-radius: 4px;
+		font-size: 1rem;
+		box-sizing: border-box;
+		transition: border-color 0.3s ease;
+	}
+
+	input[type="text"]:focus,
+	input[type="number"]:focus,
+	textarea:focus {
+		border-color: #004d26; /* darker green on focus */
+		outline: none;
+		background-color: #f0fff0; /* very light green background */
+	}
+
+	button {
+		background-color: #006633; /* green */
+		color: white;
+		border: none;
+		padding: 0.6rem 1.2rem;
+		font-size: 1rem;
+		border-radius: 4px;
+		cursor: pointer;
+		transition: background-color 0.3s ease;
+		display: block;
+		margin: 0 auto;
+	}
+
+	button:hover {
+		background-color: #004d26; /* darker green */
+	}
+
+	hr {
+		border: none;
+		border-top: 2px solid #006633;
+		margin: 2rem 0;
+	}
+
+	ul {
+		list-style: none;
+		max-width: 600px;
+		margin: 0 auto;
+		padding: 0;
+	}
+
+	li {
+		border: 1px solid #006633;
+		padding: 1rem;
+		margin-bottom: 1rem;
+		border-radius: 8px;
+		background-color: #f0fff0; /* very light green background */
+		box-shadow: 0 1px 3px rgba(0, 102, 51, 0.1);
+	}
+
+	li strong {
+		color: #004d26; /* dark green */
+		font-size: 1.2rem;
+	}
+
+	img {
+		margin-top: 0.5rem;
+		border-radius: 4px;
+		box-shadow: 0 0 5px rgba(0, 102, 51, 0.3);
+		width: 100px;
+		height: auto;
+	}
+</style>
+
 <h1>Products</h1>
 
 <form method="post" asp-page-handler="Create">
 	<input type="text" asp-for="NewProduct.Name" placeholder="Name" required />
 	<input type="number" asp-for="NewProduct.Price" step="0.01" placeholder="Price" required />
-
 	<textarea asp-for="NewProduct.Description" placeholder="Description" required></textarea>
-
 	<input type="text" asp-for="NewProduct.ImageUrl" placeholder="Image URL" required />
-
 	<button type="submit">Add Product</button>
 </form>
 
@@ -23,7 +118,7 @@
 		<li>
 			<strong>@product.Name</strong> - @product.Price.ToString("C")<br />
 			@product.Description <br />
-			<img src="@product.ImageUrl" alt="@product.Name" width="100" />
+			<img src="@product.ImageUrl" alt="@product.Name" />
 		</li>
 	}
 </ul>
