@@ -110,7 +110,5 @@ app.UseExceptionHandler(options => { });
 #if (UseApiOnly)
 app.Map("/", () => Results.Redirect("/api"));
 #endif
-
 app.Run();
 
-public partial class Program { }

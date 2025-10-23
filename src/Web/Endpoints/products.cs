@@ -13,7 +13,6 @@ namespace CleanArchitecture.Web.Endpoints
         {
             Console.WriteLine(">>> Mapping ProductsEndpoints...");
             app.MapGroup(this)
-                .WithTags("Products")
                .MapGet(GetProducts)
                .MapPost(CreateProduct);
         }
