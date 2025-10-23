@@ -1,24 +1,23 @@
 ﻿@page "/products"
-
 @model CleanArchitecture.Web.Pages.Products.ProductsModel
 
 <style>
 	body {
 		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-		background-color: #ffffff; /* white background */
-		color: #003366; /* dark blue text */
+		background-color: #ffffff;
+		color: #003366;
 		margin: 2rem;
 	}
 
-	h1 {
-		color: #006633; /* green */
+	h1, h2 {
+		color: #006633;
 		text-align: center;
 		margin-bottom: 1.5rem;
 	}
 
 	form {
-		background-color: #e6f2ff; /* very light blue */
-		border: 2px solid #006633; /* green border */
+		background-color: #e6f2ff;
+		border: 2px solid #006633;
 		padding: 1rem 1.5rem;
 		border-radius: 8px;
 		max-width: 400px;
@@ -39,16 +38,16 @@
 		transition: border-color 0.3s ease;
 	}
 
-	input[type="text"]:focus,
-	input[type="number"]:focus,
-	textarea:focus {
-		border-color: #004d26; /* darker green on focus */
-		outline: none;
-		background-color: #f0fff0; /* very light green background */
-	}
+		input[type="text"]:focus,
+		input[type="number"]:focus,
+		textarea:focus {
+			border-color: #004d26;
+			outline: none;
+			background-color: #f0fff0;
+		}
 
 	button {
-		background-color: #006633; /* green */
+		background-color: #006633;
 		color: white;
 		border: none;
 		padding: 0.6rem 1.2rem;
@@ -60,9 +59,17 @@
 		margin: 0 auto;
 	}
 
-	button:hover {
-		background-color: #004d26; /* darker green */
+		button:hover {
+			background-color: #004d26;
+		}
+
+	.delete-btn {
+		background-color: #cc0000;
 	}
+
+		.delete-btn:hover {
+			background-color: #990000;
+		}
 
 	hr {
 		border: none;
@@ -82,14 +89,14 @@
 		padding: 1rem;
 		margin-bottom: 1rem;
 		border-radius: 8px;
-		background-color: #f0fff0; /* very light green background */
+		background-color: #f0fff0;
 		box-shadow: 0 1px 3px rgba(0, 102, 51, 0.1);
 	}
 
-	li strong {
-		color: #004d26; /* dark green */
-		font-size: 1.2rem;
-	}
+		li strong {
+			color: #004d26;
+			font-size: 1.2rem;
+		}
 
 	img {
 		margin-top: 0.5rem;
@@ -102,16 +109,40 @@
 
 <h1>Products</h1>
 
+<!-- CREATE PRODUCT -->
 <form method="post" asp-page-handler="Create">
-	<input type="text" asp-for="NewProduct.Name" placeholder="Name" required />
-	<input type="number" asp-for="NewProduct.Price" step="0.01" placeholder="Price" required />
-	<textarea asp-for="NewProduct.Description" placeholder="Description" required></textarea>
-	<input type="text" asp-for="NewProduct.ImageUrl" placeholder="Image URL" required />
+	<h2>Add Product</h2>
+	<input type="text" asp-for="NewProduct.Name" placeholder="Name" />
+	<input type="number" asp-for="NewProduct.Price" step="0.01" placeholder="Price" />
+	<textarea asp-for="NewProduct.Description" placeholder="Description"></textarea>
+	<input type="text" asp-for="NewProduct.ImageUrl" placeholder="Image URL" />
 	<button type="submit">Add Product</button>
 </form>
 
 <hr />
 
+<!-- UPDATE PRODUCT -->
+<form method="post" asp-page-handler="Update">
+	<h2>Update Product</h2>
+	<input type="text" asp-for="UpdateProduct.Name" placeholder="Existing Product Name" />
+	<input type="number" asp-for="UpdateProduct.Price" step="0.01" placeholder="New Price" />
+	<textarea asp-for="UpdateProduct.Description" placeholder="New Description"></textarea>
+	<input type="text" asp-for="UpdateProduct.ImageUrl" placeholder="New Image URL" />
+	<button type="submit">Update Product</button>
+</form>
+
+<hr />
+
+<!-- DELETE PRODUCT -->
+<form method="post" asp-page-handler="Delete">
+	<h2>Delete Product</h2>
+	<input type="text" asp-for="DeleteName" placeholder="Enter Product Name to Delete" />
+	<button type="submit" class="delete-btn">Delete Product</button>
+</form>
+
+<hr />
+
+<!-- PRODUCT LIST -->
 <ul>
 	@foreach (var product in Model.Products)
 	{

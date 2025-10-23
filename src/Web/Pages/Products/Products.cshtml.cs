@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CleanArchitecture.Application.Products.Commands;
@@ -22,31 +21,57 @@ namespace CleanArchitecture.Web.Pages.Products
         // List of products to display
         public List<ProductDto> Products { get; set; } = new();
 
-        // Bind form data to this command object
+        // Commands for create and update (nullable to avoid validation issues)
         [BindProperty]
-        public CreateProductCommand NewProduct { get; set; } = new();
+        public CreateProductCommand? NewProduct { get; set; }
 
-        // Runs when the page loads
+        [BindProperty]
+        public UpdateProductCommand? UpdateProduct { get; set; }
+
+        // For delete by name
+        [BindProperty]
+        public string? DeleteName { get; set; }
+
         public async Task OnGet()
         {
             Products = await _mediator.Send(new GetProductsQuery());
         }
 
-        // Runs when the form is submitted
         public async Task<IActionResult> OnPostCreate()
         {
-            if (!ModelState.IsValid)
+            if (NewProduct == null || string.IsNullOrWhiteSpace(NewProduct.Name) || string.IsNullOrWhiteSpace(NewProduct.Description))
             {
-                // Reload product list if form validation fails
+                // You can add ModelState.AddModelError here if you want to show errors
                 await OnGet();
                 return Page();
             }
 
             await _mediator.Send(NewProduct);
+            return RedirectToPage();
+        }
 
-            // Redirect to GET to avoid resubmitting the form if the user refreshes
+        public async Task<IActionResult> OnPostUpdate()
+        {
+            if (UpdateProduct == null || string.IsNullOrWhiteSpace(UpdateProduct.Name) || string.IsNullOrWhiteSpace(UpdateProduct.Description))
+            {
+                await OnGet();
+                return Page();
+            }
+
+            await _mediator.Send(UpdateProduct);
+            return RedirectToPage();
+        }
+
+        public async Task<IActionResult> OnPostDelete()
+        {
+            if (string.IsNullOrWhiteSpace(DeleteName))
+            {
+                await OnGet();
+                return Page();
+            }
+
+            await _mediator.Send(new DeleteProductCommand { Name = DeleteName });
             return RedirectToPage();
         }
     }
 }
-
