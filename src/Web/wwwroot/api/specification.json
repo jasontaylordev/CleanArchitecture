@@ -9,8 +9,7 @@
     "/api/ProductsEndpoints": {
       "get": {
         "tags": [
-          "ProductsEndpoints",
-          "Products"
+          "ProductsEndpoints"
         ],
         "operationId": "GetProducts",
         "responses": {
@@ -21,8 +20,7 @@
       },
       "post": {
         "tags": [
-          "ProductsEndpoints",
-          "Products"
+          "ProductsEndpoints"
         ],
         "operationId": "CreateProduct",
         "requestBody": {

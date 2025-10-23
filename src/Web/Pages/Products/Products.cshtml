@@ -1,0 +1,29 @@
+﻿@page "/products"
+
+@model CleanArchitecture.Web.Pages.Products.ProductsModel
+
+<h1>Products</h1>
+
+<form method="post" asp-page-handler="Create">
+	<input type="text" asp-for="NewProduct.Name" placeholder="Name" required />
+	<input type="number" asp-for="NewProduct.Price" step="0.01" placeholder="Price" required />
+
+	<textarea asp-for="NewProduct.Description" placeholder="Description" required></textarea>
+
+	<input type="text" asp-for="NewProduct.ImageUrl" placeholder="Image URL" required />
+
+	<button type="submit">Add Product</button>
+</form>
+
+<hr />
+
+<ul>
+	@foreach (var product in Model.Products)
+	{
+		<li>
+			<strong>@product.Name</strong> - @product.Price.ToString("C")<br />
+			@product.Description <br />
+			<img src="@product.ImageUrl" alt="@product.Name" width="100" />
+		</li>
+	}
+</ul>
