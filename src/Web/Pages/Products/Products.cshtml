@@ -109,7 +109,6 @@
 
 <h1>Products</h1>
 
-<!-- CREATE PRODUCT -->
 <form method="post" asp-page-handler="Create">
 	<h2>Add Product</h2>
 	<input type="text" asp-for="NewProduct.Name" placeholder="Name" />
@@ -121,7 +120,6 @@
 
 <hr />
 
-<!-- UPDATE PRODUCT -->
 <form method="post" asp-page-handler="Update">
 	<h2>Update Product</h2>
 	<input type="text" asp-for="UpdateProduct.Name" placeholder="Existing Product Name" />
@@ -133,7 +131,6 @@
 
 <hr />
 
-<!-- DELETE PRODUCT -->
 <form method="post" asp-page-handler="Delete">
 	<h2>Delete Product</h2>
 	<input type="text" asp-for="DeleteName" placeholder="Enter Product Name to Delete" />
@@ -142,7 +139,6 @@
 
 <hr />
 
-<!-- PRODUCT LIST -->
 <ul>
 	@foreach (var product in Model.Products)
 	{

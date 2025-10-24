@@ -18,17 +18,14 @@ namespace CleanArchitecture.Web.Pages.Products
             _mediator = mediator;
         }
 
-        // List of products to display
         public List<ProductDto> Products { get; set; } = new();
 
-        // Commands for create and update (nullable to avoid validation issues)
         [BindProperty]
         public CreateProductCommand? NewProduct { get; set; }
 
         [BindProperty]
         public UpdateProductCommand? UpdateProduct { get; set; }
 
-        // For delete by name
         [BindProperty]
         public string? DeleteName { get; set; }
 
@@ -41,7 +38,6 @@ namespace CleanArchitecture.Web.Pages.Products
         {
             if (NewProduct == null || string.IsNullOrWhiteSpace(NewProduct.Name) || string.IsNullOrWhiteSpace(NewProduct.Description))
             {
-                // You can add ModelState.AddModelError here if you want to show errors
                 await OnGet();
                 return Page();
             }
