@@ -14,7 +14,7 @@ If you find this project useful, please give it a star. Thanks! ⭐
 
 The following prerequisites are required to build and run the solution:
 
-- [.NET 9.0 SDK](https://dotnet.microsoft.com/download/dotnet/9.0) (latest version)
+- [.NET 10.0 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) (latest version)
 - [Node.js](https://nodejs.org/) (latest LTS, only required if you are using Angular or React)
 
 The easiest way to get started is to install the [.NET template](https://www.nuget.org/packages/Clean.Architecture.Solution.Template):
@@ -109,8 +109,9 @@ azd up
 * [NUnit](https://nunit.org/), [Shoudly](https://docs.shouldly.org/), [Moq](https://github.com/devlooped/moq) & [Respawn](https://github.com/jbogard/Respawn)
 
 ## Versions
-The main branch is now on .NET 9.0. The following previous versions are available:
+The main branch is now on .NET 10.0. The following previous versions are available:
 
+* [9.0](https://github.com/jasontaylordev/CleanArchitecture/tree/net8.0)
 * [8.0](https://github.com/jasontaylordev/CleanArchitecture/tree/net8.0)
 * [7.0](https://github.com/jasontaylordev/CleanArchitecture/tree/net7.0)
 * [6.0](https://github.com/jasontaylordev/CleanArchitecture/tree/net6.0)

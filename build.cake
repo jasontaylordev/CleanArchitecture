@@ -16,7 +16,7 @@ IProcess webProcess = null;
 Task("Build")
     .Does(() => {
         Information("Building project...");
-        DotNetBuild("./CleanArchitecture.sln", new DotNetBuildSettings {
+        DotNetBuild("./CleanArchitecture.slnx", new DotNetBuildSettings {
             Configuration = configuration
         });
 // #if (!UseApiOnly)
@@ -85,7 +85,7 @@ Task("Test")
         }
 // #endif
 
-        DotNetTest("./CleanArchitecture.sln", testSettings);
+        DotNetTest("./CleanArchitecture.slnx", testSettings);
     });
 
 Teardown(context =>

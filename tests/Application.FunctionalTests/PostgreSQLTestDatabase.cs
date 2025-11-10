@@ -43,7 +43,8 @@ public class PostgreSQLTestDatabase : ITestDatabase
         await context.Database.EnsureCreatedAsync();
 
         await _connection.OpenAsync();
-        _respawner = await Respawner.CreateAsync(_connection);
+        _respawner = await Respawner.CreateAsync(_connection,
+            new RespawnerOptions { DbAdapter = DbAdapter.Postgres });
         await _connection.CloseAsync();
     }
 

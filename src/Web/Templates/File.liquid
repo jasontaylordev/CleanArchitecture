@@ -43,12 +43,8 @@ import { HttpClient, RequestInit } from 'aurelia-fetch-client';
 import * as ng from 'angular';
 {%-        endif -%}
 {%-        if Framework.IsAxios -%}
-{%-         if SupportsTypeOnlyImports -%}
 import axios, { AxiosError } from 'axios';
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, CancelToken } from 'axios';
-{%-         else -%}
-import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, CancelToken } from 'axios';
-{%-         endif -%}
 {%-        endif -%}
 {%-        if Framework.IsKnockout -%}
 
@@ -61,14 +57,14 @@ import * as jQuery from 'jquery';
 {%-    endif -%}
 {%-    if Framework.UseMomentJS -%}
 
-import * as moment from 'moment';
+import moment from 'moment';
 {%-        if RequiresMomentJSDuration -%}
 import 'moment-duration-format';
 {%-        endif -%}
 {%-    endif -%}
 {%-    if Framework.UseDayJS -%}
 
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 {%-    endif -%}
 {%-    if Framework.UseLuxon -%}
 
@@ -127,7 +123,7 @@ namespace {{ Namespace }} {
 {%- endif -%}
 {% if RequiresExceptionClass -%}
 {% if ExportTypes %}export {% endif %}class {{ ExceptionClassName }} extends Error {
-    {% if SupportsOverrideKeyword %}override {% endif %}message: string;
+    override message: string;
     status: number;
     response: string;
     headers: { [key: string]: any; };
