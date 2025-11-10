@@ -1,24 +1,30 @@
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using AutoMapper;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Application.TodoItems.Queries.GetTodoItemsWithPagination;
 using CleanArchitecture.Application.TodoLists.Queries.GetTodos;
 using CleanArchitecture.Domain.Entities;
+using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 
 namespace CleanArchitecture.Application.UnitTests.Common.Mappings;
 
 public class MappingTests
 {
-    private readonly IConfigurationProvider _configuration;
-    private readonly IMapper _mapper;
+    private ILoggerFactory? _loggerFactory;
+    private MapperConfiguration? _configuration;
+    private IMapper? _mapper;
 
-    public MappingTests()
+    [OneTimeSetUp]
+    public void OneTimeSetUp()
     {
-        _configuration = new MapperConfiguration(config => 
-            config.AddMaps(Assembly.GetAssembly(typeof(IApplicationDbContext))));
+        // Minimal logger factory for tests
+        _loggerFactory = LoggerFactory.Create(b => b.AddDebug().SetMinimumLevel(LogLevel.Debug));
+
+        _configuration = new MapperConfiguration(cfg =>
+            cfg.AddMaps(typeof(IApplicationDbContext).Assembly),
+            loggerFactory: _loggerFactory);
 
         _mapper = _configuration.CreateMapper();
     }
@@ -26,7 +32,7 @@ public class MappingTests
     [Test]
     public void ShouldHaveValidConfiguration()
     {
-        _configuration.AssertConfigurationIsValid();
+        _configuration!.AssertConfigurationIsValid();
     }
 
     [Test]
@@ -39,15 +45,22 @@ public class MappingTests
     {
         var instance = GetInstanceOf(source);
 
-        _mapper.Map(instance, source, destination);
+        _mapper!.Map(instance, source, destination);
     }
 
-    private object GetInstanceOf(Type type)
+    private static object GetInstanceOf(Type type)
     {
         if (type.GetConstructor(Type.EmptyTypes) != null)
             return Activator.CreateInstance(type)!;
 
         // Type without parameterless constructor
         return RuntimeHelpers.GetUninitializedObject(type);
+    }
+
+
+    [OneTimeTearDown]
+    public void OneTimeTearDown()
+    {
+        _loggerFactory?.Dispose();
     }
 }

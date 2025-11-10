@@ -19,8 +19,8 @@
     </ItemGroup>
     <!--#endif-->
     <ItemGroup>
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
       <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
-      <PackageReference Include="Microsoft.Data.SqlClient" />
       <PackageReference Include="Microsoft.NET.Test.Sdk" />
       <PackageReference Include="nunit" />
       <PackageReference Include="NUnit.Analyzers">
@@ -35,7 +35,6 @@
       <PackageReference Include="Moq" />
       <PackageReference Include="Respawn" />
       <PackageReference Include="Shouldly" />
-      <PackageReference Include="System.Configuration.ConfigurationManager" />
       <!--#if (UsePostgreSQL)-->
       <PackageReference Include="Testcontainers.PostgreSql" />
       <!--#endif-->

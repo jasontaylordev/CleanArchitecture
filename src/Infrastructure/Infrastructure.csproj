@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
     <!--#if (UseAspire)-->
     <!--#if (UseSqlServer)-->
     <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" />
@@ -14,7 +15,6 @@
     <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" />
     <!--#endif-->
     <!--#endif-->
-    <PackageReference Include="Azure.Identity" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
     <!--#if (!UseApiOnly)-->
@@ -29,11 +29,6 @@
     <!--#if (UseSqlServer)-->
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
     <!--#endif-->
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>

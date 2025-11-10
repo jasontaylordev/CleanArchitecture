@@ -24,7 +24,7 @@
       "generator": "constant",
       "replaces": "caPackageVersion",
       "parameters": {
-        "value": "9.0.12"
+        "value": "10.0.0-preview"
       }
     },
     "caRepositoryUrl": {
@@ -142,8 +142,6 @@
         "**/*.user",
         "**/*.lock.json",
         "*.nuspec",
-        "src/Infrastructure/Data/SQLite/**",
-        "src/Infrastructure/Data/PostgreSQL/**",
         "src/Web/appsettings.Development.json",
         "src/Web/appsettings.PostgreSQL.json",
         "src/Web/appsettings.SQLite.json",
@@ -222,7 +220,6 @@
         {
           "condition": "(UsePostgreSQL)",
           "include": [
-            "src/Infrastructure/Data/PostgreSQL/**",
             "src/Web/appsettings.PostgreSQL.json",
             "tests/Application.FunctionalTests/PostgreSQLTestcontainersTestDatabase.cs",
             "tests/Application.FunctionalTests/PostgreSQLTestDatabase.cs",
@@ -245,7 +242,6 @@
         {
           "condition": "(UseSqlite)",
           "include": [
-            "src/Infrastructure/Data/SQLite/**",
             "src/Web/appsettings.SQLite.json",
             "tests/Application.FunctionalTests/SqliteTestDatabase.cs"
           ],
