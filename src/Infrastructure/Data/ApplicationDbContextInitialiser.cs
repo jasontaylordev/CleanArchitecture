@@ -3,6 +3,7 @@ using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Infrastructure.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -40,9 +41,14 @@ public class ApplicationDbContextInitialiser
     {
         try
         {
-            // See https://jasontaylor.dev/ef-core-database-initialisation-strategies
-            await _context.Database.EnsureDeletedAsync();
-            await _context.Database.EnsureCreatedAsync();
+            var hasPendingChanges = _context.Database.HasPendingModelChanges(); // First generate migration for new changes before migrating
+            var hasPendingMigrations = (await _context.Database.GetPendingMigrationsAsync()).Any(); // If there are pending migrations, run them (update-database)
+
+            if (hasPendingChanges || !hasPendingMigrations)
+            {
+                return;
+            }
+            await _context.Database.MigrateAsync();
         }
         catch (Exception ex)
         {
@@ -82,7 +88,7 @@ public class ApplicationDbContextInitialiser
             await _userManager.CreateAsync(administrator, "Administrator1!");
             if (!string.IsNullOrWhiteSpace(administratorRole.Name))
             {
-                await _userManager.AddToRolesAsync(administrator, new [] { administratorRole.Name });
+                await _userManager.AddToRolesAsync(administrator, new[] { administratorRole.Name });
             }
         }
 
