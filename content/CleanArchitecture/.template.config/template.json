@@ -1,0 +1,44 @@
+{
+    "author": "ACP Cubido",
+    "name": "ACP Cubido Clean Code Template",
+    "shortName": "cubido-template",
+    "tags": {
+        "type": "solution",
+        "language": "C#",
+        "editorTreatAs": "solution"
+    },
+    "identity": "Cubido.CleanArchitecture.Template",
+    "sourceName": "Cubido.Template",
+    "primaryOutputs": [
+        {
+            "path": "Cubido.Template.slnx"
+        }
+    ],
+    "symbols": {
+        "IncludeFrontend": {
+            "type": "parameter",
+            "datatype": "bool",
+            "defaultValue": "true",
+            "displayName": "Include Angluar Project",
+            "description": "Include the Angular frontend project in the solution"
+        },
+        "FriendlyName": {
+            "type": "parameter",
+            "datatype": "string",
+            "displayName": "Azure friendly name",
+            "description": "An azure friendly name for the projects (all lowercase, no numbers, no spaces)",
+            "replaces": "cubido-template"
+        }
+    },
+    "sources": [
+        {
+            "source": "./",
+            "modifiers": [
+                {
+                    "condition": "(!IncludeFrontend)",
+                    "exclude": [ "src/Frontend/**/*" ]
+                }
+            ]
+        }
+    ]
+}

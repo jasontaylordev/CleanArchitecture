@@ -1,0 +1,895 @@
+{
+    "openapi": "3.1.1",
+    "info": {
+        "title": "Cubido.Template.Web | v1",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/TodoItems": {
+            "get": {
+                "tags": ["TodoItems"],
+                "operationId": "GetTodoItemsWithPagination",
+                "parameters": [
+                    {
+                        "name": "ListId",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "pattern": "^-?(?:0|[1-9]\\d*)$",
+                            "type": ["integer", "string"],
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "PageNumber",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "pattern": "^-?(?:0|[1-9]\\d*)$",
+                            "type": ["integer", "string"],
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "PageSize",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "pattern": "^-?(?:0|[1-9]\\d*)$",
+                            "type": ["integer", "string"],
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaginatedListOfTodoItemBriefDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Identity.Bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": ["TodoItems"],
+                "operationId": "CreateTodoItem",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateTodoItemCommand"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "pattern": "^-?(?:0|[1-9]\\d*)$",
+                                    "type": ["integer", "string"],
+                                    "format": "int32"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Identity.Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/TodoItems/{id}": {
+            "put": {
+                "tags": ["TodoItems"],
+                "operationId": "UpdateTodoItem",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateTodoItemCommand"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "security": [
+                    {
+                        "Identity.Bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": ["TodoItems"],
+                "operationId": "DeleteTodoItem",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                },
+                "security": [
+                    {
+                        "Identity.Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/TodoItems/UpdateDetail/{id}": {
+            "put": {
+                "tags": ["TodoItems"],
+                "operationId": "UpdateTodoItemDetail",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateTodoItemDetailCommand"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "security": [
+                    {
+                        "Identity.Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/Users/register": {
+            "post": {
+                "tags": ["Users"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/problem+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Identity.Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/Users/login": {
+            "post": {
+                "tags": ["Users"],
+                "parameters": [
+                    {
+                        "name": "useCookies",
+                        "in": "query",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "useSessionCookies",
+                        "in": "query",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AccessTokenResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Identity.Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/Users/refresh": {
+            "post": {
+                "tags": ["Users"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RefreshRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AccessTokenResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Identity.Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/Users/confirmEmail": {
+            "get": {
+                "tags": ["Users"],
+                "operationId": "MapIdentityApi-/api/Users/confirmEmail",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "code",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "changedEmail",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                },
+                "security": [
+                    {
+                        "Identity.Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/Users/resendConfirmationEmail": {
+            "post": {
+                "tags": ["Users"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ResendConfirmationEmailRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                },
+                "security": [
+                    {
+                        "Identity.Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/Users/forgotPassword": {
+            "post": {
+                "tags": ["Users"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ForgotPasswordRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/problem+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Identity.Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/Users/resetPassword": {
+            "post": {
+                "tags": ["Users"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ResetPasswordRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/problem+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Identity.Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/Users/manage/2fa": {
+            "post": {
+                "tags": ["Users"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TwoFactorRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TwoFactorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/problem+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "Identity.Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/Users/manage/info": {
+            "get": {
+                "tags": ["Users"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InfoResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/problem+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "Identity.Bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": ["Users"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/InfoRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InfoResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/problem+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "Identity.Bearer": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "AccessTokenResponse": {
+                "required": ["accessToken", "expiresIn", "refreshToken"],
+                "type": "object",
+                "properties": {
+                    "tokenType": {
+                        "type": ["null", "string"]
+                    },
+                    "accessToken": {
+                        "type": "string"
+                    },
+                    "expiresIn": {
+                        "pattern": "^-?(?:0|[1-9]\\d*)$",
+                        "type": ["integer", "string"],
+                        "format": "int64"
+                    },
+                    "refreshToken": {
+                        "type": "string"
+                    }
+                }
+            },
+            "CreateTodoItemCommand": {
+                "type": "object",
+                "properties": {
+                    "listId": {
+                        "pattern": "^-?(?:0|[1-9]\\d*)$",
+                        "type": ["integer", "string"],
+                        "format": "int32"
+                    },
+                    "title": {
+                        "type": ["null", "string"]
+                    }
+                }
+            },
+            "ForgotPasswordRequest": {
+                "required": ["email"],
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    }
+                }
+            },
+            "HttpValidationProblemDetails": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": ["null", "string"]
+                    },
+                    "title": {
+                        "type": ["null", "string"]
+                    },
+                    "status": {
+                        "pattern": "^-?(?:0|[1-9]\\d*)$",
+                        "type": ["null", "integer", "string"],
+                        "format": "int32"
+                    },
+                    "detail": {
+                        "type": ["null", "string"]
+                    },
+                    "instance": {
+                        "type": ["null", "string"]
+                    },
+                    "errors": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+            "InfoRequest": {
+                "type": "object",
+                "properties": {
+                    "newEmail": {
+                        "type": ["null", "string"]
+                    },
+                    "newPassword": {
+                        "type": ["null", "string"]
+                    },
+                    "oldPassword": {
+                        "type": ["null", "string"]
+                    }
+                }
+            },
+            "InfoResponse": {
+                "required": ["email", "isEmailConfirmed"],
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "isEmailConfirmed": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "LoginRequest": {
+                "required": ["email", "password"],
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "twoFactorCode": {
+                        "type": ["null", "string"]
+                    },
+                    "twoFactorRecoveryCode": {
+                        "type": ["null", "string"]
+                    }
+                }
+            },
+            "PaginatedListOfTodoItemBriefDto": {
+                "required": ["items", "pageNumber"],
+                "type": "object",
+                "properties": {
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TodoItemBriefDto"
+                        }
+                    },
+                    "pageNumber": {
+                        "pattern": "^-?(?:0|[1-9]\\d*)$",
+                        "type": ["integer", "string"],
+                        "format": "int32"
+                    },
+                    "totalPages": {
+                        "pattern": "^-?(?:0|[1-9]\\d*)$",
+                        "type": ["integer", "string"],
+                        "format": "int32"
+                    },
+                    "totalCount": {
+                        "pattern": "^-?(?:0|[1-9]\\d*)$",
+                        "type": ["integer", "string"],
+                        "format": "int32"
+                    },
+                    "hasPreviousPage": {
+                        "type": "boolean"
+                    },
+                    "hasNextPage": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "PriorityLevel": {
+                "type": "integer"
+            },
+            "RefreshRequest": {
+                "required": ["refreshToken"],
+                "type": "object",
+                "properties": {
+                    "refreshToken": {
+                        "type": "string"
+                    }
+                }
+            },
+            "RegisterRequest": {
+                "required": ["email", "password"],
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "ResendConfirmationEmailRequest": {
+                "required": ["email"],
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    }
+                }
+            },
+            "ResetPasswordRequest": {
+                "required": ["email", "resetCode", "newPassword"],
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "resetCode": {
+                        "type": "string"
+                    },
+                    "newPassword": {
+                        "type": "string"
+                    }
+                }
+            },
+            "TodoItemBriefDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "listId": {
+                        "pattern": "^-?(?:0|[1-9]\\d*)$",
+                        "type": ["integer", "string"],
+                        "format": "int32"
+                    },
+                    "title": {
+                        "type": ["null", "string"]
+                    },
+                    "done": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "TwoFactorRequest": {
+                "type": "object",
+                "properties": {
+                    "enable": {
+                        "type": ["null", "boolean"]
+                    },
+                    "twoFactorCode": {
+                        "type": ["null", "string"]
+                    },
+                    "resetSharedKey": {
+                        "type": "boolean"
+                    },
+                    "resetRecoveryCodes": {
+                        "type": "boolean"
+                    },
+                    "forgetMachine": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "TwoFactorResponse": {
+                "required": [
+                    "sharedKey",
+                    "recoveryCodesLeft",
+                    "isTwoFactorEnabled",
+                    "isMachineRemembered"
+                ],
+                "type": "object",
+                "properties": {
+                    "sharedKey": {
+                        "type": "string"
+                    },
+                    "recoveryCodesLeft": {
+                        "pattern": "^-?(?:0|[1-9]\\d*)$",
+                        "type": ["integer", "string"],
+                        "format": "int32"
+                    },
+                    "recoveryCodes": {
+                        "type": ["null", "array"],
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "isTwoFactorEnabled": {
+                        "type": "boolean"
+                    },
+                    "isMachineRemembered": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "UpdateTodoItemCommand": {
+                "required": ["id"],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": ["null", "string"]
+                    },
+                    "done": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "UpdateTodoItemDetailCommand": {
+                "required": ["id"],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "listId": {
+                        "pattern": "^-?(?:0|[1-9]\\d*)$",
+                        "type": ["integer", "string"],
+                        "format": "int32"
+                    },
+                    "priority": {
+                        "$ref": "#/components/schemas/PriorityLevel"
+                    },
+                    "note": {
+                        "type": ["null", "string"]
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "Identity.Bearer": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "Json Web Token"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "TodoItems"
+        },
+        {
+            "name": "Users"
+        }
+    ]
+}

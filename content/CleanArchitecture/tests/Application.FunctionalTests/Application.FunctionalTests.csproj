@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <RootNamespace>Cubido.Template.Application.FunctionalTests</RootNamespace>
+        <AssemblyName>Cubido.Template.Application.FunctionalTests</AssemblyName>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
+      <PackageReference Include="Microsoft.Data.SqlClient" />
+      <PackageReference Include="Microsoft.NET.Test.Sdk" />
+      <PackageReference Include="NSubstitute" />
+      <PackageReference Include="nunit" />
+      <PackageReference Include="NUnit.Analyzers">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="NUnit3TestAdapter" />
+      <PackageReference Include="coverlet.collector">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Respawn" />
+      <PackageReference Include="Shouldly" />
+      <PackageReference Include="System.Configuration.ConfigurationManager" />
+      <PackageReference Include="Testcontainers.MsSql" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\Web\Web.csproj" />
+    </ItemGroup>
+
+</Project>

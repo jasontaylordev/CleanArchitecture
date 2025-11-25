@@ -1,0 +1,37 @@
+{
+    "environment": {
+        "value": "prod"
+    },
+    "executionEnvironment": {
+        "value": "Production"
+    },
+    "location": {
+        "value": "westeurope"
+    },
+    "sqlServerLocation": {
+        "value": "westeurope"
+    },
+    "remoteAccessFrom": {
+        "value": "1.2.3.4"
+    },
+    "remoteAccessEntraGroupName": {
+        "value": "Team Turbo"
+    },
+    "remoteAccessEntraGroupSID": {
+        "value": "xxxxxxxx-yyyy-4zzz-aaaa-bbbbbbbbbbbb"
+    },
+    "alertReceivers": {
+        "value": [
+            {
+                "name": "Max Mustermann",
+                "emailAddress": "max.mustermann@example.com"
+            }
+        ]
+    },
+    "tags": {
+        "value": {
+            "environment": "prod",
+            "project": "cubido-template"
+        }
+    }
+}

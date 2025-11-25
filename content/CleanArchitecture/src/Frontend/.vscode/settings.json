@@ -1,0 +1,23 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "search.exclude": {
+    "**/.yarn": true,
+    "**/.pnp.*": true
+  },
+  "eslint.nodePath": ".yarn/sdks",
+  "prettier.prettierPath": ".yarn/sdks/prettier/index.cjs",
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "playwright.env": {
+    "NODE_OPTIONS": "-r ./.pnp.cjs --experimental-loader ./.pnp.loader.mjs"
+  },
+  "lingua.defaultLanguage": "en",
+  "lingua.sortKeys": false,
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
+}

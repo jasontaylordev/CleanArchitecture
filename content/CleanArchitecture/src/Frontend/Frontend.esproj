@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/1.0.4110890">
+  <PropertyGroup>
+    <ShouldRunNpmInstall>false</ShouldRunNpmInstall>
+    <BuildCommand Condition="$(Configuration) == 'Debug'">yarn build --configuration development</BuildCommand>
+    <BuildCommand Condition="$(Configuration) != 'Debug'">yarn build --configuration production</BuildCommand>
+    <StartupCommand>yarn start</StartupCommand>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="src\app\shared\services\" />
+  </ItemGroup>
+  <Target Name="yarn install" BeforeTargets="EvaluateNPMScripts" Inputs="package.json" Outputs="yarn.lock">
+    <Exec Command="yarn install " ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCodeYarnInstall" />
+    </Exec>
+    <Error Condition="'$(ErrorCodeYarnInstall)' != '0'" Text="Yarn install failed" />
+  </Target>
+</Project>
