@@ -4,7 +4,6 @@
     <!-- The package metadata. Fill in the properties marked as TODO below -->
     <!-- Follow the instructions on https://learn.microsoft.com/en-us/nuget/create-packages/package-authoring-best-practices -->
     <PackageId>Cubido.Templates</PackageId>
-    <PackageVersion>1.0</PackageVersion>
     <Title>Templates for ACP Cubido</Title>
     <Authors>ACP Cubido</Authors>
     <Description>The standard templates for ACP Cubido</Description>
