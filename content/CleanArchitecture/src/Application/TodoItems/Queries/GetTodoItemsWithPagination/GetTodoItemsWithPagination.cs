@@ -1,7 +1,6 @@
 ﻿using Cubido.Template.Application.Common.Interfaces;
 using Cubido.Template.Application.Common.Mappings;
 using Cubido.Template.Application.Common.Models;
-using Cubido.Template.Application.Queries.GetTodoItemsWithPagination;
 
 namespace Cubido.Template.Application.TodoItems.Queries.GetTodoItemsWithPagination;
 
