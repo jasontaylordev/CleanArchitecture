@@ -37,13 +37,12 @@ public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRe
             if (authorizeAttributesWithRoles.Any())
             {
                 var requiredRoles = authorizeAttributesWithRoles
-                    .Where(a => a.Roles != null)
                     .SelectMany(a => a.Roles.Split(','))
                     .Select(r => r.Trim())
                     .Where(r => !string.IsNullOrWhiteSpace(r))
                     .ToHashSet(StringComparer.OrdinalIgnoreCase);
 
-                var userRoles = _user.Roles?.ToHashSet(StringComparer.OrdinalIgnoreCase) ?? new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                var userRoles = _user.Roles?.Select(r => r.Trim()).Where(r => !string.IsNullOrWhiteSpace(r)).ToHashSet(StringComparer.OrdinalIgnoreCase) ?? new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 var authorized = requiredRoles.Any(role => userRoles.Contains(role));
 
                 // Must be a member of at least one role in roles
