@@ -1,6 +1,19 @@
-﻿namespace CleanArchitecture.Domain.Common;
+﻿using System;
 
-public abstract class BaseAuditableEntity : BaseEntity
+namespace CleanArchitecture.Domain.Common;
+
+public interface IAuditableEntity
+{
+    DateTimeOffset Created { get; set; }
+
+    string? CreatedBy { get; set; }
+
+    DateTimeOffset LastModified { get; set; }
+
+    string? LastModifiedBy { get; set; }
+}
+
+public abstract class BaseAuditableEntity<TKey> : BaseEntity<TKey>, IAuditableEntity
 {
     public DateTimeOffset Created { get; set; }
 
@@ -9,4 +22,8 @@ public abstract class BaseAuditableEntity : BaseEntity
     public DateTimeOffset LastModified { get; set; }
 
     public string? LastModifiedBy { get; set; }
+}
+
+public abstract class BaseAuditableEntity : BaseAuditableEntity<int>
+{
 }

@@ -2,11 +2,17 @@
 
 namespace CleanArchitecture.Domain.Common;
 
-public abstract class BaseEntity
+public interface IBaseEntity
 {
-    // This can easily be modified to be BaseEntity<T> and public T Id to support different key types.
-    // Using non-generic integer types for simplicity
-    public int Id { get; set; }
+    IReadOnlyCollection<BaseEvent> DomainEvents { get; }
+    void AddDomainEvent(BaseEvent domainEvent);
+    void RemoveDomainEvent(BaseEvent domainEvent);
+    void ClearDomainEvents();
+}
+
+public abstract class BaseEntity<TKey> : IBaseEntity
+{
+    public TKey Id { get; set; } = default!;
 
     private readonly List<BaseEvent> _domainEvents = new();
 
@@ -27,4 +33,9 @@ public abstract class BaseEntity
     {
         _domainEvents.Clear();
     }
+}
+
+
+public abstract class BaseEntity : BaseEntity<int>
+{
 }
