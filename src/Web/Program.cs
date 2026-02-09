@@ -14,9 +14,15 @@ builder.AddWebServices();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
-    await app.InitialiseDatabaseAsync();
+    var isNSwagGeneration = builder.Configuration.GetValue<bool>("IsNSwagGeneration");
+
+    if (!isNSwagGeneration)
+    {
+        await app.InitialiseDatabaseAsync();
+    }
 }
 else
 {

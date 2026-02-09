@@ -15,8 +15,24 @@ public static class DependencyInjection
 {
     public static void AddInfrastructureServices(this IHostApplicationBuilder builder)
     {
+        var isNSwagGeneration = builder.Configuration.GetValue<bool>("IsNSwagGeneration");
+
         var connectionString = builder.Configuration.GetConnectionString("CleanArchitectureDb");
-        Guard.Against.Null(connectionString, message: "Connection string 'CleanArchitectureDb' not found.");
+
+        if (!isNSwagGeneration)
+        {
+            Guard.Against.Null(connectionString, message: "Connection string 'CleanArchitectureDb' not found.");
+        }
+        else
+        {
+#if (UsePostgreSQL)
+            connectionString ??= "Host=localhost;Database=dummy;Username=dummy;Password=dummy";
+#elif (UseSqlite)
+            connectionString ??= "Data Source=:memory:";
+#else
+            connectionString ??= "Server=localhost;Database=dummy;Trusted_Connection=True;";
+#endif
+        }
 
         builder.Services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
         builder.Services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
