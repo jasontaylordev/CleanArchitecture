@@ -12,6 +12,22 @@ If you find this project useful, please give it a star. Thanks! ⭐
 
 ## Getting Started
 
+## Notes for Backend-Only Development (Visual Studio)
+
+This template supports multiple client options (Angular, React, or API-only).  
+When working on the backend only, it is expected that:
+
+- Visual Studio may show TypeScript (`.ts`) or Angular-related errors if `npm install` has not been run.
+- These frontend errors do **not** affect the .NET backend build.
+- Some IntelliSense warnings (e.g., Swagger or Guard clauses) may appear before the first successful build.
+
+For backend-only contributions, ensure the following commands succeed:
+
+```bash
+dotnet restore
+dotnet build
+dotnet test
+
 The following prerequisites are required to build and run the solution:
 
 - [.NET 10.0 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) (latest version)
@@ -130,3 +146,4 @@ If you are having problems, please let me know by [raising a new issue](https://
 ## License
 
 This project is licensed with the [MIT license](LICENSE).
+
