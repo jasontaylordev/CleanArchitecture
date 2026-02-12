@@ -45,4 +45,16 @@ public class CreateTodoItemTests : BaseTestFixture
         item.LastModifiedBy.ShouldBe(userId);
         item.LastModified.ShouldBe(DateTime.Now, TimeSpan.FromMilliseconds(10000));
     }
+
+    [Test]
+    public async Task ShouldRequireValidListId()
+    {
+        var userId = await RunAsDefaultUserAsync();
+        var command = new CreateTodoItemCommand
+        {
+            ListId = 9999,
+            Title = "Tasks"
+        };
+        await Should.ThrowAsync<NotFoundException>(()=> SendAsync(command));
+    }
 }
