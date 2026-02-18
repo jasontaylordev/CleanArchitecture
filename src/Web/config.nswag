@@ -5,7 +5,7 @@
     "aspNetCoreToOpenApi": {
       "project": "Web.csproj",
       "documentName": "v1",
-      "msBuildProjectExtensionsPath": null,
+      "msBuildProjectExtensionsPath": "$(MSBuildProjectExtensionsPath)",
       "configuration": null,
       "runtime": null,
       "targetFramework": null,
