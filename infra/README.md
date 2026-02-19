@@ -18,3 +18,4 @@ This folder contains infrastructure-as-code and deployment templates used with t
 ```bash
 azd auth login
 azd up
+```
