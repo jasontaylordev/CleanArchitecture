@@ -69,7 +69,7 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.13.0" />
     <!--#endif-->
     <!--#if (UsePostgreSQL)-->
-    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0-rc.2" />
+    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0" />
     <PackageVersion Include="Testcontainers.PostgreSql" Version="4.8.1" />
     <!--#endif-->
     <!--#if (UseSqlite)-->
