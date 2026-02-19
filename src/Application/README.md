@@ -7,7 +7,8 @@ The **Application** project defines the use cases and coordinates the flow of da
 - Command and Query Handlers  
 - Validators (e.g., FluentValidation)  
 - Behaviors (pipeline logging, transaction behavior, etc.)  
-- Interfaces/abstractions for infrastructure implementations  
+- Domain Event Handlers
+- Interfaces/abstractions for infrastructure implementations
 
 ## Dependencies
 - Depends only on **Domain**
