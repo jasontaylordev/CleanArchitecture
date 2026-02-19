@@ -98,6 +98,12 @@ azd auth login
 azd up
 ```
 
+To set up a CI/CD pipeline (GitHub Actions or Azure DevOps):
+
+```bash
+azd pipeline config
+```
+
 ## Technologies
 
 * [ASP.NET Core 9](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core)
