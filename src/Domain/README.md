@@ -6,7 +6,7 @@ The **Domain** project contains the core business logic of the application.
 - Entities  
 - Value Objects  
 - Aggregates  
-- Domain Events and Event Handlers  
+- Domain Events
 - Business rules and invariants  
 
 ## Dependencies
