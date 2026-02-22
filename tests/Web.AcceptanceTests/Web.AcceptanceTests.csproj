@@ -3,6 +3,7 @@
     <PropertyGroup>
         <RootNamespace>CleanArchitecture.Web.AcceptanceTests</RootNamespace>
         <AssemblyName>CleanArchitecture.Web.AcceptanceTests</AssemblyName>
+        <ReqnrollUseIntermediateOutputPathForCodeBehind>true</ReqnrollUseIntermediateOutputPathForCodeBehind>
     </PropertyGroup>
 
     <ItemGroup>
