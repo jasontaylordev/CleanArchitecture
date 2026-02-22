@@ -47,8 +47,7 @@
     <!--#if(!UseApiOnly)-->
     <PackageVersion Include="Microsoft.AspNetCore.SpaProxy" Version="$(AspnetVersion)" />
     <PackageVersion Include="Microsoft.Playwright" Version="1.56.0" />
-    <PackageVersion Include="SpecFlow.Plus.LivingDocPlugin" Version="3.9.57" />
-    <PackageVersion Include="SpecFlow.NUnit" Version="3.9.74" />
+    <PackageVersion Include="Reqnroll.NUnit" Version="3.3.3" />
     <!--#endif-->
     <!--#if (UseAspire)-->
     <!--#if (UsePostgreSQL)-->
