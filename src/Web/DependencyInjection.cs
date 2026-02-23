@@ -41,6 +41,8 @@ public static class DependencyInjection
         {
             configure.Title = "CleanArchitecture API";
 
+            configure.OperationProcessors.Add(new ApiExceptionOperationProcessor());
+
 #if (UseApiOnly)
             // Add JWT
             configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
