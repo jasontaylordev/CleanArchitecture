@@ -15,7 +15,7 @@ public class TodoItems : EndpointGroupBase
         groupBuilder.MapGet(GetTodoItemsWithPagination).RequireAuthorization();
         groupBuilder.MapPost(CreateTodoItem).RequireAuthorization();
         groupBuilder.MapPut(UpdateTodoItem, "{id}").RequireAuthorization();
-        groupBuilder.MapPut(UpdateTodoItemDetail, "UpdateDetail/{id}").RequireAuthorization();
+        groupBuilder.MapPatch(UpdateTodoItemDetail, "UpdateDetail/{id}").RequireAuthorization();
         groupBuilder.MapDelete(DeleteTodoItem, "{id}").RequireAuthorization();
     }
 

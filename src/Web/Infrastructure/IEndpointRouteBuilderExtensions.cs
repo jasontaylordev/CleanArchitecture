@@ -28,6 +28,14 @@ public static class EndpointRouteBuilderExtensions
             .WithName(handler.Method.Name);
     }
 
+    public static RouteHandlerBuilder MapPatch(this IEndpointRouteBuilder builder, Delegate handler, [StringSyntax("Route")] string pattern)
+    {
+        Guard.Against.AnonymousMethod(handler);
+
+        return builder.MapPatch(pattern, handler)
+            .WithName(handler.Method.Name);
+    }
+
     public static RouteHandlerBuilder MapDelete(this IEndpointRouteBuilder builder, Delegate handler, [StringSyntax("Route")] string pattern)
     {
         Guard.Against.AnonymousMethod(handler);
