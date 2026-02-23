@@ -12,8 +12,14 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { TodoComponent } from './todo/todo.component';
+import { API_BASE_URL } from './web-api-client';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+export function getApiBaseUrl(): string {
+  const url = document.getElementsByTagName('base')[0].href;
+  return url.endsWith('/') ? url.slice(0, -1) : url;
+}
 
 @NgModule({
     declarations: [
@@ -39,6 +45,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     providers: [
         { provide: APP_ID, useValue: 'ng-cli-universal' },
         { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
+        { provide: API_BASE_URL, useFactory: getApiBaseUrl, deps: [] },
         provideHttpClient(withInterceptorsFromDi())
     ]
 })
