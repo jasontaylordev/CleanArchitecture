@@ -1,4 +1,4 @@
-import { Component, TemplateRef, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, TemplateRef, OnInit } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { TodoListsClient, TodoItemsClient,
   TodoListDto, TodoItemDto, LookupDto,
@@ -7,6 +7,7 @@ import { TodoListsClient, TodoItemsClient,
 } from '../web-api-client';
 
 @Component({
+  standalone: false,
   selector: 'app-todo-component',
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.scss']
@@ -28,7 +29,8 @@ export class TodoComponent implements OnInit {
   constructor(
     private listsClient: TodoListsClient,
     private itemsClient: TodoItemsClient,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -39,6 +41,7 @@ export class TodoComponent implements OnInit {
         if (this.lists.length) {
           this.selectedList = this.lists[0];
         }
+        this.cdr.detectChanges();
       },
       error => console.error(error)
     );
