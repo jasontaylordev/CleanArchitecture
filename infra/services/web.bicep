@@ -28,7 +28,7 @@ module appService '../core/host/appservice.bicep' = {
     applicationInsightsName: applicationInsightsName
     keyVaultName: keyVaultName
     runtimeName: 'dotnetcore'
-    runtimeVersion: '9.0'
+    runtimeVersion: '10.0'
     healthCheckPath: '/health'
     appSettings: {
       ASPNETCORE_ENVIRONMENT: 'Development'
