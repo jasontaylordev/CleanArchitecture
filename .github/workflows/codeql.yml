@@ -35,6 +35,7 @@ jobs:
       uses: github/codeql-action/autobuild@v4
       env:
         SkipNSwag: True
+        npm_config_legacy_peer_deps: true
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v4
