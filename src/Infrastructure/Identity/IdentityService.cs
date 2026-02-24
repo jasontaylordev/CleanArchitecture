@@ -1,5 +1,6 @@
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.Common.Models;
+using CleanArchitecture.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -8,13 +9,13 @@ namespace CleanArchitecture.Infrastructure.Identity;
 
 public class IdentityService : IIdentityService
 {
-    private readonly UserManager<ApplicationUser> _userManager;
-    private readonly IUserClaimsPrincipalFactory<ApplicationUser> _userClaimsPrincipalFactory;
+    private readonly UserManager<User> _userManager;
+    private readonly IUserClaimsPrincipalFactory<User> _userClaimsPrincipalFactory;
     private readonly IAuthorizationService _authorizationService;
 
     public IdentityService(
-        UserManager<ApplicationUser> userManager,
-        IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
+        UserManager<User> userManager,
+        IUserClaimsPrincipalFactory<User> userClaimsPrincipalFactory,
         IAuthorizationService authorizationService)
     {
         _userManager = userManager;
@@ -31,11 +32,7 @@ public class IdentityService : IIdentityService
 
     public async Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password)
     {
-        var user = new ApplicationUser
-        {
-            UserName = userName,
-            Email = userName,
-        };
+        var user = new User(userName.Split('@')[0], userName);
 
         var result = await _userManager.CreateAsync(user, password);
 
@@ -72,10 +69,17 @@ public class IdentityService : IIdentityService
         return user != null ? await DeleteUserAsync(user) : Result.Success();
     }
 
-    public async Task<Result> DeleteUserAsync(ApplicationUser user)
+    public async Task<Result> DeleteUserAsync(User user)
     {
         var result = await _userManager.DeleteAsync(user);
 
         return result.ToApplicationResult();
     }
+
+    public async Task<User?> GetUserByIdAsync(string userId)
+        => await _userManager.Users
+             .Where(x => x.Id == userId)
+             .Include(x => x.UserRoles)
+             .ThenInclude(x => x.Role)
+             .FirstOrDefaultAsync();
 }

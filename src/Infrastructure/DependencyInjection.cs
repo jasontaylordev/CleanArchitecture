@@ -1,9 +1,9 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Domain.Constants;
+using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Infrastructure.Data;
 using CleanArchitecture.Infrastructure.Data.Interceptors;
 using CleanArchitecture.Infrastructure.Identity;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
@@ -52,14 +52,14 @@ public static class DependencyInjection
         builder.Services.AddAuthorizationBuilder();
 
         builder.Services
-            .AddIdentityCore<ApplicationUser>()
-            .AddRoles<IdentityRole>()
+            .AddIdentityCore<User>()
+            .AddRoles<ApplicationRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddApiEndpoints();
 #else
         builder.Services
-            .AddDefaultIdentity<ApplicationUser>()
-            .AddRoles<IdentityRole>()
+            .AddDefaultIdentity<User>()
+            .AddRoles<ApplicationRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
 #endif
 
