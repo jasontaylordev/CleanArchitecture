@@ -9,6 +9,9 @@ on:
       - LICENSE
       - README.md
 
+  pull_request:
+    branches: [ main ]
+
   schedule:
     - cron: '00 0 * * 1'
 
@@ -23,15 +26,15 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@v3
+      uses: github/codeql-action/init@v4
 
     - name: Autobuild
-      uses: github/codeql-action/autobuild@v3
+      uses: github/codeql-action/autobuild@v4
       env:
         SkipNSwag: True
 
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v3
+      uses: github/codeql-action/analyze@v4
