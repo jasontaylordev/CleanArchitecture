@@ -1,0 +1,45 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":semanticCommits",
+    ":separateMajorReleases",
+    "group:allNonMajor"
+  ],
+  "labels": ["dependencies"],
+  "schedule": ["before 9am on monday"],
+  "timezone": "Australia/Brisbane",
+  "packageRules": [
+    {
+      "description": "Automerge non-major updates",
+      "matchUpdateTypes": ["minor", "patch", "digest"],
+      "automerge": true
+    },
+    {
+      "description": "Group GitHub Actions updates",
+      "matchManagers": ["github-actions"],
+      "groupName": "GitHub Actions",
+      "automerge": true
+    },
+    {
+      "description": "Group .NET updates",
+      "matchManagers": ["nuget"],
+      "groupName": ".NET dependencies"
+    },
+    {
+      "description": "Group Angular updates",
+      "matchPackagePatterns": ["^@angular"],
+      "groupName": "Angular"
+    },
+    {
+      "description": "Group React updates",
+      "matchPackagePatterns": ["^react", "^@types/react"],
+      "groupName": "React"
+    },
+    {
+      "description": "Group testing packages",
+      "matchPackagePatterns": ["jest", "karma", "jasmine", "playwright", "nunit", "moq", "shouldly"],
+      "groupName": "Testing"
+    }
+  ]
+}
