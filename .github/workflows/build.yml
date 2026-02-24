@@ -23,28 +23,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       name: Checkout code
 
     - name: Cache NuGet packages
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: ~/.nuget/packages
-        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/Directory.Packages.props', '**/*.csproj') }}
         restore-keys: |
           ${{ runner.os }}-nuget-
 
     #if (!UseApiOnly)
     - name: Install Node & cache npm packages
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v6
       with:
-        node-version: '20.x'
+        node-version: '22.x'
         cache: 'npm'
         cache-dependency-path: src/Web/ClientApp/package-lock.json
     #endif
 
     - name: Install .NET
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v5
 
     - name: Restore solution
       run: dotnet restore
@@ -65,7 +65,7 @@ jobs:
 
     - name: Upload website artifact (website)
       if: ${{ inputs.build-artifacts == true }}
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: website
         path: ./src/Web/publish/publish.zip
