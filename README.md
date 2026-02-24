@@ -108,7 +108,7 @@ azd pipeline config
 
 * [ASP.NET Core 10](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core)
 * [Entity Framework Core 10](https://docs.microsoft.com/en-us/ef/core/)
-* [Angular 18](https://angular.dev/) or [React 18](https://react.dev/)
+* [Angular 21](https://angular.dev/) or [React 18](https://react.dev/)
 * [MediatR](https://github.com/jbogard/MediatR)
 * [AutoMapper](https://automapper.org/)
 * [FluentValidation](https://fluentvalidation.net/)
