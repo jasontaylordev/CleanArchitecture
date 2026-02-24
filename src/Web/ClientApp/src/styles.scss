@@ -1,5 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 
+/* Importing Bootstrap SCSS file. */
+@use "bootstrap/scss/bootstrap" as *;
+
+/* Importing Datepicker SCSS file. */
+@use "ngx-bootstrap/datepicker/bs-datepicker" as *;
+
+/* Importing Bootstrap Icons SCSS file. */
+@use "bootstrap-icons/font/bootstrap-icons" as *;
+
 /* Provide sufficient contrast against white background */
 a {
   color: #0366d6;
@@ -18,12 +27,3 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
-
-/* Importing Bootstrap SCSS file. */
-@import "node_modules/bootstrap/scss/bootstrap";
-
-/* Importing Datepicker SCSS file. */
-@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
-
-/* Importing Bootstrap Icons SCSS file. */
-@import "node_modules/bootstrap-icons/font/bootstrap-icons";
