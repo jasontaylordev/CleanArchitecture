@@ -40,7 +40,8 @@ public class SqlTestDatabase : ITestDatabase
         await context.Database.EnsureDeletedAsync();
         await context.Database.EnsureCreatedAsync();
 
-        _respawner = await Respawner.CreateAsync(_connectionString);
+        await _connection.OpenAsync();
+        _respawner = await Respawner.CreateAsync(_connection);
     }
 
     public DbConnection GetConnection()
@@ -55,7 +56,7 @@ public class SqlTestDatabase : ITestDatabase
 
     public async Task ResetAsync()
     {
-        await _respawner.ResetAsync(_connectionString);
+        await _respawner.ResetAsync(_connection);
     }
 
     public async Task DisposeAsync()
