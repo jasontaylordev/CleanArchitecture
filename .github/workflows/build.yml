@@ -38,7 +38,7 @@ jobs:
     - name: Install Node & cache npm packages
       uses: actions/setup-node@v6
       with:
-        node-version: '22.x'
+        node-version: '24.x'
         cache: 'npm'
         cache-dependency-path: src/Web/ClientApp/package-lock.json
     #endif
