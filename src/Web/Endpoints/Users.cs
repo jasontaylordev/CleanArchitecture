@@ -1,5 +1,5 @@
 ﻿#if (UseApiOnly)
-using CleanArchitecture.Infrastructure.Identity;
+using CleanArchitecture.Domain.Entities;
 
 namespace CleanArchitecture.Web.Endpoints;
 
@@ -7,7 +7,7 @@ public class Users : EndpointGroupBase
 {
     public override void Map(RouteGroupBuilder groupBuilder)
     {
-        groupBuilder.MapIdentityApi<ApplicationUser>();
+        groupBuilder.MapIdentityApi<User>();
     }
 }
 #endif
