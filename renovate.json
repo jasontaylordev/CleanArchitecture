@@ -10,7 +10,7 @@
     "dependencies"
   ],
   "schedule": [
-    "before 9am on monday"
+    "before 6am on monday"
   ],
   "timezone": "Australia/Brisbane",
   "packageRules": [
