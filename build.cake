@@ -1,5 +1,5 @@
 // #if (!UseApiOnly)
-#addin nuget:?package=Cake.Npm&version=4.0.0
+#addin nuget:?package=Cake.Npm&version=5.1.0
 // #endif
 
 var target = Argument("target", "Default");
