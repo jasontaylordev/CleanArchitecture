@@ -145,7 +145,7 @@ resource sqlAzureConnectionStringSecret 'Microsoft.KeyVault/vaults/secrets@2022-
   }
 }
 
-resource keyVault 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
+resource keyVault 'Microsoft.KeyVault/vaults@2022-11-01' existing = {
   name: keyVaultName
 }
 

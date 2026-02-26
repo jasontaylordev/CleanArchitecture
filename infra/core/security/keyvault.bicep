@@ -11,7 +11,7 @@ param enabledForDeployment bool = false
 @description('Allow the key vault to be used for template deployment.')
 param enabledForTemplateDeployment bool = false
 
-resource keyVault 'Microsoft.KeyVault/vaults@2022-07-01' = {
+resource keyVault 'Microsoft.KeyVault/vaults@2022-11-01' = {
   name: name
   location: location
   tags: tags
