@@ -11,7 +11,7 @@ resource aksCluster 'Microsoft.ContainerService/managedClusters@2023-10-02-previ
   name: clusterName
 }
 
-resource nodePool 'Microsoft.ContainerService/managedClusters/agentPools@2023-10-02-preview' = {
+resource nodePool 'Microsoft.ContainerService/managedClusters/agentPools@2023-11-01' = {
   parent: aksCluster
   name: name
   properties: config
