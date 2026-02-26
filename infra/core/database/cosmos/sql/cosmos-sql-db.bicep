@@ -18,7 +18,7 @@ module cosmos 'cosmos-sql-account.bicep' = {
   }
 }
 
-resource database 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2022-08-15' = {
+resource database 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2022-11-15' = {
   name: '${accountName}/${databaseName}'
   properties: {
     resource: { id: databaseName }
