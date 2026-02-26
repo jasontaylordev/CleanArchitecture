@@ -19,7 +19,7 @@ param publicNetworkAccess string = 'Enabled'
 param location string = resourceGroup().location
 param tags object = {}
 
-resource project 'Microsoft.MachineLearningServices/workspaces@2024-01-01-preview' = {
+resource project 'Microsoft.MachineLearningServices/workspaces@2024-04-01' = {
   name: name
   location: location
   tags: tags
@@ -66,7 +66,7 @@ module mlServiceRoleSecretsReader '../security/role.bicep' = {
   }
 }
 
-resource hub 'Microsoft.MachineLearningServices/workspaces@2024-01-01-preview' existing = {
+resource hub 'Microsoft.MachineLearningServices/workspaces@2024-04-01' existing = {
   name: hubName
 }
 

@@ -31,7 +31,7 @@ param publicNetworkAccess string = 'Enabled'
 param location string = resourceGroup().location
 param tags object = {}
 
-resource hub 'Microsoft.MachineLearningServices/workspaces@2024-01-01-preview' = {
+resource hub 'Microsoft.MachineLearningServices/workspaces@2024-04-01' = {
   name: name
   location: location
   tags: tags
