@@ -68,14 +68,14 @@
     <!--#endif-->
     <!--#if (UsePostgreSQL)-->
     <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0" />
-    <PackageVersion Include="Testcontainers.PostgreSql" Version="4.10.0" />
+    <PackageVersion Include="Testcontainers.PostgreSql" Version="4.8.1" />
     <!--#endif-->
     <!--#if (UseSqlite)-->
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EfcoreVersion)" />
     <!--#endif-->
     <!--#if (UseSqlServer)-->
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(EfcoreVersion)" />
-    <PackageVersion Include="Testcontainers.MsSql" Version="4.10.0" />
+    <PackageVersion Include="Testcontainers.MsSql" Version="4.8.1" />
     <!--#endif-->
   </ItemGroup>
 </Project>
