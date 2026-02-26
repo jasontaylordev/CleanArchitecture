@@ -7,7 +7,7 @@ param name string
 @description('The agent pool configuration')
 param config object
 
-resource aksCluster 'Microsoft.ContainerService/managedClusters@2023-10-02-preview' existing = {
+resource aksCluster 'Microsoft.ContainerService/managedClusters@2023-11-01' existing = {
   name: clusterName
 }
 
