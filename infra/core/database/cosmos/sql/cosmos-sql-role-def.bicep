@@ -23,7 +23,7 @@ resource roleDefinition 'Microsoft.DocumentDB/databaseAccounts/sqlRoleDefinition
   }
 }
 
-resource cosmos 'Microsoft.DocumentDB/databaseAccounts@2022-08-15' existing = {
+resource cosmos 'Microsoft.DocumentDB/databaseAccounts@2022-11-15' existing = {
   name: accountName
 }
 
