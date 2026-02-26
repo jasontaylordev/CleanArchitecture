@@ -19,7 +19,7 @@ module cosmos 'cosmos-mongo-account.bicep' = {
   }
 }
 
-resource database 'Microsoft.DocumentDB/databaseAccounts/mongodbDatabases@2022-08-15' = {
+resource database 'Microsoft.DocumentDB/databaseAccounts/mongodbDatabases@2022-11-15' = {
   name: '${accountName}/${databaseName}'
   tags: tags
   properties: {
