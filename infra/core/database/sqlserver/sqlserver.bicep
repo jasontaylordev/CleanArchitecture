@@ -171,7 +171,7 @@ SCRIPT_END
   }
 }
 
-resource sqlAdminPasswordSecret 'Microsoft.KeyVault/vaults/secrets@2022-07-01' = {
+resource sqlAdminPasswordSecret 'Microsoft.KeyVault/vaults/secrets@2022-11-01' = {
   parent: keyVault
   name: 'dbAdminPassword'
   properties: {
@@ -179,7 +179,7 @@ resource sqlAdminPasswordSecret 'Microsoft.KeyVault/vaults/secrets@2022-07-01' =
   }
 }
 
-resource appUserPasswordSecret 'Microsoft.KeyVault/vaults/secrets@2022-07-01' = {
+resource appUserPasswordSecret 'Microsoft.KeyVault/vaults/secrets@2022-11-01' = {
   parent: keyVault
   name: 'dbAppUserPassword'
   properties: {
@@ -187,7 +187,7 @@ resource appUserPasswordSecret 'Microsoft.KeyVault/vaults/secrets@2022-07-01' = 
   }
 }
 
-resource sqlAzureConnectionStringSecret 'Microsoft.KeyVault/vaults/secrets@2022-07-01' = {
+resource sqlAzureConnectionStringSecret 'Microsoft.KeyVault/vaults/secrets@2022-11-01' = {
   parent: keyVault
   name: connectionStringKey
   properties: {

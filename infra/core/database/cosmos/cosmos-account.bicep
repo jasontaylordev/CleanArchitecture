@@ -32,7 +32,7 @@ resource cosmos 'Microsoft.DocumentDB/databaseAccounts@2023-11-15' = {
   }
 }
 
-resource cosmosConnectionString 'Microsoft.KeyVault/vaults/secrets@2022-07-01' = {
+resource cosmosConnectionString 'Microsoft.KeyVault/vaults/secrets@2022-11-01' = {
   parent: keyVault
   name: connectionStringKey
   properties: {
