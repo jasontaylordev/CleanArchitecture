@@ -50,7 +50,7 @@ jobs:
         run: nuget pack CleanArchitecture.nuspec -NoDefaultExcludes -Version ${{ steps.version.outputs.value }}
         
       - name: Upload package artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: nuget-package
           path: '*.nupkg'
