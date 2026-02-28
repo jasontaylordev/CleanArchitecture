@@ -1,12 +1,8 @@
-name: Package
+name: Release
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'CleanArchitecture.nuspec'
-  workflow_dispatch:
+  release:
+    types: [published]
 
 jobs:
   publish:
@@ -16,18 +12,48 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-        name: Checkout code
+        name: Checkout
 
       - uses: nuget/setup-nuget@v2
-        name: Setup NuGet
+        name: Set up NuGet
         with:
           nuget-version: 'latest'
 
       - name: Install Mono
         run: sudo apt-get update && sudo apt-get install -y mono-complete
 
-      - name: Create the package
-        run: nuget pack CleanArchitecture.nuspec -NoDefaultExcludes
+      - name: Extract version
+        id: version
+        run: echo "value=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
+
+      - name: Update template version
+        run: |
+          jq --arg v "${{ steps.version.outputs.value }}" \
+            '.symbols.caPackageVersion.parameters.value = $v' \
+            .template.config/template.json > tmp.json && mv tmp.json .template.config/template.json
+
+      - name: Update nuspec release notes
+        env:
+          RELEASE_NOTES: ${{ github.event.release.body }}
+        run: |
+          python3 - <<'EOF'
+          import os, xml.etree.ElementTree as ET
+          ET.register_namespace('', 'http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd')
+          tree = ET.parse('CleanArchitecture.nuspec')
+          root = tree.getroot()
+          ns = {'n': 'http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd'}
+          root.find('.//n:releaseNotes', ns).text = os.environ.get('RELEASE_NOTES', '')
+          tree.write('CleanArchitecture.nuspec', xml_declaration=True, encoding='utf-8')
+          EOF
+
+      - name: Pack
+        run: nuget pack CleanArchitecture.nuspec -NoDefaultExcludes -Version ${{ steps.version.outputs.value }}
         
-      - name: Publish the package
-        run: nuget push *.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}} -SkipDuplicate
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: nuget-package
+          path: '*.nupkg'
+
+      # - name: Publish
+      #   run: nuget push *.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}} -SkipDuplicate

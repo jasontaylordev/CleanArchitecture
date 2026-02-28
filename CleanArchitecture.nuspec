@@ -3,17 +3,14 @@
   <metadata>
 
     <id>Clean.Architecture.Solution.Template</id>
-    <version>10.0.0</version>
+    <version>0.0.0</version>
     <title>Clean Architecture Solution Template</title>
     <authors>JasonTaylorDev</authors>
     <description>Clean Architecture Solution Template for .NET 10</description>
     <summary>
       A Clean Architecture Solution Template for creating apps using Angular, React, or Web API only with ASP.NET Core (and optional Aspire).
     </summary>
-    <releaseNotes>
-      📦 Upgrade to .NET 10
-      📦 Upgrade to Aspire 13
-    </releaseNotes>
+    <releaseNotes></releaseNotes>
 
     <projectUrl>https://github.com/JasonTaylorDev/CleanArchitecture</projectUrl>
     <repository type="git" url="https://github.com/JasonTaylorDev/CleanArchitecture.git" branch="main" />
@@ -33,7 +30,7 @@
   <files>
     <file src=".template.config\icon.png" />
     <file src="README.md" />
-    <file src=".\**" target="content" exclude="**\node_modules\**;**\tools\**;**\bin\**;**\obj\**;.\.vs\**;.\.vscode\**;**\ClientApp\dist\**;**\wwwroot\dist\**;content\Directory.Build.*;.\.git\**;.\.github\workflows\jekyll-gh-pages.yml;.\.github\workflows\package.yml;.\.github\workflows\codeql.yml;.\.github\workflows\build.yml;.\.github\ISSUE_TEMPLATE\**;.\.github\icon.png;.\.github\FUNDING.yml;.\CODE_OF_CONDUCT.md;.\LICENSE;.\README.md;.\CleanArchitecture.nuspec;.\src\Web\app.db;" />
+    <file src=".\**" target="content" exclude="**\node_modules\**;**\tools\**;**\bin\**;**\obj\**;.\.vs\**;.\.vscode\**;**\ClientApp\dist\**;**\ClientApp\.angular\**;**\wwwroot\dist\**;content\Directory.Build.*;.\.git\**;.\.github\workflows\jekyll-gh-pages.yml;.\.github\workflows\package.yml;.\.github\workflows\codeql.yml;.\.github\workflows\build.yml;.\.github\ISSUE_TEMPLATE\**;.\.github\icon.png;.\.github\FUNDING.yml;.\CODE_OF_CONDUCT.md;.\LICENSE;.\README.md;.\CleanArchitecture.nuspec;.\src\Web\app.db;" />
   </files>
 
 </package>
