@@ -55,5 +55,5 @@ jobs:
           name: nuget-package
           path: '*.nupkg'
 
-      # - name: Publish
-      #   run: nuget push *.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}} -SkipDuplicate
+      - name: Publish
+        run: nuget push *.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}} -SkipDuplicate
