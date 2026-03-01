@@ -26,6 +26,7 @@
   "scripts": {
     "prestart": "node aspnetcore-https.cjs",
     "start": "vite",
+    "prebuild": "npm run generate-api",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint ./src/",

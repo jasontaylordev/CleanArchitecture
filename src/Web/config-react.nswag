@@ -2,19 +2,10 @@
   "runtime": "Net100",
   "defaultVariables": null,
   "documentGenerator": {
-    "aspNetCoreToOpenApi": {
-      "project": "Web.csproj",
-      "documentName": "v1",
-      "msBuildProjectExtensionsPath": null,
-      "configuration": null,
-      "runtime": null,
-      "targetFramework": null,
-      "noBuild": true,
-      "msBuildOutputPath": null,
-      "verbose": false,
-      "workingDirectory": null,
-      "aspNetCoreEnvironment": "Development",
-      "output": "wwwroot/openapi/v1.json",
+    "fromDocument": {
+      "json": null,
+      "url": "wwwroot/openapi/v1.json",
+      "output": null,
       "newLineBehavior": "Auto"
     }
   },
