@@ -53,29 +53,6 @@ jobs:
 
     - name: Build solution
       run: dotnet build --no-restore --configuration Release
-
-    #if (!UseApiOnly)
-    - name: Build React client app
-      run: npm ci && npm run build
-      working-directory: ./src/Web/ClientApp-React
-    #endif
       
     - name: Test solution
       run: dotnet test --no-build --configuration Release --filter "FullyQualifiedName!~AcceptanceTests"
-
-    - name: Publish website
-      if: ${{ inputs.build-artifacts == true }}
-      run: |
-        dotnet publish --configuration Release --runtime win-x86 --self-contained --output ./publish
-        cd publish
-        zip -r ./publish.zip .
-      working-directory: ./src/Web/
-
-    - name: Upload website artifact (website)
-      if: ${{ inputs.build-artifacts == true }}
-      uses: actions/upload-artifact@v7
-      with:
-        name: website
-        path: ./src/Web/publish/publish.zip
-        if-no-files-found: error
-
