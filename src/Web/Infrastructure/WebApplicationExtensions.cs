@@ -10,7 +10,6 @@ public static class WebApplicationExtensions
 
         return app
             .MapGroup($"/api/{groupName}")
-            .WithGroupName(groupName)
             .WithTags(groupName);
     }
 

@@ -1,4 +1,5 @@
 using CleanArchitecture.Infrastructure.Data;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,11 +31,8 @@ app.UseHealthChecks("/health");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseSwaggerUi(settings =>
-{
-    settings.Path = "/api";
-    settings.DocumentPath = "/api/specification.json";
-});
+app.MapOpenApi();
+app.MapScalarApiReference();
 
 #if (!UseApiOnly)
 app.MapRazorPages();
@@ -45,7 +43,7 @@ app.MapFallbackToFile("index.html");
 app.UseExceptionHandler(options => { });
 
 #if (UseApiOnly)
-app.Map("/", () => Results.Redirect("/api"));
+app.Map("/", () => Results.Redirect("/scalar"));
 #endif
 
 #if (UseAspire)

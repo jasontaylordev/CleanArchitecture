@@ -8,6 +8,10 @@
     <!--#endif-->
     <RootNamespace>CleanArchitecture.Web</RootNamespace>
     <AssemblyName>CleanArchitecture.Web</AssemblyName>
+    <!--#if (!UseApiOnly)-->
+    <OpenApiDocumentsDirectory>.\wwwroot\openapi\</OpenApiDocumentsDirectory>
+    <OpenApiGenerateDocumentsOptions>--file-name v1</OpenApiGenerateDocumentsOptions>
+    <!--#endif-->
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,17 +34,17 @@
       <!-- The SPA Proxy is only used at development time -->
       <Publish>false</Publish>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.ApiDescription.Server">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <!--#endif-->
     <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="NSwag.AspNetCore" />
-    <PackageReference Include="NSwag.MSBuild">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="Scalar.AspNetCore" />
   </ItemGroup>
 
   <!--#if (!UseApiOnly)-->
@@ -60,24 +64,7 @@
     <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
   </Target>
-  <!--#endif-->
 
-  <!-- Auto-generated Open API specification and Angular TypeScript clients -->
-  <PropertyGroup>
-    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-  </PropertyGroup>
-
-  <Target Name="NSwag" AfterTargets="PostBuildEvent" Condition=" '$(Configuration)' == 'Debug' And '$(SkipNSwag)' != 'True' ">
-    <Exec ConsoleToMSBuild="true" ContinueOnError="true" WorkingDirectory="$(ProjectDir)" EnvironmentVariables="ASPNETCORE_ENVIRONMENT=Development" Command="$(NSwagExe_Net100) run config.nswag /variables:Configuration=$(Configuration),MSBuildProjectExtensionsPath=&quot;$(ArtifactsPath)\obj\Web&quot;">
-      <Output TaskParameter="ExitCode" PropertyName="NSwagExitCode" />
-      <Output TaskParameter="ConsoleOutput" PropertyName="NSwagOutput" />
-    </Exec>
-
-    <Message Text="$(NSwagOutput)" Condition="'$(NSwagExitCode)' == '0'" Importance="low" />
-    <Error Text="$(NSwagOutput)" Condition="'$(NSwagExitCode)' != '0'" />
-  </Target>
-
-  <!--#if (!UseApiOnly)-->
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />

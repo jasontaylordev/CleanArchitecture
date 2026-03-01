@@ -1,13 +1,8 @@
-﻿using Azure.Identity;
+using Azure.Identity;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Infrastructure.Data;
 using CleanArchitecture.Web.Services;
 using Microsoft.AspNetCore.Mvc;
-
-#if (UseApiOnly)
-using NSwag;
-using NSwag.Generation.Processors.Security;
-#endif
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -37,23 +32,11 @@ public static class DependencyInjection
 
         builder.Services.AddEndpointsApiExplorer();
 
-        builder.Services.AddOpenApiDocument((configure, sp) =>
+        builder.Services.AddOpenApi(options =>
         {
-            configure.Title = "CleanArchitecture API";
-
-            configure.OperationProcessors.Add(new ApiExceptionOperationProcessor());
-
+            options.AddOperationTransformer<ApiExceptionOperationTransformer>();
 #if (UseApiOnly)
-            // Add JWT
-            configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
-            {
-                Type = OpenApiSecuritySchemeType.ApiKey,
-                Name = "Authorization",
-                In = OpenApiSecurityApiKeyLocation.Header,
-                Description = "Type into the textbox: Bearer {your JWT token}."
-            });
-
-            configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
+            options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
 #endif
         });
     }

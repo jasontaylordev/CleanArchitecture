@@ -1,39 +1,25 @@
 using Microsoft.AspNetCore.Authorization;
-using NSwag;
-using NSwag.Generation.AspNetCore;
-using NSwag.Generation.Processors;
-using NSwag.Generation.Processors.Contexts;
+using Microsoft.AspNetCore.OpenApi;
+using Microsoft.OpenApi;
 
 namespace CleanArchitecture.Web.Infrastructure;
 
-public class ApiExceptionOperationProcessor : IOperationProcessor
+internal sealed class ApiExceptionOperationTransformer : IOpenApiOperationTransformer
 {
-    public bool Process(OperationProcessorContext context)
+    public Task TransformAsync(OpenApiOperation operation, OpenApiOperationTransformerContext context, CancellationToken cancellationToken)
     {
-        var operation = context.OperationDescription.Operation;
+        operation.Responses ??= new OpenApiResponses();
+        operation.Responses.TryAdd("400", new OpenApiResponse { Description = "Bad Request" });
 
-        operation.Responses.TryAdd("400", new OpenApiResponse
-        {
-            Description = "Bad Request"
-        });
-
-        var aspNetCoreContext = context as AspNetCoreOperationProcessorContext;
-        var requiresAuth = aspNetCoreContext?.ApiDescription.ActionDescriptor.EndpointMetadata
-            .Any(m => m is IAuthorizeData) == true;
+        var requiresAuth = context.Description.ActionDescriptor.EndpointMetadata
+            .Any(m => m is IAuthorizeData);
 
         if (requiresAuth)
         {
-            operation.Responses.TryAdd("401", new OpenApiResponse
-            {
-                Description = "Unauthorized"
-            });
-
-            operation.Responses.TryAdd("403", new OpenApiResponse
-            {
-                Description = "Forbidden"
-            });
+            operation.Responses.TryAdd("401", new OpenApiResponse { Description = "Unauthorized" });
+            operation.Responses.TryAdd("403", new OpenApiResponse { Description = "Forbidden" });
         }
 
-        return true;
+        return Task.CompletedTask;
     }
 }

@@ -160,15 +160,19 @@
       },
       "modifiers": [
         {
+          "condition": "(!UseApiOnly)",
+          "exclude": [
+            "src/Web/Infrastructure/BearerSecuritySchemeTransformer.cs"
+          ]
+        },
+        {
           "condition": "(UseAngular)",
           "exclude": [
             "src/Web/ClientApp-React/**",
             "src/Web/Endpoints/Users.cs",
             "src/Web/Templates/**",
             "src/Web/config-react.nswag",
-            "src/Web/config-webapi.nswag",
-            "src/Web/Web-webapi.http",
-            "src/Web/wwwroot/api/specification-webapi.json"
+            "src/Web/Web-webapi.http"
           ]
         },
         {
@@ -177,9 +181,7 @@
             "src/Web/ClientApp/**",
             "src/Web/Endpoints/Users.cs",
             "src/Web/config.nswag",
-            "src/Web/config-webapi.nswag",
-            "src/Web/Web-webapi.http",
-            "src/Web/wwwroot/api/specification-webapi.json"
+            "src/Web/Web-webapi.http"
           ],
           "rename": {
             "config-react.nswag": "config.nswag",
@@ -196,13 +198,10 @@
             "src/Web/config.nswag",
             "src/Web/config-react.nswag",
             "src/Web/Web.http",
-            "tests/Web.AcceptanceTests/**",
-            "src/Web/wwwroot/api/specification.json"
+            "tests/Web.AcceptanceTests/**"
           ],
           "rename": {
-            "config-webapi.nswag": "config.nswag",
-            "Web-webapi.http": "Web.http",
-            "specification-webapi.json": "specification.json"
+            "Web-webapi.http": "Web.http"
           }
         },
         {

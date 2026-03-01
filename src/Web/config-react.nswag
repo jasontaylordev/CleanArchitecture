@@ -14,7 +14,7 @@
       "verbose": false,
       "workingDirectory": null,
       "aspNetCoreEnvironment": "Development",
-      "output": "wwwroot/api/specification.json",
+      "output": "wwwroot/openapi/v1.json",
       "newLineBehavior": "Auto"
     }
   },
