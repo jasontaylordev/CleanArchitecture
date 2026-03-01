@@ -9,7 +9,7 @@
     <RootNamespace>CleanArchitecture.Web</RootNamespace>
     <AssemblyName>CleanArchitecture.Web</AssemblyName>
     <!--#if (!UseApiOnly)-->
-    <OpenApiDocumentsDirectory>.\wwwroot\openapi\</OpenApiDocumentsDirectory>
+    <OpenApiDocumentsDirectory>./wwwroot/openapi/</OpenApiDocumentsDirectory>
     <OpenApiGenerateDocumentsOptions>--file-name v1</OpenApiGenerateDocumentsOptions>
     <!--#endif-->
   </PropertyGroup>
