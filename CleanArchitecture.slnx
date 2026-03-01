@@ -15,11 +15,7 @@
     <Project Path="src/Application/Application.csproj" />
     <Project Path="src/Domain/Domain.csproj" />
     <Project Path="src/Infrastructure/Infrastructure.csproj" />
-    <!--#if (UseAspire)-->
-    <Project Path="src/Web/Web.csproj" />
-    <!--#else-->
     <Project Path="src/Web/Web.csproj" DefaultStartup="true" />
-    <!--#endif-->
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Application.FunctionalTests/Application.FunctionalTests.csproj" />
