@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "prestart": "node aspnetcore-https",
+    "prestart": "node aspnetcore-https && npm run generate-api",
     "start": "run-script-os",
     "start:windows": "ng serve --port 44447 --ssl --ssl-cert \"%APPDATA%\\ASP.NET\\https\\%npm_package_name%.pem\" --ssl-key \"%APPDATA%\\ASP.NET\\https\\%npm_package_name%.key\"",
     "start:default": "ng serve --port 44447 --ssl --ssl-cert \"$HOME/.aspnet/https/${npm_package_name}.pem\" --ssl-key \"$HOME/.aspnet/https/${npm_package_name}.key\"",
@@ -11,7 +11,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "generate-api": "cd .. && nswag run config.nswag"
+    "generate-api": "nswag run /runtime:Net100"
   },
   "private": true,
   "dependencies": {

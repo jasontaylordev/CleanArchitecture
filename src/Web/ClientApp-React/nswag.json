@@ -4,7 +4,7 @@
   "documentGenerator": {
     "fromDocument": {
       "json": null,
-      "url": "wwwroot/openapi/v1.json",
+      "url": "../wwwroot/openapi/v1.json",
       "output": null,
       "newLineBehavior": "Auto"
     }
@@ -15,7 +15,7 @@
       "moduleName": "",
       "namespace": "",
       "typeScriptVersion": 4.3,
-      "template": "Angular",
+      "template": "Fetch",
       "promiseType": "Promise",
       "httpClass": "HttpClient",
       "withCredentials": false,
@@ -25,7 +25,7 @@
       "dateTimeType": "Date",
       "nullValue": "Undefined",
       "generateClientClasses": true,
-      "generateClientInterfaces": true,
+      "generateClientInterfaces": false,
       "generateOptionalParameters": false,
       "exportTypes": true,
       "wrapDtoExceptions": false,
@@ -66,10 +66,10 @@
       "inlineNamedDictionaries": false,
       "inlineNamedAny": false,
       "includeHttpContext": false,
-      "templateDirectory": null,
+      "templateDirectory": "Templates",
       "serviceHost": null,
       "serviceSchemes": null,
-      "output": "ClientApp/src/app/web-api-client.ts",
+      "output": "src/web-api-client.ts",
       "newLineBehavior": "Auto"
     }
   }

@@ -24,12 +24,12 @@
     "vite": "^7.0.0"
   },
   "scripts": {
-    "prestart": "node aspnetcore-https.cjs",
+    "prestart": "node aspnetcore-https.cjs && npm run generate-api",
     "start": "vite",
     "prebuild": "npm run generate-api",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint ./src/",
-    "generate-api": "cd .. && nswag run config-react.nswag"
+    "generate-api": "nswag run /runtime:Net100"
   }
 }
