@@ -104,6 +104,12 @@ To set up a CI/CD pipeline (GitHub Actions or Azure DevOps):
 azd pipeline config
 ```
 
+## API Documentation
+
+This template includes built-in API documentation using [ASP.NET Core OpenAPI](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/openapi/overview) and [Scalar](https://scalar.com/). Once the application is running, navigate to `/scalar` to explore the API using the Scalar UI.
+
+The OpenAPI specification is generated at build time and written to `wwwroot/openapi/v1.json`.
+
 ## Technologies
 
 * [ASP.NET Core 10](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core)
@@ -113,6 +119,7 @@ azd pipeline config
 * [AutoMapper](https://automapper.org/)
 * [FluentValidation](https://fluentvalidation.net/)
 * [NUnit](https://nunit.org/), [Shouldly](https://docs.shouldly.org/), [Moq](https://github.com/devlooped/moq) & [Respawn](https://github.com/jbogard/Respawn)
+* [Scalar](https://scalar.com/)
 
 ## Versions
 The main branch is now on .NET 10.0. The following previous versions are available:
