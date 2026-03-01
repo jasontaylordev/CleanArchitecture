@@ -30,7 +30,7 @@
   <files>
     <file src=".template.config\icon.png" />
     <file src="README.md" />
-    <file src=".\**" target="content" exclude="**\node_modules\**;**\tools\**;**\bin\**;**\obj\**;.\.vs\**;.\.vscode\**;**\ClientApp\dist\**;**\ClientApp\.angular\**;**\wwwroot\dist\**;content\Directory.Build.*;.\.git\**;.\.github\workflows\jekyll-gh-pages.yml;.\.github\workflows\release.yml;.\.github\workflows\codeql.yml;.\.github\workflows\build.yml;.\.github\ISSUE_TEMPLATE\**;.\.github\icon.png;.\.github\FUNDING.yml;.\CODE_OF_CONDUCT.md;.\LICENSE;.\README.md;.\CleanArchitecture.nuspec;.\src\Web\app.db;" />
+    <file src=".\**" target="content" exclude="**\node_modules\**;**\tools\**;**\bin\**;**\obj\**;.\.vs\**;.\.vscode\**;**\ClientApp\dist\**;**\ClientApp\.angular\**;**\wwwroot\dist\**;content\Directory.Build.*;.\.git\**;.\.github\workflows\jekyll-gh-pages.yml;.\.github\workflows\release.yml;.\.github\workflows\codeql.yml;.\.github\workflows\build.yml;.\.github\ISSUE_TEMPLATE\**;.\.github\icon.png;.\.github\FUNDING.yml;.\CODE_OF_CONDUCT.md;.\LICENSE;.\README.md;.\CleanArchitecture.nuspec;.\src\Web\app.db;.\renovate.json;" />
   </files>
 
 </package>
