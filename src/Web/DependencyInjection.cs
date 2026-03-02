@@ -15,14 +15,14 @@ public static class DependencyInjection
         builder.Services.AddScoped<IUser, CurrentUser>();
 
         builder.Services.AddHttpContextAccessor();
-#if (!UseAspire)
+#if !UseAspire
         builder.Services.AddHealthChecks()
             .AddDbContextCheck<ApplicationDbContext>();
 #endif
 
         builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
-#if (!UseApiOnly)
+#if !UseApiOnly
         builder.Services.AddRazorPages();
 #endif
 
@@ -35,7 +35,7 @@ public static class DependencyInjection
         builder.Services.AddOpenApi(options =>
         {
             options.AddOperationTransformer<ApiExceptionOperationTransformer>();
-#if (UseApiOnly)
+#if UseApiOnly
             options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
 #endif
         });

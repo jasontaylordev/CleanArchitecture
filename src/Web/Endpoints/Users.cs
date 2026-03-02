@@ -1,4 +1,4 @@
-﻿#if (UseApiOnly)
+﻿#if UseApiOnly
 using CleanArchitecture.Infrastructure.Identity;
 
 namespace CleanArchitecture.Web.Endpoints;

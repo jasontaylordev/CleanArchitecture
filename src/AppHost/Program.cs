@@ -1,6 +1,6 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-#if (UsePostgreSQL)
+#if UsePostgreSQL
 var databaseName = "CleanArchitectureDb";
 
 var postgres = builder
@@ -13,7 +13,7 @@ var database = postgres.AddDatabase(databaseName);
 builder.AddProject<Projects.Web>("web")
     .WithReference(database)
     .WaitFor(database);
-#elif (UseSqlite)
+#elif UseSqlite
 builder.AddProject<Projects.Web>("web");
 #else
 var sql = builder.AddSqlServer("sql");
