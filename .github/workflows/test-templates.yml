@@ -5,6 +5,9 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   test-template:
     name: ${{ matrix.client-framework }}-${{ matrix.database }}
