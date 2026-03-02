@@ -24,7 +24,7 @@ function CreateAndTestProject {
         Write-Host "Creating project: $name"
         $startTime = Get-Date
 
-        dotnet new ca-sln --client-framework $clientFramework --database $database --use-aspire true --name CleanArchitecture --output $projectPath --no-update-check
+        dotnet new ca-sln --client-framework $clientFramework --database $database --name CleanArchitecture --output $projectPath --no-update-check
         if ($LASTEXITCODE -ne 0) { throw "dotnet new ca-sln failed for $name" }
 
         $exitCode = 0

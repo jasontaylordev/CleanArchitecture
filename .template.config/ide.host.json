@@ -33,15 +33,5 @@
       },
       "isVisible": true
     },
-    {
-      "id": "UseAspire",
-      "name": {
-        "text": "Use Aspire"
-      },
-      "description": {
-        "text": "Use .NET Aspire"
-      },
-      "isVisible": true
-    }
   ]
 }
