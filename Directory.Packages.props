@@ -48,14 +48,18 @@
     <PackageVersion Include="Microsoft.Playwright" Version="1.58.0" />
     <PackageVersion Include="Reqnroll.NUnit" Version="3.3.3" />
     <!--#endif-->
-    <!--#if (UseAspire)-->
     <!--#if (UsePostgreSQL)-->
     <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="$(AspireVersion)" />
     <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="13.1.2" />
+    <PackageVersion Include="Testcontainers.PostgreSql" Version="4.8.1" />
     <!--#endif-->
     <!--#if (UseSqlServer)-->
     <PackageVersion Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="13.1.2" />
     <PackageVersion Include="Aspire.Hosting.SqlServer" Version="13.1.2" />
+    <PackageVersion Include="Testcontainers.MsSql" Version="4.8.1" />
+    <!--#endif-->
+    <!--#if (UseSqlite)-->
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EfcoreVersion)" />
     <!--#endif-->
     <PackageVersion Include="Aspire.Hosting.AppHost" Version="13.1.2" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="10.3.0" />
@@ -65,17 +69,6 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.15.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.15.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.15.0" />
-    <!--#endif-->
-    <!--#if (UsePostgreSQL)-->
-    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0" />
-    <PackageVersion Include="Testcontainers.PostgreSql" Version="4.8.1" />
-    <!--#endif-->
-    <!--#if (UseSqlite)-->
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EfcoreVersion)" />
-    <!--#endif-->
-    <!--#if (UseSqlServer)-->
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(EfcoreVersion)" />
-    <PackageVersion Include="Testcontainers.MsSql" Version="4.8.1" />
-    <!--#endif-->
+
   </ItemGroup>
 </Project>
