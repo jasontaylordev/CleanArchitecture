@@ -55,4 +55,4 @@ jobs:
       run: dotnet build --no-restore --configuration Release
       
     - name: Test solution
-      run: dotnet test --no-build --configuration Release --filter "FullyQualifiedName!~AcceptanceTests"
+      run: find tests -name "*.csproj" ! -name "*AcceptanceTests*" | xargs -I {} dotnet test {} --no-build --configuration Release
