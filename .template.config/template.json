@@ -90,7 +90,7 @@
           "description": "SQL Server"
         }
       ],
-      "defaultValue": "sqlserver",
+      "defaultValue": "sqlite",
       "description": "The database type to use."
     },
     "PipelineProvider": {
