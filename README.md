@@ -69,7 +69,7 @@ dotnet new ca-usecase --help
 
 ## Database
 
-The template supports [PostgreSQL](https://www.postgresql.org), [SQLite](https://www.sqlite.org/), and [SQL Server](https://learn.microsoft.com/en-us/sql/sql-server/what-is-sql-server) (default option). Specify the database to use with the `--database` option:
+The template supports [PostgreSQL](https://www.postgresql.org), [SQLite](https://www.sqlite.org/) (default), and [SQL Server](https://learn.microsoft.com/en-us/sql/sql-server/what-is-sql-server). Specify the database to use with the `--database` option:
 
 ```bash
 dotnet new ca-sln --database [postgresql|sqlite|sqlserver]

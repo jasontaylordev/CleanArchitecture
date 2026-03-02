@@ -24,9 +24,9 @@ public static class DependencyInjection
         builder.Services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
             options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
-#if UsePostgreSQL
+#if (UsePostgreSQL)
             options.UseNpgsql(connectionString);
-#elif UseSqlServer
+#elif (UseSqlServer)
             options.UseSqlServer(connectionString);
 #else
             options.UseSqlite(connectionString);
@@ -34,10 +34,10 @@ public static class DependencyInjection
             options.ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
         });
 
-#if UseAspire
-#if UsePostgreSQL
+#if (UseAspire)
+#if (UsePostgreSQL)
         builder.EnrichNpgsqlDbContext<ApplicationDbContext>();
-#elif UseSqlServer
+#elif (UseSqlServer)
         builder.EnrichSqlServerDbContext<ApplicationDbContext>();
 #endif
 #endif
@@ -46,7 +46,7 @@ public static class DependencyInjection
 
         builder.Services.AddScoped<ApplicationDbContextInitialiser>();
 
-#if UseApiOnly
+#if (UseApiOnly)
         builder.Services.AddAuthentication()
             .AddBearerToken(IdentityConstants.BearerScheme);
 
