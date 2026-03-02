@@ -17,9 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
-    <!--#if(UseAspire)-->
     <ProjectReference Include="..\ServiceDefaults\ServiceDefaults.csproj" />
-    <!--#endif-->
   </ItemGroup>
 
   <ItemGroup>

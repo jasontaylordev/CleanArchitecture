@@ -41,19 +41,13 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                     mock.SetupGet(x => x.Id).Returns(GetUserId());
                     return mock.Object;
                 });
-#if !UseAspire || UseSqlite
+#if UseSqlite
             services
                 .RemoveAll<DbContextOptions<ApplicationDbContext>>()
                 .AddDbContext<ApplicationDbContext>((sp, options) =>
                 {
                     options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
-    #if UsePostgreSQL
-                    options.UseNpgsql(_connection);
-    #elif UseSqlServer
-                    options.UseSqlServer(_connection);
-    #else
                     options.UseSqlite(_connection);
-    #endif
                 });
 #endif
         });

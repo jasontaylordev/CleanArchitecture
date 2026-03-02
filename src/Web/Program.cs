@@ -4,9 +4,7 @@ using Scalar.AspNetCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-#if UseAspire
 builder.AddServiceDefaults();
-#endif
 builder.AddKeyVaultIfConfigured();
 builder.AddApplicationServices();
 builder.AddInfrastructureServices();
@@ -25,9 +23,6 @@ else
     app.UseHsts();
 }
 
-#if !UseAspire
-app.UseHealthChecks("/health");
-#endif
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -46,9 +41,7 @@ app.UseExceptionHandler(options => { });
 app.Map("/", () => Results.Redirect("/scalar"));
 #endif
 
-#if UseAspire
 app.MapDefaultEndpoints();
-#endif
 app.MapEndpoints();
 
 app.Run();
