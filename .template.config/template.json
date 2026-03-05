@@ -171,7 +171,6 @@
           "condition": "(UseAngular)",
           "exclude": [
             "src/Web/ClientApp-React/**",
-            "src/Web/Endpoints/Users.cs",
             "src/Web/Web-webapi.http"
           ]
         },
@@ -179,7 +178,6 @@
           "condition": "(UseReact)",
           "exclude": [
             "src/Web/ClientApp/**",
-            "src/Web/Endpoints/Users.cs",
             "src/Web/Web-webapi.http"
           ],
           "rename": {
