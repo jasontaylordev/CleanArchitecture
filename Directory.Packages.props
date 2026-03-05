@@ -20,7 +20,6 @@
     <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="$(AspnetVersion)" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="$(AspnetVersion)" />
     <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="$(AspnetVersion)" />
-    <PackageVersion Include="Microsoft.AspNetCore.Identity.UI" Version="$(AspnetVersion)" />
     <PackageVersion Include="Microsoft.Build.Tasks.Core" Version="18.3.3" />
     <PackageVersion Include="Microsoft.Build.Utilities.Core" Version="18.3.3" />
     <PackageVersion Include="Microsoft.Data.SqlClient" Version="6.1.4" />

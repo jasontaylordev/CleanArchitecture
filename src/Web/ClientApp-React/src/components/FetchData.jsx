@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import followIfLoginRedirect from './api-authorization/followIfLoginRedirect';
 import { WeatherForecastsClient } from '../web-api-client.ts';
 
 export class FetchData extends Component {
@@ -59,10 +58,4 @@ export class FetchData extends Component {
     this.setState({ forecasts: data, loading: false });
   }
 
-  async populateWeatherDataOld() {
-    const response = await fetch('weatherforecast');
-    followIfLoginRedirect(response);
-    const data = await response.json();
-    this.setState({ forecasts: data, loading: false });
-  }
 }

@@ -19,6 +19,7 @@
       "promiseType": "Promise",
       "httpClass": "HttpClient",
       "withCredentials": false,
+      "requestCredentials": "include",
       "useSingletonProvider": true,
       "injectionTokenType": "InjectionToken",
       "rxJsVersion": 7.0,
@@ -66,8 +67,7 @@
       "inlineNamedDictionaries": false,
       "inlineNamedAny": false,
       "includeHttpContext": false,
-      "templateDirectory": "Templates",
-      "serviceHost": null,
+"serviceHost": null,
       "serviceSchemes": null,
       "output": "src/web-api-client.ts",
       "newLineBehavior": "Auto"

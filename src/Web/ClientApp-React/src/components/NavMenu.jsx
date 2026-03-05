@@ -1,24 +1,49 @@
 import React, { Component } from 'react';
 import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from './api-authorization/AuthContext';
 import './NavMenu.css';
+
+function NavMenuInner() {
+  const { isAuthenticated, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await logout();
+    navigate('/login');
+  };
+
+  return (
+    <>
+      {isAuthenticated ? (
+        <NavItem>
+          <button className="btn btn-link nav-link text-dark" onClick={handleLogout}>Log out</button>
+        </NavItem>
+      ) : (
+        <>
+          <NavItem>
+            <NavLink tag={Link} className="text-dark" to="/login">Log in</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink tag={Link} className="text-dark" to="/register">Register</NavLink>
+          </NavItem>
+        </>
+      )}
+    </>
+  );
+}
 
 export class NavMenu extends Component {
   static displayName = NavMenu.name;
 
-  constructor (props) {
+  constructor(props) {
     super(props);
-
     this.toggleNavbar = this.toggleNavbar.bind(this);
-    this.state = {
-      collapsed: true
-    };
+    this.state = { collapsed: true };
   }
 
-  toggleNavbar () {
-    this.setState({
-      collapsed: !this.state.collapsed
-    });
+  toggleNavbar() {
+    this.setState({ collapsed: !this.state.collapsed });
   }
 
   render() {
@@ -38,9 +63,7 @@ export class NavMenu extends Component {
               <NavItem>
                 <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>
               </NavItem>
-              <NavItem>
-                <a className="nav-link text-dark" href="/Identity/Account/Manage">Account</a>
-              </NavItem>
+              <NavMenuInner />
             </ul>
           </Collapse>
         </Navbar>

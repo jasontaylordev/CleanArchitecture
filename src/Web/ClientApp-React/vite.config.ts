@@ -45,11 +45,6 @@ export default defineConfig({
         secure: false,
         changeOrigin: true,
       },
-      '/Identity': {
-        target,
-        secure: false,
-        changeOrigin: true,
-      },
       '/weatherforecast': {
         target,
         secure: false,
