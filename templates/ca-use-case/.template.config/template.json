@@ -76,8 +76,24 @@
       "type": "parameter",
       "datatype": "string",
       "isRequired": false,
-      "replaces": "object",
-      "defaultValue": "object"
+      "replaces": "TReturnType",
+      "defaultValue": ""
+    },
+    "hasReturnType": {
+      "type": "computed",
+      "value": "(returnType != \"\")"
+    },
+    "CommonInterfacesNamespace": {
+      "type": "generated",
+      "generator": "join",
+      "parameters": {
+        "symbols": [
+          { "type": "ref", "value": "RootNamespace" },
+          { "type": "const", "value": "Common.Interfaces" }
+        ],
+        "separator": "."
+      },
+      "replaces": "CleanArchitecture.Application.Common.Interfaces"
     }
   },
   "sources": [

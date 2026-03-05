@@ -1,8 +1,12 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
+using CleanArchitecture.Application.Common.Interfaces;
 
 namespace CleanArchitecture.Application.FeatureName.Commands.CleanArchitectureUseCase;
 
-public record CleanArchitectureUseCaseCommand : IRequest<object>
+//#if (hasReturnType)
+public record CleanArchitectureUseCaseCommand : IRequest<TReturnType>
+//#else
+public record CleanArchitectureUseCaseCommand : IRequest
+//#endif
 {
 }
 
@@ -13,7 +17,11 @@ public class CleanArchitectureUseCaseCommandValidator : AbstractValidator<CleanA
     }
 }
 
-public class CleanArchitectureUseCaseCommandHandler : IRequestHandler<CleanArchitectureUseCaseCommand, object>
+//#if (hasReturnType)
+public class CleanArchitectureUseCaseCommandHandler : IRequestHandler<CleanArchitectureUseCaseCommand, TReturnType>
+//#else
+public class CleanArchitectureUseCaseCommandHandler : IRequestHandler<CleanArchitectureUseCaseCommand>
+//#endif
 {
     private readonly IApplicationDbContext _context;
 
@@ -22,8 +30,15 @@ public class CleanArchitectureUseCaseCommandHandler : IRequestHandler<CleanArchi
         _context = context;
     }
 
-    public async Task<object> Handle(CleanArchitectureUseCaseCommand request, CancellationToken cancellationToken)
+//#if (hasReturnType)
+    public async Task<TReturnType> Handle(CleanArchitectureUseCaseCommand request, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
+//#else
+    public async Task Handle(CleanArchitectureUseCaseCommand request, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+//#endif
 }
