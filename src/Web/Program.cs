@@ -30,7 +30,10 @@ else
 app.UseHealthChecks("/health");
 #endif
 app.UseHttpsRedirection();
-app.UseStaticFiles();
+app.UseCors(static builder => 
+    builder.AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowAnyOrigin());
 
 app.MapOpenApi();
 app.MapScalarApiReference();
@@ -49,6 +52,8 @@ app.Map("/", () => Results.Redirect("/scalar"));
 app.MapDefaultEndpoints();
 #endif
 app.MapEndpoints();
+
+app.UseFileServer();
 
 app.Run();
 
