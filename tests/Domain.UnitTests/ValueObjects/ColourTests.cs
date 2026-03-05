@@ -46,4 +46,14 @@ public class ColourTests
     {
         Should.Throw<UnsupportedColourException>(() => Colour.From("##FF33CC"));
     }
+
+    [Test]
+    public void ShouldBeComparableWithOperators()
+    {
+        var color1 = new Colour("#FFFFFF");
+        var color2 = new Colour("#FFFFFF");
+        var color3 = new Colour("#AAAAAA");
+        (color1 == color2).ShouldBe(true);
+        (color1 == color3).ShouldBe(false);
+    }
 }
