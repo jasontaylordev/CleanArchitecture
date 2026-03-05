@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 #if (UseAspire)
 builder.AddServiceDefaults();
 #endif
+
 builder.AddKeyVaultIfConfigured();
 builder.AddApplicationServices();
 builder.AddInfrastructureServices();
@@ -35,8 +36,6 @@ app.MapOpenApi();
 app.MapScalarApiReference();
 
 #if (!UseApiOnly)
-app.MapRazorPages();
-
 app.MapFallbackToFile("index.html");
 #endif
 

@@ -22,10 +22,6 @@ public static class DependencyInjection
 
         builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
-#if (!UseApiOnly)
-        builder.Services.AddRazorPages();
-#endif
-
         // Customise default API behaviour
         builder.Services.Configure<ApiBehaviorOptions>(options =>
             options.SuppressModelStateInvalidFilter = true);
@@ -35,9 +31,7 @@ public static class DependencyInjection
         builder.Services.AddOpenApi(options =>
         {
             options.AddOperationTransformer<ApiExceptionOperationTransformer>();
-#if (UseApiOnly)
             options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
-#endif
         });
     }
 
