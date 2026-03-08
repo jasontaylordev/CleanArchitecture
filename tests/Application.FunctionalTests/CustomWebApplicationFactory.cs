@@ -53,8 +53,8 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                     options.UseSqlServer(_connection);
 #else
                     options.UseSqlite(_connection);
-                });
 #endif
+                });
         });
     }
 }
