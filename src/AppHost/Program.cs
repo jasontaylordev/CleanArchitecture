@@ -11,7 +11,6 @@ var web = builder.AddProject<Projects.Web>("web")
         url.Url = "/scalar";
     });
 
-#pragma warning disable ASPIRECERTIFICATES001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 builder.AddJavaScriptApp("frontend", "./../Web/ClientApp")
     .WithRunScript("start")
     .WithReference(web)
@@ -19,7 +18,6 @@ builder.AddJavaScriptApp("frontend", "./../Web/ClientApp")
     .WithHttpEndpoint(env: "PORT")
     .WithExternalHttpEndpoints()
     .PublishAsDockerFile();
-#pragma warning restore ASPIRECERTIFICATES001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 
 #if (UsePostgreSQL)
 var postgres = builder
@@ -29,15 +27,15 @@ var postgres = builder
     .AddDatabase("CleanArchitectureDb");
 
 web
-    .WithReference(database)
-    .WaitFor(database);
+    .WithReference(postgres)
+    .WaitFor(postgres);
 #elif (UseSqlServer)
 var sql = builder.AddSqlServer("sql")
     .AddDatabase("CleanArchitectureDb");
 
 web
-    .WithReference(database)
-    .WaitFor(database);
+    .WithReference(sql)
+    .WaitFor(sql);
 #endif
 
 builder.Build().Run();
