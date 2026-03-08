@@ -11,9 +11,6 @@
     "Database": {
       "longName": "database",
       "shortName": "db"
-    },
-    "UseAspire": {
-      "longName": "use-aspire"
     }
   }
 }

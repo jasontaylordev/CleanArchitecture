@@ -67,12 +67,6 @@
       "type": "computed",
       "value": "(ClientFramework == \"None\")"
     },
-    "UseAspire": {
-      "type": "parameter",
-      "datatype": "bool",
-      "defaultValue": "false",
-      "description": "Use .NET Aspire"
-    },
     "Database": {
       "type": "parameter",
       "datatype": "choice",
@@ -245,13 +239,6 @@
             "src/Web/appsettings.SQLite.json": "src/Web/appsettings.json"
           }
         },
-        {
-          "condition": "(!UseAspire)",
-          "exclude": [
-            "src/AppHost/**",
-            "src/ServiceDefaults/**"
-          ]
-        }
       ]
     }
   ]

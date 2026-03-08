@@ -34,12 +34,10 @@ public static class DependencyInjection
             options.ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
         });
 
-#if (UseAspire)
-#if (UsePostgreSQL)
+#if UsePostgreSQL
         builder.EnrichNpgsqlDbContext<ApplicationDbContext>();
 #elif (UseSqlServer)
         builder.EnrichSqlServerDbContext<ApplicationDbContext>();
-#endif
 #endif
 
         builder.Services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());

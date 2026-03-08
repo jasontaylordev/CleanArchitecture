@@ -26,9 +26,6 @@ jobs:
     - name: Install .NET
       uses: actions/setup-dotnet@v5
 
-    - name: Install Aspire workload
-      run: dotnet workload install aspire
-
     - name: Install Node & cache npm packages
       if: matrix.client-framework != 'none'
       uses: actions/setup-node@v6
@@ -55,7 +52,6 @@ jobs:
         dotnet new ca-sln \
           --client-framework ${{ matrix.client-framework }} \
           --database ${{ matrix.database }} \
-          --use-aspire true \
           --name CleanArchitecture \
           --output generated \
           --no-update-check

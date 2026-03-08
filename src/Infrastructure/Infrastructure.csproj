@@ -7,13 +7,11 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" />
-    <!--#if (UseAspire)-->
     <!--#if (UseSqlServer)-->
     <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" />
     <!--#endif-->
     <!--#if (UsePostgreSQL)-->
     <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" />
-    <!--#endif-->
     <!--#endif-->
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
@@ -22,9 +20,6 @@
     <!--#endif-->
     <!--#if (UseSqlite)-->
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
-    <!--#endif-->
-    <!--#if (UseSqlServer)-->
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
     <!--#endif-->
   </ItemGroup>
 
