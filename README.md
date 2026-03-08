@@ -41,7 +41,7 @@ dotnet new ca-sln -cf None -o YourProjectName
 
 Launch the app:
 ```bash
-cd src/Web
+cd src/AppHost
 dotnet run
 ```
 
@@ -113,6 +113,7 @@ The OpenAPI specification is generated at build time and written to `wwwroot/ope
 ## Technologies
 
 * [ASP.NET Core 10](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core)
+* [Aspire](https://aspire.dev)
 * [Entity Framework Core 10](https://docs.microsoft.com/en-us/ef/core/)
 * [Angular 21](https://angular.dev/) or [React 19](https://react.dev/)
 * [MediatR](https://github.com/jbogard/MediatR)

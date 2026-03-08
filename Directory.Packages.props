@@ -48,7 +48,8 @@
     <!--#endif-->
     <!--#if (UsePostgreSQL)-->
     <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="$(AspireVersion)" />
-    <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="13.1.2" />
+    <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="$(AspireVersion)" />
+    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0" />
     <PackageVersion Include="Testcontainers.PostgreSql" Version="4.8.1" />
     <!--#endif-->
     <!--#if (UseSqlServer)-->

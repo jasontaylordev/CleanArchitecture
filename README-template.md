@@ -8,14 +8,14 @@ Run `dotnet build -tl` to build the solution.
 
 ## Run
 
-To run the web application:
+To run the application:
 
 ```bash
-cd .\src\Web\
-dotnet watch run
+cd .\src\AppHost\
+dotnet run
 ```
 
-Navigate to https://localhost:5001. The application will automatically reload if you change any of the source files.
+The .NET Aspire dashboard will open automatically, showing the application URLs and logs.
 
 ## Code Styles & Formatting
 
@@ -65,7 +65,7 @@ dotnet test --filter "FullyQualifiedName!~AcceptanceTests"
 To run the acceptance tests, first start the application:
 
 ```bash
-cd .\src\Web\
+cd .\src\AppHost\
 dotnet run
 ```
 

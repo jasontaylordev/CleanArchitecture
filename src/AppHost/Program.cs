@@ -3,7 +3,6 @@ using Projects;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
-
 var web = builder.AddProject<Projects.Web>("web")
     .WithUrlForEndpoint("http", url =>
     {
