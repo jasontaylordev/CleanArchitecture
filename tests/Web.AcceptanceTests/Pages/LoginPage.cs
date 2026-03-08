@@ -1,18 +1,8 @@
 namespace CleanArchitecture.Web.AcceptanceTests.Pages;
 
-public class LoginPage : BasePage
+public class LoginPage(IPage page) : BasePage(page)
 {
-    public LoginPage(IBrowser browser, IPage page)
-    {
-        Browser = browser;
-        Page = page;
-    }
-
     public override string PagePath => $"{BaseUrl}/login";
-
-    public override IBrowser Browser { get; }
-
-    public override IPage Page { get; set; }
 
     public Task SetEmail(string email)
         => Page.FillAsync("#email", email);
@@ -26,6 +16,6 @@ public class LoginPage : BasePage
     public Task<string?> LogoutButtonText()
         => Page.Locator("button.nav-link:has-text('Log out')").TextContentAsync();
 
-    public Task<bool> InvalidLoginAttemptMessageVisible()
-        => Page.Locator(".alert-danger").IsVisibleAsync();
+    public Task AssertErrorVisible()
+        => Assertions.Expect(Page.Locator(".alert-danger")).ToBeVisibleAsync();
 }
