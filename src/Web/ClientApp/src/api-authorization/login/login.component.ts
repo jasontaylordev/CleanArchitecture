@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   standalone: false,
@@ -10,7 +11,7 @@ import { AuthService } from '../auth.service';
 export class LoginComponent {
   email = '';
   password = '';
-  error = '';
+  error = signal('');
 
   constructor(
     private authService: AuthService,
@@ -18,14 +19,14 @@ export class LoginComponent {
     private route: ActivatedRoute
   ) {}
 
-  login() {
-    this.error = '';
-    this.authService.login(this.email, this.password).subscribe({
-      next: () => {
-        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-        this.router.navigateByUrl(returnUrl);
-      },
-      error: () => this.error = 'Invalid email or password.'
-    });
+  async login() {
+    this.error.set('');
+    try {
+      await firstValueFrom(this.authService.login(this.email, this.password));
+      const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+      await this.router.navigateByUrl(returnUrl);
+    } catch {
+      this.error.set('Invalid email or password.');
+    }
   }
 }

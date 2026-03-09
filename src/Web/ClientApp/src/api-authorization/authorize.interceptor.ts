@@ -16,7 +16,8 @@ export class AuthorizeInterceptor implements HttpInterceptor {
       catchError(error => {
         if (error instanceof HttpErrorResponse
           && error.status === 401
-          && !error.url?.includes('/manage/info')) {
+          && !error.url?.includes('/manage/info')
+          && !this.router.url.startsWith('/login')) {
           this.router.navigate(['/login'], { queryParams: { returnUrl: window.location.pathname } });
         }
         return throwError(() => error);
