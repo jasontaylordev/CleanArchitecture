@@ -57,5 +57,10 @@ jobs:
     - name: Build solution
       run: dotnet build --no-restore --configuration Release
       
+    #if (!UseApiOnly)
+    - name: Install Playwright browsers
+      run: pwsh tests/Web.AcceptanceTests/bin/Release/net10.0/playwright.ps1 install --with-deps chromium
+    #endif
+
     - name: Test solution
-      run: find tests -name "*.csproj" ! -name "*AcceptanceTests*" | xargs -I {} dotnet test {} --no-build --configuration Release
+      run: dotnet test --no-build --configuration Release
