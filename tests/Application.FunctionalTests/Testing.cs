@@ -16,6 +16,7 @@ public partial class Testing
     private static IServiceScopeFactory _scopeFactory = null!;
     private static string? _userId;
     private static List<string>? _roles;
+
     [OneTimeSetUp]
     public async Task RunBeforeAnyTests()
     {
