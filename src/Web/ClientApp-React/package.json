@@ -12,6 +12,7 @@
     "reactstrap": "^9.2.3"
   },
   "devDependencies": {
+    "@types/node": "^22.0.0",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
     "@vitejs/plugin-react": "^5.0.0",
@@ -24,7 +25,7 @@
     "vite": "^7.0.0"
   },
   "scripts": {
-    "prestart": "node aspnetcore-https.cjs && npm run generate-api",
+    "prestart": "npm run generate-api",
     "start": "vite",
     "prebuild": "npm run generate-api",
     "build": "vite build",

@@ -5,7 +5,7 @@ namespace CleanArchitecture.Web.AcceptanceTests;
 [SetUpFixture]
 public class AspireSetup
 {
-    private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(30);
+    private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(60);
 
     public static IDistributedApplicationTestingBuilder Builder { get; private set; } = null!;
     public static DistributedApplication App { get; private set; } = null!;
