@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, TemplateRef, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, signal, computed } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { TodoListsClient, TodoItemsClient,
   TodoListDto, TodoItemDto, LookupDto,
@@ -14,11 +14,13 @@ import { TodoListsClient, TodoItemsClient,
 })
 export class TodoComponent implements OnInit {
   debug = false;
-  lists: TodoListDto[];
-  priorityLevels: LookupDto[];
-  selectedList: TodoListDto;
-  selectedItem: TodoItemDto;
+  lists = signal<TodoListDto[] | null>(null);
+  priorityLevels = signal<LookupDto[]>([]);
+  selectedListId = signal<number | null>(null);
+  selectedList = computed(() => this.lists()?.find(l => l.id === this.selectedListId()) ?? null);
+  selectedItem = signal<TodoItemDto | null>(null);
   newListEditor: any = {};
+  newListError = signal('');
   listOptionsEditor: any = {};
   itemDetailsEditor: any = {};
   newListModalRef: BsModalRef;
@@ -29,19 +31,17 @@ export class TodoComponent implements OnInit {
   constructor(
     private listsClient: TodoListsClient,
     private itemsClient: TodoItemsClient,
-    private modalService: BsModalService,
-    private cdr: ChangeDetectorRef
+    private modalService: BsModalService
   ) {}
 
   ngOnInit(): void {
     this.listsClient.getTodoLists().subscribe({
       next: result => {
-        this.lists = result.lists;
-        this.priorityLevels = result.priorityLevels;
-        if (this.lists.length) {
-          this.selectedList = this.lists[0];
+        this.lists.set(result.lists);
+        this.priorityLevels.set(result.priorityLevels);
+        if (result.lists.length) {
+          this.selectedListId.set(result.lists[0].id);
         }
-        this.cdr.detectChanges();
       },
       error: error => console.error(error)
     });
@@ -60,6 +60,7 @@ export class TodoComponent implements OnInit {
   newListCancelled(): void {
     this.newListModalRef.hide();
     this.newListEditor = {};
+    this.newListError.set('');
   }
 
   addList(): void {
@@ -72,18 +73,17 @@ export class TodoComponent implements OnInit {
     this.listsClient.createTodoList(list as CreateTodoListCommand).subscribe({
       next: result => {
         list.id = result;
-        this.lists.push(list);
-        this.selectedList = list;
+        this.lists.update(ls => [...ls, list]);
+        this.selectedListId.set(list.id);
         this.newListModalRef.hide();
         this.newListEditor = {};
+        this.newListError.set('');
       },
       error: error => {
         const errors = JSON.parse(error.response).errors;
-
         if (errors && errors.Title) {
-          this.newListEditor.error = errors.Title[0];
+          this.newListError.set(errors.Title[0]);
         }
-
         setTimeout(() => document.getElementById('title').focus(), 250);
       }
     });
@@ -91,19 +91,19 @@ export class TodoComponent implements OnInit {
 
   showListOptionsModal(template: TemplateRef<any>) {
     this.listOptionsEditor = {
-      id: this.selectedList.id,
-      title: this.selectedList.title
+      id: this.selectedList()!.id,
+      title: this.selectedList()!.title
     };
-
     this.listOptionsModalRef = this.modalService.show(template);
   }
 
   updateListOptions() {
-    const list = this.listOptionsEditor as UpdateTodoListCommand;
-    this.listsClient.updateTodoList(this.selectedList.id, list).subscribe({
+    const id = this.selectedList()!.id;
+    const newTitle = this.listOptionsEditor.title;
+    this.listsClient.updateTodoList(id, this.listOptionsEditor as UpdateTodoListCommand).subscribe({
       next: () => {
-        (this.selectedList.title = this.listOptionsEditor.title),
-          this.listOptionsModalRef.hide();
+        this.lists.update(ls => ls.map(l => l.id === id ? { ...l, title: newTitle } as TodoListDto : l));
+        this.listOptionsModalRef.hide();
         this.listOptionsEditor = {};
       },
       error: error => console.error(error)
@@ -116,11 +116,13 @@ export class TodoComponent implements OnInit {
   }
 
   deleteListConfirmed(): void {
-    this.listsClient.deleteTodoList(this.selectedList.id).subscribe({
+    const deletedId = this.selectedList()!.id;
+    this.listsClient.deleteTodoList(deletedId).subscribe({
       next: () => {
         this.deleteListModalRef.hide();
-        this.lists = this.lists.filter(t => t.id !== this.selectedList.id);
-        this.selectedList = this.lists.length ? this.lists[0] : null;
+        this.lists.update(ls => ls.filter(l => l.id !== deletedId));
+        const remaining = this.lists()!;
+        this.selectedListId.set(remaining.length ? remaining[0].id : null);
       },
       error: error => console.error(error)
     });
@@ -128,31 +130,33 @@ export class TodoComponent implements OnInit {
 
   // Items
   showItemDetailsModal(template: TemplateRef<any>, item: TodoItemDto): void {
-    this.selectedItem = item;
-    this.itemDetailsEditor = {
-      ...this.selectedItem
-    };
-
+    this.selectedItem.set(item);
+    this.itemDetailsEditor = { ...item };
     this.itemDetailsModalRef = this.modalService.show(template);
   }
 
   updateItemDetails(): void {
-    const item = this.itemDetailsEditor as UpdateTodoItemDetailCommand;
-    this.itemsClient.updateTodoItemDetail(this.selectedItem.id, item).subscribe({
+    const currentItem = this.selectedItem()!;
+    const isMoving = currentItem.listId !== this.itemDetailsEditor.listId;
+    this.itemsClient.updateTodoItemDetail(currentItem.id, this.itemDetailsEditor as UpdateTodoItemDetailCommand).subscribe({
       next: () => {
-        if (this.selectedItem.listId !== this.itemDetailsEditor.listId) {
-          this.selectedList.items = this.selectedList.items.filter(
-            i => i.id !== this.selectedItem.id
-          );
-          const listIndex = this.lists.findIndex(
-            l => l.id === this.itemDetailsEditor.listId
-          );
-          this.selectedItem.listId = this.itemDetailsEditor.listId;
-          this.lists[listIndex].items.push(this.selectedItem);
-        }
-
-        this.selectedItem.priority = this.itemDetailsEditor.priority;
-        this.selectedItem.note = this.itemDetailsEditor.note;
+        this.lists.update(ls => ls.map(l => {
+          if (l.id === currentItem.listId && isMoving) {
+            return { ...l, items: l.items.filter(i => i.id !== currentItem.id) } as TodoListDto;
+          }
+          if (l.id === this.itemDetailsEditor.listId && isMoving) {
+            const moved = { ...currentItem, listId: this.itemDetailsEditor.listId, priority: this.itemDetailsEditor.priority, note: this.itemDetailsEditor.note } as TodoItemDto;
+            return { ...l, items: [...l.items, moved] } as TodoListDto;
+          }
+          if (l.id === currentItem.listId) {
+            return { ...l, items: l.items.map(i => i.id === currentItem.id
+              ? { ...i, priority: this.itemDetailsEditor.priority, note: this.itemDetailsEditor.note } as TodoItemDto
+              : i
+            )} as TodoListDto;
+          }
+          return l;
+        }));
+        this.selectedItem.set(null);
         this.itemDetailsModalRef.hide();
         this.itemDetailsEditor = {};
       },
@@ -163,19 +167,22 @@ export class TodoComponent implements OnInit {
   addItem() {
     const item = {
       id: 0,
-      listId: this.selectedList.id,
-      priority: this.priorityLevels[0].id,
+      listId: this.selectedList()!.id,
+      priority: this.priorityLevels()[0].id,
       title: '',
       done: false
     } as TodoItemDto;
 
-    this.selectedList.items.push(item);
-    const index = this.selectedList.items.length - 1;
+    const index = this.selectedList()!.items.length;
+    this.lists.update(ls => ls.map(l => l.id === this.selectedListId()
+      ? { ...l, items: [...l.items, item] } as TodoListDto
+      : l
+    ));
     this.editItem(item, 'itemTitle' + index);
   }
 
   editItem(item: TodoItemDto, inputId: string): void {
-    this.selectedItem = item;
+    this.selectedItem.set(item);
     setTimeout(() => document.getElementById(inputId).focus(), 100);
   }
 
@@ -188,22 +195,26 @@ export class TodoComponent implements OnInit {
     }
 
     if (item.id === 0) {
+      const listId = this.selectedListId()!;
       this.itemsClient
-          .createTodoItem({ title: item.title, listId: this.selectedList.id } as CreateTodoItemCommand)
+        .createTodoItem({ title: item.title, listId } as CreateTodoItemCommand)
         .subscribe({
           next: result => {
-            item.id = result;
+            this.lists.update(ls => ls.map(l => l.id === listId
+              ? { ...l, items: l.items.map(i => i === item ? { ...i, id: result } as TodoItemDto : i) } as TodoListDto
+              : l
+            ));
           },
           error: error => console.error(error)
         });
     } else {
-        this.itemsClient.updateTodoItem(item.id, item as UpdateTodoItemCommand).subscribe({
+      this.itemsClient.updateTodoItem(item.id, item as UpdateTodoItemCommand).subscribe({
         next: () => console.log('Update succeeded.'),
         error: error => console.error(error)
       });
     }
 
-    this.selectedItem = null;
+    this.selectedItem.set(null);
 
     if (isNewItem && pressedEnter) {
       setTimeout(() => this.addItem(), 250);
@@ -215,15 +226,22 @@ export class TodoComponent implements OnInit {
       this.itemDetailsModalRef.hide();
     }
 
+    const listId = this.selectedListId()!;
     if (item.id === 0) {
-      const itemIndex = this.selectedList.items.indexOf(this.selectedItem);
-      this.selectedList.items.splice(itemIndex, 1);
+      const currentItem = this.selectedItem()!;
+      this.lists.update(ls => ls.map(l => l.id === listId
+        ? { ...l, items: l.items.filter(i => i !== currentItem) } as TodoListDto
+        : l
+      ));
+      this.selectedItem.set(null);
     } else {
       this.itemsClient.deleteTodoItem(item.id).subscribe({
-        next: () =>
-          (this.selectedList.items = this.selectedList.items.filter(
-            t => t.id !== item.id
-          )),
+        next: () => {
+          this.lists.update(ls => ls.map(l => l.id === listId
+            ? { ...l, items: l.items.filter(i => i.id !== item.id) } as TodoListDto
+            : l
+          ));
+        },
         error: error => console.error(error)
       });
     }

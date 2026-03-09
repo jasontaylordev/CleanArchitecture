@@ -1,7 +1,7 @@
 <h1>Todo</h1>
 
 <p>This is a complex todo list component.</p>
-@if(!lists){
+@if(!lists()){
 <p><em>Loading...</em></p>
 }
 @else{
@@ -15,8 +15,8 @@
         </button>
       </div>
       <ul class="list-group">
-        @for (list of lists; track $index; let i = $index) {
-        <li class="list-group-item" [ngClass]="{ 'active': selectedList == list }" (click)="selectedList = list">
+        @for (list of lists(); track $index; let i = $index) {
+        <li class="list-group-item" [ngClass]="{ 'active': selectedList() === list }" (click)="selectedListId.set(list.id)">
           <div class="clearfix">
             <div class="float-start">
               {{ list.title }}
@@ -29,24 +29,24 @@
         }
       </ul>
     </div>
-    @if (selectedList) {
+    @if (selectedList()) {
     <div class="col-sm-8">
       <div class="clearfix">
-        <h2 class="float-start">{{ selectedList.title }}</h2>
+        <h2 class="float-start">{{ selectedList()!.title }}</h2>
         <button id="listOptions" class="btn btn-default float-end" title="List Options..."
           (click)="showListOptionsModal(listOptionsModalTemplate)">
           <i class="bi bi-three-dots-vertical"></i>
         </button>
       </div>
       <ul id="todo-items" class="list-group mb-2">
-        @for (item of selectedList.items; track $index;let i = $index) {
+        @for (item of selectedList()!.items; track $index;let i = $index) {
         <li class="list-group-item">
           <div class="d-flex">
             <div class="todo-item-checkbox">
               <input type="checkbox" [(ngModel)]="item.done" (change)="updateItem(item)" />
             </div>
             <div class="flex-fill">
-              @if(item == selectedItem){
+              @if(item === selectedItem()){
               <input id="{{ 'itemTitle' + i }}" type="text" class="form-control item-input-control"
                 [(ngModel)]="item.title" (keyup.enter)="updateItem(item, true)" (blur)="updateItem(item)"
                 autofocus="autofocus" maxlength="200" />
@@ -80,7 +80,7 @@
 }
 @if(debug){
 <div>
-  <pre>{{ lists | json }}</pre>
+  <pre>{{ lists() | json }}</pre>
 </div>
 }
 
@@ -128,7 +128,7 @@
       <div class="form-group">
         <label for="list">List</label>
         <select class="form-control" [(ngModel)]="itemDetailsEditor.listId">
-          @for (list of lists; track $index) {
+          @for (list of lists(); track $index) {
           <option [ngValue]="list.id">{{ list.title }}</option>
           }
         </select>
@@ -136,7 +136,7 @@
       <div class="form-group">
         <label for="priority">Priority</label>
         <select class="form-control" [(ngModel)]="itemDetailsEditor.priority">
-          @for (level of priorityLevels; track $index) {
+          @for (level of priorityLevels(); track $index) {
           <option [ngValue]="level.id">{{ level.title }}</option>
           }
         </select>
@@ -156,7 +156,7 @@
   <div class="modal-footer">
     <div class="clearfix">
       <div class="float-start">
-        <button class="btn btn-default text-danger" (click)="deleteItem(selectedItem)">Delete</button>
+        <button class="btn btn-default text-danger" (click)="deleteItem(selectedItem()!)">Delete</button>
       </div>
       <div class="float-end">
         <button class="btn btn-default" (click)="itemDetailsModalRef.hide()">Cancel</button>
@@ -168,7 +168,7 @@
 
 <ng-template #deleteListModalTemplate>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Delete "{{ selectedList?.title }}"?</h4>
+    <h4 class="modal-title pull-left">Delete "{{ selectedList()?.title }}"?</h4>
     <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="deleteListModalRef.hide()">
       <span aria-hidden="true" class="visually-hidden">&times;</span>
     </button>
@@ -177,7 +177,7 @@
     <p>All items will be permanently deleted. </p>
     @if(debug){
     <div>
-      <pre>{{ selectedList | json }}</pre>
+      <pre>{{ selectedList() | json }}</pre>
     </div>
     }
   </div>
@@ -200,10 +200,10 @@
     <div class="form-group">
       <label for="title">Title</label>
       <input type="text" class="form-control" id="title" placeholder="List title..." [(ngModel)]="newListEditor.title"
-        [ngClass]="{ 'is-invalid': newListEditor.error }" (keyup.enter)="addList()" maxlength="200" />
-      @if(newListEditor.error){
+        [ngClass]="{ 'is-invalid': newListError() }" (keyup.enter)="addList()" maxlength="200" />
+      @if(newListError()){
       <div class="invalid-feedback">
-        {{ newListEditor.error }}
+        {{ newListError() }}
       </div>
       }
     </div>
