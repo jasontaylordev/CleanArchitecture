@@ -47,13 +47,15 @@ function CreateAndTestProject {
                 }
             }
 
-            Write-Host "Testing: $name"
-            $testProjects = Get-ChildItem -Path "tests" -Filter "*.csproj" -Recurse |
-                Where-Object { $_.Name -notlike "*AcceptanceTests*" }
-            foreach ($testProject in $testProjects) {
-                dotnet test $testProject.FullName --no-build --configuration Release
-                if ($LASTEXITCODE -ne 0) { $exitCode = $LASTEXITCODE }
+            if ($clientFramework -ne "none") {
+                Write-Host "Installing Playwright browsers: $name"
+                pwsh artifacts/bin/Web.AcceptanceTests/release/playwright.ps1 install --with-deps chromium
+                if ($LASTEXITCODE -ne 0) { throw "Playwright install failed for $name" }
             }
+
+            Write-Host "Testing: $name"
+            dotnet test --no-build --configuration Release
+            if ($LASTEXITCODE -ne 0) { $exitCode = $LASTEXITCODE }
         } finally {
             Pop-Location
         }
