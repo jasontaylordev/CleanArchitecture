@@ -70,7 +70,7 @@ jobs:
     - name: Install Playwright browsers
       if: matrix.client-framework != 'none'
       working-directory: generated
-      run: pwsh tests/Web.AcceptanceTests/bin/Release/net10.0/playwright.ps1 install --with-deps chromium
+      run: pwsh artifacts/bin/Web.AcceptanceTests/release/playwright.ps1 install --with-deps chromium
 
     - name: Test solution
       working-directory: generated

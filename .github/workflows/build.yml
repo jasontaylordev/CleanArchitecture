@@ -59,7 +59,7 @@ jobs:
       
     #if (!UseApiOnly)
     - name: Install Playwright browsers
-      run: pwsh tests/Web.AcceptanceTests/bin/Release/net10.0/playwright.ps1 install --with-deps chromium
+      run: pwsh artifacts/bin/Web.AcceptanceTests/release/playwright.ps1 install --with-deps chromium
     #endif
 
     - name: Test solution
