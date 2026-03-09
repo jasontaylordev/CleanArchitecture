@@ -21,8 +21,6 @@ builder.AddJavaScriptApp("frontend", "./../Web/ClientApp")
 #if (UsePostgreSQL)
 var postgres = builder
     .AddPostgres("postgres")
-    // Set the name of the default database to auto-create on container startup.
-    .WithEnvironment("POSTGRES_DB", "CleanArchitectureDb")
     .AddDatabase("CleanArchitectureDb");
 
 web
