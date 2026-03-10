@@ -238,7 +238,7 @@
           "rename": {
             "src/Web/appsettings.SQLite.json": "src/Web/appsettings.json"
           }
-        },
+        }
       ]
     }
   ]
