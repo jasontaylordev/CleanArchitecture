@@ -48,5 +48,3 @@ app.MapEndpoints();
 app.UseFileServer();
 
 app.Run();
-
-public partial class Program { }

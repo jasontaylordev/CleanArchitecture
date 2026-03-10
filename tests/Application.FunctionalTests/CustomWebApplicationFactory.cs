@@ -1,4 +1,3 @@
-﻿using System.Data.Common;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Infrastructure.Data;
 using Microsoft.AspNetCore.Hosting;
@@ -13,22 +12,12 @@ namespace CleanArchitecture.Application.FunctionalTests;
 
 using static Testing;
 
-public class CustomWebApplicationFactory : WebApplicationFactory<Program>
+public class CustomWebApplicationFactory(string connectionString) : WebApplicationFactory<Program>
 {
-    private readonly DbConnection _connection;
-    private readonly string _connectionString;
-
-    public CustomWebApplicationFactory(DbConnection connection, string connectionString)
-    {
-        _connection = connection;
-        _connectionString = connectionString;
-    }
-
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder
-            .UseEnvironment("Testing")
-            .UseSetting("ConnectionStrings:CleanArchitectureDb", _connectionString);
+            .UseSetting("ConnectionStrings:CleanArchitectureDb", connectionString);
 
         builder.ConfigureTestServices(services =>
         {
@@ -48,11 +37,11 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                 {
                     options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
 #if (UsePostgreSQL)
-                    options.UseNpgsql(_connection);
+                    options.UseNpgsql(connectionString);
 #elif (UseSqlServer)
-                    options.UseSqlServer(_connection);
+                    options.UseSqlServer(connectionString);
 #else
-                    options.UseSqlite(_connection);
+                    options.UseSqlite(connectionString);
 #endif
                 });
         });

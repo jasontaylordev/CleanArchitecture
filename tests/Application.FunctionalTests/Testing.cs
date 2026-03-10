@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.Domain.Constants;
+using CleanArchitecture.Domain.Constants;
 using CleanArchitecture.Infrastructure.Data;
 using CleanArchitecture.Infrastructure.Identity;
 using MediatR;
@@ -11,20 +11,47 @@ namespace CleanArchitecture.Application.FunctionalTests;
 [SetUpFixture]
 public partial class Testing
 {
-    private static ITestDatabase _database = null!;
     private static CustomWebApplicationFactory _factory = null!;
     private static IServiceScopeFactory _scopeFactory = null!;
     private static string? _userId;
     private static List<string>? _roles;
 
+    private static IDistributedApplicationTestingBuilder _builder = null!;
+    private static DistributedApplication _app = null!;
+    private static string _connectionString = null!;
+
+    private static RespawnHelper _respawnHelper = null!;
+
     [OneTimeSetUp]
     public async Task RunBeforeAnyTests()
     {
-        _database = await TestDatabaseFactory.CreateAsync();
+        var cts = new CancellationTokenSource(TimeSpan.FromSeconds(60));
+        var cancellationToken = cts.Token;
 
-        _factory = new CustomWebApplicationFactory(_database.GetConnection(), _database.GetConnectionString());
+        _builder = await DistributedApplicationTestingBuilder
+            .CreateAsync<Projects.TestAppHost>(
+                args: ["--environment=Testing"],
+                configureBuilder: (options, _) =>
+                {
+                    options.DisableDashboard = true;
+                });
 
+        _builder.Configuration["ASPIRE_ALLOW_UNSECURED_TRANSPORT"] = "true";
+
+        _app = await _builder
+            .BuildAsync(cancellationToken)
+            .WaitAsync(cancellationToken);
+
+        await _app
+            .StartAsync(cancellationToken)
+            .WaitAsync(cancellationToken);
+
+        _connectionString = (await _app.GetConnectionStringAsync("CleanArchitectureDb"))!;
+
+        _factory = new CustomWebApplicationFactory(_connectionString);
         _scopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
+
+        _respawnHelper = await RespawnHelper.CreateAsync(_connectionString);
     }
 
     public static async Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request)
@@ -49,7 +76,7 @@ public partial class Testing
     {
         return _userId;
     }
-    
+
     public static List<string>? GetRoles()
     {
         return _roles;
@@ -103,9 +130,9 @@ public partial class Testing
     {
         try
         {
-            await _database.ResetAsync();
+            await _respawnHelper.ResetAsync();
         }
-        catch (Exception) 
+        catch (Exception)
         {
         }
 
@@ -146,7 +173,8 @@ public partial class Testing
     [OneTimeTearDown]
     public async Task RunAfterAnyTests()
     {
-        await _database.DisposeAsync();
+        await _respawnHelper.DisposeAsync();
+        await _app.DisposeAsync();
         await _factory.DisposeAsync();
     }
 }
