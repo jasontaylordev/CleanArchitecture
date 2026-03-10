@@ -15,6 +15,9 @@
     <!--#if (UseSqlServer)-->
     <PackageReference Include="Aspire.Hosting.SqlServer" />
     <!--#endif-->
+    <!--#if (UseSqlite)-->
+    <PackageReference Include="CommunityToolkit.Aspire.Hosting.SQLite" />
+    <!--#endif-->
   </ItemGroup>
 
   <ItemGroup>

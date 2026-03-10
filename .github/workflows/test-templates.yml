@@ -47,7 +47,7 @@ jobs:
     - name: Install template
       run: dotnet new install .
 
-    - name: Generate template
+    - name: Generate solution
       run: |
         dotnet new ca-sln \
           --client-framework ${{ matrix.client-framework }} \

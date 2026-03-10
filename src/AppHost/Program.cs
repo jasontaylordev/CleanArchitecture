@@ -1,6 +1,3 @@
-using System.Diagnostics;
-using Projects;
-
 var builder = DistributedApplication.CreateBuilder(args);
 
 var web = builder.AddProject<Projects.Web>("web")
@@ -33,6 +30,13 @@ var sql = builder.AddSqlServer("sql")
 web
     .WithReference(sql)
     .WaitFor(sql);
+#else
+var sqlite = builder
+    .AddSqlite("CleanArchitectureDb");
+
+web
+    .WithReference(sqlite)
+    .WaitFor(sqlite);
 #endif
 
 builder.Build().Run();
