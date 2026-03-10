@@ -6,9 +6,7 @@ using CleanArchitecture.Domain.Entities;
 
 namespace CleanArchitecture.Application.FunctionalTests.TodoLists.Commands;
 
-using static Testing;
-
-public class PurgeTodoListsTests : BaseTestFixture
+public class PurgeTodoListsTests : TestBase
 {
     [Test]
     public async Task ShouldDenyAnonymousUser()
@@ -19,7 +17,7 @@ public class PurgeTodoListsTests : BaseTestFixture
             type => type.ShouldBeDecoratedWith<AuthorizeAttribute>()
         );
 
-        var action = () => SendAsync(command);
+        var action = () => TestApp.SendAsync(command);
 
         await Should.ThrowAsync<UnauthorizedAccessException>(action);
     }
@@ -27,11 +25,11 @@ public class PurgeTodoListsTests : BaseTestFixture
     [Test]
     public async Task ShouldDenyNonAdministrator()
     {
-        await RunAsDefaultUserAsync();
+        await TestApp.RunAsDefaultUserAsync();
 
         var command = new PurgeTodoListsCommand();
 
-        var action = () => SendAsync(command);
+        var action = () => TestApp.SendAsync(command);
 
         await Should.ThrowAsync<ForbiddenAccessException>(action);
     }
@@ -39,39 +37,39 @@ public class PurgeTodoListsTests : BaseTestFixture
     [Test]
     public async Task ShouldAllowAdministrator()
     {
-        await RunAsAdministratorAsync();
+        await TestApp.RunAsAdministratorAsync();
 
         var command = new PurgeTodoListsCommand();
 
-        var action = () => SendAsync(command);
+        var action = () => TestApp.SendAsync(command);
 
-        Func<Task> asyncAction = async () => await SendAsync(command);
+        Func<Task> asyncAction = async () => await TestApp.SendAsync(command);
         await asyncAction.ShouldNotThrowAsync();
     }
 
     [Test]
     public async Task ShouldDeleteAllLists()
     {
-        await RunAsAdministratorAsync();
+        await TestApp.RunAsAdministratorAsync();
 
-        await SendAsync(new CreateTodoListCommand
+        await TestApp.SendAsync(new CreateTodoListCommand
         {
             Title = "New List #1"
         });
 
-        await SendAsync(new CreateTodoListCommand
+        await TestApp.SendAsync(new CreateTodoListCommand
         {
             Title = "New List #2"
         });
 
-        await SendAsync(new CreateTodoListCommand
+        await TestApp.SendAsync(new CreateTodoListCommand
         {
             Title = "New List #3"
         });
 
-        await SendAsync(new PurgeTodoListsCommand());
+        await TestApp.SendAsync(new PurgeTodoListsCommand());
 
-        var count = await CountAsync<TodoList>();
+        var count = await TestApp.CountAsync<TodoList>();
 
         count.ShouldBe(0);
     }

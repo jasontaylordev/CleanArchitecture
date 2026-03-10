@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.Domain.Constants;
+using CleanArchitecture.Domain.Constants;
 using CleanArchitecture.Infrastructure.Data;
 using CleanArchitecture.Infrastructure.Identity;
 using MediatR;
@@ -6,30 +6,16 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CleanArchitecture.Application.FunctionalTests;
+namespace CleanArchitecture.Application.FunctionalTests.Infrastructure;
 
-[SetUpFixture]
-public partial class Testing
+public static class TestApp
 {
-    private static ITestDatabase _database = null!;
-    private static CustomWebApplicationFactory _factory = null!;
-    private static IServiceScopeFactory _scopeFactory = null!;
     private static string? _userId;
     private static List<string>? _roles;
 
-    [OneTimeSetUp]
-    public async Task RunBeforeAnyTests()
-    {
-        _database = await TestDatabaseFactory.CreateAsync();
-
-        _factory = new CustomWebApplicationFactory(_database.GetConnection(), _database.GetConnectionString());
-
-        _scopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
-    }
-
     public static async Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request)
     {
-        using var scope = _scopeFactory.CreateScope();
+        using var scope = FunctionalTestSetup.ScopeFactory.CreateScope();
 
         var mediator = scope.ServiceProvider.GetRequiredService<ISender>();
 
@@ -38,36 +24,30 @@ public partial class Testing
 
     public static async Task SendAsync(IBaseRequest request)
     {
-        using var scope = _scopeFactory.CreateScope();
+        using var scope = FunctionalTestSetup.ScopeFactory.CreateScope();
 
         var mediator = scope.ServiceProvider.GetRequiredService<ISender>();
 
         await mediator.Send(request);
     }
 
-    public static string? GetUserId()
-    {
-        return _userId;
-    }
-    
-    public static List<string>? GetRoles()
-    {
-        return _roles;
-    }
+    public static string? GetUserId() => _userId;
+
+    public static List<string>? GetRoles() => _roles;
 
     public static async Task<string> RunAsDefaultUserAsync()
     {
-        return await RunAsUserAsync("test@local", "Testing1234!", Array.Empty<string>());
+        return await RunAsUserAsync("test@local", "Testing1234!", []);
     }
 
     public static async Task<string> RunAsAdministratorAsync()
     {
-        return await RunAsUserAsync("administrator@local", "Administrator1234!", new[] { Roles.Administrator });
+        return await RunAsUserAsync("administrator@local", "Administrator1234!", [Roles.Administrator]);
     }
 
     public static async Task<string> RunAsUserAsync(string userName, string password, string[] roles)
     {
-        using var scope = _scopeFactory.CreateScope();
+        using var scope = FunctionalTestSetup.ScopeFactory.CreateScope();
 
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
@@ -75,7 +55,7 @@ public partial class Testing
 
         var result = await userManager.CreateAsync(user, password);
 
-        if (roles.Any())
+        if (roles.Length > 0)
         {
             var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
@@ -90,7 +70,7 @@ public partial class Testing
         if (result.Succeeded)
         {
             _userId = user.Id;
-            _roles = roles.ToList();
+            _roles = [..roles];
             return _userId;
         }
 
@@ -101,21 +81,19 @@ public partial class Testing
 
     public static async Task ResetState()
     {
-        try
+        if (FunctionalTestSetup.DbResetter is not null)
         {
-            await _database.ResetAsync();
-        }
-        catch (Exception) 
-        {
+            await FunctionalTestSetup.DbResetter.ResetAsync();
         }
 
         _userId = null;
+        _roles = null;
     }
 
     public static async Task<TEntity?> FindAsync<TEntity>(params object[] keyValues)
         where TEntity : class
     {
-        using var scope = _scopeFactory.CreateScope();
+        using var scope = FunctionalTestSetup.ScopeFactory.CreateScope();
 
         var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
@@ -125,7 +103,7 @@ public partial class Testing
     public static async Task AddAsync<TEntity>(TEntity entity)
         where TEntity : class
     {
-        using var scope = _scopeFactory.CreateScope();
+        using var scope = FunctionalTestSetup.ScopeFactory.CreateScope();
 
         var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
@@ -136,17 +114,10 @@ public partial class Testing
 
     public static async Task<int> CountAsync<TEntity>() where TEntity : class
     {
-        using var scope = _scopeFactory.CreateScope();
+        using var scope = FunctionalTestSetup.ScopeFactory.CreateScope();
 
         var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
         return await context.Set<TEntity>().CountAsync();
-    }
-
-    [OneTimeTearDown]
-    public async Task RunAfterAnyTests()
-    {
-        await _database.DisposeAsync();
-        await _factory.DisposeAsync();
     }
 }
