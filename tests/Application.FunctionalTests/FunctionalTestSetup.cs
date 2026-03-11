@@ -19,7 +19,7 @@ public class FunctionalTestSetup
 
         var builder = await DistributedApplicationTestingBuilder
             .CreateAsync<Projects.TestAppHost>(
-                args: ["--environment=Testing"],
+                args: [],
                 configureBuilder: (options, _) =>
                 {
                     options.DisableDashboard = true;
@@ -36,9 +36,9 @@ public class FunctionalTestSetup
             .WaitAsync(cancellationToken);
 
         await _app.ResourceNotifications.WaitForResourceHealthyAsync(
-            "CleanArchitectureDb", cancellationToken);
+            Services.Database, cancellationToken);
 
-        var connectionString = (await _app.GetConnectionStringAsync("CleanArchitectureDb"))!;
+        var connectionString = (await _app.GetConnectionStringAsync(Services.Database))!;
 
         _factory = new WebApiFactory(connectionString);
         ScopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();

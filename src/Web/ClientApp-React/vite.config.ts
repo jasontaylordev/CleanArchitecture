@@ -2,8 +2,8 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 const target =
-  process.env['services__web__https__0'] ||
-  process.env['services__web__http__0'];
+  process.env['services__webapi__https__0'] ||
+  process.env['services__webapi__http__0'];
 
 const proxyOptions = target
   ? { target, secure: false, changeOrigin: true }

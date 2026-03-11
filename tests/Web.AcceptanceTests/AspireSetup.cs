@@ -18,7 +18,7 @@ public class AspireSetup
 
         Builder = await DistributedApplicationTestingBuilder
              .CreateAsync<Projects.AppHost>(
-                args: ["--environment=Testing"],
+                args: [],
                 configureBuilder: (options, _) =>
                 {
                     options.DisableDashboard = false; // Enable the dashboard for testing purposes
@@ -48,8 +48,8 @@ public class AspireSetup
             .WaitAsync(cancellationToken);
 
         await Task.WhenAll(
-            App.ResourceNotifications.WaitForResourceHealthyAsync("web", cancellationToken).WaitAsync(cancellationToken),
-            App.ResourceNotifications.WaitForResourceHealthyAsync("frontend", cancellationToken).WaitAsync(cancellationToken));
+            App.ResourceNotifications.WaitForResourceHealthyAsync(Services.WebApi, cancellationToken).WaitAsync(cancellationToken),
+            App.ResourceNotifications.WaitForResourceHealthyAsync(Services.WebFrontend, cancellationToken).WaitAsync(cancellationToken));
     }
 
     [OneTimeTearDown]

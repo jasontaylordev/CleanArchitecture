@@ -1,8 +1,8 @@
 const { env } = require('process');
 
 const target =
-  env["services__web__https__0"] ||
-  env["services__web__http__0"];
+  env["services__webapi__https__0"] ||
+  env["services__webapi__http__0"];
 
 const PROXY_CONFIG = [
   {

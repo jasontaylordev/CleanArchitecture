@@ -19,4 +19,8 @@
     <!--#endif-->
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Shared\Shared.csproj" IsAspireProjectResource="false" />
+  </ItemGroup>
+
 </Project>
