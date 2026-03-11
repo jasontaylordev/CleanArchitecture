@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Shared\Shared.csproj" IsAspireProjectResource="false" />
     <ProjectReference Include="..\Web\Web.csproj" />
   </ItemGroup>
 

@@ -1,42 +1,34 @@
+using CleanArchitecture.Shared;
+
 var builder = DistributedApplication.CreateBuilder(args);
 
-var web = builder.AddProject<Projects.Web>("web")
+#if (UsePostgreSQL)
+var databaseServer = builder
+    .AddPostgres(Services.DatabaseServer)
+    .AddDatabase(Services.Database);
+#elif (UseSqlServer)
+var databaseServer = builder.AddSqlServer(Services.DatabaseServer)
+    .AddDatabase(Services.Database);
+#else
+var databaseServer = builder
+    .AddSqlite(Services.Database);
+#endif
+
+var web = builder.AddProject<Projects.Web>(Services.WebApi)
+    .WithReference(databaseServer)
+    .WaitFor(databaseServer)
     .WithUrlForEndpoint("http", url =>
     {
         url.DisplayText = "Scalar API Reference";
         url.Url = "/scalar";
     });
 
-builder.AddJavaScriptApp("frontend", "./../Web/ClientApp")
+builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp")
     .WithRunScript("start")
     .WithReference(web)
     .WaitFor(web)
     .WithHttpEndpoint(env: "PORT")
     .WithExternalHttpEndpoints()
     .PublishAsDockerFile();
-
-#if (UsePostgreSQL)
-var postgres = builder
-    .AddPostgres("postgres")
-    .AddDatabase("CleanArchitectureDb");
-
-web
-    .WithReference(postgres)
-    .WaitFor(postgres);
-#elif (UseSqlServer)
-var sql = builder.AddSqlServer("sql")
-    .AddDatabase("CleanArchitectureDb");
-
-web
-    .WithReference(sql)
-    .WaitFor(sql);
-#else
-var sqlite = builder
-    .AddSqlite("CleanArchitectureDb");
-
-web
-    .WithReference(sqlite)
-    .WaitFor(sqlite);
-#endif
 
 builder.Build().Run();

@@ -32,6 +32,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\src\Shared\Shared.csproj" />
         <ProjectReference Include="..\..\src\Web\Web.csproj" />
         <ProjectReference Include="..\TestAppHost\TestAppHost.csproj" />
     </ItemGroup>

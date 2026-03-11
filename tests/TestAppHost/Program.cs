@@ -1,3 +1,5 @@
+using CleanArchitecture.Shared;
+
 namespace CleanArchitecture.TestAppHost;
 
 public class Program
@@ -6,13 +8,16 @@ public class Program
     {
         var builder = DistributedApplication.CreateBuilder(args);
 
-#if (UsePostgreSQL)
-        builder.AddPostgres("postgres").AddDatabase("CleanArchitectureDb");
-#elif (UseSqlServer)
-        builder.AddSqlServer("sql").AddDatabase("CleanArchitectureDb");
-#else
-        builder.AddSqlite("CleanArchitectureDb");
-#endif
+        #if (UsePostgreSQL)
+        builder.AddPostgres(Services.DatabaseServer)
+            .AddDatabase(Services.Database);
+        #elif (UseSqlServer)
+        builder.AddSqlServer(Services.DatabaseServer)
+            .AddDatabase(Services.Database);
+        #else
+        builder
+            .AddSqlite(Services.Database);
+        #endif
 
         builder.Build().Run();
     }
