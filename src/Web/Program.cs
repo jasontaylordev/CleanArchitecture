@@ -44,7 +44,7 @@ app.Map("/", () => Results.Redirect("/scalar"));
 #endif
 
 app.MapDefaultEndpoints();
-app.MapEndpoints();
+app.MapEndpoints(typeof(Program).Assembly);
 
 app.UseFileServer();
 
