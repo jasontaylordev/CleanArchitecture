@@ -6,7 +6,8 @@ public static class WebApplicationExtensions
 {
     /// <summary>
     /// Discovers all <see cref="IEndpointGroup"/> implementations in <paramref name="assembly"/>
-    /// and registers each as a route group at <c>/api/{ClassName}</c> with a matching OpenAPI tag.
+    /// and registers each as a route group with a matching OpenAPI tag. The route prefix defaults
+    /// to <c>/api/{ClassName}</c> but can be overridden via <see cref="IEndpointGroup.RoutePrefix"/>.
     /// </summary>
     public static WebApplication MapEndpoints(this WebApplication app, Assembly assembly)
     {
@@ -17,7 +18,9 @@ public static class WebApplicationExtensions
         foreach (var type in endpointGroupTypes)
         {
             var groupName = type.Name;
-            var group = app.MapGroup($"/api/{groupName}").WithTags(groupName);
+            var routePrefix = type.GetProperty(nameof(IEndpointGroup.RoutePrefix))
+                ?.GetValue(null) as string ?? $"/api/{groupName}";
+            var group = app.MapGroup(routePrefix).WithTags(groupName);
             type.GetMethod(nameof(IEndpointGroup.Map))!.Invoke(null, [group]);
         }
 
