@@ -12,11 +12,13 @@ public class TodoItems : IEndpointGroup
 {
     public static void Map(RouteGroupBuilder groupBuilder)
     {
-        groupBuilder.MapGet(GetTodoItemsWithPagination).RequireAuthorization();
-        groupBuilder.MapPost(CreateTodoItem).RequireAuthorization();
-        groupBuilder.MapPut(UpdateTodoItem, "{id}").RequireAuthorization();
-        groupBuilder.MapPatch(UpdateTodoItemDetail, "UpdateDetail/{id}").RequireAuthorization();
-        groupBuilder.MapDelete(DeleteTodoItem, "{id}").RequireAuthorization();
+        groupBuilder.RequireAuthorization();
+
+        groupBuilder.MapGet(GetTodoItemsWithPagination);
+        groupBuilder.MapPost(CreateTodoItem);
+        groupBuilder.MapPut(UpdateTodoItem, "{id}");
+        groupBuilder.MapPatch(UpdateTodoItemDetail, "UpdateDetail/{id}");
+        groupBuilder.MapDelete(DeleteTodoItem, "{id}");
     }
 
     [EndpointSummary("Get Todo Items with Pagination")]

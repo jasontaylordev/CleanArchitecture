@@ -10,10 +10,12 @@ public class TodoLists : IEndpointGroup
 {
     public static void Map(RouteGroupBuilder groupBuilder)
     {
-        groupBuilder.MapGet(GetTodoLists).RequireAuthorization();
-        groupBuilder.MapPost(CreateTodoList).RequireAuthorization();
-        groupBuilder.MapPut(UpdateTodoList, "{id}").RequireAuthorization();
-        groupBuilder.MapDelete(DeleteTodoList, "{id}").RequireAuthorization();
+        groupBuilder.RequireAuthorization();
+
+        groupBuilder.MapGet(GetTodoLists);
+        groupBuilder.MapPost(CreateTodoList);
+        groupBuilder.MapPut(UpdateTodoList, "{id}");
+        groupBuilder.MapDelete(DeleteTodoList, "{id}");
     }
 
     [EndpointSummary("Get all Todo Lists")]
