@@ -23,6 +23,7 @@ var web = builder.AddProject<Projects.Web>(Services.WebApi)
         url.Url = "/scalar";
     });
 
+#if (!UseApiOnly)
 builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp")
     .WithRunScript("start")
     .WithReference(web)
@@ -30,5 +31,6 @@ builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp")
     .WithHttpEndpoint(env: "PORT")
     .WithExternalHttpEndpoints()
     .PublishAsDockerFile();
+#endif
 
 builder.Build().Run();
