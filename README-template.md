@@ -4,18 +4,17 @@ The project was generated using the [Clean.Architecture.Solution.Template](caRep
 
 ## Build
 
-Run `dotnet build -tl` to build the solution.
+Run `dotnet build` to build the solution.
 
 ## Run
 
 To run the application:
 
 ```bash
-cd .\src\AppHost\
-dotnet run
+dotnet run --project .\src\AppHost
 ```
 
-The .NET Aspire dashboard will open automatically, showing the application URLs and logs.
+The Aspire dashboard will open automatically, showing the application URLs and logs.
 
 ## Code Styles & Formatting
 
@@ -47,34 +46,12 @@ dotnet new install Clean.Architecture.Solution.Template::caPackageVersion
 
 ## Test
 
-<!--#if (UseApiOnly) -->
 The solution contains unit, integration, and functional tests.
 
 To run the tests:
 ```bash
 dotnet test
 ```
-<!--#else -->
-The solution contains unit, integration, functional, and acceptance tests.
-
-To run the unit, integration, and functional tests (excluding acceptance tests):
-```bash
-dotnet test --filter "FullyQualifiedName!~AcceptanceTests"
-```
-
-To run the acceptance tests, first start the application:
-
-```bash
-cd .\src\AppHost\
-dotnet run
-```
-
-Then, in a new console, run the tests:
-```bash
-cd .\src\Web\
-dotnet test
-```
-<!--#endif -->
 
 ## Help
-To learn more about the template go to the [project website](caRepositoryUrl). Here you can find additional guidance, request new features, report a bug, and discuss the template with other users.
+To learn more about the template go to the [project website](caDocsUrl). Here you can find additional guidance, request new features, report a bug, and discuss the template with other users.

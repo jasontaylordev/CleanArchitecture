@@ -12,7 +12,7 @@
     </summary>
     <releaseNotes></releaseNotes>
 
-    <projectUrl>https://github.com/JasonTaylorDev/CleanArchitecture</projectUrl>
+    <projectUrl>https://cleanarchitecture.jasontaylor.dev</projectUrl>
     <repository type="git" url="https://github.com/JasonTaylorDev/CleanArchitecture.git" branch="main" />
 
     <license type="expression">MIT</license>

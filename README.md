@@ -8,6 +8,8 @@
 
 The goal of this template is to provide a straightforward and efficient approach to enterprise application development, leveraging the power of Clean Architecture and ASP.NET Core. Using this template, you can effortlessly create a new app with Angular, React, or Web API only, powered by ASP.NET Core and Aspire. Getting started is easy - simply install the **.NET template** (see below for full details).
 
+For full documentation, visit **[cleanarchitecture.jasontaylor.dev](https://cleanarchitecture.jasontaylor.dev)**.
+
 If you find this project useful, please give it a star. Thanks! ⭐
 
 ## Getting Started
@@ -134,8 +136,8 @@ The main branch is now on .NET 10.0. The following previous versions are availab
 
 ## Learn More
 
+* [Clean Architecture Solution Template Documentation](https://cleanarchitecture.jasontaylor.dev)
 * [Clean Architecture with ASP.NET Core 3.0 (GOTO 2019)](https://youtu.be/dK4Yb6-LxAk)
-* [Clean Architecture with .NET Core: Getting Started](https://jasontaylor.dev/clean-architecture-getting-started/)
 
 ## Support
 
