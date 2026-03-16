@@ -41,6 +41,14 @@
         "value": "https://github.com/jasontaylordev/CleanArchitecture"
       }
     },
+    "caDocsUrl": {
+      "type": "generated",
+      "generator": "constant",
+      "replaces": "caDocsUrl",
+      "parameters": {
+        "value": "https://cleanarchitecture.jasontaylor.dev"
+      }
+    },
     "ClientFramework": {
       "type": "parameter",
       "datatype": "choice",
