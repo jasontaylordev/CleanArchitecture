@@ -17,15 +17,15 @@ function NavMenuInner() {
     <>
       {isAuthenticated ? (
         <NavItem>
-          <button className="btn btn-link nav-link text-dark" onClick={handleLogout}>Log out</button>
+          <button className="btn btn-link nav-link" onClick={handleLogout}>Log out</button>
         </NavItem>
       ) : (
         <>
           <NavItem>
-            <NavLink tag={Link} className="text-dark" to="/login">Log in</NavLink>
+            <NavLink tag={Link} to="/login">Log in</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink tag={Link} className="text-dark" to="/register">Register</NavLink>
+            <NavLink tag={Link} to="/register">Register</NavLink>
           </NavItem>
         </>
       )}
@@ -49,19 +49,19 @@ export class NavMenu extends Component {
   render() {
     return (
       <header>
-        <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" container light>
+        <Navbar className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" container>
           <NavbarBrand tag={Link} to="/">CleanArchitecture.Web</NavbarBrand>
           <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
           <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
             <ul className="navbar-nav flex-grow">
               <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
+                <NavLink tag={Link} to="/">Home</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/counter">Counter</NavLink>
+                <NavLink tag={Link} to="/counter">Counter</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>
+                <NavLink tag={Link} to="/fetch-data">Fetch data</NavLink>
               </NavItem>
               <NavMenuInner />
             </ul>

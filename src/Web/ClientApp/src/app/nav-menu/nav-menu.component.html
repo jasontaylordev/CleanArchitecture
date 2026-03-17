@@ -1,5 +1,5 @@
 <header>
-  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
     <div class="container">
       <a class="navbar-brand" [routerLink]="['/']">CleanArchitecture.Web</a>
       <button
@@ -19,28 +19,28 @@
           <li class="nav-item"
               [routerLinkActive]="['link-active']"
               [routerLinkActiveOptions]="{ exact: true }">
-            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
+            <a class="nav-link" [routerLink]="['/']">Home</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/counter']">Counter</a>
+            <a class="nav-link" [routerLink]="['/counter']">Counter</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/fetch-data']">Fetch data</a>
+            <a class="nav-link" [routerLink]="['/fetch-data']">Fetch data</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/todo']">Todo</a>
+            <a class="nav-link" [routerLink]="['/todo']">Todo</a>
           </li>
           <ng-container *ngIf="isAuthenticated$ | async; else unauthenticated">
             <li class="nav-item">
-              <button class="btn btn-link nav-link text-dark" (click)="logout()">Log out</button>
+              <button class="btn btn-link nav-link" (click)="logout()">Log out</button>
             </li>
           </ng-container>
           <ng-template #unauthenticated>
             <li class="nav-item" [routerLinkActive]="['link-active']">
-              <a class="nav-link text-dark" [routerLink]="['/login']">Log in</a>
+              <a class="nav-link" [routerLink]="['/login']">Log in</a>
             </li>
             <li class="nav-item" [routerLinkActive]="['link-active']">
-              <a class="nav-link text-dark" [routerLink]="['/register']">Register</a>
+              <a class="nav-link" [routerLink]="['/register']">Register</a>
             </li>
           </ng-template>
         </ul>
