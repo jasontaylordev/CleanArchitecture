@@ -1,27 +1,44 @@
-# CleanArchitecture.Web
+# CleanArchitecture Angular Client
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 21.1.5.
+This project uses [Angular CLI](https://github.com/angular/angular-cli) version 21.1.5.
 
-## Development server
+## Available Scripts
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### `npm run dev`
 
-## Code scaffolding
+Runs the app in development mode with hot module replacement.
+Opens at [http://localhost:4200](http://localhost:4200) when run manually.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### `npm start`
 
-## Build
+Used by .NET Aspire to start the app. Requires the `PORT` environment variable to be set.
+Also runs `npm run generate-api` before starting to keep the API client up to date.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### `npm run build`
 
-## Running unit tests
+Builds the app for production to the `dist/` folder.
+Also runs `npm run generate-api` before building.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### `npm test`
 
-## Running end-to-end tests
+Runs unit tests via [Karma](https://karma-runner.github.io).
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### `npm run generate-api`
 
-## Further help
+Generates the TypeScript API client from the OpenAPI spec using NSwag.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Project Structure
+
+- `src/` - Angular source code
+- `src/app/` - Root module and components
+- `proxy.conf.js` - Dev server proxy configuration
+- `angular.json` - Angular CLI configuration
+
+## Aspire Integration
+
+When running via .NET Aspire, the `PORT` environment variable is set automatically and the dev server proxies API requests to the ASP.NET Core backend via the `services__webapi__http__0` environment variable.
+
+## Learn More
+
+- [Angular Documentation](https://angular.dev/)
+- [Angular CLI Overview](https://angular.dev/tools/cli)

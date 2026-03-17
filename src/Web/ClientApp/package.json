@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "run-script-os",
     "prestart": "npm run generate-api",
+    "dev": "ng serve",
     "start:windows": "ng serve --port %PORT%",
     "start:default": "ng serve --port $PORT",
     "prebuild": "npm run generate-api",

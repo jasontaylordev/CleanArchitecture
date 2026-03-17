@@ -1,8 +1,8 @@
 const { env } = require('process');
 
 const target =
-  env["services__webapi__https__0"] ||
-  env["services__webapi__http__0"];
+  env["services__webapi__http__0"] ||
+  "http://localhost:5000";
 
 const PROXY_CONFIG = [
   {

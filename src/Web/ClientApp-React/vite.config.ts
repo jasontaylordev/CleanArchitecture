@@ -2,8 +2,8 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 const target =
-  process.env['services__webapi__https__0'] ||
-  process.env['services__webapi__http__0'];
+  process.env['services__webapi__http__0'] ||
+  "http://localhost:5000";
 
 const proxyOptions = target
   ? { target, secure: false, changeOrigin: true }
@@ -13,7 +13,7 @@ const proxyOptions = target
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: parseInt(process.env.PORT!),
+    port: process.env.PORT ? parseInt(process.env.PORT) : 5173,
     proxy: proxyOptions
       ? {
           '/api': proxyOptions,
