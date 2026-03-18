@@ -1,20 +1,22 @@
-<div class="row justify-content-center">
-  <div class="col-md-4">
-    <h2>Log in</h2>
-    @if(error()) {<div class="alert alert-danger">{{ error() }}</div>}
-    <form (ngSubmit)="login()" #loginForm="ngForm">
-      <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" id="email" name="email" class="form-control"
-               [(ngModel)]="email" required />
-      </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" id="password" name="password" class="form-control"
-               [(ngModel)]="password" required />
-      </div>
-      <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Log in</button>
-      <a class="ms-3" [routerLink]="['/register']">Register</a>
-    </form>
-  </div>
-</div>
+<article>
+  <h2>Log in</h2>
+  <form (ngSubmit)="login()" #loginForm="ngForm">
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" [(ngModel)]="email"
+      [attr.aria-invalid]="invalid ? true : null"
+      aria-describedby="login-error"
+      autocomplete="username"
+      (ngModelChange)="invalid = false" />
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" [(ngModel)]="password"
+      [attr.aria-invalid]="invalid ? true : null"
+      aria-describedby="login-error"
+      autocomplete="current-password"
+      (ngModelChange)="invalid = false" />
+    @if (invalid) {
+      <small id="login-error">Invalid email or password.</small>
+    }
+    <button type="submit">Log in</button>
+    <p style="margin-top: 1rem">Don't have an account? <a [routerLink]="['/register']">Register</a></p>
+  </form>
+</article>
