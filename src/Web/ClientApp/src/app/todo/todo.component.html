@@ -1,222 +1,155 @@
-<h1>Todo</h1>
+<hgroup>
+  <h1>Tasks</h1>
+  <p>Manage your todo lists and tasks.</p>
+</hgroup>
 
-<p>This is a complex todo list component.</p>
-@if(!lists()){
-<p><em>Loading...</em></p>
-}
-@else{
-<div>
-  <div class="row">
-    <div class="col-sm-4">
-      <div class="clearfix">
-        <h2 class="float-start">Lists</h2>
-        <button class="btn btn-default float-end" title="New List..." (click)="showNewListModal(newListModalTemplate)">
-          <i class="bi bi-journal-plus"></i>
-        </button>
+@if (!lists()) {
+  <span aria-busy="true">Loading&hellip;</span>
+} @else {
+  <div class="todo-layout">
+
+    <!-- Sidebar -->
+    <div class="todo-sidebar">
+      <div class="todo-panel-header">
+        <h2>Lists</h2>
+        <button class="icon-btn" (click)="showNewListDialog()"><lucide-icon name="plus" [size]="20" [strokeWidth]="2" /></button>
       </div>
-      <ul class="list-group">
-        @for (list of lists(); track $index; let i = $index) {
-        <li class="list-group-item" [ngClass]="{ 'active': selectedList() === list }" (click)="selectedListId.set(list.id)">
-          <div class="clearfix">
-            <div class="float-start">
-              {{ list.title }}
-            </div>
-            <div class="float-end text-right">
-              <span class="badge badge-light">{{ remainingItems(list) }}</span>
-            </div>
-          </div>
-        </li>
+      <ul>
+        @for (list of lists(); track $index) {
+          <li [attr.aria-current]="selectedList() === list ? 'true' : null"
+              (click)="selectedListId.set(list.id)">
+            <span>{{ list.title }}</span>
+            <small>{{ remainingItems(list) }}</small>
+          </li>
         }
       </ul>
     </div>
+
+    <!-- Items panel -->
     @if (selectedList()) {
-    <div class="col-sm-8">
-      <div class="clearfix">
-        <h2 class="float-start">{{ selectedList()!.title }}</h2>
-        <button id="listOptions" class="btn btn-default float-end" title="List Options..."
-          (click)="showListOptionsModal(listOptionsModalTemplate)">
-          <i class="bi bi-three-dots-vertical"></i>
-        </button>
-      </div>
-      <ul id="todo-items" class="list-group mb-2">
-        @for (item of selectedList()!.items; track $index;let i = $index) {
-        <li class="list-group-item">
-          <div class="d-flex">
-            <div class="todo-item-checkbox">
-              <input type="checkbox" [(ngModel)]="item.done" (change)="updateItem(item)" />
-            </div>
-            <div class="flex-fill">
-              @if(item === selectedItem()){
-              <input id="{{ 'itemTitle' + i }}" type="text" class="form-control item-input-control"
-                [(ngModel)]="item.title" (keyup.enter)="updateItem(item, true)" (blur)="updateItem(item)"
-                autofocus="autofocus" maxlength="200" />
-              }
-              @else {
-              <div class="todo-item-title" [ngClass]="{ 'done-todo': item.done }"
-                (click)="editItem(item, 'itemTitle' + i)" class="form-control item-input-control">
-                <span>{{ item.title }}</span>
-              </div>
-              }
-            </div>
-            <div class="todo-item-commands">
-              @if(item.id != 0){
-              <button (click)="showItemDetailsModal(itemDetailsModalTemplate, item)" class="btn btn-default btn-xs"
-                role="button">
-                <i class="bi bi-three-dots-vertical"></i>
-              </button>
-              }
-            </div>
+      <div class="todo-main">
+        <div class="todo-panel-header">
+          <h2>{{ selectedList()!.title }}</h2>
+          <button class="icon-btn" (click)="showListOptionsDialog()"><lucide-icon name="settings" [size]="20" [strokeWidth]="2" /></button>
+        </div>
+
+        @for (item of selectedList()!.items; track $index; let i = $index) {
+          <div class="todo-item">
+            <input type="checkbox" [(ngModel)]="item.done" (change)="updateItem(item)" />
+            @if (item === editingItem()) {
+              <input id="{{ 'itemTitle' + i }}" type="text" class="todo-item-input"
+                [(ngModel)]="item.title" (keyup.enter)="updateItem(item)"
+                (keyup.escape)="cancelEdit(); $event.target.blur()"
+                (blur)="editingItem() && updateItem(item)"
+                autofocus maxlength="200" />
+            } @else {
+              <span class="todo-item-text" [class.todo-done]="item.done"
+                (click)="editItem(item, 'itemTitle' + i)">{{ item.title }}</span>
+            }
+            @if (item.id !== 0) {
+              <button class="icon-btn" (click)="showItemDetailsDialog(item)"><lucide-icon name="more-horizontal" [size]="20" [strokeWidth]="2" /></button>
+            }
           </div>
-        </li>
         }
-        <li class="list-group-item" (click)="addItem()">
-          <button class="btn btn-default">Add Item...</button>
-        </li>
-      </ul>
-    </div>
-    }
-  </div>
-</div>
-}
-@if(debug){
-<div>
-  <pre>{{ lists() | json }}</pre>
-</div>
-}
 
-<ng-template #listOptionsModalTemplate>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">List Options</h4>
-    <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="listOptionsModalRef.hide()">
-      <span aria-hidden="true" class="visually-hidden">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class="form-group">
-      <label for="inputListTitle">Title</label>
-      <input type="text" class="form-control" id="inputListTitle" placeholder="List name..."
-        [(ngModel)]="listOptionsEditor.title" (keyup.enter)="updateListOptions()" maxlength="200" />
-    </div>
-    @if(debug){
-    <div>
-      <pre>{{ listOptionsEditor | json }}</pre>
-    </div>
-    }
-  </div>
-  <div class="modal-footer">
-    <div class="clearfix">
-      <div class="float-start">
-        <button class="btn btn-default text-danger" (click)="confirmDeleteList(deleteListModalTemplate)">Delete</button>
-      </div>
-      <div class="float-end">
-        <button class="btn btn-default" (click)="listOptionsModalRef.hide()">Cancel</button>
-        <button class="btn btn-primary" (click)="updateListOptions()">Update</button>
-      </div>
-    </div>
-  </div>
-</ng-template>
-
-<ng-template #itemDetailsModalTemplate>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Item Details</h4>
-    <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="itemDetailsModalRef.hide()">
-      <span aria-hidden="true" class="visually-hidden">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class="form">
-      <div class="form-group">
-        <label for="list">List</label>
-        <select class="form-control" [(ngModel)]="itemDetailsEditor.listId">
-          @for (list of lists(); track $index) {
-          <option [ngValue]="list.id">{{ list.title }}</option>
+        <div class="todo-item todo-new-item">
+          <input type="checkbox" disabled />
+          @if (addingItem()) {
+            <input id="newItemInput" type="text" class="todo-item-input"
+              [(ngModel)]="newItemTitle"
+              (keyup.enter)="commitNewItem()"
+              (keyup.escape)="cancelNewItem(); $event.target.blur()"
+              (blur)="addingItem() && commitNewItem()"
+              maxlength="200" />
+          } @else {
+            <span class="todo-item-text todo-new-item-placeholder" (click)="startAddingItem()">New task…</span>
           }
-        </select>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="priority">Priority</label>
-        <select class="form-control" [(ngModel)]="itemDetailsEditor.priority">
-          @for (level of priorityLevels(); track $index) {
-          <option [ngValue]="level.id">{{ level.title }}</option>
-          }
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="note">Note</label>
-        <textarea id="note" class="form-control" rows="3" [(ngModel)]="itemDetailsEditor.note"></textarea>
-      </div>
-    </div>
-
-    @if(debug){
-    <div>
-      <pre>{{ itemDetailsEditor | json }}</pre>
-    </div>
     }
-  </div>
-  <div class="modal-footer">
-    <div class="clearfix">
-      <div class="float-start">
-        <button class="btn btn-default text-danger" (click)="deleteItem(selectedItem()!)">Delete</button>
-      </div>
-      <div class="float-end">
-        <button class="btn btn-default" (click)="itemDetailsModalRef.hide()">Cancel</button>
-        <button class="btn btn-primary" (click)="updateItemDetails()">Update</button>
-      </div>
-    </div>
-  </div>
-</ng-template>
 
-<ng-template #deleteListModalTemplate>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Delete "{{ selectedList()?.title }}"?</h4>
-    <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="deleteListModalRef.hide()">
-      <span aria-hidden="true" class="visually-hidden">&times;</span>
-    </button>
   </div>
-  <div class="modal-body">
-    <p>All items will be permanently deleted. </p>
-    @if(debug){
-    <div>
-      <pre>{{ selectedList() | json }}</pre>
-    </div>
+}
+
+<!-- New List dialog -->
+<dialog #newListDialog>
+  <article>
+    <header>
+      <h3>New List</h3>
+      <button rel="prev" aria-label="Close" (click)="newListCancelled()"></button>
+    </header>
+    <label for="title">Title</label>
+    <input type="text" id="title" placeholder="List title&hellip;" [(ngModel)]="newListEditor.title"
+      [attr.aria-invalid]="newListError() ? 'true' : null"
+      (keyup.enter)="addList()" maxlength="200" />
+    @if (newListError()) {
+      <small>{{ newListError() }}</small>
     }
-  </div>
-  <div class="modal-footer clearfix">
-    <div class="float-end">
-      <button type="button" class="btn btn-default" (click)="deleteListModalRef.hide()">Cancel</button>
-      <button type="button" class="btn btn-danger" (click)="deleteListConfirmed()">Delete</button>
-    </div>
-  </div>
-</ng-template>
+    <footer>
+      <button class="secondary" (click)="newListCancelled()">Cancel</button>
+      <button (click)="addList()">Create</button>
+    </footer>
+  </article>
+</dialog>
 
-<ng-template #newListModalTemplate>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">New List</h4>
-    <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="newListCancelled()">
-      <span aria-hidden="true" class="visually-hidden">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class="form-group">
-      <label for="title">Title</label>
-      <input type="text" class="form-control" id="title" placeholder="List title..." [(ngModel)]="newListEditor.title"
-        [ngClass]="{ 'is-invalid': newListError() }" (keyup.enter)="addList()" maxlength="200" />
-      @if(newListError()){
-      <div class="invalid-feedback">
-        {{ newListError() }}
-      </div>
+<!-- List Options dialog -->
+<dialog #listOptionsDialog>
+  <article>
+    <header>
+      <h3>List Options</h3>
+      <button rel="prev" aria-label="Close" (click)="closeListOptionsDialog()"></button>
+    </header>
+    <label for="inputListTitle">Title</label>
+    <input type="text" id="inputListTitle" placeholder="List name&hellip;"
+      [(ngModel)]="listOptionsEditor.title" (keyup.enter)="updateListOptions()" maxlength="200" />
+    <footer>
+      <button class="danger" style="margin-inline-end: auto" (click)="confirmDeleteList()">Delete</button>
+      <button class="secondary" (click)="closeListOptionsDialog()">Cancel</button>
+      <button (click)="updateListOptions()">Update</button>
+    </footer>
+  </article>
+</dialog>
+
+<!-- Delete List dialog -->
+<dialog #deleteListDialog>
+  <article>
+    <header>
+      <h3>Delete "{{ selectedList()?.title }}"?</h3>
+      <button rel="prev" aria-label="Close" (click)="closeDeleteListDialog()"></button>
+    </header>
+    <p>All items will be permanently deleted.</p>
+    <footer>
+      <button class="secondary" (click)="closeDeleteListDialog()">Cancel</button>
+      <button class="danger" style="--pico-background-color: var(--pico-del-color); --pico-border-color: var(--pico-del-color); --pico-color: #fff;" (click)="deleteListConfirmed()">Delete</button>
+    </footer>
+  </article>
+</dialog>
+
+<!-- Item Details dialog -->
+<dialog #itemDetailsDialog>
+  <article>
+    <header>
+      <h3>Item Details</h3>
+      <button rel="prev" aria-label="Close" (click)="closeItemDetailsDialog()"></button>
+    </header>
+    <label for="itemList">List</label>
+    <select id="itemList" [(ngModel)]="itemDetailsEditor.listId">
+      @for (list of lists(); track $index) {
+        <option [ngValue]="list.id">{{ list.title }}</option>
       }
-    </div>
-    @if (debug) {
-    <div>
-      <pre>{{ newListEditor | json }}</pre>
-    </div>
-    }
-  </div>
-  <div class="modal-footer clearfix">
-    <div class="float-end">
-      <button class="btn btn-default" (click)="newListCancelled()">Cancel</button>
-      <button class="btn btn-primary" (click)="addList()">Create</button>
-    </div>
-  </div>
-</ng-template>
+    </select>
+    <label for="priority">Priority</label>
+    <select id="priority" [(ngModel)]="itemDetailsEditor.priority">
+      @for (level of priorityLevels(); track $index) {
+        <option [ngValue]="level.id">{{ level.title }}</option>
+      }
+    </select>
+    <label for="note">Note</label>
+    <textarea id="note" rows="3" [(ngModel)]="itemDetailsEditor.note"></textarea>
+    <footer>
+      <button class="danger" style="margin-inline-end: auto" (click)="deleteItem(selectedItem()!)">Delete</button>
+      <button class="secondary" (click)="closeItemDetailsDialog()">Cancel</button>
+      <button (click)="updateItemDetails()">Update</button>
+    </footer>
+  </article>
+</dialog>

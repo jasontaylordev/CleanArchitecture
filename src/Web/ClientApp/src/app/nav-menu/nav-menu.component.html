@@ -1,50 +1,23 @@
 <header>
-  <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
-    <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">CleanArchitecture.Web</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target=".navbar-collapse"
-        aria-label="Toggle navigation"
-        [attr.aria-expanded]="isExpanded"
-        (click)="toggle()"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end"
-           [ngClass]="{ show: isExpanded }">
-        <ul class="navbar-nav flex-grow">
-          <li class="nav-item"
-              [routerLinkActive]="['link-active']"
-              [routerLinkActiveOptions]="{ exact: true }">
-            <a class="nav-link" [routerLink]="['/']">Home</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link" [routerLink]="['/counter']">Counter</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link" [routerLink]="['/fetch-data']">Fetch data</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link" [routerLink]="['/todo']">Todo</a>
-          </li>
-          <ng-container *ngIf="isAuthenticated$ | async; else unauthenticated">
-            <li class="nav-item">
-              <button class="btn btn-link nav-link" (click)="logout()">Log out</button>
-            </li>
-          </ng-container>
-          <ng-template #unauthenticated>
-            <li class="nav-item" [routerLinkActive]="['link-active']">
-              <a class="nav-link" [routerLink]="['/login']">Log in</a>
-            </li>
-            <li class="nav-item" [routerLinkActive]="['link-active']">
-              <a class="nav-link" [routerLink]="['/register']">Register</a>
-            </li>
-          </ng-template>
-        </ul>
-      </div>
-    </div>
+  <nav>
+    <ul>
+      <li><a class="nav-brand" [routerLink]="['/']">CleanArchitecture</a></li>
+    </ul>
+    <ul>
+      <li><a [routerLink]="['/']" [routerLinkActive]="['pico-active']" [routerLinkActiveOptions]="{ exact: true }">Home</a></li>
+      <li><a [routerLink]="['/counter']" [routerLinkActive]="['pico-active']">Counter</a></li>
+      <li><a [routerLink]="['/weather']" [routerLinkActive]="['pico-active']">Weather</a></li>
+      <li><a [routerLink]="['/todo']" [routerLinkActive]="['pico-active']">Tasks</a></li>
+    </ul>
+    <ul>
+      @if (isAuthenticated$ | async) {
+        <li><a href="#" (click)="logout($event)">Log out</a></li>
+      } @else {
+        <li><a [routerLink]="['/login']" [routerLinkActive]="['pico-active']">Log in</a></li>
+        <li><a [routerLink]="['/register']" [routerLinkActive]="['pico-active']">Register</a></li>
+      }
+      <li aria-hidden="true" class="nav-separator"></li>
+      <li><app-theme-toggle /></li>
+    </ul>
   </nav>
 </header>
