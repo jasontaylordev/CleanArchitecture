@@ -1,10 +1,23 @@
 @use "sass:map";
 @use "@picocss/pico/scss/index" as * with (
-  $theme-color: "indigo",
+  $theme-color: "violet",
   $semantic-root-element: "#root",
   $enable-semantic-container: true,
   $enable-classes: false
 );
+
+// ── Base font size & typography ───────────────────────────────────────────────
+html {
+  font-size: 95%;
+}
+
+:root {
+  --pico-font-family-sans-serif: "Inter", system-ui, sans-serif;
+  --pico-font-family-headings: "Outfit", sans-serif;
+  --pico-font-family-monospace: "JetBrains Mono", monospace;
+  --pico-border-radius: 0.375rem;
+  --pico-line-height: 1.5;
+}
 
 // ── Header ────────────────────────────────────────────────────────────────────
 :root {
@@ -49,8 +62,9 @@
 
 // ── Nav brand ─────────────────────────────────────────────────────────────────
 #root > header nav > ul:first-child a {
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-family: "Outfit", sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
   text-decoration: none;
   color: var(--pico-contrast);
 }
