@@ -24,15 +24,7 @@ var web = builder.AddProject<Projects.Web>(Services.WebApi)
     });
 
 #if (!UseApiOnly)
-builder.AddJavaScriptApp(Services.WebFrontend + "-Angular", "./../Web/ClientApp")
-    .WithRunScript("start")
-    .WithReference(web)
-    .WaitFor(web)
-    .WithHttpEndpoint(env: "PORT")
-    .WithExternalHttpEndpoints()
-    .PublishAsDockerFile();
-
-builder.AddJavaScriptApp(Services.WebFrontend + "-React", "./../Web/ClientApp-React")
+builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp")
     .WithRunScript("start")
     .WithReference(web)
     .WaitFor(web)
