@@ -28,7 +28,7 @@ export function NavMenu() {
     <header>
       <nav>
         <ul>
-          <li><Link to="/">CleanArchitecture</Link></li>
+          <li><Link to="/">Clean Architecture</Link></li>
         </ul>
         <ul>
           <li><Link to="/">Home</Link></li>
