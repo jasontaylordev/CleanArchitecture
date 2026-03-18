@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json.schemastore.org/template",
+  "$schema": "https://json.schemastore.org/template",
   "author": "JasonTaylorDev",
   "classifications": [
     "Angular",
@@ -277,30 +277,6 @@
       "defaultValue": "sqlite",
       "description": "The database type to use."
     },
-    "PipelineProvider": {
-      "type": "parameter",
-      "datatype": "choice",
-      "choices": [
-        {
-          "choice": "azdo",
-          "description": "Azure Pipelines"
-        },
-        {
-          "choice": "github",
-          "description": "GitHub Actions"
-        }
-      ],
-      "defaultValue": "github",
-      "description": "The pipeline provider to use (github for Github Actions and azdo for Azure Pipelines)."
-    },
-    "UseAzurePipelines": {
-      "type": "computed",
-      "value": "(PipelineProvider == \"azdo\")"
-    },
-    "UseGithubActions": {
-      "type": "computed",
-      "value": "(PipelineProvider == \"github\")"
-    },
     "UsePostgreSQL": {
       "type": "computed",
       "value": "(Database == \"postgresql\")"
@@ -337,9 +313,7 @@
         "tests/Application.FunctionalTests/SqlTestDatabase.cs",
         "tests/Application.FunctionalTests/appsettings.json",
         "tests/Application.FunctionalTests/appsettings.PostgreSQL.json",
-        "tests/Application.FunctionalTests/appsettings.SQLServer.json",
-        ".azdo/**/*",
-        ".github/**/*"
+        "tests/Application.FunctionalTests/appsettings.SQLServer.json"
       ],
       "rename": {
         "README-template.md": "README.md"
@@ -380,18 +354,6 @@
           "rename": {
             "Web-webapi.http": "Web.http"
           }
-        },
-        {
-          "condition": "(UseAzurePipelines)",
-          "include": [
-            ".azdo/**/*"
-          ]
-        },
-        {
-          "condition": "(UseGithubActions)",
-          "include": [
-            ".github/**/*"
-          ]
         },
         {
           "condition": "(UsePostgreSQL)",

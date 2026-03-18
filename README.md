@@ -88,24 +88,6 @@ This process includes:
 For production environments, consider using EF Core migrations or migration bundles during deployment.  
 For more information, see [Database Initialisation Strategies for EF Core](https://jasontaylor.dev/ef-core-database-initialisation-strategies).
 
-## Deploy
-
-This template is structured to follow the Azure Developer CLI (azd). You can learn more about `azd` in the [official documentation](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli). To get started:
-
-```bash
-# Log in to Azure
-azd auth login
-
-# Provision and deploy to Azure
-azd up
-```
-
-To set up a CI/CD pipeline (GitHub Actions or Azure DevOps):
-
-```bash
-azd pipeline config
-```
-
 ## API Documentation
 
 This template includes built-in API documentation using [ASP.NET Core OpenAPI](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/openapi/overview) and [Scalar](https://scalar.com/). Once the application is running, navigate to `/scalar` to explore the API using the Scalar UI.
