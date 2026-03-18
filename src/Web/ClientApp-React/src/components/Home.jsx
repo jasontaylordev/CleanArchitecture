@@ -7,6 +7,7 @@ export function Home() {
         <li><a href="https://get.asp.net/">ASP.NET Core</a> and <a href="https://learn.microsoft.com/en-us/dotnet/csharp/">C#</a> for cross-platform server-side code</li>
         <li><a href="https://react.dev/">React</a> and <a href="https://vite.dev/">Vite</a> for client-side code</li>
         <li><a href="https://picocss.com/">Pico CSS</a> for layout and styling</li>
+        <li><a href="https://lucide.dev/">Lucide</a> for icons</li>
       </ul>
       <p>To help you get started:</p>
       <ul>

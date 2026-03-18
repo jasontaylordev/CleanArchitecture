@@ -40,7 +40,7 @@ export function Weather() {
           <tbody>
             {forecasts.map(forecast =>
               <tr key={forecast.date}>
-                <td>{new Date(forecast.date).toLocaleDateString()}</td>
+                <td>{new Date(forecast.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
                 <td>{forecast.temperatureC}</td>
                 <td>{forecast.temperatureF}</td>
                 <td>{forecast.summary}</td>
