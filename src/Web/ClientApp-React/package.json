@@ -4,12 +4,11 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "bootstrap": "^5.3.3",
+    "@picocss/pico": "^2.0.6",
+    "lucide-react": "^0.577.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-router-bootstrap": "^0.26.3",
-    "react-router-dom": "^7.6.1",
-    "reactstrap": "^9.2.3"
+    "react-router-dom": "^7.6.1"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
@@ -21,6 +20,7 @@
     "eslint-plugin-react-refresh": "^0.5.0",
     "globals": "^17.0.0",
     "nswag": "latest",
+    "sass": "^1.98.0",
     "typescript": "~5.9.0",
     "vite": "^8.0.0"
   },

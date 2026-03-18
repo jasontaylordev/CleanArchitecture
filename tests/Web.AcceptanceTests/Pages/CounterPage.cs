@@ -11,5 +11,5 @@ public class CounterPage(IPage page) : BasePage(page)
         => Assertions.Expect(Page.Locator("p[aria-live='polite'] strong")).ToHaveTextAsync(count.ToString());
 
     public Task ClickIncrement()
-        => Page.Locator("button.btn-primary").ClickAsync();
+        => Page.Locator("button:has-text('Increment')").ClickAsync();
 }

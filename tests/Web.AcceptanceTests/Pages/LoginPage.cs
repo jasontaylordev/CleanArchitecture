@@ -14,8 +14,8 @@ public class LoginPage(IPage page) : BasePage(page)
         => Page.Locator("button[type='submit']").ClickAsync();
 
     public Task<string?> LogoutButtonText()
-        => Page.Locator("button.nav-link:has-text('Log out')").TextContentAsync();
+        => Page.Locator("a:has-text('Log out')").TextContentAsync();
 
     public Task AssertErrorVisible()
-        => Assertions.Expect(Page.Locator(".alert-danger")).ToBeVisibleAsync();
+        => Assertions.Expect(Page.Locator("#login-error")).ToBeVisibleAsync();
 }

@@ -1,5 +1,4 @@
-import { Component, OnInit, TemplateRef, signal, computed } from '@angular/core';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { Component, OnInit, ViewChild, ElementRef, signal, computed, effect } from '@angular/core';
 import { TodoListsClient, TodoItemsClient,
   TodoListDto, TodoItemDto, LookupDto,
   CreateTodoListCommand, UpdateTodoListCommand,
@@ -12,27 +11,32 @@ import { TodoListsClient, TodoItemsClient,
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.scss']
 })
-export class TodoComponent implements OnInit {
-  debug = false;
+export class TasksComponent implements OnInit {
+  @ViewChild('newListDialog') newListDialogRef: ElementRef<HTMLDialogElement>;
+  @ViewChild('listOptionsDialog') listOptionsDialogRef: ElementRef<HTMLDialogElement>;
+  @ViewChild('deleteListDialog') deleteListDialogRef: ElementRef<HTMLDialogElement>;
+  @ViewChild('itemDetailsDialog') itemDetailsDialogRef: ElementRef<HTMLDialogElement>;
+
   lists = signal<TodoListDto[] | null>(null);
   priorityLevels = signal<LookupDto[]>([]);
   selectedListId = signal<number | null>(null);
   selectedList = computed(() => this.lists()?.find(l => l.id === this.selectedListId()) ?? null);
   selectedItem = signal<TodoItemDto | null>(null);
+  editingItem = signal<TodoItemDto | null>(null);
   newListEditor: any = {};
   newListError = signal('');
   listOptionsEditor: any = {};
   itemDetailsEditor: any = {};
-  newListModalRef: BsModalRef;
-  listOptionsModalRef: BsModalRef;
-  deleteListModalRef: BsModalRef;
-  itemDetailsModalRef: BsModalRef;
+  newItemTitle = '';
+  addingItem = signal(false);
+  private originalTitle = '';
 
   constructor(
     private listsClient: TodoListsClient,
-    private itemsClient: TodoItemsClient,
-    private modalService: BsModalService
-  ) {}
+    private itemsClient: TodoItemsClient
+  ) {
+    effect(() => { this.selectedListId(); this.newItemTitle = ''; this.addingItem.set(false); });
+  }
 
   ngOnInit(): void {
     this.listsClient.getTodoLists().subscribe({
@@ -52,13 +56,15 @@ export class TodoComponent implements OnInit {
     return list.items.filter(t => !t.done).length;
   }
 
-  showNewListModal(template: TemplateRef<any>): void {
-    this.newListModalRef = this.modalService.show(template);
-    setTimeout(() => document.getElementById('title').focus(), 250);
+  showNewListDialog(): void {
+    this.newListEditor = {};
+    this.newListError.set('');
+    this.newListDialogRef.nativeElement.showModal();
+    setTimeout(() => document.getElementById('title')?.focus(), 50);
   }
 
   newListCancelled(): void {
-    this.newListModalRef.hide();
+    this.newListDialogRef.nativeElement.close();
     this.newListEditor = {};
     this.newListError.set('');
   }
@@ -75,7 +81,7 @@ export class TodoComponent implements OnInit {
         list.id = result;
         this.lists.update(ls => [...ls, list]);
         this.selectedListId.set(list.id);
-        this.newListModalRef.hide();
+        this.newListDialogRef.nativeElement.close();
         this.newListEditor = {};
         this.newListError.set('');
       },
@@ -84,42 +90,50 @@ export class TodoComponent implements OnInit {
         if (errors && errors.Title) {
           this.newListError.set(errors.Title[0]);
         }
-        setTimeout(() => document.getElementById('title').focus(), 250);
+        setTimeout(() => document.getElementById('title')?.focus(), 50);
       }
     });
   }
 
-  showListOptionsModal(template: TemplateRef<any>) {
+  showListOptionsDialog(): void {
     this.listOptionsEditor = {
       id: this.selectedList()!.id,
       title: this.selectedList()!.title
     };
-    this.listOptionsModalRef = this.modalService.show(template);
+    this.listOptionsDialogRef.nativeElement.showModal();
   }
 
-  updateListOptions() {
+  closeListOptionsDialog(): void {
+    this.listOptionsDialogRef.nativeElement.close();
+    this.listOptionsEditor = {};
+  }
+
+  updateListOptions(): void {
     const id = this.selectedList()!.id;
     const newTitle = this.listOptionsEditor.title;
     this.listsClient.updateTodoList(id, this.listOptionsEditor as UpdateTodoListCommand).subscribe({
       next: () => {
         this.lists.update(ls => ls.map(l => l.id === id ? { ...l, title: newTitle } as TodoListDto : l));
-        this.listOptionsModalRef.hide();
-        this.listOptionsEditor = {};
+        this.closeListOptionsDialog();
       },
       error: error => console.error(error)
     });
   }
 
-  confirmDeleteList(template: TemplateRef<any>) {
-    this.listOptionsModalRef.hide();
-    this.deleteListModalRef = this.modalService.show(template);
+  confirmDeleteList(): void {
+    this.closeListOptionsDialog();
+    this.deleteListDialogRef.nativeElement.showModal();
+  }
+
+  closeDeleteListDialog(): void {
+    this.deleteListDialogRef.nativeElement.close();
   }
 
   deleteListConfirmed(): void {
     const deletedId = this.selectedList()!.id;
     this.listsClient.deleteTodoList(deletedId).subscribe({
       next: () => {
-        this.deleteListModalRef.hide();
+        this.closeDeleteListDialog();
         this.lists.update(ls => ls.filter(l => l.id !== deletedId));
         const remaining = this.lists()!;
         this.selectedListId.set(remaining.length ? remaining[0].id : null);
@@ -129,10 +143,16 @@ export class TodoComponent implements OnInit {
   }
 
   // Items
-  showItemDetailsModal(template: TemplateRef<any>, item: TodoItemDto): void {
+  showItemDetailsDialog(item: TodoItemDto): void {
     this.selectedItem.set(item);
     this.itemDetailsEditor = { ...item };
-    this.itemDetailsModalRef = this.modalService.show(template);
+    this.itemDetailsDialogRef.nativeElement.showModal();
+  }
+
+  closeItemDetailsDialog(): void {
+    this.itemDetailsDialogRef.nativeElement.close();
+    this.selectedItem.set(null);
+    this.itemDetailsEditor = {};
   }
 
   updateItemDetails(): void {
@@ -156,39 +176,56 @@ export class TodoComponent implements OnInit {
           }
           return l;
         }));
-        this.selectedItem.set(null);
-        this.itemDetailsModalRef.hide();
-        this.itemDetailsEditor = {};
+        this.closeItemDetailsDialog();
       },
       error: error => console.error(error)
     });
   }
 
-  addItem() {
-    const item = {
-      id: 0,
-      listId: this.selectedList()!.id,
-      priority: this.priorityLevels()[0].id,
-      title: '',
-      done: false
-    } as TodoItemDto;
+  startAddingItem(): void {
+    this.addingItem.set(true);
+    setTimeout(() => document.getElementById('newItemInput')?.focus(), 50);
+  }
 
-    const index = this.selectedList()!.items.length;
-    this.lists.update(ls => ls.map(l => l.id === this.selectedListId()
-      ? { ...l, items: [...l.items, item] } as TodoListDto
-      : l
-    ));
-    this.editItem(item, 'itemTitle' + index);
+  cancelNewItem(): void {
+    this.addingItem.set(false);
+    this.newItemTitle = '';
+  }
+
+  commitNewItem(): void {
+    this.addingItem.set(false);
+    if (!this.newItemTitle.trim()) {
+      this.newItemTitle = '';
+      return;
+    }
+    const listId = this.selectedListId()!;
+    const title = this.newItemTitle.trim();
+    this.itemsClient.createTodoItem({ title, listId } as CreateTodoItemCommand).subscribe({
+      next: result => {
+        this.lists.update(ls => ls.map(l => l.id === listId
+          ? { ...l, items: [...l.items, { id: result, listId, title, done: false, priority: this.priorityLevels()[0].id } as TodoItemDto] } as TodoListDto
+          : l
+        ));
+        this.newItemTitle = '';
+      },
+      error: error => console.error(error)
+    });
   }
 
   editItem(item: TodoItemDto, inputId: string): void {
-    this.selectedItem.set(item);
-    setTimeout(() => document.getElementById(inputId).focus(), 100);
+    this.originalTitle = item.title;
+    this.editingItem.set(item);
+    setTimeout(() => document.getElementById(inputId)?.focus(), 100);
   }
 
-  updateItem(item: TodoItemDto, pressedEnter: boolean = false): void {
-    const isNewItem = item.id === 0;
+  cancelEdit(): void {
+    if (this.editingItem()) {
+      this.editingItem()!.title = this.originalTitle;
+    }
+    this.editingItem.set(null);
+  }
 
+  updateItem(item: TodoItemDto): void {
     if (!item.title.trim()) {
       this.deleteItem(item);
       return;
@@ -214,16 +251,12 @@ export class TodoComponent implements OnInit {
       });
     }
 
-    this.selectedItem.set(null);
-
-    if (isNewItem && pressedEnter) {
-      setTimeout(() => this.addItem(), 250);
-    }
+    this.editingItem.set(null);
   }
 
-  deleteItem(item: TodoItemDto) {
-    if (this.itemDetailsModalRef) {
-      this.itemDetailsModalRef.hide();
+  deleteItem(item: TodoItemDto): void {
+    if (this.itemDetailsDialogRef?.nativeElement.open) {
+      this.itemDetailsDialogRef.nativeElement.close();
     }
 
     const listId = this.selectedListId()!;
@@ -233,7 +266,7 @@ export class TodoComponent implements OnInit {
         ? { ...l, items: l.items.filter(i => i !== currentItem) } as TodoListDto
         : l
       ));
-      this.selectedItem.set(null);
+      this.editingItem.set(null);
     } else {
       this.itemsClient.deleteTodoItem(item.id).subscribe({
         next: () => {

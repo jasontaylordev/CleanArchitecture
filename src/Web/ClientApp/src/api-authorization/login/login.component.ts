@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { firstValueFrom } from 'rxjs';
@@ -11,22 +11,24 @@ import { firstValueFrom } from 'rxjs';
 export class LoginComponent {
   email = '';
   password = '';
-  error = signal('');
+  invalid = false;
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef
   ) {}
 
   async login() {
-    this.error.set('');
+    this.invalid = false;
     try {
       await firstValueFrom(this.authService.login(this.email, this.password));
       const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
       await this.router.navigateByUrl(returnUrl);
     } catch {
-      this.error.set('Invalid email or password.');
+      this.invalid = true;
+      this.cdr.detectChanges();
     }
   }
 }

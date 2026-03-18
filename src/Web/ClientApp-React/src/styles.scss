@@ -1,7 +1,7 @@
 @use "sass:map";
 @use "@picocss/pico/scss/index" as * with (
   $theme-color: "violet",
-  $semantic-root-element: "app-root",
+  $semantic-root-element: "#root",
   $enable-semantic-container: true,
   $enable-classes: false
 );
@@ -24,7 +24,7 @@ html {
   --header-height: 4.5rem;
 }
 
-app-nav-menu > header {
+#root > header {
   position: fixed;
   top: 0;
   left: 0;
@@ -40,7 +40,7 @@ app-nav-menu > header {
   border-bottom: 1px solid var(--pico-muted-border-color);
 }
 
-app-nav-menu > header nav {
+#root > header nav {
   height: 100%;
   display: flex;
   align-items: center;
@@ -56,12 +56,12 @@ app-nav-menu > header nav {
 }
 
 // ── Main content ──────────────────────────────────────────────────────────────
-app-root > main {
+#root > main {
   padding-top: calc(var(--header-height) + var(--pico-block-spacing-vertical) * 2);
 }
 
 // ── Nav brand ─────────────────────────────────────────────────────────────────
-app-nav-menu > header nav > ul:first-child a {
+#root > header nav > ul:first-child a {
   font-family: "Outfit", sans-serif;
   font-size: 1.75rem;
   font-weight: 700;
@@ -70,20 +70,14 @@ app-nav-menu > header nav > ul:first-child a {
 }
 
 // ── Login / Register centered layout ──────────────────────────────────────────
-app-root > main:has(> app-login, > app-register) {
+#root > main:has(> article:only-child) {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
 
-  > app-login,
-  > app-register {
-    display: contents;
-  }
-
-  > app-login > article,
-  > app-register > article {
+  > article {
     width: 100%;
     max-width: map.get(map.get($breakpoints, "md"), "viewport");
   }
@@ -148,10 +142,6 @@ app-root > main:has(> app-login, > app-register) {
 
   &:hover {
     color: var(--pico-primary);
-  }
-
-  lucide-icon {
-    display: flex;
   }
 }
 

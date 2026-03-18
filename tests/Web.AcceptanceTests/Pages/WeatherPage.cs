@@ -1,11 +1,11 @@
 namespace CleanArchitecture.Web.AcceptanceTests.Pages;
 
-public class FetchDataPage(IPage page) : BasePage(page)
+public class WeatherPage(IPage page) : BasePage(page)
 {
-    public override string PagePath => $"{BaseUrl}/fetch-data";
+    public override string PagePath => $"{BaseUrl}/weather";
 
     public Task AssertHeading(string text)
-        => Assertions.Expect(Page.Locator("h1#tableLabel")).ToHaveTextAsync(text);
+        => Assertions.Expect(Page.Locator("h1")).ToHaveTextAsync(text);
 
     public Task AssertTableVisible()
         => Assertions.Expect(Page.Locator("table")).ToBeVisibleAsync();

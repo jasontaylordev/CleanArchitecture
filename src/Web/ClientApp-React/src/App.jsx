@@ -3,13 +3,14 @@ import { Route, Routes } from 'react-router-dom';
 import AppRoutes from './AppRoutes';
 import { Layout } from './components/Layout';
 import { AuthProvider } from './components/api-authorization/AuthContext';
-import './custom.css';
+import { ThemeProvider } from './components/ThemeContext';
 
 export default class App extends Component {
   static displayName = App.name;
 
   render() {
     return (
+      <ThemeProvider>
       <AuthProvider>
         <Layout>
         <Routes>
@@ -20,6 +21,7 @@ export default class App extends Component {
         </Routes>
         </Layout>
       </AuthProvider>
+      </ThemeProvider>
     );
   }
 }
