@@ -24,7 +24,7 @@ var web = builder.AddProject<Projects.Web>(Services.WebApi)
     });
 
 #if (!UseApiOnly)
-builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp")
+builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp-React")
     .WithRunScript("start")
     .WithReference(web)
     .WaitFor(web)
