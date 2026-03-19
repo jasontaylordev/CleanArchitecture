@@ -30,12 +30,10 @@ app.UseCors(static builder =>
         .AllowAnyHeader()
         .AllowAnyOrigin());
 
+app.UseFileServer();
+
 app.MapOpenApi();
 app.MapScalarApiReference();
-
-#if (!UseApiOnly)
-app.MapFallbackToFile("index.html");
-#endif
 
 app.UseExceptionHandler(options => { });
 
@@ -46,6 +44,8 @@ app.Map("/", () => Results.Redirect("/scalar"));
 app.MapDefaultEndpoints();
 app.MapEndpoints(typeof(Program).Assembly);
 
-app.UseFileServer();
+#if (!UseApiOnly)
+app.MapFallbackToFile("index.html");
+#endif
 
 app.Run();

@@ -2,12 +2,19 @@ using CleanArchitecture.Shared;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
+builder.AddAzureContainerAppEnvironment("aca-env");
+
 #if (UsePostgreSQL)
 var databaseServer = builder
-    .AddPostgres(Services.DatabaseServer)
+    .AddAzurePostgresFlexibleServer(Services.DatabaseServer)
+    .WithPasswordAuthentication()
+    .RunAsContainer(container => 
+        container.WithLifetime(ContainerLifetime.Persistent))
     .AddDatabase(Services.Database);
 #elif (UseSqlServer)
-var databaseServer = builder.AddSqlServer(Services.DatabaseServer)
+var databaseServer = builder.AddAzureSqlServer(Services.DatabaseServer)
+    .RunAsContainer(container => 
+        container.WithLifetime(ContainerLifetime.Persistent))
     .AddDatabase(Services.Database);
 #else
 var databaseServer = builder
@@ -17,6 +24,7 @@ var databaseServer = builder
 var web = builder.AddProject<Projects.Web>(Services.WebApi)
     .WithReference(databaseServer)
     .WaitFor(databaseServer)
+    .WithExternalHttpEndpoints()
     .WithUrlForEndpoint("http", url =>
     {
         url.DisplayText = "Scalar API Reference";
@@ -24,13 +32,15 @@ var web = builder.AddProject<Projects.Web>(Services.WebApi)
     });
 
 #if (!UseApiOnly)
-builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp")
-    .WithRunScript("start")
-    .WithReference(web)
-    .WaitFor(web)
-    .WithHttpEndpoint(env: "PORT")
-    .WithExternalHttpEndpoints()
-    .PublishAsDockerFile();
+if (builder.ExecutionContext.IsRunMode)
+{
+    builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp")
+        .WithRunScript("start")
+        .WithReference(web)
+        .WaitFor(web)
+        .WithHttpEndpoint(env: "PORT")
+        .WithExternalHttpEndpoints();
+}
 #endif
 
 builder.Build().Run();

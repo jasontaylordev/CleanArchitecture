@@ -9,10 +9,10 @@
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.AppHost" />
     <!--#if (UsePostgreSQL)-->
-    <PackageReference Include="Aspire.Hosting.PostgreSQL" />
+    <PackageReference Include="Aspire.Hosting.Azure.PostgreSQL" />
     <!--#endif-->
     <!--#if (UseSqlServer)-->
-    <PackageReference Include="Aspire.Hosting.SqlServer" />
+    <PackageReference Include="Aspire.Hosting.Azure.Sql" />
     <!--#endif-->
     <!--#if (UseSqlite)-->
     <PackageReference Include="CommunityToolkit.Aspire.Hosting.SQLite" />
