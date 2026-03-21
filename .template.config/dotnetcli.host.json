@@ -1,16 +1,43 @@
 {
+  "$schema": "http://json.schemastore.org/dotnetcli.host",
   "symbolInfo": {
     "ClientFramework": {
       "longName": "client-framework",
       "shortName": "cf"
     },
-    "PipelineProvider": {
-      "longName": "pipeline-provider",
-      "shortName": "pp"
-    },
     "Database": {
       "longName": "database",
       "shortName": "db"
+    },
+    "appHostHttpPort": {
+      "isHidden": true
+    },
+    "appHostHttpsPort": {
+      "isHidden": true
+    },
+    "appHostOtlpHttpPort": {
+      "isHidden": true
+    },
+    "appHostOtlpHttpsPort": {
+      "isHidden": true
+    },
+    "appHostMcpHttpPort": {
+      "isHidden": true
+    },
+    "appHostMcpHttpsPort": {
+      "isHidden": true
+    },
+    "appHostResourceHttpPort": {
+      "isHidden": true
+    },
+    "appHostResourceHttpsPort": {
+      "isHidden": true
+    },
+    "kestrelHttpPort": {
+      "isHidden": true
+    },
+    "kestrelHttpsPort": {
+      "isHidden": true
     }
   }
 }

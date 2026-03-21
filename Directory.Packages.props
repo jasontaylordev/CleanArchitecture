@@ -38,18 +38,19 @@
     <!--#endif-->
     <!--#if (UsePostgreSQL)-->
     <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="13.1.3" />
-    <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="13.1.3" />
+    <PackageVersion Include="Aspire.Hosting.Azure.PostgreSQL" Version="13.1.3" />
     <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.1" />
     <!--#endif-->
     <!--#if (UseSqlServer)-->
     <PackageVersion Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="13.1.3" />
-    <PackageVersion Include="Aspire.Hosting.SqlServer" Version="13.1.3" />
+    <PackageVersion Include="Aspire.Hosting.Azure.Sql" Version="13.1.3" />
     <!--#endif-->
     <!--#if (UseSqlite)-->
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.5" />
     <PackageVersion Include="CommunityToolkit.Aspire.Hosting.SQLite" Version="13.1.1" />
     <!--#endif-->
     <PackageVersion Include="Aspire.Hosting.AppHost" Version="13.1.3" />
+    <PackageVersion Include="Aspire.Hosting.Azure.AppContainers" Version="13.1.3" />
     <PackageVersion Include="Aspire.Hosting.Testing" Version="13.1.3" />
     <PackageVersion Include="Aspire.Hosting.JavaScript" Version="13.1.3" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="10.4.0" />
