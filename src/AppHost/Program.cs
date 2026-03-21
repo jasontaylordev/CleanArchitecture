@@ -12,7 +12,8 @@ var databaseServer = builder
         container.WithLifetime(ContainerLifetime.Persistent))
     .AddDatabase(Services.Database);
 #elif (UseSqlServer)
-var databaseServer = builder.AddAzureSqlServer(Services.DatabaseServer)
+var databaseServer = builder
+    .AddAzureSqlServer(Services.DatabaseServer)
     .RunAsContainer(container => 
         container.WithLifetime(ContainerLifetime.Persistent))
     .AddDatabase(Services.Database);
