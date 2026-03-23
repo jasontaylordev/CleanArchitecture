@@ -18,6 +18,7 @@ export class TasksComponent implements OnInit {
   @ViewChild('itemDetailsDialog') itemDetailsDialogRef: ElementRef<HTMLDialogElement>;
 
   lists = signal<TodoListDto[] | null>(null);
+  colours = signal<{ name: string, code: string }[]>([]);
   priorityLevels = signal<LookupDto[]>([]);
   selectedListId = signal<number | null>(null);
   selectedList = computed(() => this.lists()?.find(l => l.id === this.selectedListId()) ?? null);
@@ -43,6 +44,7 @@ export class TasksComponent implements OnInit {
       next: result => {
         this.lists.set(result.lists);
         this.priorityLevels.set(result.priorityLevels);
+        this.colours.set(result.colours.map(c => ({ name: c.name, code: c.code })));
         if (result.lists.length) {
           this.selectedListId.set(result.lists[0].id);
         }
@@ -57,7 +59,7 @@ export class TasksComponent implements OnInit {
   }
 
   showNewListDialog(): void {
-    this.newListEditor = {};
+    this.newListEditor = { colour: this.colours()[0].code };
     this.newListError.set('');
     this.newListDialogRef.nativeElement.showModal();
     setTimeout(() => document.getElementById('title')?.focus(), 50);
@@ -73,10 +75,11 @@ export class TasksComponent implements OnInit {
     const list = {
       id: 0,
       title: this.newListEditor.title,
+      colour: this.newListEditor.colour,
       items: []
     } as TodoListDto;
 
-    this.listsClient.createTodoList(list as CreateTodoListCommand).subscribe({
+    this.listsClient.createTodoList({ title: list.title, colour: list.colour } as CreateTodoListCommand).subscribe({
       next: result => {
         list.id = result;
         this.lists.update(ls => [...ls, list]);
@@ -98,7 +101,8 @@ export class TasksComponent implements OnInit {
   showListOptionsDialog(): void {
     this.listOptionsEditor = {
       id: this.selectedList()!.id,
-      title: this.selectedList()!.title
+      title: this.selectedList()!.title,
+      colour: this.selectedList()!.colour || this.colours()[0].code
     };
     this.listOptionsDialogRef.nativeElement.showModal();
   }
@@ -111,9 +115,10 @@ export class TasksComponent implements OnInit {
   updateListOptions(): void {
     const id = this.selectedList()!.id;
     const newTitle = this.listOptionsEditor.title;
+    const newColour = this.listOptionsEditor.colour;
     this.listsClient.updateTodoList(id, this.listOptionsEditor as UpdateTodoListCommand).subscribe({
       next: () => {
-        this.lists.update(ls => ls.map(l => l.id === id ? { ...l, title: newTitle } as TodoListDto : l));
+        this.lists.update(ls => ls.map(l => l.id === id ? { ...l, title: newTitle, colour: newColour } as TodoListDto : l));
         this.closeListOptionsDialog();
       },
       error: error => console.error(error)

@@ -8,6 +8,7 @@ const itemsClient = new TodoItemsClient();
 export function Tasks() {
   const [lists, setLists] = useState(null);
   const [priorityLevels, setPriorityLevels] = useState([]);
+  const [colours, setColours] = useState([]);
   const [selectedListId, setSelectedListId] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
   const [editingItem, setEditingItem] = useState(null);
@@ -17,6 +18,7 @@ export function Tasks() {
   const [listOptionsEditor, setListOptionsEditor] = useState({});
   const [itemDetailsEditor, setItemDetailsEditor] = useState({});
   const [newListTitle, setNewListTitle] = useState('');
+  const [newListColour, setNewListColour] = useState('');
   const [newListError, setNewListError] = useState('');
 
   const originalTitle = useRef('');
@@ -32,6 +34,9 @@ export function Tasks() {
     listsClient.getTodoLists().then(result => {
       setLists(result.lists);
       setPriorityLevels(result.priorityLevels);
+      const apiColours = result.colours.map(c => ({ name: c.name, code: c.code }));
+      setColours(apiColours);
+      setNewListColour(apiColours[0]?.code ?? '');
       if (result.lists.length) setSelectedListId(result.lists[0].id);
     }).catch(console.error);
   }, []);
@@ -48,6 +53,7 @@ export function Tasks() {
 
   const showNewListDialog = () => {
     setNewListTitle('');
+    setNewListColour(colours[0].code);
     setNewListError('');
     newListDialogRef.current.showModal();
     setTimeout(() => document.getElementById('newListTitle')?.focus(), 50);
@@ -56,14 +62,15 @@ export function Tasks() {
   const closeNewListDialog = () => {
     newListDialogRef.current.close();
     setNewListTitle('');
+    setNewListColour(colours[0].code);
     setNewListError('');
   };
 
   const commitNewList = async () => {
     if (!newListTitle.trim()) return;
     try {
-      const id = await listsClient.createTodoList({ title: newListTitle.trim(), items: [] });
-      const newList = { id, title: newListTitle.trim(), items: [] };
+      const id = await listsClient.createTodoList({ title: newListTitle.trim(), colour: newListColour });
+      const newList = { id, title: newListTitle.trim(), colour: newListColour, items: [] };
       setLists(ls => [...ls, newList]);
       setSelectedListId(id);
       closeNewListDialog();
@@ -77,7 +84,7 @@ export function Tasks() {
   };
 
   const showListOptionsDialog = () => {
-    setListOptionsEditor({ id: selectedList.id, title: selectedList.title });
+    setListOptionsEditor({ id: selectedList.id, title: selectedList.title, colour: selectedList.colour || colours[0].code });
     listOptionsDialogRef.current.showModal();
   };
 
@@ -89,7 +96,7 @@ export function Tasks() {
   const updateListOptions = async () => {
     try {
       await listsClient.updateTodoList(selectedList.id, listOptionsEditor);
-      setLists(ls => ls.map(l => l.id === selectedList.id ? { ...l, title: listOptionsEditor.title } : l));
+      setLists(ls => ls.map(l => l.id === selectedList.id ? { ...l, title: listOptionsEditor.title, colour: listOptionsEditor.colour } : l));
       closeListOptionsDialog();
     } catch (e) { console.error(e); }
   };
@@ -236,6 +243,7 @@ export function Tasks() {
               <li key={list.id}
                 aria-current={selectedList === list ? 'true' : undefined}
                 onClick={() => setSelectedListId(list.id)}>
+                <span className="colour-dot" style={{ background: list.colour }} aria-hidden="true"></span>
                 <span>{list.title}</span>
                 <small>{remainingItems(list)}</small>
               </li>
@@ -247,7 +255,7 @@ export function Tasks() {
         {selectedList && (
           <div className="todo-main">
             <div className="todo-panel-header">
-              <h2>{selectedList.title}</h2>
+              <h2 style={{ color: selectedList.colour }}>{selectedList.title}</h2>
               <button className="icon-btn" onClick={showListOptionsDialog}><Settings size={20} strokeWidth={2} /></button>
             </div>
 
@@ -318,6 +326,14 @@ export function Tasks() {
             onKeyDown={e => e.key === 'Enter' && commitNewList()}
             maxLength={200} />
           {newListError && <small>{newListError}</small>}
+          <label>Colour</label>
+          <div className="colour-picker">
+            {colours.map(c => (
+              <button key={c.code} type="button" className={`colour-swatch${newListColour === c.code ? ' selected' : ''}`}
+                style={{ background: c.code }} aria-label={c.name}
+                onClick={() => setNewListColour(c.code)} />
+            ))}
+          </div>
           <footer>
             <button className="secondary" onClick={closeNewListDialog}>Cancel</button>
             <button onClick={commitNewList}>Create</button>
@@ -338,6 +354,14 @@ export function Tasks() {
             onChange={e => setListOptionsEditor(ed => ({ ...ed, title: e.target.value }))}
             onKeyDown={e => e.key === 'Enter' && updateListOptions()}
             maxLength={200} />
+          <label>Colour</label>
+          <div className="colour-picker">
+            {colours.map(c => (
+              <button key={c.code} type="button" className={`colour-swatch${listOptionsEditor.colour === c.code ? ' selected' : ''}`}
+                style={{ background: c.code }} aria-label={c.name}
+                onClick={() => setListOptionsEditor(ed => ({ ...ed, colour: c.code }))} />
+            ))}
+          </div>
           <footer>
             <button className="danger" style={{ marginInlineEnd: 'auto' }} onClick={confirmDeleteList}>Delete</button>
             <button className="secondary" onClick={closeListOptionsDialog}>Cancel</button>

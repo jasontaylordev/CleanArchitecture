@@ -6,7 +6,7 @@ public class TodoListDto
 {
     public TodoListDto()
     {
-        Items = Array.Empty<TodoItemDto>();
+        Items = [];
     }
 
     public int Id { get; init; }
