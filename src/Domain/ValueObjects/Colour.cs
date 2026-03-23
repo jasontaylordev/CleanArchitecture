@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.Domain.ValueObjects;
+namespace CleanArchitecture.Domain.ValueObjects;
 
 public class Colour(string code) : ValueObject
 {
@@ -14,21 +14,19 @@ public class Colour(string code) : ValueObject
         return colour;
     }
 
-    public static Colour White => new("#FFFFFF");
+    public static Colour Red => new("#E05C4D");
 
-    public static Colour Red => new("#FF5733");
+    public static Colour Orange => new("#D98B2B");
 
-    public static Colour Orange => new("#FFC300");
+    public static Colour Green => new("#4CAF50");
 
-    public static Colour Yellow => new("#FFFF66");
+    public static Colour Teal => new("#26A69A");
 
-    public static Colour Green => new("#CCFF99");
+    public static Colour Blue => new("#5C6BC0");
 
-    public static Colour Blue => new("#6666FF");
+    public static Colour Purple => new("#AB47BC");
 
-    public static Colour Purple => new("#9966CC");
-
-    public static Colour Grey => new("#999999");
+    public static Colour Grey => new("#78909C");
 
     public string Code { get; private set; } = string.IsNullOrWhiteSpace(code)?"#000000":code;
 
@@ -47,15 +45,14 @@ public class Colour(string code) : ValueObject
         return Code;
     }
 
-    protected static IEnumerable<Colour> SupportedColours
+    public static IEnumerable<Colour> SupportedColours
     {
         get
         {
-            yield return White;
             yield return Red;
             yield return Orange;
-            yield return Yellow;
             yield return Green;
+            yield return Teal;
             yield return Blue;
             yield return Purple;
             yield return Grey;

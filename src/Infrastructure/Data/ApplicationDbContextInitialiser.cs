@@ -1,5 +1,6 @@
 ﻿using CleanArchitecture.Domain.Constants;
 using CleanArchitecture.Domain.Entities;
+using CleanArchitecture.Domain.ValueObjects;
 using CleanArchitecture.Infrastructure.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -92,7 +93,8 @@ public class ApplicationDbContextInitialiser
         {
             _context.TodoLists.Add(new TodoList
             {
-                Title = "Todo List",
+                Title = "Tasks",
+                Colour = Colour.Green,
                 Items =
                 {
                     new TodoItem { Title = "Make a todo list 📃" },

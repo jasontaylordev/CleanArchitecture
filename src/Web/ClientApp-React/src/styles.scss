@@ -258,6 +258,34 @@ html {
   cursor: pointer;
 }
 
+.colour-dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.colour-picker {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: var(--pico-spacing);
+}
+
+.colour-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--pico-muted-border-color);
+  cursor: pointer;
+  padding: 0;
+
+  &.selected {
+    border-color: var(--pico-primary);
+    box-shadow: 0 0 0 2px var(--pico-primary);
+  }
+}
+
 // ── Dialog header/footer ───────────────────────────────────────────────────────
 dialog article header {
   display: flex;

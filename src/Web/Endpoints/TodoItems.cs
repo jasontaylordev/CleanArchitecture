@@ -1,9 +1,7 @@
-using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Application.TodoItems.Commands.CreateTodoItem;
 using CleanArchitecture.Application.TodoItems.Commands.DeleteTodoItem;
 using CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItem;
 using CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItemDetail;
-using CleanArchitecture.Application.TodoItems.Queries.GetTodoItemsWithPagination;
 using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace CleanArchitecture.Web.Endpoints;
@@ -14,22 +12,10 @@ public class TodoItems : IEndpointGroup
     {
         groupBuilder.RequireAuthorization();
 
-        groupBuilder.MapGet(GetTodoItemsWithPagination);
         groupBuilder.MapPost(CreateTodoItem);
         groupBuilder.MapPut(UpdateTodoItem, "{id}");
         groupBuilder.MapPatch(UpdateTodoItemDetail, "UpdateDetail/{id}");
         groupBuilder.MapDelete(DeleteTodoItem, "{id}");
-    }
-
-    [EndpointSummary("Get Todo Items with Pagination")]
-    [EndpointDescription("Retrieves a paginated list of todo items based on the provided query parameters.")]
-    public static async Task<Ok<PaginatedList<TodoItemBriefDto>>> GetTodoItemsWithPagination(
-        ISender sender,
-        [AsParameters] GetTodoItemsWithPaginationQuery query)
-    {
-        var result = await sender.Send(query);
-
-        return TypedResults.Ok(result);
     }
 
     [EndpointSummary("Create a new Todo Item")]

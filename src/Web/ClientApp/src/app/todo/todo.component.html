@@ -18,6 +18,7 @@
         @for (list of lists(); track $index) {
           <li [attr.aria-current]="selectedList() === list ? 'true' : null"
               (click)="selectedListId.set(list.id)">
+            <span class="colour-dot" [style.background]="list.colour" aria-hidden="true"></span>
             <span>{{ list.title }}</span>
             <small>{{ remainingItems(list) }}</small>
           </li>
@@ -29,7 +30,7 @@
     @if (selectedList()) {
       <div class="todo-main">
         <div class="todo-panel-header">
-          <h2>{{ selectedList()!.title }}</h2>
+          <h2 [style.color]="selectedList()!.colour">{{ selectedList()!.title }}</h2>
           <button class="icon-btn" (click)="showListOptionsDialog()"><lucide-icon name="settings" [size]="20" [strokeWidth]="2" /></button>
         </div>
 
@@ -85,6 +86,16 @@
     @if (newListError()) {
       <small>{{ newListError() }}</small>
     }
+    <label>Colour</label>
+    <div class="colour-picker">
+      @for (c of colours(); track c.code) {
+        <button type="button" class="colour-swatch"
+          [style.background]="c.code"
+          [class.selected]="newListEditor.colour === c.code"
+          [attr.aria-label]="c.name"
+          (click)="newListEditor.colour = c.code"></button>
+      }
+    </div>
     <footer>
       <button class="secondary" (click)="newListCancelled()">Cancel</button>
       <button (click)="addList()">Create</button>
@@ -102,6 +113,16 @@
     <label for="inputListTitle">Title</label>
     <input type="text" id="inputListTitle" placeholder="List name&hellip;"
       [(ngModel)]="listOptionsEditor.title" (keyup.enter)="updateListOptions()" maxlength="200" />
+    <label>Colour</label>
+    <div class="colour-picker">
+      @for (c of colours(); track c.code) {
+        <button type="button" class="colour-swatch"
+          [style.background]="c.code"
+          [class.selected]="listOptionsEditor.colour === c.code"
+          [attr.aria-label]="c.name"
+          (click)="listOptionsEditor.colour = c.code"></button>
+      }
+    </div>
     <footer>
       <button class="danger" style="margin-inline-end: auto" (click)="confirmDeleteList()">Delete</button>
       <button class="secondary" (click)="closeListOptionsDialog()">Cancel</button>
