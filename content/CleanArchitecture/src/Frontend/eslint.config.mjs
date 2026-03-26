@@ -1,7 +1,6 @@
 // @ts-check
 import eslint from "@eslint/js";
 import ngrx from "@ngrx/eslint-plugin/v9";
-import stylistic from "@stylistic/eslint-plugin";
 import angular from "angular-eslint";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 import tseslint from "typescript-eslint";
@@ -25,20 +24,16 @@ export default tseslint.config(
     extends: [
       eslint.configs.recommended,
       ...tseslint.configs.recommended,
-      ...tseslint.configs.stylistic,
       ...angular.configs.tsRecommended,
       ...ngrx.configs.all,
     ],
     processor: angular.processInlineTemplates,
-    plugins: {
-      "@stylistic": stylistic,
-    },
     rules: {
       "@angular-eslint/directive-selector": [
         "error",
         {
           type: "attribute",
-          prefix: "ct",
+          prefix: "app",
           style: "camelCase",
         },
       ],
@@ -46,16 +41,8 @@ export default tseslint.config(
         "error",
         {
           type: "element",
-          prefix: "ct",
+          prefix: "app",
           style: "kebab-case",
-        },
-      ],
-      "@stylistic/quotes": [
-        "error",
-        "double",
-        {
-          avoidEscape: true,
-          allowTemplateLiterals: "always",
         },
       ],
       "@typescript-eslint/no-unused-vars": [
@@ -95,5 +82,5 @@ export default tseslint.config(
     rules: {
       curly: ["error", "all"],
     },
-  }
+  },
 );

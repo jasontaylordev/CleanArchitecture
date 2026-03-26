@@ -1,5 +1,5 @@
 {
-  "$schema": "https://cdn.jsdelivr.net/npm/@angular/cli@21.0.0/lib/config/schema.json",
+  "$schema": ".yarn/unplugged/@angular-cli-npm-21.2.4-879d97d45c/node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
     "packageManager": "yarn",
