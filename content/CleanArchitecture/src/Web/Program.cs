@@ -46,10 +46,7 @@ app.MapScalarApiReference("/api/swagger", options =>
     options.WithOpenApiRoutePattern("/api/swagger.json");
 });
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseCors();
-}
+app.UseCors();
 
 app.UseExceptionHandler(options => { });
 
