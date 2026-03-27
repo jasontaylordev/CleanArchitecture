@@ -5,5 +5,5 @@ export function produceState<State extends object>(
   store: WritableStateSource<State>,
   updater: (state: Draft<Prettify<State>>) => Draft<State> | void,
 ) {
-  patchState(store, (state) => produce(state, updater));
+  patchState(store, state => produce(state, updater));
 }

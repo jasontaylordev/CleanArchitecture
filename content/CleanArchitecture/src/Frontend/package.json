@@ -10,16 +10,6 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
-  "prettier": {
-    "overrides": [
-      {
-        "files": "*.html",
-        "options": {
-          "parser": "angular"
-        }
-      }
-    ]
-  },
   "private": true,
   "dependencies": {
     "@angular/common": "^21.2.6",

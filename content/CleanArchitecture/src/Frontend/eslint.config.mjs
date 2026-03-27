@@ -62,10 +62,7 @@ export default tseslint.config(
   },
   {
     files: ["**/*.html"],
-    extends: [
-      ...angular.configs.templateRecommended,
-      ...angular.configs.templateAccessibility,
-    ],
+    extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility],
     rules: {
       "@angular-eslint/template/no-negated-async": "off",
       "@angular-eslint/template/eqeqeq": [
