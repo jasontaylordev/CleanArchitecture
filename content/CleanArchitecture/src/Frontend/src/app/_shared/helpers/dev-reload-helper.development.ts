@@ -1,17 +1,8 @@
 import { isDevMode } from "@angular/core";
-import {
-  getState,
-  patchState,
-  signalStoreFeature,
-  withHooks,
-  withMethods,
-} from "@ngrx/signals";
+import { getState, patchState, signalStoreFeature, withHooks, withMethods } from "@ngrx/signals";
 interface ImportMeta {
   hot?: {
-    on(
-      event: "vite:beforeFullReload",
-      callback: (info: { type: string; path: string }) => void,
-    ): void;
+    on(event: "vite:beforeFullReload", callback: (info: { type: string; path: string }) => void): void;
   };
 }
 
@@ -40,11 +31,7 @@ export function withDevReloadHelper(key: string, ...ignoreKeys: string[]) {
   );
 }
 
-async function storeState(
-  key: string,
-  state: unknown,
-  ignoreKeys: string[],
-): Promise<void> {
+async function storeState(key: string, state: unknown, ignoreKeys: string[]): Promise<void> {
   const transaction = await openDB();
   const store = transaction.objectStore("states");
   for (const key of ignoreKeys) {
@@ -58,9 +45,7 @@ async function storeState(
 async function loadState(key: string): Promise<unknown> {
   const transaction = await openDB();
   const store = transaction.objectStore("states");
-  const request = store.get(key) as IDBRequest<
-    { key: string; state: unknown } | undefined
-  >;
+  const request = store.get(key) as IDBRequest<{ key: string; state: unknown } | undefined>;
   await indexedDBPromise(request);
   if (!request.result) {
     return undefined;
@@ -88,9 +73,7 @@ async function openDB(): Promise<IDBTransaction> {
   return request.result.transaction("states", "readwrite");
 }
 
-function indexedDBPromise(
-  element: IDBOpenDBRequest | IDBTransaction | IDBRequest,
-): Promise<void> {
+function indexedDBPromise(element: IDBOpenDBRequest | IDBTransaction | IDBRequest): Promise<void> {
   return new Promise((resolve, reject) => {
     if ("onsuccess" in element) {
       element.onsuccess = () => resolve();

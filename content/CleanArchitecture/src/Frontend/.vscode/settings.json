@@ -19,5 +19,6 @@
   "lingua.sortKeys": false,
   "files.associations": {
     "*.css": "tailwindcss"
-  }
+  },
+  "js/ts.tsdk.path": ".yarn/sdks/typescript/lib"
 }
