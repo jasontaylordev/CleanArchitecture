@@ -53,5 +53,9 @@ To run the tests:
 dotnet test
 ```
 
+## Architectural Decisions
+
+Key design decisions are documented as [Architecture Decision Records](docs/decisions/).
+
 ## Help
 To learn more about the template go to the [project website](caDocsUrl). Here you can find additional guidance, request new features, report a bug, and discuss the template with other users.
