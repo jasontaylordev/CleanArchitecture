@@ -7,7 +7,7 @@
     <PackageVersion Include="Ardalis.GuardClauses" Version="5.0.0" />
     <PackageVersion Include="AutoMapper" Version="16.1.1" />
     <PackageVersion Include="Azure.Extensions.AspNetCore.Configuration.Secrets" Version="1.5.0" />
-    <PackageVersion Include="Azure.Identity" Version="1.20.0" />
+    <PackageVersion Include="Azure.Identity" Version="1.21.0" />
     <PackageVersion Include="coverlet.collector" Version="8.0.1" />
     <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
     <PackageVersion Include="MediatR" Version="14.1.0" />
@@ -22,41 +22,41 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.5" />
     <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="10.0.5" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.5" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.3.0" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.4.0" />
     <PackageVersion Include="Microsoft.Extensions.ApiDescription.Server" Version="10.0.5" />
     <PackageVersion Include="Moq" Version="4.20.72" />
     <PackageVersion Include="nunit" Version="4.5.1" />
     <PackageVersion Include="NUnit.Analyzers" Version="4.12.0" />
     <PackageVersion Include="NUnit3TestAdapter" Version="6.2.0" />
     <PackageVersion Include="Respawn" Version="7.0.0" />
-    <PackageVersion Include="Scalar.AspNetCore" Version="2.13.18" />
+    <PackageVersion Include="Scalar.AspNetCore" Version="2.13.22" />
     <PackageVersion Include="Shouldly" Version="4.3.0" />
     <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.17.0" />
     <!--#if(!UseApiOnly)-->
-    <PackageVersion Include="Microsoft.Playwright" Version="1.58.0" />
+    <PackageVersion Include="Microsoft.Playwright" Version="1.59.0" />
     <PackageVersion Include="Reqnroll.NUnit" Version="3.3.4" />
     <!--#endif-->
     <!--#if (UsePostgreSQL)-->
-    <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="13.2.1" />
-    <PackageVersion Include="Aspire.Hosting.Azure.PostgreSQL" Version="13.2.1" />
+    <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="13.2.2" />
+    <PackageVersion Include="Aspire.Hosting.Azure.PostgreSQL" Version="13.2.2" />
     <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.1" />
     <!--#endif-->
     <!--#if (UseSqlServer)-->
-    <PackageVersion Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="13.2.1" />
-    <PackageVersion Include="Aspire.Hosting.Azure.Sql" Version="13.2.1" />
+    <PackageVersion Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="13.2.2" />
+    <PackageVersion Include="Aspire.Hosting.Azure.Sql" Version="13.2.2" />
     <!--#endif-->
     <!--#if (UseSqlite)-->
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.5" />
     <PackageVersion Include="CommunityToolkit.Aspire.Hosting.SQLite" Version="13.1.1" />
     <!--#endif-->
-    <PackageVersion Include="Aspire.Hosting.AppHost" Version="13.2.1" />
-    <PackageVersion Include="Aspire.Hosting.Azure.AppContainers" Version="13.2.1" />
-    <PackageVersion Include="Aspire.Hosting.Testing" Version="13.2.1" />
-    <PackageVersion Include="Aspire.Hosting.JavaScript" Version="13.2.1" />
+    <PackageVersion Include="Aspire.Hosting.AppHost" Version="13.2.2" />
+    <PackageVersion Include="Aspire.Hosting.Azure.AppContainers" Version="13.2.2" />
+    <PackageVersion Include="Aspire.Hosting.Testing" Version="13.2.2" />
+    <PackageVersion Include="Aspire.Hosting.JavaScript" Version="13.2.2" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="10.4.0" />
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="10.4.0" />
-    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.1" />
-    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.15.1" />
+    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.2" />
+    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.15.2" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.15.1" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.15.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.15.0" />
