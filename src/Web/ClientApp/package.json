@@ -44,6 +44,6 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.2.0",
     "nswag": "latest",
-    "typescript": "~5.9.3"
+    "typescript": "~6.0.0"
   }
 }
