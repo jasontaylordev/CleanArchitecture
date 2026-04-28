@@ -16,6 +16,10 @@ dotnet run --project .\src\AppHost
 
 The Aspire dashboard will open automatically, showing the application URLs and logs.
 
+## Auth & API features
+
+The template includes built-in authentication endpoints for user registration, login, logout, and profile retrieval. It also supports paged Todo list queries with optional search, colour, and priority filtering.
+
 ## Code Styles & Formatting
 
 The template includes [EditorConfig](https://editorconfig.org/) support to help maintain consistent coding styles for multiple developers working on the same project across various editors and IDEs. The **.editorconfig** file defines the coding styles applicable to this solution.
