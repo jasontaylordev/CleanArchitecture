@@ -1,6 +1,8 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Application.Common.Security;
+using CleanArchitecture.Application.Common.Specifications;
+using CleanArchitecture.Application.TodoLists.Specifications;
 using CleanArchitecture.Domain.Enums;
 using CleanArchitecture.Domain.ValueObjects;
 
@@ -33,27 +35,25 @@ public class GetTodosQueryHandler : IRequestHandler<GetTodosQuery, TodosVm>
         var pageNumber = Math.Max(request.PageNumber, 1);
         var pageSize = Math.Clamp(request.PageSize, 1, MaxPageSize);
 
-        var query = _context.TodoLists.AsNoTracking();
+        // Create specification with filters
+        var specification = new TodoListFilterSpecification(request.Search, request.Colour, request.Priority);
+        
+        // Get total count before applying paging (using criteria only)
+        var countSpecification = new TodoListFilterSpecification(request.Search, request.Colour, request.Priority);
+        var totalQuery = SpecificationEvaluator<Domain.Entities.TodoList>.GetQuery(_context.TodoLists.AsNoTracking(), countSpecification);
+        var totalCount = await totalQuery.CountAsync(cancellationToken);
 
-        if (!string.IsNullOrWhiteSpace(request.Search))
-        {
-            query = query.Where(list => list.Title != null && list.Title.Contains(request.Search));
-        }
+        // Apply paging to specification
+        var skip = (pageNumber - 1) * pageSize;
+        specification.ApplyPaging(skip, pageSize);
 
-        if (!string.IsNullOrWhiteSpace(request.Colour))
-        {
-            query = query.Where(list => list.Colour.Code == request.Colour);
-        }
-
-        if (request.Priority.HasValue)
-        {
-            query = query.Where(list => list.Items.Any(item => (int)item.Priority == request.Priority.Value));
-        }
-
+        // Get paged results
+        var query = SpecificationEvaluator<Domain.Entities.TodoList>.GetQuery(_context.TodoLists.AsNoTracking(), specification);
         var pagedLists = await query
-            .OrderBy(list => list.Title)
             .ProjectTo<TodoListDto>(_mapper.ConfigurationProvider)
-            .ToPaginatedListAsync(pageNumber, pageSize, cancellationToken);
+            .ToListAsync(cancellationToken);
+
+        var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
 
         return new TodosVm
         {
@@ -73,15 +73,15 @@ public class GetTodosQueryHandler : IRequestHandler<GetTodosQuery, TodosVm>
                 new ColourDto { Code = Colour.Red, Name = nameof(Colour.Red) },
             ],
 
-            Lists = pagedLists.Items,
+            Lists = pagedLists,
             Pagination = new PaginationDto
             {
-                PageNumber = pagedLists.PageIndex,
-                PageSize = pagedLists.PageSize,
-                TotalCount = pagedLists.TotalCount,
-                TotalPages = pagedLists.TotalPages,
-                HasPreviousPage = pagedLists.HasPreviousPage,
-                HasNextPage = pagedLists.HasNextPage
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalCount = totalCount,
+                TotalPages = totalPages,
+                HasPreviousPage = pageNumber > 1,
+                HasNextPage = pageNumber < totalPages
             }
         };
     }
