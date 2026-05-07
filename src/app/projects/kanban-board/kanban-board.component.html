@@ -1,0 +1,36 @@
+<div class="kanban-board" role="region" aria-label="Project Kanban board">
+  @for (status of statuses; track status.id) {
+    <section class="kanban-column" [class.drag-over]="dragOverStatusId === status.id" (dragover)="onDragOver(status.id, $event)" (drop)="onDrop(status.id, $event)">
+      <header>
+        <h3>{{ status.name }}</h3>
+        <span [class.terminal]="status.isTerminal">{{ itemsForStatus(status.id).length }}</span>
+      </header>
+
+      <div class="kanban-cards">
+        @for (item of itemsForStatus(status.id); track item.id) {
+          <article class="kanban-card" draggable="true" [class.overdue]="isOverdue(item)" (dragstart)="onDragStart(item)" (dragend)="onDragEnd()">
+            <div class="kanban-card-title">{{ item.title }}</div>
+            @if (item.description) {
+              <p>{{ item.description }}</p>
+            }
+            <small>
+              @if (item.assigneeUserName) {
+                <span>Assigned to {{ item.assigneeUserName }}</span>
+              } @else {
+                <span>Unassigned</span>
+              }
+              @if (item.dueDate) {
+                <span> · Due {{ formatDate(item.dueDate) }}</span>
+              }
+            </small>
+            <button class="outline secondary" (click)="editRequested.emit(item)">Edit</button>
+          </article>
+        }
+
+        @if (itemsForStatus(status.id).length === 0) {
+          <div class="empty-column">Drop items here</div>
+        }
+      </div>
+    </section>
+  }
+</div>

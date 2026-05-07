@@ -1,0 +1,45 @@
+<section class="projects-page">
+  <header class="page-header">
+    <div>
+      <h1>Projects</h1>
+      <p>Create and open projects managed by the Project Management module.</p>
+    </div>
+  </header>
+
+  @if (error) {
+    <p class="error">{{ error }}</p>
+  }
+
+  <article class="create-project-card">
+    <h2>New project</h2>
+    <div class="form-grid">
+      <label>
+        Name
+        <input [(ngModel)]="newProject.name" placeholder="Project name" />
+      </label>
+      <label>
+        Description
+        <input [(ngModel)]="newProject.description" placeholder="Optional description" />
+      </label>
+    </div>
+    <button [disabled]="saving || !newProject.name.trim()" (click)="createProject()">Create project</button>
+  </article>
+
+  @if (loading) {
+    <p aria-busy="true">Loading projects...</p>
+  } @else if (projects.length === 0) {
+    <p>No projects yet. Create the first project to start managing to-do items.</p>
+  } @else {
+    <div class="project-grid">
+      @for (project of projects; track project.id) {
+        <article class="project-card" role="button" tabindex="0" (click)="openProject(project)" (keydown.enter)="openProject(project)">
+          <h2>{{ project.name }}</h2>
+          @if (project.description) {
+            <p>{{ project.description }}</p>
+          }
+          <footer>{{ project.todoItemCount }} item{{ project.todoItemCount === 1 ? '' : 's' }}</footer>
+        </article>
+      }
+    </div>
+  }
+</section>

@@ -1,0 +1,41 @@
+<section>
+  <h1>Notifications</h1>
+  <p>In-app assignment notifications and development email outbox messages are shown here for the take-home demo.</p>
+
+  <article>
+    <header>
+      <h2>Assignment notifications</h2>
+    </header>
+    @if (notifications.length === 0) {
+      <p>No notifications.</p>
+    }
+    @for (notification of notifications; track notification.id) {
+      <article [class.unread]="!notification.isRead">
+        <h3>{{ notification.title }}</h3>
+        <p>{{ notification.message }}</p>
+        <a [routerLink]="notification.linkUrl">Open item</a>
+        @if (!notification.isRead) {
+          <button class="secondary" (click)="markRead(notification)">Mark read</button>
+        }
+      </article>
+    }
+  </article>
+
+  <article>
+    <header>
+      <h2>Development email outbox</h2>
+      <button class="secondary" (click)="loadEmailOutbox()">Refresh</button>
+    </header>
+    @if (emailOutboxMessages.length === 0) {
+      <p>No queued emails.</p>
+    }
+    @for (email of emailOutboxMessages; track email.id) {
+      <article class="email-message">
+        <h3>{{ email.subject }}</h3>
+        <p><strong>To:</strong> {{ email.to }}</p>
+        <p><strong>Status:</strong> {{ email.status }}</p>
+        <p>{{ email.body }}</p>
+      </article>
+    }
+  </article>
+</section>

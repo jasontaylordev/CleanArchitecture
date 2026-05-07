@@ -11,6 +11,10 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { WeatherComponent } from './weather/weather.component';
 import { TasksComponent } from './todo/todo.component';
+import { ProjectsComponent } from './projects/projects.component';
+import { ProjectDetailComponent } from './projects/project-detail/project-detail.component';
+import { KanbanBoardComponent } from './projects/kanban-board/kanban-board.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 import { ThemeToggleComponent } from './theme-toggle/theme-toggle.component';
 import { API_BASE_URL } from './web-api-client';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
@@ -32,6 +36,10 @@ export function getApiBaseUrl(): string {
         CounterComponent,
         WeatherComponent,
         TasksComponent,
+        ProjectsComponent,
+        ProjectDetailComponent,
+        KanbanBoardComponent,
+        NotificationsComponent,
         ThemeToggleComponent,
         LoginComponent,
         RegisterComponent
@@ -46,6 +54,10 @@ export function getApiBaseUrl(): string {
             { path: 'counter', component: CounterComponent },
             { path: 'weather', component: WeatherComponent, canActivate: [AuthGuard] },
             { path: 'todo', component: TasksComponent, canActivate: [AuthGuard] },
+            { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard] },
+            { path: 'projects/:projectId', component: ProjectDetailComponent, canActivate: [AuthGuard] },
+            { path: 'projects/:projectId/todos/:todoItemId', component: ProjectDetailComponent, canActivate: [AuthGuard] },
+            { path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard] },
             { path: 'login', component: LoginComponent },
             { path: 'register', component: RegisterComponent }
         ])

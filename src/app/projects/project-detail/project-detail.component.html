@@ -1,0 +1,119 @@
+<section class="project-detail-page">
+  <header class="page-header">
+    <div>
+      <a [routerLink]="['/projects']">← Back to projects</a>
+      <h1>{{ project?.name || 'Project' }}</h1>
+      @if (project?.description) {
+        <p>{{ project?.description }}</p>
+      }
+    </div>
+    <div class="view-switch" role="group" aria-label="Project view">
+      <button [class.secondary]="activeView !== 'list'" (click)="activeView = 'list'">List</button>
+      <button [class.secondary]="activeView !== 'board'" (click)="activeView = 'board'">Kanban</button>
+    </div>
+  </header>
+
+  @if (error) {
+    <p class="error">{{ error }}</p>
+  }
+
+  <article>
+    <h2>{{ editingItem ? 'Edit item' : 'Create item' }}</h2>
+    @if (editingItem) {
+      <div class="form-grid">
+        <label>Title<input [(ngModel)]="editingItem.title" /></label>
+        <label>Description<input [(ngModel)]="editingItem.description" /></label>
+        <label>Due date<input type="date" [(ngModel)]="editingItemDueDate" /></label>
+      </div>
+      <footer class="actions-row">
+        <button (click)="updateItem()">Save item</button>
+        <button class="secondary" (click)="cancelEdit()">Cancel</button>
+      </footer>
+    } @else {
+      <div class="form-grid">
+        <label>Title<input [(ngModel)]="newItem.title" placeholder="Task title" /></label>
+        <label>Description<input [(ngModel)]="newItem.description" placeholder="Optional details" /></label>
+        <label>Due date<input type="date" [(ngModel)]="newItem.dueDate" /></label>
+        <label>
+          Assignee
+          <select [(ngModel)]="newItem.assigneeUserId">
+            <option value="">Unassigned</option>
+            @for (user of users; track user.id) {
+              <option [value]="user.id">{{ user.userName || user.id }}</option>
+            }
+          </select>
+        </label>
+        <label>
+          Status
+          <select [(ngModel)]="newItem.statusId">
+            @for (status of statuses; track status.id) {
+              <option [ngValue]="status.id">{{ status.name }}</option>
+            }
+          </select>
+        </label>
+      </div>
+      <button [disabled]="!newItem.title.trim()" (click)="createItem()">Create item</button>
+    }
+  </article>
+
+  @if (loading) {
+    <p aria-busy="true">Loading project items...</p>
+  } @else if (activeView === 'list') {
+    <article>
+      <h2>List view</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Due</th>
+              <th>Assignee</th>
+              <th>Reporter</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of items; track trackById($index, item)) {
+              <tr [class.highlighted]="highlightedItemId === item.id">
+                <td>{{ item.title }}</td>
+                <td>{{ item.description }}</td>
+                <td>{{ formatDate(item.dueDate) }}</td>
+                <td>
+                  <select [ngModel]="item.assigneeUserId || ''" (ngModelChange)="assignItem(item, $event)">
+                    <option value="">Unassigned</option>
+                    @for (user of users; track user.id) {
+                      <option [value]="user.id">{{ user.userName || user.id }}</option>
+                    }
+                  </select>
+                </td>
+                <td>{{ item.reporterUserName || item.reporterUserId }}</td>
+                <td>
+                  <select [ngModel]="item.statusId" (ngModelChange)="changeStatus(item, +$event)">
+                    @for (status of statuses; track status.id) {
+                      <option [ngValue]="status.id">{{ status.name }}</option>
+                    }
+                  </select>
+                </td>
+                <td class="actions-cell">
+                  <button class="outline secondary" (click)="editItem(item)">Edit</button>
+                  <button class="outline contrast" (click)="deleteItem(item)">Delete</button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </article>
+  } @else {
+    <article>
+      <h2>Kanban board</h2>
+      <app-project-kanban-board
+        [statuses]="statuses"
+        [items]="items"
+        (statusChanged)="changeStatus($event.item, $event.statusId)"
+        (editRequested)="editItem($event)" />
+    </article>
+  }
+</section>

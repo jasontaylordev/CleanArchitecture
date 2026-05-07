@@ -1,0 +1,58 @@
+.projects-page {
+  padding-block: 1rem;
+}
+
+.page-header {
+  margin-bottom: 1rem;
+}
+
+.create-project-card {
+  margin-bottom: 1rem;
+}
+
+.form-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+}
+
+.project-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}
+
+.project-card {
+  cursor: pointer;
+}
+
+.project-card:focus,
+.project-card:hover {
+  border-color: var(--pico-primary);
+}
+
+.error {
+  color: var(--pico-del-color);
+}
+
+:host-context(html[data-theme="light"]) .projects-page button:not(.secondary):not(.outline) {
+  color: #e5e7eb;
+}
+
+@media (prefers-color-scheme: light) {
+  :host-context(html:not([data-theme="dark"])) .projects-page button:not(.secondary):not(.outline) {
+    color: #e5e7eb;
+  }
+}
+
+:host-context(html[data-theme="light"]) .project-card > h2,
+:host-context(html[data-theme="light"]) .project-card > p {
+  color: #e5e7eb;
+}
+
+@media (prefers-color-scheme: light) {
+  :host-context(html:not([data-theme="dark"])) .project-card > h2,
+  :host-context(html:not([data-theme="dark"])) .project-card > p {
+    color: #e5e7eb;
+  }
+}
