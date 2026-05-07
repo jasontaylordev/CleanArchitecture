@@ -1,4 +1,5 @@
 using CleanArchitecture.Infrastructure.Data;
+using CleanArchitecture.Web.Hubs;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -42,6 +43,7 @@ app.Map("/", () => Results.Redirect("/scalar"));
 #endif
 
 app.MapDefaultEndpoints();
+app.MapHub<ProjectTodoHub>("/hubs/project-todos");
 app.MapEndpoints(typeof(Program).Assembly);
 
 #if (!UseApiOnly)

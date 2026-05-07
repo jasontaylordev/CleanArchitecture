@@ -2,7 +2,9 @@ using Azure.Identity;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Infrastructure.Data;
 using CleanArchitecture.Web.Services;
+using CleanArchitecture.Web.Hubs;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -34,6 +36,9 @@ public static class DependencyInjection
         });
 
         builder.Services.AddCors();
+        builder.Services.AddSignalR();
+        builder.Services.AddSingleton<IUserIdProvider, SignalRUserIdProvider>();
+        builder.Services.AddScoped<IProjectTodoRealtimeNotifier, ProjectTodoRealtimeNotifier>();
     }
 
     public static void AddKeyVaultIfConfigured(this IHostApplicationBuilder builder)
