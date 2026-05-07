@@ -1,10 +1,13 @@
 ﻿using CleanArchitecture.Application.Common.Models;
+using CleanArchitecture.Application.Users.Queries.GetAssignableUsers;
 
 namespace CleanArchitecture.Application.Common.Interfaces;
 
 public interface IIdentityService
 {
     Task<string?> GetUserNameAsync(string userId);
+
+    Task<IReadOnlyCollection<AssignableUserDto>> GetAssignableUsersAsync(CancellationToken cancellationToken);
 
     Task<bool> IsInRoleAsync(string userId, string role);
 
