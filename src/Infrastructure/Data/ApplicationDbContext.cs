@@ -15,6 +15,16 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 
     public DbSet<TodoItem> TodoItems => Set<TodoItem>();
 
+    public DbSet<Project> Projects => Set<Project>();
+
+    public DbSet<ProjectTodoItem> ProjectTodoItems => Set<ProjectTodoItem>();
+
+    public DbSet<ProjectTodoStatus> ProjectTodoStatuses => Set<ProjectTodoStatus>();
+
+    public DbSet<UserNotification> UserNotifications => Set<UserNotification>();
+
+    public DbSet<EmailOutboxMessage> EmailOutboxMessages => Set<EmailOutboxMessage>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

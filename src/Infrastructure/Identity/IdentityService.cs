@@ -42,6 +42,18 @@ public class IdentityService : IIdentityService
         return (result.ToApplicationResult(), user.Id);
     }
 
+    public async Task<IReadOnlyCollection<CleanArchitecture.Application.Users.Queries.GetAssignableUsers.AssignableUserDto>> GetAssignableUsersAsync(CancellationToken cancellationToken)
+    {
+        return await _userManager.Users
+            .OrderBy(u => u.UserName)
+            .Select(u => new CleanArchitecture.Application.Users.Queries.GetAssignableUsers.AssignableUserDto
+            {
+                Id = u.Id,
+                UserName = u.UserName ?? u.Email ?? u.Id
+            })
+            .ToListAsync(cancellationToken);
+    }
+
     public async Task<bool> IsInRoleAsync(string userId, string role)
     {
         var user = await _userManager.FindByIdAsync(userId);
