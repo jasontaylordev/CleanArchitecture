@@ -18,7 +18,7 @@ public class FunctionalTestSetup
         var cancellationToken = cts.Token;
 
         var builder = await DistributedApplicationTestingBuilder
-            .CreateAsync<Projects.TestAppHost>(
+            .CreateAsync<global::Projects.TestAppHost>(
                 args: [],
                 configureBuilder: (options, _) =>
                 {

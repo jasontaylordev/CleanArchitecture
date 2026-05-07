@@ -8,5 +8,10 @@ public abstract class BasePage(IPage page)
 
     protected IPage Page { get; } = page;
 
-    public Task GotoAsync() => Page.GotoAsync(PagePath);
+    public Task GotoAsync()
+        => Page.GotoAsync(PagePath, new PageGotoOptions
+        {
+            WaitUntil = WaitUntilState.DOMContentLoaded,
+            Timeout = 60_000
+        });
 }
