@@ -18,11 +18,11 @@ public static class DependencyInjection
             // https://github.com/martinothamar/Mediator?tab=readme-ov-file#6-differences-from-mediatr
             options.ServiceLifetime = ServiceLifetime.Scoped;
             options.PipelineBehaviors = [
-                typeof(AuthorizationBehaviour<,>),
                 typeof(LoggingBehaviour<,>),
                 typeof(PerformanceBehaviour<,>),
-                typeof(ValidationBehaviour<,>),
+                typeof(AuthorizationBehaviour<,>),
                 typeof(UnhandledExceptionBehaviour<,>),
+                typeof(ValidationBehaviour<,>),
             ];
         });
 
