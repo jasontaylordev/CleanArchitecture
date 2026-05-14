@@ -4,18 +4,16 @@ using CleanArchitecture.Domain.ValueObjects;
 
 namespace CleanArchitecture.Application.FunctionalTests.TodoLists.Queries;
 
-using static Testing;
-
-public class GetTodosTests : BaseTestFixture
+public class GetTodosTests : TestBase
 {
     [Test]
     public async Task ShouldReturnPriorityLevels()
     {
-        await RunAsDefaultUserAsync();
+        await TestApp.RunAsDefaultUserAsync();
 
         var query = new GetTodosQuery();
 
-        var result = await SendAsync(query);
+        var result = await TestApp.SendAsync(query);
 
         result.PriorityLevels.ShouldNotBeEmpty();
     }
@@ -23,9 +21,9 @@ public class GetTodosTests : BaseTestFixture
     [Test]
     public async Task ShouldReturnAllListsAndItems()
     {
-        await RunAsDefaultUserAsync();
+        await TestApp.RunAsDefaultUserAsync();
 
-        await AddAsync(new TodoList
+        await TestApp.AddAsync(new TodoList
         {
             Title = "Shopping",
             Colour = Colour.Blue,
@@ -43,7 +41,7 @@ public class GetTodosTests : BaseTestFixture
 
         var query = new GetTodosQuery();
 
-        var result = await SendAsync(query);
+        var result = await TestApp.SendAsync(query);
 
         result.Lists.Count.ShouldBe(1);
         result.Lists.First().Items.Count.ShouldBe(7);
@@ -54,7 +52,7 @@ public class GetTodosTests : BaseTestFixture
     {
         var query = new GetTodosQuery();
 
-        var action = () => SendAsync(query);
+        var action = () => TestApp.SendAsync(query);
 
         await Should.ThrowAsync<UnauthorizedAccessException>(action);
     }

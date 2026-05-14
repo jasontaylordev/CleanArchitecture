@@ -1,23 +1,21 @@
 const { env } = require('process');
 
-const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_HTTPS_PORT}` :
-  env.ASPNETCORE_URLS ? env.ASPNETCORE_URLS.split(';')[0] : 'https://localhost:5001';
+const target =
+  env["services__webapi__https__0"] ||
+  env["services__webapi__http__0"];
 
 const PROXY_CONFIG = [
   {
     context: [
       "/api",
-      "/Identity",
+      "/openapi",
+      "/scalar",
       "/weatherforecast",
       "/WeatherForecast"
-   ],
-    proxyTimeout: 10000,
+    ],
     target: target,
-    secure: false,
-    headers: {
-      Connection: 'Keep-Alive'
-    }
+    secure: env["NODE_ENV"] !== "development",
   }
-]
+];
 
 module.exports = PROXY_CONFIG;

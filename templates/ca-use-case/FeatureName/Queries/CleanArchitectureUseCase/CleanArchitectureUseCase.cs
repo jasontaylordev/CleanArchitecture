@@ -1,8 +1,12 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
+using CleanArchitecture.Application.Common.Interfaces;
 
 namespace CleanArchitecture.Application.FeatureName.Queries.CleanArchitectureUseCase;
 
-public record CleanArchitectureUseCaseQuery : IRequest<object>
+//#if (hasReturnType)
+public record CleanArchitectureUseCaseQuery : IRequest<TReturnType>
+//#else
+public record CleanArchitectureUseCaseQuery : IRequest
+//#endif
 {
 }
 
@@ -13,7 +17,11 @@ public class CleanArchitectureUseCaseQueryValidator : AbstractValidator<CleanArc
     }
 }
 
-public class CleanArchitectureUseCaseQueryHandler : IRequestHandler<CleanArchitectureUseCaseQuery, object>
+//#if (hasReturnType)
+public class CleanArchitectureUseCaseQueryHandler : IRequestHandler<CleanArchitectureUseCaseQuery, TReturnType>
+//#else
+public class CleanArchitectureUseCaseQueryHandler : IRequestHandler<CleanArchitectureUseCaseQuery>
+//#endif
 {
     private readonly IApplicationDbContext _context;
 
@@ -22,8 +30,15 @@ public class CleanArchitectureUseCaseQueryHandler : IRequestHandler<CleanArchite
         _context = context;
     }
 
-    public async Task<object> Handle(CleanArchitectureUseCaseQuery request, CancellationToken cancellationToken)
+//#if (hasReturnType)
+    public async Task<TReturnType> Handle(CleanArchitectureUseCaseQuery request, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
+//#else
+    public async Task Handle(CleanArchitectureUseCaseQuery request, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+//#endif
 }

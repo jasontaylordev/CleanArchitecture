@@ -1,28 +1,48 @@
+using CleanArchitecture.Shared;
+
 var builder = DistributedApplication.CreateBuilder(args);
 
+builder.AddAzureContainerAppEnvironment("aca-env");
+
 #if (UsePostgreSQL)
-var databaseName = "CleanArchitectureDb";
-
-var postgres = builder
-    .AddPostgres("postgres")
-    // Set the name of the default database to auto-create on container startup.
-    .WithEnvironment("POSTGRES_DB", databaseName);
-
-var database = postgres.AddDatabase(databaseName);
-
-builder.AddProject<Projects.Web>("web")
-    .WithReference(database)
-    .WaitFor(database);
-#elif (UseSqlite)
-builder.AddProject<Projects.Web>("web");
+var databaseServer = builder
+    .AddAzurePostgresFlexibleServer(Services.DatabaseServer)
+    .WithPasswordAuthentication()
+    .RunAsContainer(container => 
+        container.WithLifetime(ContainerLifetime.Persistent))
+    .AddDatabase(Services.Database);
+#elif (UseSqlServer)
+var databaseServer = builder
+    .AddAzureSqlServer(Services.DatabaseServer)
+    .RunAsContainer(container => 
+        container.WithLifetime(ContainerLifetime.Persistent))
+    .AddDatabase(Services.Database);
 #else
-var sql = builder.AddSqlServer("sql");
+var databaseServer = builder
+    .AddSqlite(Services.Database);
+#endif
 
-var database = sql.AddDatabase("CleanArchitectureDb");
+var web = builder.AddProject<Projects.Web>(Services.WebApi)
+    .WithReference(databaseServer)
+    .WaitFor(databaseServer)
+    .WithExternalHttpEndpoints()
+    .WithAspNetCoreEnvironment()
+    .WithUrlForEndpoint("http", url =>
+    {
+        url.DisplayText = "Scalar API Reference";
+        url.Url = "/scalar";
+    });
 
-builder.AddProject<Projects.Web>("web")
-    .WithReference(database)
-    .WaitFor(database);
+#if (!UseApiOnly)
+if (builder.ExecutionContext.IsRunMode)
+{
+    builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp")
+        .WithRunScript("start")
+        .WithReference(web)
+        .WaitFor(web)
+        .WithHttpEndpoint(env: "PORT")
+        .WithExternalHttpEndpoints();
+}
 #endif
 
 builder.Build().Run();

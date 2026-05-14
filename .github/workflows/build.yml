@@ -17,34 +17,39 @@ on:
         required: true
         default: false
 
+permissions:
+  contents: read
+
 jobs:
   build:
 
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       name: Checkout code
 
     - name: Cache NuGet packages
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: ~/.nuget/packages
-        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/Directory.Packages.props', '**/*.csproj') }}
         restore-keys: |
           ${{ runner.os }}-nuget-
 
     #if (!UseApiOnly)
     - name: Install Node & cache npm packages
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v6
       with:
-        node-version: '20.x'
+        node-version: '24.x'
         cache: 'npm'
-        cache-dependency-path: src/Web/ClientApp/package-lock.json
+        cache-dependency-path: |
+          src/Web/ClientApp/package-lock.json
+          src/Web/ClientApp-React/package-lock.json
     #endif
 
     - name: Install .NET
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v5
 
     - name: Restore solution
       run: dotnet restore
@@ -52,22 +57,10 @@ jobs:
     - name: Build solution
       run: dotnet build --no-restore --configuration Release
       
+    #if (!UseApiOnly)
+    - name: Install Playwright browsers
+      run: pwsh artifacts/bin/Web.AcceptanceTests/release/playwright.ps1 install --with-deps chromium
+    #endif
+
     - name: Test solution
-      run: dotnet test --no-build --configuration Release --filter "FullyQualifiedName!~AcceptanceTests"
-
-    - name: Publish website
-      if: ${{ inputs.build-artifacts == true }}
-      run: |
-        dotnet publish --configuration Release --runtime win-x86 --self-contained --output ./publish
-        cd publish
-        zip -r ./publish.zip .
-      working-directory: ./src/Web/
-
-    - name: Upload website artifact (website)
-      if: ${{ inputs.build-artifacts == true }}
-      uses: actions/upload-artifact@v4
-      with:
-        name: website
-        path: ./src/Web/publish/publish.zip
-        if-no-files-found: error
-
+      run: dotnet test --no-build --configuration Release

@@ -6,122 +6,100 @@
 [![Nuget](https://img.shields.io/nuget/dt/Clean.Architecture.Solution.Template?label=Downloads)](https://www.nuget.org/packages/Clean.Architecture.Solution.Template)
 ![Twitter Follow](https://img.shields.io/twitter/follow/jasontaylordev?label=Follow&style=social)
 
-The goal of this template is to provide a straightforward and efficient approach to enterprise application development, leveraging the power of Clean Architecture and ASP.NET Core. Using this template, you can effortlessly create a Single Page App (SPA) with ASP.NET Core and Angular or React, while adhering to the principles of Clean Architecture. Getting started is easy - simply install the **.NET template** (see below for full details).
+The goal of this template is to provide a straightforward and efficient approach to enterprise application development, leveraging the power of Clean Architecture and ASP.NET Core. Using this template, you can effortlessly create a new app with Angular, React, or Web API only, powered by ASP.NET Core and Aspire. Getting started is easy - simply install the **.NET template** (see below for full details).
+
+For full documentation, visit **[cleanarchitecture.jasontaylor.dev](https://cleanarchitecture.jasontaylor.dev)**.
 
 If you find this project useful, please give it a star. Thanks! ⭐
 
-## Getting Started
+## Getting started
 
-The following prerequisites are required to build and run the solution:
+### Prerequisites
 
-- [.NET 10.0 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) (latest version)
-- [Node.js](https://nodejs.org/) (latest LTS, only required if you are using Angular or React)
+- [.NET 10.0 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) or later
+- [Node.js](https://nodejs.org/) (LTS) — only required if you plan to use the Angular or React frontend
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) or [Podman](https://podman.io/) (or any OCI-compliant container runtime) — only required when using SQL Server or PostgreSQL. Not required when using SQLite (the default).
 
-The easiest way to get started is to install the [.NET template](https://www.nuget.org/packages/Clean.Architecture.Solution.Template):
-```
+### Install the template
+
+```bash
 dotnet new install Clean.Architecture.Solution.Template
 ```
 
-Once installed, create a new solution using the template. You can choose to use Angular, React, or create a Web API-only solution. Specify the client framework using the `-cf` or `--client-framework` option, and provide the output directory where your project will be created. Here are some examples:
+### Create a new solution
 
-To create a Single-Page Application (SPA) with Angular and ASP.NET Core:
-```bash
-dotnet new ca-sln --client-framework Angular --output YourProjectName
-```
-
-To create a SPA with React and ASP.NET Core:
-```bash
-dotnet new ca-sln -cf React -o YourProjectName
-```
-
-To create a ASP.NET Core Web API-only solution:
-```bash
-dotnet new ca-sln -cf None -o YourProjectName
-```
-
-Launch the app:
-```bash
-cd src/Web
-dotnet run
-```
-
-To learn more, run the following command:
-```bash
-dotnet new ca-sln --help
-```
-
-You can create use cases (commands or queries) by navigating to `./src/Application` and running `dotnet new ca-usecase`. Here are some examples:
-
-To create a new command:
-```bash
-dotnet new ca-usecase --name CreateTodoList --feature-name TodoLists --usecase-type command --return-type int
-```
-
-To create a query:
-```bash
-dotnet new ca-usecase -n GetTodos -fn TodoLists -ut query -rt TodosVm
-```
-
-To learn more, run the following command:
-```bash
-dotnet new ca-usecase --help
-```
-
-## Database
-
-The template supports [PostgreSQL](https://www.postgresql.org), [SQLite](https://www.sqlite.org/), and [SQL Server](https://learn.microsoft.com/en-us/sql/sql-server/what-is-sql-server) (default option). Specify the database to use with the `--database` option:
+Create a new solution using the template. Specify the client framework using `--client-framework` (`-cf`) and the database provider using `--database` (`-db`):
 
 ```bash
-dotnet new ca-sln --database [postgresql|sqlite|sqlserver]
+dotnet new ca-sln --client-framework [angular|react|none] --database [postgresql|sqlite|sqlserver] --output YourProjectName
 ```
 
-On application startup, the database is automatically **deleted**, **recreated**, and **seeded** using `ApplicationDbContextInitialiser`. This is a practical strategy for early development, avoiding the overhead of maintaining migrations while keeping the schema and sample data in sync with the domain model.
+| Option | Values | Default |
+|---|---|---|
+| `--client-framework` | `angular`, `react`, `none` | `angular` |
+| `--database` | `postgresql`, `sqlite`, `sqlserver` | `sqlite` |
 
-This process includes:
+**Examples:**
 
-- Deleting the existing database  
-- Recreating the schema from the current model  
-- Seeding default roles, users, and data  
+🅰️ Angular SPA with ASP.NET Core Web API and PostgreSQL:
+```bash
+dotnet new ca-sln -cf angular -db postgresql -o YourProjectName
+```
 
-For production environments, consider using EF Core migrations or migration bundles during deployment.  
-For more information, see [Database Initialisation Strategies for EF Core](https://jasontaylor.dev/ef-core-database-initialisation-strategies).
+⚛️ React SPA with ASP.NET Core Web API and SQL Server:
+```bash
+dotnet new ca-sln -cf react -db sqlserver -o YourProjectName
+```
 
-## Deploy
+🔌 ASP.NET Core Web API only with SQLite:
+```bash
+dotnet new ca-sln -cf none -db sqlite -o YourProjectName
+```
 
-This template is structured to follow the Azure Developer CLI (azd). You can learn more about `azd` in the [official documentation](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli). To get started:
+> 💡 **Tip:** Run `dotnet new ca-sln --help` to see all available template options.
+
+### Run the app
 
 ```bash
-# Log in to Azure
-azd auth login
-
-# Provision and deploy to Azure
-azd up
+dotnet run --project .\src\AppHost
 ```
+
+The Aspire dashboard will open automatically, showing the application URLs and logs.
+
+To learn more, see the [Getting started](https://cleanarchitecture.jasontaylor.dev/docs/getting-started/) guide and [Architecture](https://cleanarchitecture.jasontaylor.dev/docs/architecture/) overview.
 
 ## Technologies
 
-* [ASP.NET Core 9](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core)
-* [Entity Framework Core 9](https://docs.microsoft.com/en-us/ef/core/)
-* [Angular 18](https://angular.dev/) or [React 18](https://react.dev/)
+* [ASP.NET Core 10](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core)
+* [Aspire](https://aspire.dev)
+* [Entity Framework Core 10](https://docs.microsoft.com/en-us/ef/core/)
+* [Angular 21](https://angular.dev/) or [React 19](https://react.dev/)
 * [MediatR](https://github.com/jbogard/MediatR)
 * [AutoMapper](https://automapper.org/)
 * [FluentValidation](https://fluentvalidation.net/)
-* [NUnit](https://nunit.org/), [Shoudly](https://docs.shouldly.org/), [Moq](https://github.com/devlooped/moq) & [Respawn](https://github.com/jbogard/Respawn)
+* [NUnit](https://nunit.org/), [Shouldly](https://docs.shouldly.org/), [Moq](https://github.com/devlooped/moq) & [Respawn](https://github.com/jbogard/Respawn)
+* [Scalar](https://scalar.com/)
 
 ## Versions
-The main branch is now on .NET 10.0. The following previous versions are available:
 
-* [9.0](https://github.com/jasontaylordev/CleanArchitecture/tree/net8.0)
-* [8.0](https://github.com/jasontaylordev/CleanArchitecture/tree/net8.0)
-* [7.0](https://github.com/jasontaylordev/CleanArchitecture/tree/net7.0)
-* [6.0](https://github.com/jasontaylordev/CleanArchitecture/tree/net6.0)
-* [5.0](https://github.com/jasontaylordev/CleanArchitecture/tree/net5.0)
-* [3.1](https://github.com/jasontaylordev/CleanArchitecture/tree/netcore3.1)
+The `main` branch is on **.NET 10.0**. Previous versions are available:
 
-## Learn More
+| Version | Branch |
+|---|---|
+| .NET 9.0 | [`net9.0`](https://github.com/jasontaylordev/CleanArchitecture/tree/net9.0) |
+| .NET 8.0 | [`net8.0`](https://github.com/jasontaylordev/CleanArchitecture/tree/net8.0) |
+| .NET 7.0 | [`net7.0`](https://github.com/jasontaylordev/CleanArchitecture/tree/net7.0) |
+| .NET 6.0 | [`net6.0`](https://github.com/jasontaylordev/CleanArchitecture/tree/net6.0) |
+| .NET 5.0 | [`net5.0`](https://github.com/jasontaylordev/CleanArchitecture/tree/net5.0) |
+| .NET Core 3.1 | [`netcore3.1`](https://github.com/jasontaylordev/CleanArchitecture/tree/netcore3.1) |
 
-* [Clean Architecture with ASP.NET Core 3.0 (GOTO 2019)](https://youtu.be/dK4Yb6-LxAk)
-* [Clean Architecture with .NET Core: Getting Started](https://jasontaylor.dev/clean-architecture-getting-started/)
+## Architectural decisions
+
+Key design decisions are documented as [Architecture Decision Records](docs/decisions/).
+
+## Learn more
+
+- 📖 [Clean Architecture Solution Template documentation](https://cleanarchitecture.jasontaylor.dev)
 
 ## Support
 
@@ -129,4 +107,4 @@ If you are having problems, please let me know by [raising a new issue](https://
 
 ## License
 
-This project is licensed with the [MIT license](LICENSE).
+This project is licensed under the [MIT License](LICENSE).

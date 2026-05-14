@@ -3,28 +3,30 @@
     <PropertyGroup>
         <RootNamespace>CleanArchitecture.Web.AcceptanceTests</RootNamespace>
         <AssemblyName>CleanArchitecture.Web.AcceptanceTests</AssemblyName>
+        <ReqnrollUseIntermediateOutputPathForCodeBehind>true</ReqnrollUseIntermediateOutputPathForCodeBehind>
     </PropertyGroup>
 
     <ItemGroup>
-        <None Remove="appsettings.json" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Content Include="appsettings.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Microsoft.Extensions.Configuration.Json" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" />
+        <PackageReference Include="Aspire.Hosting.Testing" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" />
         <PackageReference Include="Microsoft.Playwright" />
+        <PackageReference Include="Reqnroll.NUnit" />
         <PackageReference Include="Shouldly" />
-        <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" />
-        <PackageReference Include="SpecFlow.NUnit" />
         <PackageReference Include="nunit" />
         <PackageReference Include="NUnit3TestAdapter" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="Aspire.Hosting.ApplicationModel" />
+        <Using Include="Aspire.Hosting.Testing" />
+        <Using Include="Microsoft.Extensions.DependencyInjection" />
+        <Using Include="Microsoft.Extensions.Logging" />
+        <Using Include="NUnit.Framework" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\AppHost\AppHost.csproj" />
+        <ProjectReference Include="..\..\src\Shared\Shared.csproj" />
     </ItemGroup>
 
 </Project>

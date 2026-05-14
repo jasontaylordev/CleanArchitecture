@@ -1,0 +1,77 @@
+name: Test Templates
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-template:
+    name: ${{ matrix.client-framework }}-${{ matrix.database }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        client-framework: [angular, react, none]
+        database: [sqlite, sqlserver, postgresql]
+
+    steps:
+    - uses: actions/checkout@v6
+      name: Checkout code
+
+    - name: Install .NET
+      uses: actions/setup-dotnet@v5
+
+    - name: Install Node & cache npm packages
+      if: matrix.client-framework != 'none'
+      uses: actions/setup-node@v6
+      with:
+        node-version: '24.x'
+        cache: 'npm'
+        cache-dependency-path: |
+          src/Web/ClientApp/package-lock.json
+          src/Web/ClientApp-React/package-lock.json
+
+    - name: Cache NuGet packages
+      uses: actions/cache@v5
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ matrix.client-framework }}-${{ matrix.database }}-${{ hashFiles('**/Directory.Packages.props', '**/*.csproj') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+
+    - name: Install template
+      run: dotnet new install .
+
+    - name: Generate solution
+      run: |
+        dotnet new ca-sln \
+          --client-framework ${{ matrix.client-framework }} \
+          --database ${{ matrix.database }} \
+          --name CleanArchitecture \
+          --output generated \
+          --no-update-check
+
+    - name: Build solution
+      working-directory: generated
+      run: dotnet build --configuration Release
+
+    - name: Build client app
+      if: matrix.client-framework != 'none'
+      working-directory: generated/src/Web/ClientApp
+      run: |
+        npm ci
+        npm run build
+
+    - name: Install Playwright browsers
+      if: matrix.client-framework != 'none'
+      working-directory: generated
+      run: pwsh artifacts/bin/Web.AcceptanceTests/release/playwright.ps1 install --with-deps chromium
+
+    - name: Test solution
+      working-directory: generated
+      run: dotnet test --no-build --configuration Release

@@ -1,0 +1,347 @@
+@use "sass:map";
+@use "@picocss/pico/scss/index" as * with (
+  $theme-color: "violet",
+  $semantic-root-element: "#root",
+  $enable-semantic-container: true,
+  $enable-classes: false
+);
+
+// ── Base font size & typography ───────────────────────────────────────────────
+html {
+  font-size: 95%;
+}
+
+:root {
+  --pico-font-family-sans-serif: "Inter", system-ui, sans-serif;
+  --pico-font-family-headings: "Outfit", sans-serif;
+  --pico-font-family-monospace: "JetBrains Mono", monospace;
+  --pico-border-radius: 0.375rem;
+  --pico-line-height: 1.5;
+}
+
+// ── Header ────────────────────────────────────────────────────────────────────
+:root {
+  --header-height: 4.5rem;
+}
+
+#root > header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: none;
+  height: var(--header-height);
+  padding: 0;
+  margin: 0;
+  z-index: 100;
+  background: color-mix(in srgb, var(--pico-background-color) 85%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--pico-muted-border-color);
+}
+
+#root > header nav {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--pico-block-spacing-horizontal);
+
+  @media (min-width: 576px)  { max-width: 510px;  padding-inline: 0; }
+  @media (min-width: 768px)  { max-width: 700px; }
+  @media (min-width: 1024px) { max-width: 950px; }
+  @media (min-width: 1280px) { max-width: 1200px; }
+  @media (min-width: 1536px) { max-width: 1450px; }
+}
+
+// ── Main content ──────────────────────────────────────────────────────────────
+#root > main {
+  padding-top: calc(var(--header-height) + var(--pico-block-spacing-vertical) * 2);
+}
+
+// ── Nav brand ─────────────────────────────────────────────────────────────────
+#root > header nav > ul:first-child a {
+  font-family: "Outfit", sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--pico-contrast);
+}
+
+// ── Login / Register centered layout ──────────────────────────────────────────
+#root > main:has(> article:only-child) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+
+  > article {
+    width: 100%;
+    max-width: map.get(map.get($breakpoints, "md"), "viewport");
+  }
+}
+
+// ── Danger color — more vivid in dark mode ────────────────────────────────────
+[data-theme="dark"] {
+  --pico-del-color: #f05050;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --pico-del-color: #f05050;
+  }
+}
+
+// ── Nav separator ─────────────────────────────────────────────────────────────
+.nav-separator {
+  width: 1px;
+  height: 1.2rem;
+  background: var(--pico-muted-border-color);
+  padding: 0;
+  margin-inline: 0.25rem;
+}
+
+// ── Theme toggle ───────────────────────────────────────────────────────────────
+.theme-toggle-btn {
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  line-height: 1;
+  color: var(--pico-muted-color);
+  cursor: pointer;
+  --pico-form-element-spacing-vertical: 0;
+  --pico-form-element-spacing-horizontal: 0;
+
+  &:hover {
+    background: none;
+    color: var(--pico-primary);
+  }
+}
+
+// ── Icon buttons ───────────────────────────────────────────────────────────────
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  font-size: 1.25rem;
+  font-weight: bold;
+  line-height: 1;
+  flex-shrink: 0;
+  background: transparent !important;
+  border-color: transparent !important;
+  color: var(--pico-muted-color);
+  box-shadow: none !important;
+  --pico-form-element-spacing-vertical: 0;
+  --pico-form-element-spacing-horizontal: 0;
+
+  &:hover {
+    color: var(--pico-primary);
+  }
+}
+
+// ── Todo layout ───────────────────────────────────────────────────────────────
+.todo-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: calc(var(--pico-block-spacing-horizontal) * 2);
+  align-items: start;
+}
+
+.todo-sidebar {
+  border-right: 1px solid var(--pico-muted-border-color);
+  padding-right: calc(var(--pico-block-spacing-horizontal) * 2);
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: calc(var(--pico-spacing) * 0.4) calc(var(--pico-spacing) * 0.5);
+    border-radius: var(--pico-border-radius);
+    cursor: pointer;
+    color: var(--pico-muted-color);
+
+    &[aria-current="true"] {
+      background: var(--pico-primary-background);
+      color: var(--pico-primary-inverse);
+    }
+
+    &:hover:not([aria-current="true"]) {
+      background: var(--pico-card-sectioning-background-color);
+      color: var(--pico-color);
+    }
+
+    small {
+      font-size: 0.75rem;
+      opacity: 0.7;
+    }
+  }
+}
+
+.todo-main {
+  min-width: 0;
+  padding-left: var(--pico-spacing);
+}
+
+.todo-panel-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  margin-bottom: var(--pico-spacing);
+}
+
+.todo-item {
+  display: flex;
+  align-items: baseline;
+  gap: calc(var(--pico-spacing) * 0.5);
+  padding-block: calc(var(--pico-spacing) * 0.35);
+  border-bottom: 1px solid var(--pico-muted-border-color);
+
+  input[type="checkbox"] {
+    margin: 0;
+    flex-shrink: 0;
+    align-self: center;
+  }
+}
+
+.todo-item-text {
+  flex: 1;
+  cursor: pointer;
+  word-break: break-word;
+}
+
+.todo-done {
+  text-decoration: line-through;
+  color: var(--pico-muted-color);
+}
+
+.todo-item-input {
+  flex: 1;
+  align-self: center;
+  margin: 0 !important;
+  padding: 0;
+  min-height: unset;
+  --pico-form-element-spacing-horizontal: 0;
+  --pico-form-element-spacing-vertical: 0;
+  border: none;
+  border-bottom: 1px solid var(--pico-primary);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+
+  &:not(:focus) {
+    border-bottom-color: transparent;
+  }
+}
+
+.todo-new-item {
+  border-bottom: none;
+
+  input[type="checkbox"] {
+    opacity: 0.3;
+  }
+}
+
+.todo-new-item-placeholder {
+  color: var(--pico-muted-color);
+  cursor: pointer;
+}
+
+.colour-dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.colour-picker {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: var(--pico-spacing);
+}
+
+.colour-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--pico-muted-border-color);
+  cursor: pointer;
+  padding: 0;
+
+  &.selected {
+    border-color: var(--pico-primary);
+    box-shadow: 0 0 0 2px var(--pico-primary);
+  }
+}
+
+// ── Dialog header/footer ───────────────────────────────────────────────────────
+dialog article header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  > :first-child {
+    margin: 0;
+  }
+
+  > button[rel="prev"] {
+    position: static;
+    margin: 0;
+    margin-inline-start: auto;
+    flex-shrink: 0;
+  }
+}
+
+dialog article footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: calc(var(--pico-spacing) * 0.5);
+}
+
+// ── Button variants (not compiled in classless mode — defined manually) ───────
+button.secondary,
+[type="submit"].secondary,
+[type="button"].secondary,
+[role="button"].secondary {
+  --pico-background-color: transparent;
+  --pico-border-color: var(--pico-secondary);
+  --pico-color: var(--pico-secondary);
+
+  &:is(:hover, :active, :focus) {
+    --pico-background-color: color-mix(in srgb, var(--pico-secondary) 10%, transparent);
+    --pico-border-color: var(--pico-secondary-hover);
+    --pico-color: var(--pico-secondary-hover);
+  }
+}
+
+button.danger,
+[type="submit"].danger,
+[type="button"].danger,
+[role="button"].danger {
+  --pico-background-color: transparent;
+  --pico-border-color: var(--pico-del-color);
+  --pico-color: var(--pico-del-color);
+
+  &:is(:hover, :active, :focus) {
+    --pico-background-color: color-mix(in srgb, var(--pico-del-color) 10%, transparent);
+    --pico-border-color: color-mix(in srgb, var(--pico-del-color) 80%, black);
+    --pico-color: color-mix(in srgb, var(--pico-del-color) 80%, black);
+  }
+}
+
+.error {
+  color: var(--pico-del-color);
+}

@@ -11,6 +11,10 @@
         "useCaseType": {
             "longName": "usecase-type",
             "shortName": "ut"
+        },
+        "parentNamespace": {
+            "longName": "parent-namespace",
+            "shortName": "pn"
         }
     }
 }

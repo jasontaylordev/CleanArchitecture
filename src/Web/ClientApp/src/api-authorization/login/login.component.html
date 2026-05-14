@@ -1,0 +1,22 @@
+<article>
+  <h2>Log in</h2>
+  <form (ngSubmit)="login()" #loginForm="ngForm">
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" [(ngModel)]="email"
+      [attr.aria-invalid]="invalid ? true : null"
+      aria-describedby="login-error"
+      autocomplete="username"
+      (ngModelChange)="invalid = false" />
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" [(ngModel)]="password"
+      [attr.aria-invalid]="invalid ? true : null"
+      aria-describedby="login-error"
+      autocomplete="current-password"
+      (ngModelChange)="invalid = false" />
+    @if (invalid) {
+      <small id="login-error">Invalid email or password.</small>
+    }
+    <button type="submit">Log in</button>
+    <p style="margin-top: 1rem">Don't have an account? <a [routerLink]="['/register']">Register</a></p>
+  </form>
+</article>

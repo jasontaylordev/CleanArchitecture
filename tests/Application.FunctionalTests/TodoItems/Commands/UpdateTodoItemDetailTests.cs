@@ -7,29 +7,27 @@ using CleanArchitecture.Domain.Enums;
 
 namespace CleanArchitecture.Application.FunctionalTests.TodoItems.Commands;
 
-using static Testing;
-
-public class UpdateTodoItemDetailTests : BaseTestFixture
+public class UpdateTodoItemDetailTests : TestBase
 {
     [Test]
     public async Task ShouldRequireValidTodoItemId()
     {
         var command = new UpdateTodoItemCommand { Id = 99, Title = "New Title" };
 
-        await Should.ThrowAsync<NotFoundException>(() => SendAsync(command));
+        await Should.ThrowAsync<NotFoundException>(() => TestApp.SendAsync(command));
     }
 
     [Test]
     public async Task ShouldUpdateTodoItem()
     {
-        var userId = await RunAsDefaultUserAsync();
+        var userId = await TestApp.RunAsDefaultUserAsync();
 
-        var listId = await SendAsync(new CreateTodoListCommand
+        var listId = await TestApp.SendAsync(new CreateTodoListCommand
         {
             Title = "New List"
         });
 
-        var itemId = await SendAsync(new CreateTodoItemCommand
+        var itemId = await TestApp.SendAsync(new CreateTodoItemCommand
         {
             ListId = listId,
             Title = "New Item"
@@ -43,9 +41,9 @@ public class UpdateTodoItemDetailTests : BaseTestFixture
             Priority = PriorityLevel.High
         };
 
-        await SendAsync(command);
+        await TestApp.SendAsync(command);
 
-        var item = await FindAsync<TodoItem>(itemId);
+        var item = await TestApp.FindAsync<TodoItem>(itemId);
 
         item.ShouldNotBeNull();
         item!.ListId.ShouldBe(command.ListId);

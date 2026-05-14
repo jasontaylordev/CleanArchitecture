@@ -1,5 +1,4 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Domain.Constants;
 using CleanArchitecture.Infrastructure.Data;
 using CleanArchitecture.Infrastructure.Data.Interceptors;
 using CleanArchitecture.Infrastructure.Identity;
@@ -15,24 +14,8 @@ public static class DependencyInjection
 {
     public static void AddInfrastructureServices(this IHostApplicationBuilder builder)
     {
-        var isNSwagGeneration = builder.Configuration.GetValue<bool>("IsNSwagGeneration");
-
-        var connectionString = builder.Configuration.GetConnectionString("CleanArchitectureDb");
-
-        if (!isNSwagGeneration)
-        {
-            Guard.Against.Null(connectionString, message: "Connection string 'CleanArchitectureDb' not found.");
-        }
-        else
-        {
-#if (UsePostgreSQL)
-            connectionString ??= "Host=localhost;Database=dummy;Username=dummy;Password=dummy";
-#elif (UseSqlite)
-            connectionString ??= "Data Source=:memory:";
-#else
-            connectionString ??= "Server=localhost;Database=dummy;Trusted_Connection=True;";
-#endif
-        }
+        var connectionString = builder.Configuration.GetConnectionString(Services.Database);
+        Guard.Against.Null(connectionString, message: $"Connection string '{Services.Database}' not found.");
 
         builder.Services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
         builder.Services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
@@ -42,20 +25,18 @@ public static class DependencyInjection
             options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
 #if (UsePostgreSQL)
             options.UseNpgsql(connectionString);
-#elif (UseSqlite)
-            options.UseSqlite(connectionString);
-#else
+#elif (UseSqlServer)
             options.UseSqlServer(connectionString);
+#else
+            options.UseSqlite(connectionString);
 #endif
             options.ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
         });
 
-#if (UseAspire)
-#if (UsePostgreSQL)
+#if UsePostgreSQL
         builder.EnrichNpgsqlDbContext<ApplicationDbContext>();
 #elif (UseSqlServer)
         builder.EnrichSqlServerDbContext<ApplicationDbContext>();
-#endif
 #endif
 
         builder.Services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
@@ -74,16 +55,25 @@ public static class DependencyInjection
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddApiEndpoints();
 #else
+        builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = IdentityConstants.ApplicationScheme;
+                options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+            })
+            .AddIdentityCookies();
+
+        builder.Services.AddAuthorizationBuilder();
+
         builder.Services
-            .AddDefaultIdentity<ApplicationUser>()
+            .AddIdentityCore<ApplicationUser>()
             .AddRoles<IdentityRole>()
-            .AddEntityFrameworkStores<ApplicationDbContext>();
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddSignInManager()
+            .AddDefaultTokenProviders()
+            .AddApiEndpoints();
 #endif
 
         builder.Services.AddSingleton(TimeProvider.System);
         builder.Services.AddTransient<IIdentityService, IdentityService>();
-
-        builder.Services.AddAuthorization(options =>
-            options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
     }
 }

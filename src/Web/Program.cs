@@ -1,11 +1,11 @@
 using CleanArchitecture.Infrastructure.Data;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-#if (UseAspire)
 builder.AddServiceDefaults();
-#endif
+
 builder.AddKeyVaultIfConfigured();
 builder.AddApplicationServices();
 builder.AddInfrastructureServices();
@@ -30,35 +30,28 @@ else
     app.UseHsts();
 }
 
-#if (!UseAspire)
-app.UseHealthChecks("/health");
-#endif
 app.UseHttpsRedirection();
-app.UseStaticFiles();
+app.UseCors(static builder => 
+    builder.AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowAnyOrigin());
 
-app.UseSwaggerUi(settings =>
-{
-    settings.Path = "/api";
-    settings.DocumentPath = "/api/specification.json";
-});
+app.UseFileServer();
 
-#if (!UseApiOnly)
-app.MapRazorPages();
-
-app.MapFallbackToFile("index.html");
-#endif
+app.MapOpenApi();
+app.MapScalarApiReference();
 
 app.UseExceptionHandler(options => { });
 
 #if (UseApiOnly)
-app.Map("/", () => Results.Redirect("/api"));
+app.Map("/", () => Results.Redirect("/scalar"));
 #endif
 
-#if (UseAspire)
 app.MapDefaultEndpoints();
+app.MapEndpoints(typeof(Program).Assembly);
+
+#if (!UseApiOnly)
+app.MapFallbackToFile("index.html");
 #endif
-app.MapEndpoints();
 
 app.Run();
-
-public partial class Program { }

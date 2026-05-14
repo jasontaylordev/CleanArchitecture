@@ -1,18 +1,12 @@
-﻿namespace CleanArchitecture.Web.AcceptanceTests.Pages;
+namespace CleanArchitecture.Web.AcceptanceTests.Pages;
 
-public abstract class BasePage
+public abstract class BasePage(IPage page)
 {
-    public static string BaseUrl => ConfigurationHelper.GetBaseUrl();
+    protected static string BaseUrl => AspireSetup.App.GetEndpoint(Services.WebFrontend).ToString().TrimEnd('/');
 
     public abstract string PagePath { get; }
 
-    public abstract IBrowser Browser { get; }
+    protected IPage Page { get; } = page;
 
-    public abstract IPage Page { get; set; }
-
-    public async Task GotoAsync()
-    {
-        Page = await Browser.NewPageAsync();
-        await Page.GotoAsync(PagePath);
-    }
+    public Task GotoAsync() => Page.GotoAsync(PagePath);
 }

@@ -1,43 +1,23 @@
 <header>
-  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-    <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">CleanArchitecture.Web</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target=".navbar-collapse"
-        aria-label="Toggle navigation"
-        [attr.aria-expanded]="isExpanded"
-        (click)="toggle()"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end"
-           [ngClass]="{ show: isExpanded }">
-        <ul class="navbar-nav flex-grow">
-          <li class="nav-item"
-              [routerLinkActive]="['link-active']"
-              [routerLinkActiveOptions]="{ exact: true }">
-            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/counter']">Counter</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/fetch-data']">Fetch data</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/todo']">Todo</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="/api" target="_blank">API</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="/Identity/Account/Manage">Account</a>
-          </li>
-        </ul>
-      </div>
-    </div>
+  <nav>
+    <ul>
+      <li><a class="nav-brand" [routerLink]="['/']">Clean Architecture</a></li>
+    </ul>
+    <ul>
+      <li><a [routerLink]="['/']" [routerLinkActive]="['pico-active']" [routerLinkActiveOptions]="{ exact: true }">Home</a></li>
+      <li><a [routerLink]="['/counter']" [routerLinkActive]="['pico-active']">Counter</a></li>
+      <li><a [routerLink]="['/weather']" [routerLinkActive]="['pico-active']">Weather</a></li>
+      <li><a [routerLink]="['/todo']" [routerLinkActive]="['pico-active']">Tasks</a></li>
+    </ul>
+    <ul>
+      @if (isAuthenticated$ | async) {
+        <li><a href="#" (click)="logout($event)">Log out</a></li>
+      } @else {
+        <li><a [routerLink]="['/login']" [routerLinkActive]="['pico-active']">Log in</a></li>
+        <li><a [routerLink]="['/register']" [routerLinkActive]="['pico-active']">Register</a></li>
+      }
+      <li aria-hidden="true" class="nav-separator"></li>
+      <li><app-theme-toggle /></li>
+    </ul>
   </nav>
 </header>

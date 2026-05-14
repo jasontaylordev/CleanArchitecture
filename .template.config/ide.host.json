@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json.schemastore.org/vs-2017.3.host",
+  "$schema": "https://json.schemastore.org/ide.host",
   "order": 0,
   "icon": "icon.png",
   "symbolInfo": [
@@ -14,32 +14,12 @@
       "isVisible": true
     },
     {
-      "id": "PipelineProvider",
-      "name": {
-        "text": "Pipeline Provider"
-      },
-      "description": {
-        "text": "Select the pipeline provider."
-      },
-      "isVisible": true
-    },
-    {
       "id": "Database",
       "name": {
         "text": "Database"
       },
       "description": {
         "text": "Select the database type."
-      },
-      "isVisible": true
-    },
-    {
-      "id": "UseAspire",
-      "name": {
-        "text": "Use Aspire"
-      },
-      "description": {
-        "text": "Use .NET Aspire"
       },
       "isVisible": true
     }

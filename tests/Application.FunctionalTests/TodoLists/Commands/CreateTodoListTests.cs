@@ -4,21 +4,19 @@ using CleanArchitecture.Domain.Entities;
 
 namespace CleanArchitecture.Application.FunctionalTests.TodoLists.Commands;
 
-using static Testing;
-
-public class CreateTodoListTests : BaseTestFixture
+public class CreateTodoListTests : TestBase
 {
     [Test]
     public async Task ShouldRequireMinimumFields()
     {
         var command = new CreateTodoListCommand();
-        await Should.ThrowAsync<ValidationException>(() => SendAsync(command));
+        await Should.ThrowAsync<ValidationException>(() => TestApp.SendAsync(command));
     }
 
     [Test]
     public async Task ShouldRequireUniqueTitle()
     {
-        await SendAsync(new CreateTodoListCommand
+        await TestApp.SendAsync(new CreateTodoListCommand
         {
             Title = "Shopping"
         });
@@ -28,22 +26,22 @@ public class CreateTodoListTests : BaseTestFixture
             Title = "Shopping"
         };
 
-        await Should.ThrowAsync<ValidationException>(() => SendAsync(command));
+        await Should.ThrowAsync<ValidationException>(() => TestApp.SendAsync(command));
     }
 
     [Test]
     public async Task ShouldCreateTodoList()
     {
-        var userId = await RunAsDefaultUserAsync();
+        var userId = await TestApp.RunAsDefaultUserAsync();
 
         var command = new CreateTodoListCommand
         {
             Title = "Tasks"
         };
 
-        var id = await SendAsync(command);
+        var id = await TestApp.SendAsync(command);
 
-        var list = await FindAsync<TodoList>(id);
+        var list = await TestApp.FindAsync<TodoList>(id);
 
         list.ShouldNotBeNull();
         list!.Title.ShouldBe(command.Title);

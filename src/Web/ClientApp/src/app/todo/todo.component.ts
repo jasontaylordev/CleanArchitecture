@@ -1,5 +1,4 @@
-import { Component, TemplateRef, OnInit } from '@angular/core';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { Component, OnInit, ViewChild, ElementRef, signal, computed, effect } from '@angular/core';
 import { TodoListsClient, TodoItemsClient,
   TodoListDto, TodoItemDto, LookupDto,
   CreateTodoListCommand, UpdateTodoListCommand,
@@ -7,41 +6,51 @@ import { TodoListsClient, TodoItemsClient,
 } from '../web-api-client';
 
 @Component({
+  standalone: false,
   selector: 'app-todo-component',
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.scss']
 })
-export class TodoComponent implements OnInit {
-  debug = false;
-  lists: TodoListDto[];
-  priorityLevels: LookupDto[];
-  selectedList: TodoListDto;
-  selectedItem: TodoItemDto;
+export class TasksComponent implements OnInit {
+  @ViewChild('newListDialog') newListDialogRef: ElementRef<HTMLDialogElement>;
+  @ViewChild('listOptionsDialog') listOptionsDialogRef: ElementRef<HTMLDialogElement>;
+  @ViewChild('deleteListDialog') deleteListDialogRef: ElementRef<HTMLDialogElement>;
+  @ViewChild('itemDetailsDialog') itemDetailsDialogRef: ElementRef<HTMLDialogElement>;
+
+  lists = signal<TodoListDto[] | null>(null);
+  colours = signal<{ name: string, code: string }[]>([]);
+  priorityLevels = signal<LookupDto[]>([]);
+  selectedListId = signal<number | null>(null);
+  selectedList = computed(() => this.lists()?.find(l => l.id === this.selectedListId()) ?? null);
+  selectedItem = signal<TodoItemDto | null>(null);
+  editingItem = signal<TodoItemDto | null>(null);
   newListEditor: any = {};
+  newListError = signal('');
   listOptionsEditor: any = {};
   itemDetailsEditor: any = {};
-  newListModalRef: BsModalRef;
-  listOptionsModalRef: BsModalRef;
-  deleteListModalRef: BsModalRef;
-  itemDetailsModalRef: BsModalRef;
+  newItemTitle = '';
+  addingItem = signal(false);
+  private originalTitle = '';
 
   constructor(
     private listsClient: TodoListsClient,
-    private itemsClient: TodoItemsClient,
-    private modalService: BsModalService
-  ) {}
+    private itemsClient: TodoItemsClient
+  ) {
+    effect(() => { this.selectedListId(); this.newItemTitle = ''; this.addingItem.set(false); });
+  }
 
   ngOnInit(): void {
-    this.listsClient.getTodoLists().subscribe(
-      result => {
-        this.lists = result.lists;
-        this.priorityLevels = result.priorityLevels;
-        if (this.lists.length) {
-          this.selectedList = this.lists[0];
+    this.listsClient.getTodoLists().subscribe({
+      next: result => {
+        this.lists.set(result.lists);
+        this.priorityLevels.set(result.priorityLevels);
+        this.colours.set(result.colours.map(c => ({ name: c.name, code: c.code })));
+        if (result.lists.length) {
+          this.selectedListId.set(result.lists[0].id);
         }
       },
-      error => console.error(error)
-    );
+      error: error => console.error(error)
+    });
   }
 
   // Lists
@@ -49,180 +58,230 @@ export class TodoComponent implements OnInit {
     return list.items.filter(t => !t.done).length;
   }
 
-  showNewListModal(template: TemplateRef<any>): void {
-    this.newListModalRef = this.modalService.show(template);
-    setTimeout(() => document.getElementById('title').focus(), 250);
+  showNewListDialog(): void {
+    this.newListEditor = { colour: this.colours()[0].code };
+    this.newListError.set('');
+    this.newListDialogRef.nativeElement.showModal();
+    setTimeout(() => document.getElementById('title')?.focus(), 50);
   }
 
   newListCancelled(): void {
-    this.newListModalRef.hide();
+    this.newListDialogRef.nativeElement.close();
     this.newListEditor = {};
+    this.newListError.set('');
   }
 
   addList(): void {
     const list = {
       id: 0,
       title: this.newListEditor.title,
+      colour: this.newListEditor.colour,
       items: []
     } as TodoListDto;
 
-    this.listsClient.createTodoList(list as CreateTodoListCommand).subscribe(
-      result => {
+    this.listsClient.createTodoList({ title: list.title, colour: list.colour } as CreateTodoListCommand).subscribe({
+      next: result => {
         list.id = result;
-        this.lists.push(list);
-        this.selectedList = list;
-        this.newListModalRef.hide();
+        this.lists.update(ls => [...ls, list]);
+        this.selectedListId.set(list.id);
+        this.newListDialogRef.nativeElement.close();
         this.newListEditor = {};
+        this.newListError.set('');
       },
-      error => {
+      error: error => {
         const errors = JSON.parse(error.response).errors;
-
         if (errors && errors.Title) {
-          this.newListEditor.error = errors.Title[0];
+          this.newListError.set(errors.Title[0]);
         }
-
-        setTimeout(() => document.getElementById('title').focus(), 250);
+        setTimeout(() => document.getElementById('title')?.focus(), 50);
       }
-    );
+    });
   }
 
-  showListOptionsModal(template: TemplateRef<any>) {
+  showListOptionsDialog(): void {
     this.listOptionsEditor = {
-      id: this.selectedList.id,
-      title: this.selectedList.title
+      id: this.selectedList()!.id,
+      title: this.selectedList()!.title,
+      colour: this.selectedList()!.colour || this.colours()[0].code
     };
-
-    this.listOptionsModalRef = this.modalService.show(template);
+    this.listOptionsDialogRef.nativeElement.showModal();
   }
 
-  updateListOptions() {
-    const list = this.listOptionsEditor as UpdateTodoListCommand;
-    this.listsClient.updateTodoList(this.selectedList.id, list).subscribe(
-      () => {
-        (this.selectedList.title = this.listOptionsEditor.title),
-          this.listOptionsModalRef.hide();
-        this.listOptionsEditor = {};
+  closeListOptionsDialog(): void {
+    this.listOptionsDialogRef.nativeElement.close();
+    this.listOptionsEditor = {};
+  }
+
+  updateListOptions(): void {
+    const id = this.selectedList()!.id;
+    const newTitle = this.listOptionsEditor.title;
+    const newColour = this.listOptionsEditor.colour;
+    this.listsClient.updateTodoList(id, this.listOptionsEditor as UpdateTodoListCommand).subscribe({
+      next: () => {
+        this.lists.update(ls => ls.map(l => l.id === id ? { ...l, title: newTitle, colour: newColour } as TodoListDto : l));
+        this.closeListOptionsDialog();
       },
-      error => console.error(error)
-    );
+      error: error => console.error(error)
+    });
   }
 
-  confirmDeleteList(template: TemplateRef<any>) {
-    this.listOptionsModalRef.hide();
-    this.deleteListModalRef = this.modalService.show(template);
+  confirmDeleteList(): void {
+    this.closeListOptionsDialog();
+    this.deleteListDialogRef.nativeElement.showModal();
+  }
+
+  closeDeleteListDialog(): void {
+    this.deleteListDialogRef.nativeElement.close();
   }
 
   deleteListConfirmed(): void {
-    this.listsClient.deleteTodoList(this.selectedList.id).subscribe(
-      () => {
-        this.deleteListModalRef.hide();
-        this.lists = this.lists.filter(t => t.id !== this.selectedList.id);
-        this.selectedList = this.lists.length ? this.lists[0] : null;
+    const deletedId = this.selectedList()!.id;
+    this.listsClient.deleteTodoList(deletedId).subscribe({
+      next: () => {
+        this.closeDeleteListDialog();
+        this.lists.update(ls => ls.filter(l => l.id !== deletedId));
+        const remaining = this.lists()!;
+        this.selectedListId.set(remaining.length ? remaining[0].id : null);
       },
-      error => console.error(error)
-    );
+      error: error => console.error(error)
+    });
   }
 
   // Items
-  showItemDetailsModal(template: TemplateRef<any>, item: TodoItemDto): void {
-    this.selectedItem = item;
-    this.itemDetailsEditor = {
-      ...this.selectedItem
-    };
+  showItemDetailsDialog(item: TodoItemDto): void {
+    this.selectedItem.set(item);
+    this.itemDetailsEditor = { ...item };
+    this.itemDetailsDialogRef.nativeElement.showModal();
+  }
 
-    this.itemDetailsModalRef = this.modalService.show(template);
+  closeItemDetailsDialog(): void {
+    this.itemDetailsDialogRef.nativeElement.close();
+    this.selectedItem.set(null);
+    this.itemDetailsEditor = {};
   }
 
   updateItemDetails(): void {
-    const item = this.itemDetailsEditor as UpdateTodoItemDetailCommand;
-    this.itemsClient.updateTodoItemDetail(this.selectedItem.id, item).subscribe(
-      () => {
-        if (this.selectedItem.listId !== this.itemDetailsEditor.listId) {
-          this.selectedList.items = this.selectedList.items.filter(
-            i => i.id !== this.selectedItem.id
-          );
-          const listIndex = this.lists.findIndex(
-            l => l.id === this.itemDetailsEditor.listId
-          );
-          this.selectedItem.listId = this.itemDetailsEditor.listId;
-          this.lists[listIndex].items.push(this.selectedItem);
-        }
-
-        this.selectedItem.priority = this.itemDetailsEditor.priority;
-        this.selectedItem.note = this.itemDetailsEditor.note;
-        this.itemDetailsModalRef.hide();
-        this.itemDetailsEditor = {};
+    const currentItem = this.selectedItem()!;
+    const isMoving = currentItem.listId !== this.itemDetailsEditor.listId;
+    this.itemsClient.updateTodoItemDetail(currentItem.id, this.itemDetailsEditor as UpdateTodoItemDetailCommand).subscribe({
+      next: () => {
+        this.lists.update(ls => ls.map(l => {
+          if (l.id === currentItem.listId && isMoving) {
+            return { ...l, items: l.items.filter(i => i.id !== currentItem.id) } as TodoListDto;
+          }
+          if (l.id === this.itemDetailsEditor.listId && isMoving) {
+            const moved = { ...currentItem, listId: this.itemDetailsEditor.listId, priority: this.itemDetailsEditor.priority, note: this.itemDetailsEditor.note } as TodoItemDto;
+            return { ...l, items: [...l.items, moved] } as TodoListDto;
+          }
+          if (l.id === currentItem.listId) {
+            return { ...l, items: l.items.map(i => i.id === currentItem.id
+              ? { ...i, priority: this.itemDetailsEditor.priority, note: this.itemDetailsEditor.note } as TodoItemDto
+              : i
+            )} as TodoListDto;
+          }
+          return l;
+        }));
+        this.closeItemDetailsDialog();
       },
-      error => console.error(error)
-    );
+      error: error => console.error(error)
+    });
   }
 
-  addItem() {
-    const item = {
-      id: 0,
-      listId: this.selectedList.id,
-      priority: this.priorityLevels[0].id,
-      title: '',
-      done: false
-    } as TodoItemDto;
+  startAddingItem(): void {
+    this.addingItem.set(true);
+    setTimeout(() => document.getElementById('newItemInput')?.focus(), 50);
+  }
 
-    this.selectedList.items.push(item);
-    const index = this.selectedList.items.length - 1;
-    this.editItem(item, 'itemTitle' + index);
+  cancelNewItem(): void {
+    this.addingItem.set(false);
+    this.newItemTitle = '';
+  }
+
+  commitNewItem(): void {
+    this.addingItem.set(false);
+    if (!this.newItemTitle.trim()) {
+      this.newItemTitle = '';
+      return;
+    }
+    const listId = this.selectedListId()!;
+    const title = this.newItemTitle.trim();
+    this.itemsClient.createTodoItem({ title, listId } as CreateTodoItemCommand).subscribe({
+      next: result => {
+        this.lists.update(ls => ls.map(l => l.id === listId
+          ? { ...l, items: [...l.items, { id: result, listId, title, done: false, priority: this.priorityLevels()[0].id } as TodoItemDto] } as TodoListDto
+          : l
+        ));
+        this.newItemTitle = '';
+      },
+      error: error => console.error(error)
+    });
   }
 
   editItem(item: TodoItemDto, inputId: string): void {
-    this.selectedItem = item;
-    setTimeout(() => document.getElementById(inputId).focus(), 100);
+    this.originalTitle = item.title;
+    this.editingItem.set(item);
+    setTimeout(() => document.getElementById(inputId)?.focus(), 100);
   }
 
-  updateItem(item: TodoItemDto, pressedEnter: boolean = false): void {
-    const isNewItem = item.id === 0;
+  cancelEdit(): void {
+    if (this.editingItem()) {
+      this.editingItem()!.title = this.originalTitle;
+    }
+    this.editingItem.set(null);
+  }
 
+  updateItem(item: TodoItemDto): void {
     if (!item.title.trim()) {
       this.deleteItem(item);
       return;
     }
 
     if (item.id === 0) {
+      const listId = this.selectedListId()!;
       this.itemsClient
-          .createTodoItem({ title: item.title, listId: this.selectedList.id } as CreateTodoItemCommand)
-        .subscribe(
-          result => {
-            item.id = result;
+        .createTodoItem({ title: item.title, listId } as CreateTodoItemCommand)
+        .subscribe({
+          next: result => {
+            this.lists.update(ls => ls.map(l => l.id === listId
+              ? { ...l, items: l.items.map(i => i === item ? { ...i, id: result } as TodoItemDto : i) } as TodoListDto
+              : l
+            ));
           },
-          error => console.error(error)
-        );
+          error: error => console.error(error)
+        });
     } else {
-        this.itemsClient.updateTodoItem(item.id, item as UpdateTodoItemCommand).subscribe(
-        () => console.log('Update succeeded.'),
-        error => console.error(error)
-      );
+      this.itemsClient.updateTodoItem(item.id, item as UpdateTodoItemCommand).subscribe({
+        next: () => console.log('Update succeeded.'),
+        error: error => console.error(error)
+      });
     }
 
-    this.selectedItem = null;
-
-    if (isNewItem && pressedEnter) {
-      setTimeout(() => this.addItem(), 250);
-    }
+    this.editingItem.set(null);
   }
 
-  deleteItem(item: TodoItemDto) {
-    if (this.itemDetailsModalRef) {
-      this.itemDetailsModalRef.hide();
+  deleteItem(item: TodoItemDto): void {
+    if (this.itemDetailsDialogRef?.nativeElement.open) {
+      this.itemDetailsDialogRef.nativeElement.close();
     }
 
+    const listId = this.selectedListId()!;
     if (item.id === 0) {
-      const itemIndex = this.selectedList.items.indexOf(this.selectedItem);
-      this.selectedList.items.splice(itemIndex, 1);
+      const currentItem = this.selectedItem()!;
+      this.lists.update(ls => ls.map(l => l.id === listId
+        ? { ...l, items: l.items.filter(i => i !== currentItem) } as TodoListDto
+        : l
+      ));
+      this.editingItem.set(null);
     } else {
-      this.itemsClient.deleteTodoItem(item.id).subscribe(
-        () =>
-          (this.selectedList.items = this.selectedList.items.filter(
-            t => t.id !== item.id
-          )),
-        error => console.error(error)
-      );
+      this.itemsClient.deleteTodoItem(item.id).subscribe({
+        next: () => {
+          this.lists.update(ls => ls.map(l => l.id === listId
+            ? { ...l, items: l.items.filter(i => i.id !== item.id) } as TodoListDto
+            : l
+          ));
+        },
+        error: error => console.error(error)
+      });
     }
   }
 }

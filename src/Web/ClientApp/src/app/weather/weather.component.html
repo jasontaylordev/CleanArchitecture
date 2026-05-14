@@ -1,0 +1,31 @@
+<h1>Weather</h1>
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (loading) {
+  <span aria-busy="true">Fetching your weather forecast&hellip;</span>
+}
+@if (error) {
+  <p class="error">{{ error }}</p>
+}
+@if (!loading && !error) {
+  <table aria-label="Weather forecast">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Temp. (C)</th>
+        <th>Temp. (F)</th>
+        <th>Summary</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (forecast of forecasts; track forecast.date) {
+        <tr>
+          <td>{{ forecast.date | date }}</td>
+          <td>{{ forecast.temperatureC }}</td>
+          <td>{{ forecast.temperatureF }}</td>
+          <td>{{ forecast.summary }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
