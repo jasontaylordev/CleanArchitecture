@@ -23,6 +23,7 @@
       <PackageReference Include="Respawn" />
       <PackageReference Include="Shouldly" />
       <PackageReference Include="Aspire.Hosting.Testing" />
+      <PackageReference Include="System.Security.Cryptography.Xml" />
     </ItemGroup>
 
     <ItemGroup>
