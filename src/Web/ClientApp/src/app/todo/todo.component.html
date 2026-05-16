@@ -33,8 +33,12 @@
           <h2 [style.color]="selectedList()!.colour">{{ selectedList()!.title }}</h2>
           <button class="icon-btn" (click)="showListOptionsDialog()"><lucide-icon name="settings" [size]="20" [strokeWidth]="2" /></button>
         </div>
-
-        @for (item of selectedList()!.items; track $index; let i = $index) {
+        <div class="todo-filters">
+          <button [class.active]="filter() === 'all'" (click)="filter.set('all')">All</button>
+          <button [class.active]="filter() === 'active'" (click)="filter.set('active')">Active</button>
+          <button [class.active]="filter() === 'completed'" (click)="filter.set('completed')">Completed</button>
+        </div>
+        @for (item of filteredItems(); track $index; let i = $index) {
           <div class="todo-item">
             <input type="checkbox" [(ngModel)]="item.done" (change)="updateItem(item)" />
             @if (item === editingItem()) {
@@ -46,6 +50,11 @@
             } @else {
               <span class="todo-item-text" [class.todo-done]="item.done"
                 (click)="editItem(item, 'itemTitle' + i)">{{ item.title }}</span>
+              @if (item.dueDate) {
+                <small [class.overdue-badge]="isOverdue(item)">
+                  {{ isOverdue(item) ? 'Overdue · ' : '' }}{{ item.dueDate | date:'mediumDate' }}
+                </small>
+              }
             }
             @if (item.id !== 0) {
               <button class="icon-btn" (click)="showItemDetailsDialog(item)"><lucide-icon name="more-horizontal" [size]="20" [strokeWidth]="2" /></button>
@@ -167,6 +176,8 @@
     </select>
     <label for="note">Note</label>
     <textarea id="note" rows="3" [(ngModel)]="itemDetailsEditor.note"></textarea>
+    <label for="dueDate">Due Date</label>
+    <input type="date" id="dueDate" [(ngModel)]="itemDetailsEditor.dueDate" />
     <footer>
       <button class="danger" style="margin-inline-end: auto" (click)="deleteItem(selectedItem()!)">Delete</button>
       <button class="secondary" (click)="closeItemDetailsDialog()">Cancel</button>

@@ -30,6 +30,13 @@ export class TasksComponent implements OnInit {
   itemDetailsEditor: any = {};
   newItemTitle = '';
   addingItem = signal(false);
+  filter = signal<'all' | 'active' | 'completed'>('all');
+  filteredItems = computed(() => {
+    const items = this.selectedList()?.items ?? [];
+    if (this.filter() === 'active') return items.filter(i => !i.done);
+    if (this.filter() === 'completed') return items.filter(i => i.done);
+    return items;
+  });
   private originalTitle = '';
 
   constructor(
@@ -283,5 +290,10 @@ export class TasksComponent implements OnInit {
         error: error => console.error(error)
       });
     }
+  }
+
+  isOverdue(item: TodoItemDto): boolean {
+    if (!item.dueDate || item.done) return false;
+    return new Date(item.dueDate.toString()) < new Date(new Date().toDateString());
   }
 }
