@@ -1,1 +1,15 @@
 // Styles handled globally in styles.scss
+.todo-filters {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+
+  button.active {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+}
+
+.overdue-badge {
+  color: red;
+}
