@@ -33,8 +33,8 @@ export class TasksComponent implements OnInit {
   filter = signal<'all' | 'active' | 'completed'>('all');
   filteredItems = computed(() => {
     const items = this.selectedList()?.items ?? [];
-    if (this.filter() === 'active') return items.filter(i => !i.done);
-    if (this.filter() === 'completed') return items.filter(i => i.done);
+    if (this.filter() === 'active') return items.filter(x => !x.done);
+    if (this.filter() === 'completed') return items.filter(x => x.done);
     return items;
   });
   private originalTitle = '';
@@ -157,7 +157,10 @@ export class TasksComponent implements OnInit {
   // Items
   showItemDetailsDialog(item: TodoItemDto): void {
     this.selectedItem.set(item);
-    this.itemDetailsEditor = { ...item };
+    this.itemDetailsEditor = { 
+      ...item,
+      dueDate: item.dueDate ? this.toInputDate(item.dueDate) : undefined
+    };
     this.itemDetailsDialogRef.nativeElement.showModal();
   }
 
@@ -181,10 +184,15 @@ export class TasksComponent implements OnInit {
             return { ...l, items: [...l.items, moved] } as TodoListDto;
           }
           if (l.id === currentItem.listId) {
-            return { ...l, items: l.items.map(i => i.id === currentItem.id
-              ? { ...i, priority: this.itemDetailsEditor.priority, note: this.itemDetailsEditor.note } as TodoItemDto
-              : i
-            )} as TodoListDto;
+            return {
+              ...l, items: l.items.map(i => i.id === currentItem.id
+                ? {
+                  ...i, priority: this.itemDetailsEditor.priority,
+                  note: this.itemDetailsEditor.note, dueDate: this.itemDetailsEditor.dueDate ? new Date(this.itemDetailsEditor.dueDate + 'T00:00:00') : undefined
+                } as TodoItemDto
+                : i
+              )
+            } as TodoListDto;
           }
           return l;
         }));
@@ -294,6 +302,23 @@ export class TasksComponent implements OnInit {
 
   isOverdue(item: TodoItemDto): boolean {
     if (!item.dueDate || item.done) return false;
-    return new Date(item.dueDate.toString()) < new Date(new Date().toDateString());
+    const adjusted = new Date(item.dueDate.getTime() + item.dueDate.getTimezoneOffset() * 60000);
+    const today = new Date(new Date().toDateString());
+    return adjusted < today;
+  }
+
+  toInputDate(date: Date | undefined): string {
+    if (!date) return '';
+    const adjusted = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
+    const year = adjusted.getFullYear();
+    const month = String(adjusted.getMonth() + 1).padStart(2, '0');
+    const day = String(adjusted.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  formatDueDate(date: Date | undefined): string {
+    if (!date) return '';
+    const adjusted = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
+    return adjusted.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   }
 }

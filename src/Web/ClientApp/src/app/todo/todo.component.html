@@ -52,7 +52,7 @@
                 (click)="editItem(item, 'itemTitle' + i)">{{ item.title }}</span>
               @if (item.dueDate) {
                 <small [class.overdue-badge]="isOverdue(item)">
-                  {{ isOverdue(item) ? 'Overdue · ' : '' }}{{ item.dueDate | date:'mediumDate' }}
+                  {{ isOverdue(item) ? 'Overdue · ' : '' }}{{ formatDueDate(item.dueDate) }}
                 </small>
               }
             }
