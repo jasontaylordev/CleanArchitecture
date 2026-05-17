@@ -4,6 +4,8 @@ using CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItemDetail;
 using CleanArchitecture.Application.TodoLists.Commands.CreateTodoList;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Enums;
+using System;
+using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.FunctionalTests.TodoItems.Commands;
 
@@ -52,5 +54,38 @@ public class UpdateTodoItemDetailTests : TestBase
         item.LastModifiedBy.ShouldNotBeNull();
         item.LastModifiedBy.ShouldBe(userId);
         item.LastModified.ShouldBe(DateTime.Now, TimeSpan.FromMilliseconds(10000));
+    }
+
+    [Test]
+    public async Task ShouldUpdateTodoItemDueDate()
+    {
+        await TestApp.RunAsDefaultUserAsync();
+
+        var listId = await TestApp.SendAsync(new CreateTodoListCommand
+        {
+            Title = "New List"
+        });
+
+        var itemId = await TestApp.SendAsync(new CreateTodoItemCommand
+        {
+            ListId = listId,
+            Title = "New Item"
+        });
+
+        var dueDate = DateOnly.FromDateTime(DateTime.Today.AddDays(5));
+
+        var command = new UpdateTodoItemDetailCommand
+        {
+            Id = itemId,
+            ListId = listId,
+            DueDate = dueDate
+        };
+
+        await TestApp.SendAsync(command);
+
+        var item = await TestApp.FindAsync<TodoItem>(itemId);
+
+        item.ShouldNotBeNull();
+        item!.DueDate.ShouldBe(dueDate);
     }
 }
