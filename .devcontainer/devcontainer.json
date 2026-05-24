@@ -3,7 +3,7 @@
     "image": "mcr.microsoft.com/devcontainers/python:3.13-bullseye",
     "features": {
         // See https://containers.dev/features for list of features
-        "ghcr.io/devcontainers/features/docker-in-docker:2": {
+        "ghcr.io/devcontainers/features/docker-in-docker:3": {
         }
     },
     "customizations": {
