@@ -1,0 +1,2 @@
+- Use Signal Forms, see https://angular.dev/guide/forms/signals/overview
+- Use a @ngrx Signal Store per feature

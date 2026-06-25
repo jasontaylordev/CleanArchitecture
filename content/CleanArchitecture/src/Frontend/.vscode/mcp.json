@@ -1,0 +1,8 @@
+{
+  "servers": {
+    "angular-cli": {
+      "command": "yarn",
+      "args": ["ng", "mcp"]
+    }
+  }
+}
