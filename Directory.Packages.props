@@ -12,16 +12,16 @@
     <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
     <PackageVersion Include="MediatR" Version="14.1.0" />
     <PackageVersion Include="MediatR.Contracts" Version="2.0.1" />
-    <PackageVersion Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="10.0.5" />
-    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.5" />
-    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.5" />
-    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="10.0.5" />
+    <PackageVersion Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="10.0.8" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.8" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.8" />
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="10.0.8" />
     <PackageVersion Include="Microsoft.Build.Tasks.Core" Version="18.4.0" />
     <PackageVersion Include="Microsoft.Build.Utilities.Core" Version="18.4.0" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="10.0.5" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.5" />
-    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="10.0.5" />
-    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.5" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="10.0.8" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.8" />
+    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="10.0.8" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.8" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.4.0" />
     <PackageVersion Include="Microsoft.Extensions.ApiDescription.Server" Version="10.0.5" />
     <PackageVersion Include="Moq" Version="4.20.72" />
@@ -37,22 +37,22 @@
     <PackageVersion Include="Reqnroll.NUnit" Version="3.3.4" />
     <!--#endif-->
     <!--#if (UsePostgreSQL)-->
-    <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="13.2.2" />
-    <PackageVersion Include="Aspire.Hosting.Azure.PostgreSQL" Version="13.2.2" />
+    <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="13.4.6" />
+    <PackageVersion Include="Aspire.Hosting.Azure.PostgreSQL" Version="13.4.6" />
     <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.1" />
     <!--#endif-->
     <!--#if (UseSqlServer)-->
-    <PackageVersion Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="13.2.2" />
-    <PackageVersion Include="Aspire.Hosting.Azure.Sql" Version="13.2.2" />
+    <PackageVersion Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="13.4.6" />
+    <PackageVersion Include="Aspire.Hosting.Azure.Sql" Version="13.4.6" />
     <!--#endif-->
     <!--#if (UseSqlite)-->
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.5" />
-    <PackageVersion Include="CommunityToolkit.Aspire.Hosting.SQLite" Version="13.1.1" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.8" />
+    <PackageVersion Include="CommunityToolkit.Aspire.Hosting.SQLite" Version="13.4.0" />
     <!--#endif-->
-    <PackageVersion Include="Aspire.Hosting.AppHost" Version="13.2.2" />
-    <PackageVersion Include="Aspire.Hosting.Azure.AppContainers" Version="13.2.2" />
-    <PackageVersion Include="Aspire.Hosting.Testing" Version="13.2.2" />
-    <PackageVersion Include="Aspire.Hosting.JavaScript" Version="13.2.2" />
+    <PackageVersion Include="Aspire.Hosting.AppHost" Version="13.4.6" />
+    <PackageVersion Include="Aspire.Hosting.Azure.AppContainers" Version="13.4.6" />
+    <PackageVersion Include="Aspire.Hosting.Testing" Version="13.4.6" />
+    <PackageVersion Include="Aspire.Hosting.JavaScript" Version="13.4.6" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="10.4.0" />
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="10.4.0" />
     <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.2" />
