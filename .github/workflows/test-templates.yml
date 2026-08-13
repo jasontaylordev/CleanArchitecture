@@ -20,15 +20,15 @@ jobs:
         database: [sqlite, sqlserver, postgresql]
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       name: Checkout code
 
     - name: Install .NET
-      uses: actions/setup-dotnet@v5
+      uses: actions/setup-dotnet@v6
 
     - name: Install Node & cache npm packages
       if: matrix.client-framework != 'none'
-      uses: actions/setup-node@v6
+      uses: actions/setup-node@v7
       with:
         node-version: '24.x'
         cache: 'npm'
@@ -37,7 +37,7 @@ jobs:
           src/Web/ClientApp-React/package-lock.json
 
     - name: Cache NuGet packages
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: ~/.nuget/packages
         key: ${{ runner.os }}-nuget-${{ matrix.client-framework }}-${{ matrix.database }}-${{ hashFiles('**/Directory.Packages.props', '**/*.csproj') }}

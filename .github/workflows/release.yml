@@ -14,10 +14,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         name: Checkout
 
-      - uses: nuget/setup-nuget@v3
+      - uses: nuget/setup-nuget@v4
         name: Set up NuGet
         with:
           nuget-version: 'latest'
