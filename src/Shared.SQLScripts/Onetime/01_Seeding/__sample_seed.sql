@@ -1,0 +1,9 @@
+-- =============================================
+-- Sample Seed Script
+-- This script runs only once (journaled by DbUp).
+-- Add your seed data scripts to this folder.
+-- Use a naming convention like: 001_SeedInitialData.sql
+-- =============================================
+-- INSERT INTO TodoLists (Title, Colour_Code) 
+-- SELECT 'Default List', '#00FF00'
+-- WHERE NOT EXISTS (SELECT 1 FROM TodoLists WHERE Title = 'Default List');

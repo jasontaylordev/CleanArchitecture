@@ -15,6 +15,8 @@
     <Project Path="src/Infrastructure/Infrastructure.csproj" />
     <Project Path="src/Shared/Shared.csproj" />
     <Project Path="src/Web/Web.csproj" />
+    <Project Path="src/Migrator/Migrator.csproj" />
+    <Project Path="src/Shared.SQLScripts/Shared.SQLScripts.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Application.FunctionalTests/Application.FunctionalTests.csproj" />

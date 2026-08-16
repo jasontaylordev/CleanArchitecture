@@ -1,0 +1,16 @@
+-- =============================================
+-- Sample View placeholder
+-- This script runs on every deployment (no journaling).
+-- Add your SQL views to this folder.
+-- =============================================
+-- CREATE OR ALTER VIEW [dbo].[vw_TodoListSummary]
+-- AS
+-- SELECT 
+--     tl.Id,
+--     tl.Title,
+--     COUNT(ti.Id) AS TotalItems,
+--     SUM(CASE WHEN ti.Done = 1 THEN 1 ELSE 0 END) AS CompletedItems
+-- FROM TodoLists tl
+-- LEFT JOIN TodoItems ti ON ti.ListId = tl.Id
+-- GROUP BY tl.Id, tl.Title;
+-- GO
