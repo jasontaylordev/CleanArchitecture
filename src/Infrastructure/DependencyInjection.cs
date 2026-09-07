@@ -1,4 +1,5 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
+using CleanArchitecture.Infrastructure.Cache;
 using CleanArchitecture.Infrastructure.Data;
 using CleanArchitecture.Infrastructure.Data.Interceptors;
 using CleanArchitecture.Infrastructure.Identity;
@@ -40,6 +41,9 @@ public static class DependencyInjection
 #endif
 
         builder.Services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
+
+        builder.Services.AddMemoryCache();
+        builder.Services.AddSingleton<ICacheService, MemoryCacheService>();
 
         builder.Services.AddScoped<ApplicationDbContextInitialiser>();
 
