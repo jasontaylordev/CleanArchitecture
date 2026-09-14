@@ -18,11 +18,11 @@ public class TodoLists : IEndpointGroup
         groupBuilder.MapDelete(DeleteTodoList, "{id}");
     }
 
-    [EndpointSummary("Get all Todo Lists")]
-    [EndpointDescription("Retrieves all todo lists along with their items.")]
-    public static async Task<Ok<TodosVm>> GetTodoLists(ISender sender)
+    [EndpointSummary("Get paged Todo Lists")]
+    [EndpointDescription("Retrieves todo lists with optional filtering and pagination.")]
+    public static async Task<Ok<TodosVm>> GetTodoLists(ISender sender, [AsParameters] GetTodosQuery query)
     {
-        var vm = await sender.Send(new GetTodosQuery());
+        var vm = await sender.Send(query);
 
         return TypedResults.Ok(vm);
     }
