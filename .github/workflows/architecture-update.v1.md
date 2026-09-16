@@ -43,7 +43,7 @@ steps:
   - name: Set up Python
     uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
     with:
-      python-version: "3.12"
+      python-version: "3.13"
       cache: pip
       cache-dependency-path: requirements-architecture.txt
 
