@@ -1,7 +1,7 @@
 version: 1
 
 sources:
-  - repository: CleanArchitecture
+  - repository: EdgarAlvarez10/CleanArchitecture
     ref: main
     role: primary
     include:
