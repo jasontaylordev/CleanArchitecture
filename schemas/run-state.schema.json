@@ -1,0 +1,344 @@
+{
+  "$$schema": "http://json-schema.org/draft-07/schema#",
+  "$$id": "https://schemas.example.invalid/ai-sdlc/run-state.schema.json",
+  "title": "Jira-to-Plan Run State",
+  "description": "Minimal execution state for the thin orchestrator.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "version",
+    "workflow",
+    "subject",
+    "repositories",
+    "execution",
+    "steps",
+    "artifacts",
+    "publication",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "run-state"
+    },
+    "version": {
+      "const": "1.0"
+    },
+    "workflow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "path",
+        "version"
+      ],
+      "properties": {
+        "name": {
+          "const": "jira-to-plan"
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "id"
+      ],
+      "properties": {
+        "type": {
+          "const": "jira-issue"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9]+-[0-9]+$$"
+        }
+      }
+    },
+    "repositories": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "root",
+          "baseline_ref",
+          "commit"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "root": {
+            "type": "string",
+            "minLength": 1
+          },
+          "baseline_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "commit": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{40,64}$$"
+          }
+        }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "current_step"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "initialized",
+            "running",
+            "blocked",
+            "failed",
+            "completed",
+            "published"
+          ]
+        },
+        "current_step": {
+          "enum": [
+            "jira-prepare",
+            "architecture-select",
+            "plan",
+            "verify",
+            "complete",
+            "publish",
+            "stop"
+          ]
+        },
+        "failure_reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "blocked_reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "steps": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "jira-prepare",
+        "architecture-select",
+        "plan",
+        "verify"
+      ],
+      "properties": {
+        "jira-prepare": {
+          "$$ref": "#/definitions/step"
+        },
+        "architecture-select": {
+          "$$ref": "#/definitions/step"
+        },
+        "plan": {
+          "$$ref": "#/definitions/step"
+        },
+        "verify": {
+          "$$ref": "#/definitions/step"
+        }
+      }
+    },
+    "artifacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "work_packet",
+        "architecture_context",
+        "implementation_plan",
+        "verification_report"
+      ],
+      "properties": {
+        "work_packet": {
+          "$$ref": "#/definitions/artifactState"
+        },
+        "architecture_context": {
+          "$$ref": "#/definitions/artifactState"
+        },
+        "implementation_plan": {
+          "$$ref": "#/definitions/artifactState"
+        },
+        "verification_report": {
+          "$$ref": "#/definitions/artifactState"
+        }
+      }
+    },
+    "publication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "human_approval",
+        "actor",
+        "published_at",
+        "result"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "not-requested",
+            "pending-approval",
+            "approved",
+            "rejected",
+            "published",
+            "failed"
+          ]
+        },
+        "human_approval": {
+          "type": "boolean"
+        },
+        "actor": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "published_at": {
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "result": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "definitions": {
+    "step": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "model_requested",
+        "model_actual",
+        "started_at",
+        "completed_at",
+        "validation",
+        "message"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "pending",
+            "running",
+            "blocked",
+            "failed",
+            "completed",
+            "skipped"
+          ]
+        },
+        "model_requested": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model_actual": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "started_at": {
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "completed_at": {
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "validation": {
+          "enum": [
+            "pending",
+            "passed",
+            "failed",
+            "not-run"
+          ]
+        },
+        "message": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "artifactState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "status"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "pending",
+            "created",
+            "validated",
+            "invalid",
+            "not-created"
+          ]
+        }
+      }
+    }
+  }
+}

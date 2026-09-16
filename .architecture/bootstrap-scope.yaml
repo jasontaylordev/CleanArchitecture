@@ -1,0 +1,19 @@
+version: 1
+
+sources:
+  - repository: CleanArchitecture
+    ref: main
+    role: primary
+    include:
+      - README.md
+      - docs/**
+      - src/**
+      - CleanArchitecture.slnx
+      - global.json
+    exclude:
+      - tests/**
+      - templates/**
+      - .aspire
+      - .github
+      - .devcontainer
+      - .template.config

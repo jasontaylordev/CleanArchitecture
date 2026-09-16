@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/bootstrap-scope.schema.json",
+  "title": "Architecture bootstrap scope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "sources"],
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "repository",
+          "ref",
+          "role",
+          "include",
+          "exclude"
+        ],
+        "properties": {
+          "repository": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
+          },
+          "ref": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[^\\x00-\\x1f\\x7f]+$"
+          },
+          "role": {
+            "enum": ["primary", "supporting"]
+          },
+          "include": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "exclude": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      },
+      "contains": {
+        "type": "object",
+        "required": ["role"],
+        "properties": {
+          "role": {
+            "const": "primary"
+          }
+        }
+      },
+      "minContains": 1,
+      "maxContains": 1
+    }
+  }
+}

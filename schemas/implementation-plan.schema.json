@@ -1,0 +1,1692 @@
+{
+  "$$schema": "http://json-schema.org/draft-07/schema#",
+  "$$id": "https://schemas.example.invalid/ai-sdlc/implementation-plan.schema.json",
+  "title": "Implementation Plan",
+  "description": "Architecture-aware and traceable engineering implementation plan.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "version",
+    "plan",
+    "source",
+    "change",
+    "architecture_context",
+    "impact",
+    "approach",
+    "tasks",
+    "changes",
+    "validation",
+    "delivery",
+    "traceability",
+    "risks",
+    "assumptions",
+    "conflicts",
+    "open_questions",
+    "human_reviews"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "implementation-plan"
+    },
+    "version": {
+      "const": "1.0"
+    },
+    "plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "status",
+        "created_at",
+        "created_by"
+      ],
+      "properties": {
+        "id": {
+          "$$ref": "#/definitions/identifier"
+        },
+        "title": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "needs-clarification",
+            "ready-for-approval",
+            "approved",
+            "superseded"
+          ]
+        },
+        "created_at": {
+          "$$ref": "#/definitions/dateTime"
+        },
+        "created_by": {
+          "$$ref": "#/definitions/actor"
+        },
+        "summary": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "issue_key",
+        "work_packet",
+        "architecture_context",
+        "repository_baselines"
+      ],
+      "properties": {
+        "issue_key": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9]+-[0-9]+$$"
+        },
+        "work_packet": {
+          "$$ref": "#/definitions/path"
+        },
+        "architecture_context": {
+          "$$ref": "#/definitions/path"
+        },
+        "repository_baselines": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$$ref": "#/definitions/repositoryBaseline"
+          }
+        }
+      }
+    },
+    "change": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "category",
+        "objective",
+        "problem",
+        "desired_outcome",
+        "scope",
+        "non_goals",
+        "constraints",
+        "success_criteria_ids"
+      ],
+      "properties": {
+        "category": {
+          "enum": [
+            "feature",
+            "bug-fix",
+            "refactoring",
+            "investigation",
+            "maintenance",
+            "infrastructure",
+            "documentation",
+            "migration",
+            "security-remediation"
+          ]
+        },
+        "objective": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "problem": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "desired_outcome": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "scope": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$$ref": "#/definitions/nonEmpty"
+          }
+        },
+        "non_goals": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/nonEmpty"
+          }
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/nonEmpty"
+          }
+        },
+        "success_criteria_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$$ref": "#/definitions/identifier"
+          }
+        }
+      }
+    },
+    "architecture_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "selection_status",
+        "lifecycle_state",
+        "components",
+        "sections",
+        "decisions",
+        "constraints",
+        "exceptions",
+        "migration_context",
+        "unresolved_items"
+      ],
+      "properties": {
+        "selection_status": {
+          "enum": [
+            "selected",
+            "needs-human"
+          ]
+        },
+        "lifecycle_state": {
+          "enum": [
+            "baseline",
+            "transition",
+            "target",
+            "mixed",
+            "unknown"
+          ]
+        },
+        "components": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/component"
+          }
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/architectureSection"
+          }
+        },
+        "decisions": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/decision"
+          }
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/nonEmpty"
+          }
+        },
+        "exceptions": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/nonEmpty"
+          }
+        },
+        "migration_context": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "temporary_mechanisms",
+            "exit_criteria",
+            "blockers"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "not-applicable",
+                "not-planned",
+                "planned",
+                "in-progress",
+                "partially-migrated",
+                "completed",
+                "blocked",
+                "unknown"
+              ]
+            },
+            "temporary_mechanisms": {
+              "type": "array",
+              "items": {
+                "$$ref": "#/definitions/nonEmpty"
+              }
+            },
+            "exit_criteria": {
+              "type": "array",
+              "items": {
+                "$$ref": "#/definitions/nonEmpty"
+              }
+            },
+            "blockers": {
+              "type": "array",
+              "items": {
+                "$$ref": "#/definitions/nonEmpty"
+              }
+            }
+          }
+        },
+        "unresolved_items": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/nonEmpty"
+          }
+        }
+      }
+    },
+    "impact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "components",
+        "interfaces",
+        "data",
+        "security",
+        "privacy",
+        "auditability",
+        "performance",
+        "availability",
+        "operations",
+        "compatibility",
+        "dependencies"
+      ],
+      "properties": {
+        "components": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/impactItem"
+          }
+        },
+        "interfaces": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/impactItem"
+          }
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/impactItem"
+          }
+        },
+        "security": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/impactItem"
+          }
+        },
+        "privacy": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/impactItem"
+          }
+        },
+        "auditability": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/impactItem"
+          }
+        },
+        "performance": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/impactItem"
+          }
+        },
+        "availability": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/impactItem"
+          }
+        },
+        "operations": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/impactItem"
+          }
+        },
+        "compatibility": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/impactItem"
+          }
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/impactItem"
+          }
+        }
+      }
+    },
+    "approach": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "summary",
+        "rationale",
+        "compatibility_strategy",
+        "implementation_sequence"
+      ],
+      "properties": {
+        "summary": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "rationale": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "compatibility_strategy": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "implementation_sequence": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$$ref": "#/definitions/identifier"
+          }
+        }
+      }
+    },
+    "tasks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$$ref": "#/definitions/task"
+      }
+    },
+    "changes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "files",
+        "interfaces",
+        "data",
+        "configuration",
+        "dependencies"
+      ],
+      "properties": {
+        "files": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/fileChange"
+          }
+        },
+        "interfaces": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/interfaceChange"
+          }
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/dataChange"
+          }
+        },
+        "configuration": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/configurationChange"
+          }
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/dependencyChange"
+          }
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tests",
+        "commands",
+        "quality_gates",
+        "manual_checks"
+      ],
+      "properties": {
+        "tests": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$$ref": "#/definitions/test"
+          }
+        },
+        "commands": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/command"
+          }
+        },
+        "quality_gates": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/qualityGate"
+          }
+        },
+        "manual_checks": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/manualCheck"
+          }
+        }
+      }
+    },
+    "delivery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pull_request_strategy",
+        "pull_requests",
+        "deployment",
+        "rollout",
+        "rollback",
+        "observability",
+        "post_deployment_checks"
+      ],
+      "properties": {
+        "pull_request_strategy": {
+          "enum": [
+            "single-pr",
+            "stacked-prs",
+            "parallel-prs",
+            "multi-repository-sequence"
+          ]
+        },
+        "pull_requests": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$$ref": "#/definitions/pullRequest"
+          }
+        },
+        "deployment": {
+          "$$ref": "#/definitions/deliveryPlan"
+        },
+        "rollout": {
+          "$$ref": "#/definitions/deliveryPlan"
+        },
+        "rollback": {
+          "$$ref": "#/definitions/deliveryPlan"
+        },
+        "observability": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/observabilityItem"
+          }
+        },
+        "post_deployment_checks": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/manualCheck"
+          }
+        }
+      }
+    },
+    "traceability": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$$ref": "#/definitions/traceLink"
+      }
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "$$ref": "#/definitions/risk"
+      }
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "$$ref": "#/definitions/assumption"
+      }
+    },
+    "conflicts": {
+      "type": "array",
+      "items": {
+        "$$ref": "#/definitions/conflict"
+      }
+    },
+    "open_questions": {
+      "type": "array",
+      "items": {
+        "$$ref": "#/definitions/question"
+      }
+    },
+    "human_reviews": {
+      "type": "array",
+      "items": {
+        "$$ref": "#/definitions/humanReview"
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "plan": {
+            "properties": {
+              "status": {
+                "const": "ready-for-approval"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "open_questions": {
+            "not": {
+              "contains": {
+                "properties": {
+                  "blocking": {
+                    "const": true
+                  },
+                  "status": {
+                    "const": "open"
+                  }
+                },
+                "required": [
+                  "blocking",
+                  "status"
+                ]
+              }
+            }
+          },
+          "conflicts": {
+            "not": {
+              "contains": {
+                "properties": {
+                  "blocking": {
+                    "const": true
+                  },
+                  "status": {
+                    "const": "open"
+                  }
+                },
+                "required": [
+                  "blocking",
+                  "status"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "architecture_context": {
+            "properties": {
+              "selection_status": {
+                "const": "needs-human"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "plan": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "draft",
+                  "needs-clarification"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "definitions": {
+    "nonEmpty": {
+      "type": "string",
+      "minLength": 1
+    },
+    "identifier": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$$"
+    },
+    "path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "dateTime": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "human",
+            "ai",
+            "service"
+          ]
+        },
+        "name": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "tool": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "model": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "repositoryBaseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "root",
+        "commit"
+      ],
+      "properties": {
+        "name": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "root": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "commit": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{40,64}$$"
+        }
+      }
+    },
+    "component": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "repository",
+        "lifecycle_state",
+        "role"
+      ],
+      "properties": {
+        "id": {
+          "$$ref": "#/definitions/identifier"
+        },
+        "name": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "repository": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "lifecycle_state": {
+          "enum": [
+            "baseline",
+            "transition",
+            "target",
+            "shared",
+            "unknown"
+          ]
+        },
+        "role": {
+          "enum": [
+            "create",
+            "modify",
+            "consume",
+            "deprecate",
+            "remove",
+            "context-only"
+          ]
+        }
+      }
+    },
+    "architectureSection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "document",
+        "section_id",
+        "lifecycle_state",
+        "reason"
+      ],
+      "properties": {
+        "document": {
+          "$$ref": "#/definitions/path"
+        },
+        "section_id": {
+          "$$ref": "#/definitions/identifier"
+        },
+        "lifecycle_state": {
+          "enum": [
+            "baseline",
+            "transition",
+            "target",
+            "shared"
+          ]
+        },
+        "reason": {
+          "$$ref": "#/definitions/nonEmpty"
+        }
+      }
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "status",
+        "applicability"
+      ],
+      "properties": {
+        "id": {
+          "$$ref": "#/definitions/identifier"
+        },
+        "title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "enum": [
+            "proposed",
+            "accepted",
+            "obsolete",
+            "superseded",
+            "rejected",
+            "unknown"
+          ]
+        },
+        "applicability": {
+          "enum": [
+            "applies",
+            "does-not-apply",
+            "requires-review"
+          ]
+        },
+        "reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "impactItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "level",
+        "description",
+        "mitigation"
+      ],
+      "properties": {
+        "id": {
+          "$$ref": "#/definitions/identifier"
+        },
+        "level": {
+          "enum": [
+            "none",
+            "low",
+            "medium",
+            "high",
+            "unknown"
+          ]
+        },
+        "description": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "mitigation": {
+          "$$ref": "#/definitions/nonEmpty"
+        }
+      }
+    },
+    "task": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "objective",
+        "repository",
+        "component_ids",
+        "depends_on",
+        "steps",
+        "file_change_ids",
+        "acceptance_criteria_ids",
+        "validation_ids",
+        "definition_of_done",
+        "human_review_required"
+      ],
+      "properties": {
+        "id": {
+          "$$ref": "#/definitions/identifier"
+        },
+        "title": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "objective": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "repository": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "component_ids": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/identifier"
+          }
+        },
+        "depends_on": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$$ref": "#/definitions/identifier"
+          }
+        },
+        "steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$$ref": "#/definitions/nonEmpty"
+          }
+        },
+        "file_change_ids": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/identifier"
+          }
+        },
+        "acceptance_criteria_ids": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/identifier"
+          }
+        },
+        "validation_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$$ref": "#/definitions/identifier"
+          }
+        },
+        "definition_of_done": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$$ref": "#/definitions/nonEmpty"
+          }
+        },
+        "human_review_required": {
+          "type": "boolean"
+        }
+      }
+    },
+    "fileChange": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "repository",
+        "path",
+        "action",
+        "purpose",
+        "evidence"
+      ],
+      "properties": {
+        "id": {
+          "$$ref": "#/definitions/identifier"
+        },
+        "repository": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "path": {
+          "$$ref": "#/definitions/path"
+        },
+        "action": {
+          "enum": [
+            "create",
+            "modify",
+            "move",
+            "rename",
+            "delete",
+            "generate",
+            "unknown"
+          ]
+        },
+        "purpose": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "symbols": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/nonEmpty"
+          }
+        },
+        "evidence": {
+          "$$ref": "#/definitions/nonEmpty"
+        }
+      }
+    },
+    "interfaceChange": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "kind",
+        "change_type",
+        "compatibility",
+        "description"
+      ],
+      "properties": {
+        "id": {
+          "$$ref": "#/definitions/identifier"
+        },
+        "name": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "kind": {
+          "enum": [
+            "http-api",
+            "event",
+            "message",
+            "file",
+            "database-contract",
+            "library-api",
+            "user-interface",
+            "other"
+          ]
+        },
+        "change_type": {
+          "enum": [
+            "none",
+            "additive",
+            "breaking",
+            "deprecation",
+            "removal",
+            "behavioral"
+          ]
+        },
+        "compatibility": {
+          "enum": [
+            "backward-compatible",
+            "forward-compatible",
+            "both",
+            "breaking",
+            "not-applicable",
+            "unknown"
+          ]
+        },
+        "description": {
+          "$$ref": "#/definitions/nonEmpty"
+        }
+      }
+    },
+    "dataChange": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "store",
+        "change_type",
+        "description",
+        "migration_required",
+        "rollback_strategy"
+      ],
+      "properties": {
+        "id": {
+          "$$ref": "#/definitions/identifier"
+        },
+        "store": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "change_type": {
+          "enum": [
+            "none",
+            "schema",
+            "data-migration",
+            "backfill",
+            "retention",
+            "index",
+            "seed",
+            "ownership",
+            "other"
+          ]
+        },
+        "description": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "migration_required": {
+          "type": "boolean"
+        },
+        "rollback_strategy": {
+          "$$ref": "#/definitions/nonEmpty"
+        }
+      }
+    },
+    "configurationChange": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "scope",
+        "name",
+        "change_type",
+        "sensitive",
+        "description"
+      ],
+      "properties": {
+        "id": {
+          "$$ref": "#/definitions/identifier"
+        },
+        "scope": {
+          "enum": [
+            "application",
+            "environment",
+            "infrastructure",
+            "pipeline",
+            "secret-reference",
+            "policy"
+          ]
+        },
+        "name": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "change_type": {
+          "enum": [
+            "add",
+            "modify",
+            "remove",
+            "rotate"
+          ]
+        },
+        "sensitive": {
+          "type": "boolean"
+        },
+        "description": {
+          "$$ref": "#/definitions/nonEmpty"
+        }
+      }
+    },
+    "dependencyChange": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "change_type",
+        "description"
+      ],
+      "properties": {
+        "id": {
+          "$$ref": "#/definitions/identifier"
+        },
+        "name": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "change_type": {
+          "enum": [
+            "add",
+            "upgrade",
+            "downgrade",
+            "remove",
+            "reconfigure",
+            "coordinate"
+          ]
+        },
+        "description": {
+          "$$ref": "#/definitions/nonEmpty"
+        }
+      }
+    },
+    "test": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "level",
+        "title",
+        "objective",
+        "acceptance_criteria_ids",
+        "procedure",
+        "expected_result",
+        "automation"
+      ],
+      "properties": {
+        "id": {
+          "$$ref": "#/definitions/identifier"
+        },
+        "level": {
+          "enum": [
+            "unit",
+            "component",
+            "integration",
+            "contract",
+            "architecture",
+            "security",
+            "performance",
+            "end-to-end",
+            "smoke",
+            "regression",
+            "manual"
+          ]
+        },
+        "title": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "objective": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "acceptance_criteria_ids": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/identifier"
+          }
+        },
+        "procedure": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$$ref": "#/definitions/nonEmpty"
+          }
+        },
+        "expected_result": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "automation": {
+          "enum": [
+            "automated",
+            "manual",
+            "partially-automated",
+            "planned"
+          ]
+        }
+      }
+    },
+    "command": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "purpose",
+        "working_directory",
+        "command",
+        "expected_exit_code"
+      ],
+      "properties": {
+        "id": {
+          "$$ref": "#/definitions/identifier"
+        },
+        "purpose": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "working_directory": {
+          "$$ref": "#/definitions/path"
+        },
+        "command": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "expected_exit_code": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 255
+        }
+      }
+    },
+    "qualityGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "condition",
+        "blocking"
+      ],
+      "properties": {
+        "id": {
+          "$$ref": "#/definitions/identifier"
+        },
+        "name": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "condition": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "blocking": {
+          "type": "boolean"
+        }
+      }
+    },
+    "manualCheck": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "description",
+        "owner_role",
+        "expected_result",
+        "blocking"
+      ],
+      "properties": {
+        "id": {
+          "$$ref": "#/definitions/identifier"
+        },
+        "description": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "owner_role": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "expected_result": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "blocking": {
+          "type": "boolean"
+        }
+      }
+    },
+    "pullRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "repository",
+        "title",
+        "purpose",
+        "task_ids",
+        "depends_on",
+        "merge_conditions"
+      ],
+      "properties": {
+        "id": {
+          "$$ref": "#/definitions/identifier"
+        },
+        "repository": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "title": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "purpose": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "task_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$$ref": "#/definitions/identifier"
+          }
+        },
+        "depends_on": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/identifier"
+          }
+        },
+        "merge_conditions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$$ref": "#/definitions/nonEmpty"
+          }
+        }
+      }
+    },
+    "deliveryPlan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "applicability",
+        "strategy",
+        "steps",
+        "conditions"
+      ],
+      "properties": {
+        "applicability": {
+          "enum": [
+            "applicable",
+            "not-applicable",
+            "unknown"
+          ]
+        },
+        "strategy": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/nonEmpty"
+          }
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$$ref": "#/definitions/nonEmpty"
+          }
+        }
+      }
+    },
+    "observabilityItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "name",
+        "purpose",
+        "success_condition"
+      ],
+      "properties": {
+        "id": {
+          "$$ref": "#/definitions/identifier"
+        },
+        "type": {
+          "enum": [
+            "log",
+            "metric",
+            "trace",
+            "dashboard",
+            "alert",
+            "audit-event",
+            "health-check"
+          ]
+        },
+        "name": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "purpose": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "success_condition": {
+          "$$ref": "#/definitions/nonEmpty"
+        }
+      }
+    },
+    "traceLink": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "from_type",
+        "from_id",
+        "relationship",
+        "to_type",
+        "to_ids"
+      ],
+      "properties": {
+        "from_type": {
+          "enum": [
+            "acceptance-criterion",
+            "architecture-section",
+            "decision",
+            "constraint",
+            "task",
+            "test",
+            "risk",
+            "pull-request"
+          ]
+        },
+        "from_id": {
+          "$$ref": "#/definitions/identifier"
+        },
+        "relationship": {
+          "enum": [
+            "implements",
+            "verifies",
+            "constrains",
+            "motivates",
+            "affects",
+            "mitigates",
+            "delivers",
+            "depends-on"
+          ]
+        },
+        "to_type": {
+          "enum": [
+            "acceptance-criterion",
+            "architecture-section",
+            "decision",
+            "constraint",
+            "task",
+            "test",
+            "risk",
+            "pull-request"
+          ]
+        },
+        "to_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$$ref": "#/definitions/identifier"
+          }
+        }
+      }
+    },
+    "risk": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "description",
+        "rating",
+        "mitigation",
+        "owner",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "$$ref": "#/definitions/identifier"
+        },
+        "description": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "rating": {
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical",
+            "unknown"
+          ]
+        },
+        "mitigation": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "owner": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "status": {
+          "enum": [
+            "open",
+            "mitigated",
+            "accepted",
+            "closed"
+          ]
+        }
+      }
+    },
+    "assumption": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "statement",
+        "impact_if_false",
+        "validation",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "$$ref": "#/definitions/identifier"
+        },
+        "statement": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "impact_if_false": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "validation": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "status": {
+          "enum": [
+            "unverified",
+            "validated",
+            "invalidated"
+          ]
+        }
+      }
+    },
+    "conflict": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "description",
+        "impact",
+        "blocking",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "$$ref": "#/definitions/identifier"
+        },
+        "description": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "impact": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "blocking": {
+          "type": "boolean"
+        },
+        "status": {
+          "enum": [
+            "open",
+            "resolved",
+            "accepted"
+          ]
+        }
+      }
+    },
+    "question": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "question",
+        "reason",
+        "blocking",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "$$ref": "#/definitions/identifier"
+        },
+        "question": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "reason": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "owner": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "blocking": {
+          "type": "boolean"
+        },
+        "status": {
+          "enum": [
+            "open",
+            "answered",
+            "deferred",
+            "cancelled"
+          ]
+        },
+        "answer": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "humanReview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "role",
+        "required",
+        "reason",
+        "decision"
+      ],
+      "properties": {
+        "role": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "reason": {
+          "$$ref": "#/definitions/nonEmpty"
+        },
+        "decision": {
+          "enum": [
+            "pending",
+            "approved",
+            "rejected",
+            "changes-requested",
+            "not-required"
+          ]
+        },
+        "approver": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "decided_at": {
+          "oneOf": [
+            {
+              "$$ref": "#/definitions/dateTime"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

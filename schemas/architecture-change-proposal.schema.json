@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Architecture change proposal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "reference",
+    "outcome",
+    "reason",
+    "evidence_commits",
+    "proposed_changes",
+    "human_questions"
+  ],
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "reference": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+#[0-9]+$"
+    },
+    "outcome": {
+      "enum": [
+        "no_documentation_change",
+        "human_architecture_input_required",
+        "insufficient_evidence",
+        "architecture_update_proposed"
+      ]
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence_commits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["repository", "commit"],
+        "properties": {
+          "repository": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
+          },
+          "commit": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{40}$"
+          }
+        }
+      }
+    },
+    "proposed_changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "architecture_id",
+          "operation",
+          "rationale",
+          "evidence"
+        ],
+        "properties": {
+          "architecture_id": {
+            "type": "string",
+            "pattern": "^ARC-(DRV|CTX|CMP|INT|DATA|SEC|DEP|OPS|BASE|TRANS|TARGET|DEC|CON|UNK)-[0-9]{3,}$"
+          },
+          "operation": {
+            "enum": ["add", "update", "remove"]
+          },
+          "rationale": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "human_questions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}
