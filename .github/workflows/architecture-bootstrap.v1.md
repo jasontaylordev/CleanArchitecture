@@ -15,7 +15,7 @@ concurrency:
 
 engine:
   id: copilot
-  model: gpt-5-mini
+  model: gpt-5.4-mini
 
 safe-outputs:
   create-pull-request:
