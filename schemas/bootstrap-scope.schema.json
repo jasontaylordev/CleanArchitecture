@@ -2,9 +2,13 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://example.invalid/schemas/bootstrap-scope.schema.json",
   "title": "Architecture bootstrap scope",
+  "description": "Declares local and cross-repository sources from which architecture evidence may be collected.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["version", "sources"],
+  "required": [
+    "version",
+    "sources"
+  ],
   "properties": {
     "version": {
       "const": 1
@@ -12,51 +16,12 @@
     "sources": {
       "type": "array",
       "minItems": 1,
-      "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "repository",
-          "ref",
-          "role",
-          "include",
-          "exclude"
-        ],
-        "properties": {
-          "repository": {
-            "type": "string",
-            "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
-          },
-          "ref": {
-            "type": "string",
-            "minLength": 1,
-            "pattern": "^[^\\x00-\\x1f\\x7f]+$"
-          },
-          "role": {
-            "enum": ["primary", "supporting"]
-          },
-          "include": {
-            "type": "array",
-            "minItems": 1,
-            "uniqueItems": true,
-            "items": {
-              "type": "string",
-              "minLength": 1
-            }
-          },
-          "exclude": {
-            "type": "array",
-            "uniqueItems": true,
-            "items": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        }
-      },
+      "uniqueItems": true,
       "contains": {
         "type": "object",
-        "required": ["role"],
+        "required": [
+          "role"
+        ],
         "properties": {
           "role": {
             "const": "primary"
@@ -64,7 +29,66 @@
         }
       },
       "minContains": 1,
-      "maxContains": 1
+      "maxContains": 1,
+      "items": {
+        "$ref": "#/$defs/source"
+      }
+    }
+  },
+  "$defs": {
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "access",
+        "ref",
+        "role",
+        "include",
+        "exclude"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
+        },
+        "access": {
+          "type": "string",
+          "enum": [
+            "local",
+            "github_app"
+          ]
+        },
+        "ref": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "primary",
+            "supporting"
+          ]
+        },
+        "include": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "exclude": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
     }
   }
 }

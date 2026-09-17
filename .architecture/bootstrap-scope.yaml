@@ -4,16 +4,23 @@ sources:
   - repository: EdgarAlvarez10/CleanArchitecture
     ref: main
     role: primary
+    access: local
     include:
-      - README.md
-      - docs/**
-      - src/**
-      - CleanArchitecture.slnx
-      - global.json
+      - "**/*.sln"
+      - "**/*.slnx"
+      - "**/*.cs"
+      - "**/*.csproj"
+      - "**/*.props"
+      - "**/*.targets"
+      - "README.md"
+      - "docs/**"
+      - "src/**"
+      - "CleanArchitecture.slnx"
+      - "global.json"
     exclude:
-      - tests/**
-      - templates/**
-      - .aspire
-      - .github
-      - .devcontainer
-      - .template.config
+      - "tests/**"
+      - "templates/**"
+      - ".aspire"
+      - ".github"
+      - ".devcontainer"
+      - ".template.config"
