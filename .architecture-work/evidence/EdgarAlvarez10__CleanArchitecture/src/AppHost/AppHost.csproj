@@ -1,0 +1,29 @@
+﻿<Project Sdk="Aspire.AppHost.Sdk/13.5.3">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>CleanArchitecture.AppHost</RootNamespace>
+    <AssemblyName>CleanArchitecture.AppHost</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" />
+    <PackageReference Include="Aspire.Hosting.Azure.AppContainers" />
+    <PackageReference Include="Aspire.Hosting.JavaScript" />
+    <!--#if (UsePostgreSQL)-->
+    <PackageReference Include="Aspire.Hosting.Azure.PostgreSQL" />
+    <!--#endif-->
+    <!--#if (UseSqlServer)-->
+    <PackageReference Include="Aspire.Hosting.Azure.Sql" />
+    <!--#endif-->
+    <!--#if (UseSqlite)-->
+    <PackageReference Include="CommunityToolkit.Aspire.Hosting.SQLite" />
+    <!--#endif-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\Shared.csproj" IsAspireProjectResource="false" />
+    <ProjectReference Include="..\Web\Web.csproj" />
+  </ItemGroup>
+
+</Project>

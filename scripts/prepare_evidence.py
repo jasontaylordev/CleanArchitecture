@@ -1091,10 +1091,19 @@ def collect_from_checkout(
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes(redact(content))
 
+        # `path` is the original path in the source repository.
+        # `evidence_path` is the materialized path relative to the
+        # directory containing manifest.json.
+        evidence_path = target.relative_to(
+            output_root.resolve()
+        ).as_posix()
+
         total_bytes += size
         included.append(
             {
                 "path": normalized_path,
+                "source_path": normalized_path,
+                "evidence_path": evidence_path,
                 "bytes": size,
             }
         )
@@ -1292,6 +1301,7 @@ def bootstrap(
             "version": 1,
             "mode": "bootstrap",
             "generated_at": utc_now(),
+            "evidence_path_base": "manifest_directory",
             "sources": source_results,
         },
     )
@@ -1462,6 +1472,7 @@ def update(
                 "mode": "update",
                 "reference": reference,
                 "generated_at": utc_now(),
+                "evidence_path_base": "manifest_directory",
                 "sources": source_results,
                 "metadata_files": metadata_files,
             },
@@ -1538,6 +1549,7 @@ def verify(
                 "mode": "verify",
                 "evidence_available": True,
                 "generated_at": utc_now(),
+                "evidence_path_base": "manifest_directory",
                 "sources": source_results,
             },
         )
@@ -1554,6 +1566,7 @@ def verify(
                 "mode": "verify",
                 "evidence_available": False,
                 "reason": str(error),
+                "evidence_path_base": "manifest_directory",
                 "sources": [],
             },
         )

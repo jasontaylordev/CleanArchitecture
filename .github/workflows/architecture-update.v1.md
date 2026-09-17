@@ -17,7 +17,9 @@ permissions:
 concurrency:
   job-discriminator: ${{ github.run_id }}
 
-engine: copilot
+engine:
+  id: copilot
+  model: gpt-5.4-mini
 
 safe-outputs:
   create-pull-request:
@@ -159,10 +161,32 @@ starts.
 
 Read:
 
-- the existing `docs/architecture/architecture.md`;
-- the existing `docs/architecture/architecture-map.md`;
+- the existing `docs/architecture/architecture.md`, if it exists;
+- the existing `docs/architecture/architecture-map.md`, if it exists;
 - `.architecture-work/change-evidence/manifest.json`;
-- only evidence files listed by that manifest.
+- only materialized evidence files identified by `evidence_path` in that
+  manifest.
+
+Resolve every `evidence_path` relative to:
+
+```text
+.architecture-work/change-evidence/
+```
+
+For example:
+```text
+base/EdgarAlvarez10__CleanArchitecture/src/Web/Program.cs
+
+resolves to:
+.architecture-work/change-evidence/base/EdgarAlvarez10__CleanArchitecture/src/Web/Program.cs
+```
+
+The manifest fields path and source_path identify the file's original path
+in the source repository. They are provenance metadata, not workspace paths.
+Do not try to read them directly from the workspace.
+
+If a file entry has no evidence_path, report an evidence-manifest error
+instead of guessing a path.
 
 Produce `.architecture-work/change-proposal.json` conforming to
 `schemas/architecture-change-proposal.schema.json`.

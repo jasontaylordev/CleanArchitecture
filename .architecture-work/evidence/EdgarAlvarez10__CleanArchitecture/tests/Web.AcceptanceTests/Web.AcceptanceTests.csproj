@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <RootNamespace>CleanArchitecture.Web.AcceptanceTests</RootNamespace>
+        <AssemblyName>CleanArchitecture.Web.AcceptanceTests</AssemblyName>
+        <ReqnrollUseIntermediateOutputPathForCodeBehind>true</ReqnrollUseIntermediateOutputPathForCodeBehind>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Aspire.Hosting.Testing" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" />
+        <PackageReference Include="Microsoft.Playwright" />
+        <PackageReference Include="Reqnroll.NUnit" />
+        <PackageReference Include="Shouldly" />
+        <PackageReference Include="nunit" />
+        <PackageReference Include="NUnit3TestAdapter" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="Aspire.Hosting.ApplicationModel" />
+        <Using Include="Aspire.Hosting.Testing" />
+        <Using Include="Microsoft.Extensions.DependencyInjection" />
+        <Using Include="Microsoft.Extensions.Logging" />
+        <Using Include="NUnit.Framework" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\AppHost\AppHost.csproj" />
+        <ProjectReference Include="..\..\src\Shared\Shared.csproj" />
+    </ItemGroup>
+
+</Project>

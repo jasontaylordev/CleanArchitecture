@@ -20,3 +20,53 @@ For each substantive claim, ask:
 
 Separate blocking findings from non-blocking questions. Report unavailable
 evidence. Never approve or merge the pull request.
+
+## Evidence-path contract
+
+The evidence manifest distinguishes between source provenance and materialized
+workspace paths.
+
+For each file entry:
+
+- `path` is the original source-repository path;
+- `source_path` is an explicit alias for the original source-repository path;
+- `evidence_path` is the path of the filtered materialized copy, relative to
+  the directory containing `manifest.json`.
+
+Only `evidence_path` may be used to open source evidence.
+
+For example, given:
+
+```json
+{
+  "repository": "EdgarAlvarez10/CleanArchitecture",
+  "files": [
+    {
+      "source_path": "src/Web/Program.cs",
+      "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Web/Program.cs"
+    }
+  ]
+}
+```
+
+and a manifest at:
+
+```text
+.architecture-work/evidence/manifest.json
+```
+
+read:
+
+```text
+.architecture-work/evidence/EdgarAlvarez10__CleanArchitecture/src/Web/Program.cs
+```
+
+Do not read:
+
+```text
+.src/Web/Program.cs
+```
+
+- If evidence_path is missing or does not resolve to an existing file, record
+an evidence-collection problem. 
+- Do not search for or guess an alternative unfiltered source path.

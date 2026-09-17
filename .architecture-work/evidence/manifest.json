@@ -1,0 +1,876 @@
+{
+  "version": 1,
+  "mode": "bootstrap",
+  "generated_at": "2026-09-17T22:35:42Z",
+  "evidence_path_base": "manifest_directory",
+  "sources": [
+    {
+      "repository": "EdgarAlvarez10/CleanArchitecture",
+      "access": "local",
+      "configured_ref": "main",
+      "role": "primary",
+      "commit": "a6285b9e1b81cdb0d7dbf60a2001be39841b9a5b",
+      "namespace": null,
+      "files": [
+        {
+          "path": ".devcontainer/README.md",
+          "source_path": ".devcontainer/README.md",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/.devcontainer/README.md",
+          "bytes": 806
+        },
+        {
+          "path": "CleanArchitecture.slnx",
+          "source_path": "CleanArchitecture.slnx",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/CleanArchitecture.slnx",
+          "bytes": 1281
+        },
+        {
+          "path": "Directory.Build.props",
+          "source_path": "Directory.Build.props",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/Directory.Build.props",
+          "bytes": 602
+        },
+        {
+          "path": "Directory.Packages.props",
+          "source_path": "Directory.Packages.props",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/Directory.Packages.props",
+          "bytes": 4378
+        },
+        {
+          "path": "README.md",
+          "source_path": "README.md",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/README.md",
+          "bytes": 5092
+        },
+        {
+          "path": "docs/decisions/README.md",
+          "source_path": "docs/decisions/README.md",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/docs/decisions/README.md",
+          "bytes": 782
+        },
+        {
+          "path": "global.json",
+          "source_path": "global.json",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/global.json",
+          "bytes": 85
+        },
+        {
+          "path": "src/AppHost/AppHost.csproj",
+          "source_path": "src/AppHost/AppHost.csproj",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/AppHost/AppHost.csproj",
+          "bytes": 984
+        },
+        {
+          "path": "src/AppHost/Extensions.cs",
+          "source_path": "src/AppHost/Extensions.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/AppHost/Extensions.cs",
+          "bytes": 480
+        },
+        {
+          "path": "src/AppHost/Program.cs",
+          "source_path": "src/AppHost/Program.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/AppHost/Program.cs",
+          "bytes": 1379
+        },
+        {
+          "path": "src/Application/Application.csproj",
+          "source_path": "src/Application/Application.csproj",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/Application.csproj",
+          "bytes": 841
+        },
+        {
+          "path": "src/Application/Common/Behaviours/AuthorizationBehaviour.cs",
+          "source_path": "src/Application/Common/Behaviours/AuthorizationBehaviour.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/Common/Behaviours/AuthorizationBehaviour.cs",
+          "bytes": 2770
+        },
+        {
+          "path": "src/Application/Common/Behaviours/LoggingBehaviour.cs",
+          "source_path": "src/Application/Common/Behaviours/LoggingBehaviour.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/Common/Behaviours/LoggingBehaviour.cs",
+          "bytes": 1144
+        },
+        {
+          "path": "src/Application/Common/Behaviours/PerformanceBehaviour.cs",
+          "source_path": "src/Application/Common/Behaviours/PerformanceBehaviour.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/Common/Behaviours/PerformanceBehaviour.cs",
+          "bytes": 1666
+        },
+        {
+          "path": "src/Application/Common/Behaviours/UnhandledExceptionBehaviour.cs",
+          "source_path": "src/Application/Common/Behaviours/UnhandledExceptionBehaviour.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/Common/Behaviours/UnhandledExceptionBehaviour.cs",
+          "bytes": 860
+        },
+        {
+          "path": "src/Application/Common/Behaviours/ValidationBehaviour.cs",
+          "source_path": "src/Application/Common/Behaviours/ValidationBehaviour.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/Common/Behaviours/ValidationBehaviour.cs",
+          "bytes": 1161
+        },
+        {
+          "path": "src/Application/Common/Exceptions/ForbiddenAccessException.cs",
+          "source_path": "src/Application/Common/Exceptions/ForbiddenAccessException.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/Common/Exceptions/ForbiddenAccessException.cs",
+          "bytes": 168
+        },
+        {
+          "path": "src/Application/Common/Exceptions/ValidationException.cs",
+          "source_path": "src/Application/Common/Exceptions/ValidationException.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/Common/Exceptions/ValidationException.cs",
+          "bytes": 658
+        },
+        {
+          "path": "src/Application/Common/Interfaces/IApplicationDbContext.cs",
+          "source_path": "src/Application/Common/Interfaces/IApplicationDbContext.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/Common/Interfaces/IApplicationDbContext.cs",
+          "bytes": 297
+        },
+        {
+          "path": "src/Application/Common/Interfaces/IIdentityService.cs",
+          "source_path": "src/Application/Common/Interfaces/IIdentityService.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/Common/Interfaces/IIdentityService.cs",
+          "bytes": 472
+        },
+        {
+          "path": "src/Application/Common/Interfaces/IUser.cs",
+          "source_path": "src/Application/Common/Interfaces/IUser.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/Common/Interfaces/IUser.cs",
+          "bytes": 148
+        },
+        {
+          "path": "src/Application/Common/Models/LookupDto.cs",
+          "source_path": "src/Application/Common/Models/LookupDto.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/Common/Models/LookupDto.cs",
+          "bytes": 388
+        },
+        {
+          "path": "src/Application/Common/Models/Result.cs",
+          "source_path": "src/Application/Common/Models/Result.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/Common/Models/Result.cs",
+          "bytes": 530
+        },
+        {
+          "path": "src/Application/Common/Security/AuthorizeAttribute.cs",
+          "source_path": "src/Application/Common/Security/AuthorizeAttribute.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/Common/Security/AuthorizeAttribute.cs",
+          "bytes": 808
+        },
+        {
+          "path": "src/Application/DependencyInjection.cs",
+          "source_path": "src/Application/DependencyInjection.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/DependencyInjection.cs",
+          "bytes": 986
+        },
+        {
+          "path": "src/Application/GlobalUsings.cs",
+          "source_path": "src/Application/GlobalUsings.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/GlobalUsings.cs",
+          "bytes": 204
+        },
+        {
+          "path": "src/Application/TodoItems/Commands/CreateTodoItem/CreateTodoItem.cs",
+          "source_path": "src/Application/TodoItems/Commands/CreateTodoItem/CreateTodoItem.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/TodoItems/Commands/CreateTodoItem/CreateTodoItem.cs",
+          "bytes": 964
+        },
+        {
+          "path": "src/Application/TodoItems/Commands/CreateTodoItem/CreateTodoItemCommandValidator.cs",
+          "source_path": "src/Application/TodoItems/Commands/CreateTodoItem/CreateTodoItemCommandValidator.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/TodoItems/Commands/CreateTodoItem/CreateTodoItemCommandValidator.cs",
+          "bytes": 313
+        },
+        {
+          "path": "src/Application/TodoItems/Commands/DeleteTodoItem/DeleteTodoItem.cs",
+          "source_path": "src/Application/TodoItems/Commands/DeleteTodoItem/DeleteTodoItem.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/TodoItems/Commands/DeleteTodoItem/DeleteTodoItem.cs",
+          "bytes": 816
+        },
+        {
+          "path": "src/Application/TodoItems/Commands/UpdateTodoItem/UpdateTodoItem.cs",
+          "source_path": "src/Application/TodoItems/Commands/UpdateTodoItem/UpdateTodoItem.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/TodoItems/Commands/UpdateTodoItem/UpdateTodoItem.cs",
+          "bytes": 952
+        },
+        {
+          "path": "src/Application/TodoItems/Commands/UpdateTodoItem/UpdateTodoItemCommandValidator.cs",
+          "source_path": "src/Application/TodoItems/Commands/UpdateTodoItem/UpdateTodoItemCommandValidator.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/TodoItems/Commands/UpdateTodoItem/UpdateTodoItemCommandValidator.cs",
+          "bytes": 313
+        },
+        {
+          "path": "src/Application/TodoItems/Commands/UpdateTodoItemDetail/UpdateTodoItemDetail.cs",
+          "source_path": "src/Application/TodoItems/Commands/UpdateTodoItemDetail/UpdateTodoItemDetail.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/TodoItems/Commands/UpdateTodoItemDetail/UpdateTodoItemDetail.cs",
+          "bytes": 1122
+        },
+        {
+          "path": "src/Application/TodoItems/EventHandlers/LogTodoItemCompleted.cs",
+          "source_path": "src/Application/TodoItems/EventHandlers/LogTodoItemCompleted.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/TodoItems/EventHandlers/LogTodoItemCompleted.cs",
+          "bytes": 655
+        },
+        {
+          "path": "src/Application/TodoLists/Commands/CreateTodoList/CreateTodoList.cs",
+          "source_path": "src/Application/TodoLists/Commands/CreateTodoList/CreateTodoList.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/TodoLists/Commands/CreateTodoList/CreateTodoList.cs",
+          "bytes": 1015
+        },
+        {
+          "path": "src/Application/TodoLists/Commands/CreateTodoList/CreateTodoListCommandValidator.cs",
+          "source_path": "src/Application/TodoLists/Commands/CreateTodoList/CreateTodoListCommandValidator.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/TodoLists/Commands/CreateTodoList/CreateTodoListCommandValidator.cs",
+          "bytes": 837
+        },
+        {
+          "path": "src/Application/TodoLists/Commands/DeleteTodoList/DeleteTodoList.cs",
+          "source_path": "src/Application/TodoLists/Commands/DeleteTodoList/DeleteTodoList.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/TodoLists/Commands/DeleteTodoList/DeleteTodoList.cs",
+          "bytes": 856
+        },
+        {
+          "path": "src/Application/TodoLists/Commands/UpdateTodoList/UpdateTodoList.cs",
+          "source_path": "src/Application/TodoLists/Commands/UpdateTodoList/UpdateTodoList.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/TodoLists/Commands/UpdateTodoList/UpdateTodoList.cs",
+          "bytes": 1081
+        },
+        {
+          "path": "src/Application/TodoLists/Commands/UpdateTodoList/UpdateTodoListCommandValidator.cs",
+          "source_path": "src/Application/TodoLists/Commands/UpdateTodoList/UpdateTodoListCommandValidator.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/TodoLists/Commands/UpdateTodoList/UpdateTodoListCommandValidator.cs",
+          "bytes": 908
+        },
+        {
+          "path": "src/Application/TodoLists/Queries/GetTodos/GetTodos.cs",
+          "source_path": "src/Application/TodoLists/Queries/GetTodos/GetTodos.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/TodoLists/Queries/GetTodos/GetTodos.cs",
+          "bytes": 1938
+        },
+        {
+          "path": "src/Application/TodoLists/Queries/GetTodos/TodoItemDto.cs",
+          "source_path": "src/Application/TodoLists/Queries/GetTodos/TodoItemDto.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/TodoLists/Queries/GetTodos/TodoItemDto.cs",
+          "bytes": 600
+        },
+        {
+          "path": "src/Application/TodoLists/Queries/GetTodos/TodoListDto.cs",
+          "source_path": "src/Application/TodoLists/Queries/GetTodos/TodoListDto.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/TodoLists/Queries/GetTodos/TodoListDto.cs",
+          "bytes": 525
+        },
+        {
+          "path": "src/Application/TodoLists/Queries/GetTodos/TodosVm.cs",
+          "source_path": "src/Application/TodoLists/Queries/GetTodos/TodosVm.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/TodoLists/Queries/GetTodos/TodosVm.cs",
+          "bytes": 508
+        },
+        {
+          "path": "src/Application/WeatherForecasts/Queries/GetWeatherForecasts/GetWeatherForecastsQuery.cs",
+          "source_path": "src/Application/WeatherForecasts/Queries/GetWeatherForecasts/GetWeatherForecastsQuery.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/WeatherForecasts/Queries/GetWeatherForecasts/GetWeatherForecastsQuery.cs",
+          "bytes": 1092
+        },
+        {
+          "path": "src/Application/WeatherForecasts/Queries/GetWeatherForecasts/WeatherForecast.cs",
+          "source_path": "src/Application/WeatherForecasts/Queries/GetWeatherForecasts/WeatherForecast.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Application/WeatherForecasts/Queries/GetWeatherForecasts/WeatherForecast.cs",
+          "bytes": 332
+        },
+        {
+          "path": "src/Domain/Common/BaseAuditableEntity.cs",
+          "source_path": "src/Domain/Common/BaseAuditableEntity.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Domain/Common/BaseAuditableEntity.cs",
+          "bytes": 301
+        },
+        {
+          "path": "src/Domain/Common/BaseEntity.cs",
+          "source_path": "src/Domain/Common/BaseEntity.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Domain/Common/BaseEntity.cs",
+          "bytes": 790
+        },
+        {
+          "path": "src/Domain/Common/BaseEvent.cs",
+          "source_path": "src/Domain/Common/BaseEvent.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Domain/Common/BaseEvent.cs",
+          "bytes": 115
+        },
+        {
+          "path": "src/Domain/Common/ValueObject.cs",
+          "source_path": "src/Domain/Common/ValueObject.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Domain/Common/ValueObject.cs",
+          "bytes": 1439
+        },
+        {
+          "path": "src/Domain/Constants/Roles.cs",
+          "source_path": "src/Domain/Constants/Roles.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Domain/Constants/Roles.cs",
+          "bytes": 144
+        },
+        {
+          "path": "src/Domain/Domain.csproj",
+          "source_path": "src/Domain/Domain.csproj",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Domain/Domain.csproj",
+          "bytes": 300
+        },
+        {
+          "path": "src/Domain/Entities/TodoItem.cs",
+          "source_path": "src/Domain/Entities/TodoItem.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Domain/Entities/TodoItem.cs",
+          "bytes": 577
+        },
+        {
+          "path": "src/Domain/Entities/TodoList.cs",
+          "source_path": "src/Domain/Entities/TodoList.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Domain/Entities/TodoList.cs",
+          "bytes": 271
+        },
+        {
+          "path": "src/Domain/Enums/PriorityLevel.cs",
+          "source_path": "src/Domain/Enums/PriorityLevel.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Domain/Enums/PriorityLevel.cs",
+          "bytes": 132
+        },
+        {
+          "path": "src/Domain/Events/TodoItemCompletedEvent.cs",
+          "source_path": "src/Domain/Events/TodoItemCompletedEvent.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Domain/Events/TodoItemCompletedEvent.cs",
+          "bytes": 216
+        },
+        {
+          "path": "src/Domain/Exceptions/UnsupportedColourException.cs",
+          "source_path": "src/Domain/Exceptions/UnsupportedColourException.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Domain/Exceptions/UnsupportedColourException.cs",
+          "bytes": 223
+        },
+        {
+          "path": "src/Domain/GlobalUsings.cs",
+          "source_path": "src/Domain/GlobalUsings.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Domain/GlobalUsings.cs",
+          "bytes": 289
+        },
+        {
+          "path": "src/Domain/ValueObjects/Colour.cs",
+          "source_path": "src/Domain/ValueObjects/Colour.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Domain/ValueObjects/Colour.cs",
+          "bytes": 1495
+        },
+        {
+          "path": "src/Infrastructure/Data/ApplicationDbContext.cs",
+          "source_path": "src/Infrastructure/Data/ApplicationDbContext.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Infrastructure/Data/ApplicationDbContext.cs",
+          "bytes": 832
+        },
+        {
+          "path": "src/Infrastructure/Data/ApplicationDbContextInitialiser.cs",
+          "source_path": "src/Infrastructure/Data/ApplicationDbContextInitialiser.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Infrastructure/Data/ApplicationDbContextInitialiser.cs",
+          "bytes": 3660
+        },
+        {
+          "path": "src/Infrastructure/Data/Configurations/TodoItemConfiguration.cs",
+          "source_path": "src/Infrastructure/Data/Configurations/TodoItemConfiguration.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Infrastructure/Data/Configurations/TodoItemConfiguration.cs",
+          "bytes": 450
+        },
+        {
+          "path": "src/Infrastructure/Data/Configurations/TodoListConfiguration.cs",
+          "source_path": "src/Infrastructure/Data/Configurations/TodoListConfiguration.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Infrastructure/Data/Configurations/TodoListConfiguration.cs",
+          "bytes": 504
+        },
+        {
+          "path": "src/Infrastructure/Data/Interceptors/AuditableEntityInterceptor.cs",
+          "source_path": "src/Infrastructure/Data/Interceptors/AuditableEntityInterceptor.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Infrastructure/Data/Interceptors/AuditableEntityInterceptor.cs",
+          "bytes": 2187
+        },
+        {
+          "path": "src/Infrastructure/Data/Interceptors/DispatchDomainEventsInterceptor.cs",
+          "source_path": "src/Infrastructure/Data/Interceptors/DispatchDomainEventsInterceptor.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Infrastructure/Data/Interceptors/DispatchDomainEventsInterceptor.cs",
+          "bytes": 1587
+        },
+        {
+          "path": "src/Infrastructure/DependencyInjection.cs",
+          "source_path": "src/Infrastructure/DependencyInjection.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Infrastructure/DependencyInjection.cs",
+          "bytes": 3088
+        },
+        {
+          "path": "src/Infrastructure/GlobalUsings.cs",
+          "source_path": "src/Infrastructure/GlobalUsings.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Infrastructure/GlobalUsings.cs",
+          "bytes": 76
+        },
+        {
+          "path": "src/Infrastructure/Identity/ApplicationUser.cs",
+          "source_path": "src/Infrastructure/Identity/ApplicationUser.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Infrastructure/Identity/ApplicationUser.cs",
+          "bytes": 143
+        },
+        {
+          "path": "src/Infrastructure/Identity/IdentityResultExtensions.cs",
+          "source_path": "src/Infrastructure/Identity/IdentityResultExtensions.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Infrastructure/Identity/IdentityResultExtensions.cs",
+          "bytes": 415
+        },
+        {
+          "path": "src/Infrastructure/Identity/IdentityService.cs",
+          "source_path": "src/Infrastructure/Identity/IdentityService.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Infrastructure/Identity/IdentityService.cs",
+          "bytes": 2517
+        },
+        {
+          "path": "src/Infrastructure/Infrastructure.csproj",
+          "source_path": "src/Infrastructure/Infrastructure.csproj",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Infrastructure/Infrastructure.csproj",
+          "bytes": 1176
+        },
+        {
+          "path": "src/ServiceDefaults/Extensions.cs",
+          "source_path": "src/ServiceDefaults/Extensions.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/ServiceDefaults/Extensions.cs",
+          "bytes": 4529
+        },
+        {
+          "path": "src/ServiceDefaults/ServiceDefaults.csproj",
+          "source_path": "src/ServiceDefaults/ServiceDefaults.csproj",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/ServiceDefaults/ServiceDefaults.csproj",
+          "bytes": 888
+        },
+        {
+          "path": "src/Shared/Services.cs",
+          "source_path": "src/Shared/Services.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Shared/Services.cs",
+          "bytes": 950
+        },
+        {
+          "path": "src/Shared/Shared.csproj",
+          "source_path": "src/Shared/Shared.csproj",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Shared/Shared.csproj",
+          "bytes": 366
+        },
+        {
+          "path": "src/Web/ClientApp-React/README.md",
+          "source_path": "src/Web/ClientApp-React/README.md",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Web/ClientApp-React/README.md",
+          "bytes": 1422
+        },
+        {
+          "path": "src/Web/ClientApp-React/src/App.jsx",
+          "source_path": "src/Web/ClientApp-React/src/App.jsx",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Web/ClientApp-React/src/App.jsx",
+          "bytes": 763
+        },
+        {
+          "path": "src/Web/ClientApp-React/src/AppRoutes.jsx",
+          "source_path": "src/Web/ClientApp-React/src/AppRoutes.jsx",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Web/ClientApp-React/src/AppRoutes.jsx",
+          "bytes": 852
+        },
+        {
+          "path": "src/Web/ClientApp-React/src/main.jsx",
+          "source_path": "src/Web/ClientApp-React/src/main.jsx",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Web/ClientApp-React/src/main.jsx",
+          "bytes": 396
+        },
+        {
+          "path": "src/Web/ClientApp-React/src/styles.scss",
+          "source_path": "src/Web/ClientApp-React/src/styles.scss",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Web/ClientApp-React/src/styles.scss",
+          "bytes": 9310
+        },
+        {
+          "path": "src/Web/ClientApp-React/src/vite-env.d.ts",
+          "source_path": "src/Web/ClientApp-React/src/vite-env.d.ts",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Web/ClientApp-React/src/vite-env.d.ts",
+          "bytes": 38
+        },
+        {
+          "path": "src/Web/ClientApp/README.md",
+          "source_path": "src/Web/ClientApp/README.md",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Web/ClientApp/README.md",
+          "bytes": 1075
+        },
+        {
+          "path": "src/Web/ClientApp/src/index.html",
+          "source_path": "src/Web/ClientApp/src/index.html",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Web/ClientApp/src/index.html",
+          "bytes": 906
+        },
+        {
+          "path": "src/Web/ClientApp/src/main.ts",
+          "source_path": "src/Web/ClientApp/src/main.ts",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Web/ClientApp/src/main.ts",
+          "bytes": 553
+        },
+        {
+          "path": "src/Web/ClientApp/src/polyfills.ts",
+          "source_path": "src/Web/ClientApp/src/polyfills.ts",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Web/ClientApp/src/polyfills.ts",
+          "bytes": 2820
+        },
+        {
+          "path": "src/Web/ClientApp/src/styles.scss",
+          "source_path": "src/Web/ClientApp/src/styles.scss",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Web/ClientApp/src/styles.scss",
+          "bytes": 9489
+        },
+        {
+          "path": "src/Web/ClientApp/src/test.ts",
+          "source_path": "src/Web/ClientApp/src/test.ts",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Web/ClientApp/src/test.ts",
+          "bytes": 404
+        },
+        {
+          "path": "src/Web/DependencyInjection.cs",
+          "source_path": "src/Web/DependencyInjection.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Web/DependencyInjection.cs",
+          "bytes": 1618
+        },
+        {
+          "path": "src/Web/Endpoints/TodoItems.cs",
+          "source_path": "src/Web/Endpoints/TodoItems.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Web/Endpoints/TodoItems.cs",
+          "bytes": 2421
+        },
+        {
+          "path": "src/Web/Endpoints/TodoLists.cs",
+          "source_path": "src/Web/Endpoints/TodoLists.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Web/Endpoints/TodoLists.cs",
+          "bytes": 2184
+        },
+        {
+          "path": "src/Web/Endpoints/Users.cs",
+          "source_path": "src/Web/Endpoints/Users.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Web/Endpoints/Users.cs",
+          "bytes": 912
+        },
+        {
+          "path": "src/Web/Endpoints/WeatherForecasts.cs",
+          "source_path": "src/Web/Endpoints/WeatherForecasts.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Web/Endpoints/WeatherForecasts.cs",
+          "bytes": 758
+        },
+        {
+          "path": "src/Web/GlobalUsings.cs",
+          "source_path": "src/Web/GlobalUsings.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Web/GlobalUsings.cs",
+          "bytes": 108
+        },
+        {
+          "path": "src/Web/Infrastructure/ApiExceptionOperationTransformer.cs",
+          "source_path": "src/Web/Infrastructure/ApiExceptionOperationTransformer.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Web/Infrastructure/ApiExceptionOperationTransformer.cs",
+          "bytes": 1286
+        },
+        {
+          "path": "src/Web/Infrastructure/BearerSecuritySchemeTransformer.cs",
+          "source_path": "src/Web/Infrastructure/BearerSecuritySchemeTransformer.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Web/Infrastructure/BearerSecuritySchemeTransformer.cs",
+          "bytes": 1430
+        },
+        {
+          "path": "src/Web/Infrastructure/EndpointRouteBuilderExtensions.cs",
+          "source_path": "src/Web/Infrastructure/EndpointRouteBuilderExtensions.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Web/Infrastructure/EndpointRouteBuilderExtensions.cs",
+          "bytes": 2634
+        },
+        {
+          "path": "src/Web/Infrastructure/IEndpointGroup.cs",
+          "source_path": "src/Web/Infrastructure/IEndpointGroup.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Web/Infrastructure/IEndpointGroup.cs",
+          "bytes": 777
+        },
+        {
+          "path": "src/Web/Infrastructure/IdentityApiOperationTransformer.cs",
+          "source_path": "src/Web/Infrastructure/IdentityApiOperationTransformer.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Web/Infrastructure/IdentityApiOperationTransformer.cs",
+          "bytes": 2653
+        },
+        {
+          "path": "src/Web/Infrastructure/MethodInfoExtensions.cs",
+          "source_path": "src/Web/Infrastructure/MethodInfoExtensions.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Web/Infrastructure/MethodInfoExtensions.cs",
+          "bytes": 1253
+        },
+        {
+          "path": "src/Web/Infrastructure/ProblemDetailsExceptionHandler.cs",
+          "source_path": "src/Web/Infrastructure/ProblemDetailsExceptionHandler.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Web/Infrastructure/ProblemDetailsExceptionHandler.cs",
+          "bytes": 2382
+        },
+        {
+          "path": "src/Web/Infrastructure/WebApplicationExtensions.cs",
+          "source_path": "src/Web/Infrastructure/WebApplicationExtensions.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Web/Infrastructure/WebApplicationExtensions.cs",
+          "bytes": 1192
+        },
+        {
+          "path": "src/Web/Program.cs",
+          "source_path": "src/Web/Program.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Web/Program.cs",
+          "bytes": 1156
+        },
+        {
+          "path": "src/Web/Services/CurrentUser.cs",
+          "source_path": "src/Web/Services/CurrentUser.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Web/Services/CurrentUser.cs",
+          "bytes": 604
+        },
+        {
+          "path": "src/Web/Web.csproj",
+          "source_path": "src/Web/Web.csproj",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/src/Web/Web.csproj",
+          "bytes": 2959
+        },
+        {
+          "path": "templates/ca-use-case/FeatureName/Commands/CleanArchitectureUseCase/CleanArchitectureUseCase.cs",
+          "source_path": "templates/ca-use-case/FeatureName/Commands/CleanArchitectureUseCase/CleanArchitectureUseCase.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/templates/ca-use-case/FeatureName/Commands/CleanArchitectureUseCase/CleanArchitectureUseCase.cs",
+          "bytes": 1311
+        },
+        {
+          "path": "templates/ca-use-case/FeatureName/Queries/CleanArchitectureUseCase/CleanArchitectureUseCase.cs",
+          "source_path": "templates/ca-use-case/FeatureName/Queries/CleanArchitectureUseCase/CleanArchitectureUseCase.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/templates/ca-use-case/FeatureName/Queries/CleanArchitectureUseCase/CleanArchitectureUseCase.cs",
+          "bytes": 1286
+        },
+        {
+          "path": "tests/Application.FunctionalTests/Application.FunctionalTests.csproj",
+          "source_path": "tests/Application.FunctionalTests/Application.FunctionalTests.csproj",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Application.FunctionalTests/Application.FunctionalTests.csproj",
+          "bytes": 1693
+        },
+        {
+          "path": "tests/Application.FunctionalTests/FunctionalTestSetup.cs",
+          "source_path": "tests/Application.FunctionalTests/FunctionalTestSetup.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Application.FunctionalTests/FunctionalTestSetup.cs",
+          "bytes": 1870
+        },
+        {
+          "path": "tests/Application.FunctionalTests/GlobalUsings.cs",
+          "source_path": "tests/Application.FunctionalTests/GlobalUsings.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Application.FunctionalTests/GlobalUsings.cs",
+          "bytes": 223
+        },
+        {
+          "path": "tests/Application.FunctionalTests/Infrastructure/DatabaseResetter.cs",
+          "source_path": "tests/Application.FunctionalTests/Infrastructure/DatabaseResetter.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Application.FunctionalTests/Infrastructure/DatabaseResetter.cs",
+          "bytes": 1353
+        },
+        {
+          "path": "tests/Application.FunctionalTests/Infrastructure/TestApp.cs",
+          "source_path": "tests/Application.FunctionalTests/Infrastructure/TestApp.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Application.FunctionalTests/Infrastructure/TestApp.cs",
+          "bytes": 3823
+        },
+        {
+          "path": "tests/Application.FunctionalTests/Infrastructure/TestBase.cs",
+          "source_path": "tests/Application.FunctionalTests/Infrastructure/TestBase.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Application.FunctionalTests/Infrastructure/TestBase.cs",
+          "bytes": 198
+        },
+        {
+          "path": "tests/Application.FunctionalTests/Infrastructure/WebApiFactory.cs",
+          "source_path": "tests/Application.FunctionalTests/Infrastructure/WebApiFactory.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Application.FunctionalTests/Infrastructure/WebApiFactory.cs",
+          "bytes": 1072
+        },
+        {
+          "path": "tests/Application.FunctionalTests/TodoItems/Commands/CreateTodoItemTests.cs",
+          "source_path": "tests/Application.FunctionalTests/TodoItems/Commands/CreateTodoItemTests.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Application.FunctionalTests/TodoItems/Commands/CreateTodoItemTests.cs",
+          "bytes": 1455
+        },
+        {
+          "path": "tests/Application.FunctionalTests/TodoItems/Commands/DeleteTodoItemTests.cs",
+          "source_path": "tests/Application.FunctionalTests/TodoItems/Commands/DeleteTodoItemTests.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Application.FunctionalTests/TodoItems/Commands/DeleteTodoItemTests.cs",
+          "bytes": 1108
+        },
+        {
+          "path": "tests/Application.FunctionalTests/TodoItems/Commands/UpdateTodoItemDetailTests.cs",
+          "source_path": "tests/Application.FunctionalTests/TodoItems/Commands/UpdateTodoItemDetailTests.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Application.FunctionalTests/TodoItems/Commands/UpdateTodoItemDetailTests.cs",
+          "bytes": 1824
+        },
+        {
+          "path": "tests/Application.FunctionalTests/TodoItems/Commands/UpdateTodoItemTests.cs",
+          "source_path": "tests/Application.FunctionalTests/TodoItems/Commands/UpdateTodoItemTests.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Application.FunctionalTests/TodoItems/Commands/UpdateTodoItemTests.cs",
+          "bytes": 1532
+        },
+        {
+          "path": "tests/Application.FunctionalTests/TodoLists/Commands/CreateTodoListTests.cs",
+          "source_path": "tests/Application.FunctionalTests/TodoLists/Commands/CreateTodoListTests.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Application.FunctionalTests/TodoLists/Commands/CreateTodoListTests.cs",
+          "bytes": 1419
+        },
+        {
+          "path": "tests/Application.FunctionalTests/TodoLists/Commands/DeleteTodoListTests.cs",
+          "source_path": "tests/Application.FunctionalTests/TodoLists/Commands/DeleteTodoListTests.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Application.FunctionalTests/TodoLists/Commands/DeleteTodoListTests.cs",
+          "bytes": 882
+        },
+        {
+          "path": "tests/Application.FunctionalTests/TodoLists/Commands/UpdateTodoListTests.cs",
+          "source_path": "tests/Application.FunctionalTests/TodoLists/Commands/UpdateTodoListTests.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Application.FunctionalTests/TodoLists/Commands/UpdateTodoListTests.cs",
+          "bytes": 2014
+        },
+        {
+          "path": "tests/Application.FunctionalTests/TodoLists/Queries/GetTodosTests.cs",
+          "source_path": "tests/Application.FunctionalTests/TodoLists/Queries/GetTodosTests.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Application.FunctionalTests/TodoLists/Queries/GetTodosTests.cs",
+          "bytes": 1706
+        },
+        {
+          "path": "tests/Application.UnitTests/Application.UnitTests.csproj",
+          "source_path": "tests/Application.UnitTests/Application.UnitTests.csproj",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Application.UnitTests/Application.UnitTests.csproj",
+          "bytes": 1287
+        },
+        {
+          "path": "tests/Application.UnitTests/Common/Behaviours/RequestLoggerTests.cs",
+          "source_path": "tests/Application.UnitTests/Common/Behaviours/RequestLoggerTests.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Application.UnitTests/Common/Behaviours/RequestLoggerTests.cs",
+          "bytes": 1674
+        },
+        {
+          "path": "tests/Application.UnitTests/Common/Exceptions/ValidationExceptionTests.cs",
+          "source_path": "tests/Application.UnitTests/Common/Exceptions/ValidationExceptionTests.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Application.UnitTests/Common/Exceptions/ValidationExceptionTests.cs",
+          "bytes": 2162
+        },
+        {
+          "path": "tests/Application.UnitTests/Common/Mappings/MappingTests.cs",
+          "source_path": "tests/Application.UnitTests/Common/Mappings/MappingTests.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Application.UnitTests/Common/Mappings/MappingTests.cs",
+          "bytes": 1757
+        },
+        {
+          "path": "tests/Domain.UnitTests/Domain.UnitTests.csproj",
+          "source_path": "tests/Domain.UnitTests/Domain.UnitTests.csproj",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Domain.UnitTests/Domain.UnitTests.csproj",
+          "bytes": 1081
+        },
+        {
+          "path": "tests/Domain.UnitTests/ValueObjects/ColourTests.cs",
+          "source_path": "tests/Domain.UnitTests/ValueObjects/ColourTests.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Domain.UnitTests/ValueObjects/ColourTests.cs",
+          "bytes": 1359
+        },
+        {
+          "path": "tests/Infrastructure.IntegrationTests/GlobalUsings.cs",
+          "source_path": "tests/Infrastructure.IntegrationTests/GlobalUsings.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Infrastructure.IntegrationTests/GlobalUsings.cs",
+          "bytes": 29
+        },
+        {
+          "path": "tests/Infrastructure.IntegrationTests/Infrastructure.IntegrationTests.csproj",
+          "source_path": "tests/Infrastructure.IntegrationTests/Infrastructure.IntegrationTests.csproj",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Infrastructure.IntegrationTests/Infrastructure.IntegrationTests.csproj",
+          "bytes": 951
+        },
+        {
+          "path": "tests/TestAppHost/Program.cs",
+          "source_path": "tests/TestAppHost/Program.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/TestAppHost/Program.cs",
+          "bytes": 595
+        },
+        {
+          "path": "tests/TestAppHost/TestAppHost.csproj",
+          "source_path": "tests/TestAppHost/TestAppHost.csproj",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/TestAppHost/TestAppHost.csproj",
+          "bytes": 812
+        },
+        {
+          "path": "tests/Web.AcceptanceTests/AspireSetup.cs",
+          "source_path": "tests/Web.AcceptanceTests/AspireSetup.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Web.AcceptanceTests/AspireSetup.cs",
+          "bytes": 2058
+        },
+        {
+          "path": "tests/Web.AcceptanceTests/GlobalUsings.cs",
+          "source_path": "tests/Web.AcceptanceTests/GlobalUsings.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Web.AcceptanceTests/GlobalUsings.cs",
+          "bytes": 209
+        },
+        {
+          "path": "tests/Web.AcceptanceTests/Pages/BasePage.cs",
+          "source_path": "tests/Web.AcceptanceTests/Pages/BasePage.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Web.AcceptanceTests/Pages/BasePage.cs",
+          "bytes": 364
+        },
+        {
+          "path": "tests/Web.AcceptanceTests/Pages/CounterPage.cs",
+          "source_path": "tests/Web.AcceptanceTests/Pages/CounterPage.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Web.AcceptanceTests/Pages/CounterPage.cs",
+          "bytes": 552
+        },
+        {
+          "path": "tests/Web.AcceptanceTests/Pages/HomePage.cs",
+          "source_path": "tests/Web.AcceptanceTests/Pages/HomePage.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Web.AcceptanceTests/Pages/HomePage.cs",
+          "bytes": 275
+        },
+        {
+          "path": "tests/Web.AcceptanceTests/Pages/LoginPage.cs",
+          "source_path": "tests/Web.AcceptanceTests/Pages/LoginPage.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Web.AcceptanceTests/Pages/LoginPage.cs",
+          "bytes": 675
+        },
+        {
+          "path": "tests/Web.AcceptanceTests/Pages/WeatherPage.cs",
+          "source_path": "tests/Web.AcceptanceTests/Pages/WeatherPage.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Web.AcceptanceTests/Pages/WeatherPage.cs",
+          "bytes": 524
+        },
+        {
+          "path": "tests/Web.AcceptanceTests/PlaywrightSetup.cs",
+          "source_path": "tests/Web.AcceptanceTests/PlaywrightSetup.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Web.AcceptanceTests/PlaywrightSetup.cs",
+          "bytes": 810
+        },
+        {
+          "path": "tests/Web.AcceptanceTests/StepDefinitions/CounterStepDefinitions.cs",
+          "source_path": "tests/Web.AcceptanceTests/StepDefinitions/CounterStepDefinitions.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Web.AcceptanceTests/StepDefinitions/CounterStepDefinitions.cs",
+          "bytes": 1216
+        },
+        {
+          "path": "tests/Web.AcceptanceTests/StepDefinitions/HomeStepDefinitions.cs",
+          "source_path": "tests/Web.AcceptanceTests/StepDefinitions/HomeStepDefinitions.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Web.AcceptanceTests/StepDefinitions/HomeStepDefinitions.cs",
+          "bytes": 931
+        },
+        {
+          "path": "tests/Web.AcceptanceTests/StepDefinitions/LoginStepDefinitions.cs",
+          "source_path": "tests/Web.AcceptanceTests/StepDefinitions/LoginStepDefinitions.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Web.AcceptanceTests/StepDefinitions/LoginStepDefinitions.cs",
+          "bytes": 1703
+        },
+        {
+          "path": "tests/Web.AcceptanceTests/StepDefinitions/WeatherStepDefinitions.cs",
+          "source_path": "tests/Web.AcceptanceTests/StepDefinitions/WeatherStepDefinitions.cs",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Web.AcceptanceTests/StepDefinitions/WeatherStepDefinitions.cs",
+          "bytes": 1632
+        },
+        {
+          "path": "tests/Web.AcceptanceTests/Web.AcceptanceTests.csproj",
+          "source_path": "tests/Web.AcceptanceTests/Web.AcceptanceTests.csproj",
+          "evidence_path": "EdgarAlvarez10__CleanArchitecture/tests/Web.AcceptanceTests/Web.AcceptanceTests.csproj",
+          "bytes": 1266
+        }
+      ],
+      "skipped": [
+        {
+          "path": "src/Web/ClientApp/src/favicon.png",
+          "reason": "binary"
+        }
+      ]
+    }
+  ]
+}

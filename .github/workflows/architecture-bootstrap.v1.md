@@ -16,7 +16,7 @@ concurrency:
 
 engine:
   id: copilot
-  model: gpt-5-mini
+  model: gpt-5.4-mini
 
 safe-outputs:
   create-pull-request:
@@ -147,6 +147,11 @@ evidence repository.
 The unfiltered same-repository checkout is removed before this agentic task
 starts. Read evidence only from `.architecture-work/evidence`.
 
+Source paths such as `src/Web/Program.cs` are not workspace paths. The
+deterministic collector places them under a repository-specific evidence
+directory. Always use the manifest's `evidence_path` field to open a collected
+file.
+
 Only propose changes to:
 
 - `docs/architecture/architecture.md`
@@ -158,10 +163,28 @@ scope files.
 ## Required process
 
 1. Read `.architecture-work/evidence/manifest.json`.
-2. Read only the materialized evidence files listed in that manifest.
-3. Create `.architecture-work/discovery-report.json` conforming to
+2. For every selected file, use its `evidence_path` field. Resolve that path
+   relative to the directory containing `manifest.json`. For example:
+
+   ```text
+   manifest:
+     .architecture-work/evidence/manifest.json
+
+   evidence_path:
+     EdgarAlvarez10__CleanArchitecture/src/Web/Program.cs
+
+   readable workspace path:
+     .architecture-work/evidence/EdgarAlvarez10__CleanArchitecture/src/Web/Program.cs
+  ```
+3. Treat path and source_path as provenance metadata identifying the
+   original repository path. Do not try to read those paths directly from the
+   workspace.
+4. Read only the materialized files identified by evidence_path.
+5. If a manifest entry has no evidence_path, report an evidence-manifest
+   error instead of guessing a workspace path.
+6. Create `.architecture-work/discovery-report.json` conforming to
    `schemas/architecture-discovery-report.schema.json`.
-4. Run:
+7. Run:
 
    ```bash
    python scripts/validate_json_schema.py \
@@ -169,18 +192,18 @@ scope files.
      .architecture-work/discovery-report.json
    ```
 
-5. Create or update the two architecture documents, using the templates as the
+8. Create or update the two architecture documents, using the templates as the
    structural baseline.
-6. Record every configured repository, access mode, configured ref, role, and
+9. Record every configured repository, access mode, configured ref, role, and
    resolved commit SHA from the evidence manifest.
-7. Describe implemented evidence as baseline only.
-8. Add transition or target content only when explicit approved evidence exists.
-9. Otherwise record the transition or target statement as an unknown.
-10. Keep new AI-generated architecture decisions in `proposed` state.
-11. Include contradictions and unknowns rather than silently resolving them.
-12. Ensure the architecture map only indexes identifiers and titles already
+10. Describe implemented evidence as baseline only.
+11. Add transition or target content only when explicit approved evidence exists.
+12. Otherwise record the transition or target statement as an unknown.
+13. Keep new AI-generated architecture decisions in `proposed` state.
+14. Include contradictions and unknowns rather than silently resolving them.
+15. Ensure the architecture map only indexes identifiers and titles already
     defined in `architecture.md`.
-13. Run:
+16. Run:
 
     ```bash
     python scripts/validate_architecture.py \
@@ -188,8 +211,8 @@ scope files.
       --working-tree
     ```
 
-14. If either validation fails, do not request a pull request.
-15. If validation succeeds, request exactly one draft pull request through the
+17. If either validation fails, do not request a pull request.
+18. If validation succeeds, request exactly one draft pull request through the
     configured `create-pull-request` safe output.
 
 The pull-request body must:

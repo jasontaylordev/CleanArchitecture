@@ -161,7 +161,23 @@ Review:
 - `docs/architecture/architecture.md`;
 - `docs/architecture/architecture-map.md`;
 - `.architecture-work/verification-evidence/manifest.json`, if available;
-- only the evidence files listed by that manifest.
+- only materialized evidence files identified by `evidence_path` in that
+  manifest.
+
+Resolve every `evidence_path` relative to:
+
+```text
+.architecture-work/verification-evidence/
+```
+
+The manifest fields path and source_path identify original
+source-repository paths. They are provenance metadata, not workspace paths.
+
+Do not attempt to open a source path such as src/Web/Program.cs directly.
+Open its repository-namespaced evidence_path instead.
+
+If a file entry has no evidence_path, report an evidence-manifest error
+instead of guessing a path.
 
 Look for:
 
