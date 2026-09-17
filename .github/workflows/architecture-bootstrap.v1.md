@@ -1,6 +1,7 @@
 ---
 name: Architecture bootstrap
 description: Bootstrap architecture documentation from immutable, allowlisted repository evidence
+intent: Gather and analyze architectural documentation of a solution in a central place for subsequent ADLC agents and workflows
 on:
   workflow_dispatch:
 
