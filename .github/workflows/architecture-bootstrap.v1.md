@@ -8,6 +8,7 @@ permissions:
   contents: read
   issues: read
   pull-requests: read
+  models: read
 
 concurrency:
   job-discriminator: ${{ github.run_id }}
