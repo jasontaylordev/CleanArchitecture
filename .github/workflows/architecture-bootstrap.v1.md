@@ -13,7 +13,9 @@ permissions:
 concurrency:
   job-discriminator: ${{ github.run_id }}
 
-engine: copilot
+engine:
+  id: copilot
+  model: gpt-5-mini
 
 safe-outputs:
   create-pull-request:
