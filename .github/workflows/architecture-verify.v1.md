@@ -1,6 +1,7 @@
 ---
 name: Independent architecture verification
 description: Independently review an architecture proposal without approving it
+checkout: false #suppresses both the default checkout and the generated PR-specific checkout, while leaving the explicitly defined checkout steps in the workflow intact
 on:
   pull_request:
     types:
@@ -16,7 +17,11 @@ permissions:
   issues: read
   pull-requests: read
 
-engine: copilot
+engine: 
+  id: gemini
+  model: gemini-3.5-flash
+
+max-turns: 2
 
 safe-outputs:
   add-comment:
