@@ -5,6 +5,7 @@
 > **State semantics:** Baseline is currently implemented or operating.
 > Transition is approved temporary or intermediate architecture. Target is
 > approved future intent. Implementation alone is not evidence of target intent.
+> LITTLE UPDATE
 
 ## Source repositories
 
