@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>CleanArchitecture.Shared.SQLScripts</RootNamespace>
+    <AssemblyName>CleanArchitecture.Shared.SQLScripts</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Everytime\**\*.sql" />
+    <EmbeddedResource Include="Onetime\**\*.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="dbup-core" />
+    <PackageReference Include="dbup-sqlserver" />
+  </ItemGroup>
+
+  <!-- Folder structure for organizing SQL scripts -->
+  <ItemGroup>
+    <Folder Include="Everytime\01_SPs\" />
+    <Folder Include="Everytime\02_Functions\" />
+    <Folder Include="Everytime\03_Views\" />
+    <Folder Include="Onetime\01_Seeding\" />
+    <Folder Include="Onetime\02_Migrations\" />
+  </ItemGroup>
+
+</Project>
