@@ -1,0 +1,19 @@
+-- =============================================
+-- Sample Stored Procedure: GetTodoListsSummary
+-- This script runs on every deployment (no journaling).
+-- Add your stored procedures to this folder.
+-- =============================================
+-- CREATE OR ALTER PROCEDURE [dbo].[GetTodoListsSummary]
+-- AS
+-- BEGIN
+--     SET NOCOUNT ON;
+--     SELECT 
+--         tl.Id,
+--         tl.Title,
+--         COUNT(ti.Id) AS ItemCount,
+--         SUM(CASE WHEN ti.Done = 1 THEN 1 ELSE 0 END) AS CompletedCount
+--     FROM TodoLists tl
+--     LEFT JOIN TodoItems ti ON ti.ListId = tl.Id
+--     GROUP BY tl.Id, tl.Title;
+-- END
+-- GO

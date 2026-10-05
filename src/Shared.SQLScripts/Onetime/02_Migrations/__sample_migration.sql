@@ -1,0 +1,8 @@
+-- =============================================
+-- Sample Migration Script
+-- This script runs only once (journaled by DbUp).
+-- Use for one-time data migrations or schema changes 
+-- that are not handled by EF Core.
+-- Use a naming convention like: 001_AddIndexOnTodoItems.sql
+-- =============================================
+-- CREATE INDEX IX_TodoItems_Done ON TodoItems(Done) WHERE Done = 0;

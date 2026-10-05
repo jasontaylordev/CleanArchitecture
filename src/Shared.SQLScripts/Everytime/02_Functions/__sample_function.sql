@@ -1,0 +1,15 @@
+-- =============================================
+-- Sample Function placeholder
+-- This script runs on every deployment (no journaling).
+-- Add your SQL functions to this folder.
+-- =============================================
+-- CREATE OR ALTER FUNCTION [dbo].[fn_GetTodoItemStatus](@TodoItemId INT)
+-- RETURNS NVARCHAR(20)
+-- AS
+-- BEGIN
+--     DECLARE @Status NVARCHAR(20);
+--     SELECT @Status = CASE WHEN Done = 1 THEN 'Completed' ELSE 'Pending' END
+--     FROM TodoItems WHERE Id = @TodoItemId;
+--     RETURN ISNULL(@Status, 'Unknown');
+-- END
+-- GO
