@@ -60,6 +60,14 @@ dotnet new ca-sln -cf none -db sqlite -o YourProjectName
 
 ### Run the app
 
+Using the [Aspire CLI](https://aspire.dev/get-started/install-cli/) (recommended):
+
+```bash
+aspire run
+```
+
+Or using the .NET CLI:
+
 ```bash
 dotnet run --project .\src\AppHost
 ```

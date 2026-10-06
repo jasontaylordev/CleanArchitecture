@@ -1,0 +1,17 @@
+# Line endings: store LF in the repository and check out with the
+# platform's native endings (CRLF on Windows, LF elsewhere).
+* text=auto
+
+# Shell scripts must always use LF; Windows batch files must use CRLF.
+*.sh  text eol=lf
+*.cmd text eol=crlf
+*.bat text eol=crlf
+
+# Binary files: never convert or diff as text.
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.woff  binary
+*.woff2 binary
