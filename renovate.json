@@ -9,9 +9,7 @@
   "labels": [
     "dependencies"
   ],
-  "schedule": [
-    "before 6am on monday"
-  ],
+  "schedule": ["on monday"],
   "timezone": "Australia/Brisbane",
   "packageRules": [
     {
