@@ -10,6 +10,14 @@ Run `dotnet build` to build the solution.
 
 To run the application:
 
+Using the [Aspire CLI](https://aspire.dev/get-started/install-cli/) (recommended):
+
+```bash
+aspire run
+```
+
+Or using the .NET CLI:
+
 ```bash
 dotnet run --project .\src\AppHost
 ```

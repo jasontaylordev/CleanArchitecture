@@ -1,13 +1,13 @@
-﻿<Project Sdk="Aspire.AppHost.Sdk/13.5.4">
+<Project Sdk="Aspire.AppHost.Sdk/13.6.0">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <RootNamespace>CleanArchitecture.AppHost</RootNamespace>
     <AssemblyName>CleanArchitecture.AppHost</AssemblyName>
+    <AspireUseCliBundle>true</AspireUseCliBundle>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Hosting.AppHost" />
     <PackageReference Include="Aspire.Hosting.Azure.AppContainers" />
     <PackageReference Include="Aspire.Hosting.JavaScript" />
     <!--#if (UsePostgreSQL)-->

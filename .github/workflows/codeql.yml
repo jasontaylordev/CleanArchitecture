@@ -28,6 +28,9 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v7
 
+    - name: Install .NET
+      uses: actions/setup-dotnet@v6
+
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v4
 
