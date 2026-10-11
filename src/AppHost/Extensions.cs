@@ -5,8 +5,12 @@ internal static class AspireExtensions
     {
         builder.WithEnvironment(context =>
         {
-            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-            context.EnvironmentVariables["ASPNETCORE_ENVIRONMENT"] = environment ?? "Development";
+            // Use the AppHost's environment if set. Otherwise default to Development
+            // when running locally and Production when publishing or deploying.
+            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")
+                ?? (context.ExecutionContext.IsRunMode ? "Development" : "Production");
+
+            context.EnvironmentVariables["ASPNETCORE_ENVIRONMENT"] = environment;
         });
 
         return builder;
