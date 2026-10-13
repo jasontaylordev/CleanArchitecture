@@ -1,28 +1,28 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CounterComponent } from './counter.component';
 
 describe('CounterComponent', () => {
   let fixture: ComponentFixture<CounterComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [ CounterComponent ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CounterComponent);
     fixture.detectChanges();
   });
 
-  it('should display a title', waitForAsync(() => {
+  it('should display a title', () => {
     const titleText = fixture.nativeElement.querySelector('h1').textContent;
     expect(titleText).toEqual('Counter');
-  }));
+  });
 
-  it('should start with count 0, then increments by 1 when clicked', waitForAsync(() => {
+  it('should start with count 0, then increments by 1 when clicked', () => {
     const countElement = fixture.nativeElement.querySelector('strong');
     expect(countElement.textContent).toEqual('0');
 
@@ -30,5 +30,5 @@ describe('CounterComponent', () => {
     incrementButton.click();
     fixture.detectChanges();
     expect(countElement.textContent).toEqual('1');
-  }));
+  });
 });

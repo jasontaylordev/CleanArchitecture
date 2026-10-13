@@ -67,6 +67,18 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
+            },
+            "testing": {
+              "aot": false,
+              "optimization": false,
+              "extractLicenses": false,
+              "assets": [
+                "src/assets"
+              ],
+              "polyfills": [
+                "zone.js",
+                "zone.js/testing"
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -91,21 +103,18 @@
           }
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
             "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/assets"
+            "reporters": [
+              "default"
             ],
-            "styles": [
-              "src/styles.scss"
+            "coverageReporters": [
+              "html",
+              "text-summary"
             ],
-            "scripts": []
+            "buildTarget": ":build:testing",
+            "runner": "vitest"
           }
         }
       }
