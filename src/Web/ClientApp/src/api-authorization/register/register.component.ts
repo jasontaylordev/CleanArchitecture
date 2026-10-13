@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { firstValueFrom } from 'rxjs';
@@ -8,6 +8,7 @@ const MIN_PASSWORD_LENGTH = 6;
 @Component({
   standalone: false,
   selector: 'app-register',
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './register.component.html'
 })
 export class RegisterComponent {

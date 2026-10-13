@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   standalone: false,
   selector: 'app-counter-component',
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './counter.component.html'
 })
 export class CounterComponent {

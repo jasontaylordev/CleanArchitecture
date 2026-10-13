@@ -63,6 +63,20 @@
         "/moq/",
         "/shouldly/"
       ]
+    },
+    {
+      "description": "Angular requires a specific TypeScript version, so let ng update manage TypeScript majors and minors for the Angular client",
+      "matchFileNames": [
+        "src/Web/ClientApp/package.json"
+      ],
+      "matchPackageNames": [
+        "typescript"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor"
+      ],
+      "enabled": false
     }
   ]
 }

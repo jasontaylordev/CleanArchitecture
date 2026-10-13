@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { firstValueFrom } from 'rxjs';
@@ -6,6 +6,7 @@ import { firstValueFrom } from 'rxjs';
 @Component({
   standalone: false,
   selector: 'app-login',
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './login.component.html'
 })
 export class LoginComponent {

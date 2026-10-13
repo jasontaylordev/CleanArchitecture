@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { LucideAngularModule, Sun, Moon, Laptop, Plus, Settings, MoreHorizontal } from 'lucide-angular';
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -13,11 +13,11 @@ import { WeatherComponent } from './weather/weather.component';
 import { TasksComponent } from './todo/todo.component';
 import { ThemeToggleComponent } from './theme-toggle/theme-toggle.component';
 import { API_BASE_URL } from './web-api-client';
-import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
-import { LoginComponent } from 'src/api-authorization/login/login.component';
-import { RegisterComponent } from 'src/api-authorization/register/register.component';
-import { AuthGuard } from 'src/api-authorization/auth.guard';
-import { AuthService } from 'src/api-authorization/auth.service';
+import { AuthorizeInterceptor } from '../api-authorization/authorize.interceptor';
+import { LoginComponent } from '../api-authorization/login/login.component';
+import { RegisterComponent } from '../api-authorization/register/register.component';
+import { AuthGuard } from '../api-authorization/auth.guard';
+import { AuthService } from '../api-authorization/auth.service';
 
 export function getApiBaseUrl(): string {
   const url = document.getElementsByTagName('base')[0].href;
@@ -55,7 +55,7 @@ export function getApiBaseUrl(): string {
         { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
         { provide: API_BASE_URL, useFactory: getApiBaseUrl, deps: [] },
         provideAppInitializer(() => inject(AuthService).initialize()),
-        provideHttpClient(withInterceptorsFromDi())
+        provideHttpClient(withXhr(), withInterceptorsFromDi())
     ]
 })
 export class AppModule { }

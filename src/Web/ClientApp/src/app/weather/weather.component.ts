@@ -1,9 +1,10 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, ChangeDetectionStrategy } from '@angular/core';
 import { WeatherForecastsClient, WeatherForecast } from '../web-api-client';
 
 @Component({
   standalone: false,
   selector: 'app-weather',
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './weather.component.html'
 })
 export class WeatherComponent {
