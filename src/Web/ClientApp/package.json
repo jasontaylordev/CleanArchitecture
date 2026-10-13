@@ -44,5 +44,11 @@
       "@angular/common": "$@angular/common",
       "@angular/core": "$@angular/core"
     }
+  },
+  "allowScripts": {
+    "@parcel/watcher": true,
+    "esbuild": true,
+    "lmdb": true,
+    "msgpackr-extract": true
   }
 }
