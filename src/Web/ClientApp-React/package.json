@@ -32,5 +32,8 @@
     "preview": "vite preview",
     "lint": "eslint ./src/",
     "generate-api": "nswag run /runtime:Net100"
+  },
+  "allowScripts": {
+    "@parcel/watcher": true
   }
 }

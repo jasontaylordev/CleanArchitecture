@@ -24,6 +24,14 @@ export default defineConfig({
         }
       : undefined,
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        // Hide deprecation warnings from dependencies (e.g. Pico CSS)
+        quietDeps: true,
+      },
+    },
+  },
   build: {
     outDir: 'build',
   },
