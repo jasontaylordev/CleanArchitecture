@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, signal, computed, effect } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, signal, computed, effect, ChangeDetectionStrategy } from '@angular/core';
 import { TodoListsClient, TodoItemsClient,
   TodoListDto, TodoItemDto, LookupDto,
   CreateTodoListCommand, UpdateTodoListCommand,
@@ -9,6 +9,7 @@ import { TodoListsClient, TodoItemsClient,
   standalone: false,
   selector: 'app-todo-component',
   templateUrl: './todo.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./todo.component.scss']
 })
 export class TasksComponent implements OnInit {

@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/api-authorization/auth.service';
+import { AuthService } from '../../api-authorization/auth.service';
 
 @Component({
   standalone: false,
   selector: 'app-nav-menu',
   templateUrl: './nav-menu.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./nav-menu.component.scss']
 })
 export class NavMenuComponent {
