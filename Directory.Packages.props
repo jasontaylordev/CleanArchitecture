@@ -28,7 +28,7 @@
     <PackageVersion Include="NUnit.Analyzers" Version="4.15.0" />
     <PackageVersion Include="NUnit3TestAdapter" Version="6.3.1" />
     <PackageVersion Include="Respawn" Version="7.0.0" />
-    <PackageVersion Include="Scalar.AspNetCore" Version="2.18.3" />
+    <PackageVersion Include="Scalar.AspNetCore" Version="2.18.7" />
     <PackageVersion Include="Shouldly" Version="4.3.0" />
     <!-- Pinned to a patched version: pulled in transitively, 10.0.12 has known vulnerabilities (GHSA-846f-f764-76mx, GHSA-2fmv-rv2c-59x7) -->
     <PackageVersion Include="System.Security.Cryptography.Pkcs" Version="10.0.14" />
