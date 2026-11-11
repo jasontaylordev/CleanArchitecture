@@ -38,21 +38,21 @@
     <PackageVersion Include="Reqnroll.NUnit" Version="3.3.4" />
     <!--#endif-->
     <!--#if (UsePostgreSQL)-->
-    <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="13.6.4" />
-    <PackageVersion Include="Aspire.Hosting.Azure.PostgreSQL" Version="13.6.4" />
+    <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="13.6.5" />
+    <PackageVersion Include="Aspire.Hosting.Azure.PostgreSQL" Version="13.6.5" />
     <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.3" />
     <!--#endif-->
     <!--#if (UseSqlServer)-->
-    <PackageVersion Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="13.6.4" />
-    <PackageVersion Include="Aspire.Hosting.Azure.Sql" Version="13.6.4" />
+    <PackageVersion Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="13.6.5" />
+    <PackageVersion Include="Aspire.Hosting.Azure.Sql" Version="13.6.5" />
     <!--#endif-->
     <!--#if (UseSqlite)-->
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.14" />
     <PackageVersion Include="CommunityToolkit.Aspire.Hosting.SQLite" Version="13.6.1" />
     <!--#endif-->
-    <PackageVersion Include="Aspire.Hosting.Azure.AppContainers" Version="13.6.4" />
-    <PackageVersion Include="Aspire.Hosting.Testing" Version="13.6.4" />
-    <PackageVersion Include="Aspire.Hosting.JavaScript" Version="13.6.4" />
+    <PackageVersion Include="Aspire.Hosting.Azure.AppContainers" Version="13.6.5" />
+    <PackageVersion Include="Aspire.Hosting.Testing" Version="13.6.5" />
+    <PackageVersion Include="Aspire.Hosting.JavaScript" Version="13.6.5" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="10.11.0" />
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="10.11.0" />
     <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.20.1" />
