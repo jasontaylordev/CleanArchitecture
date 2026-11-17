@@ -13,6 +13,13 @@
   "timezone": "Australia/Brisbane",
   "packageRules": [
     {
+      "description": "global.json holds the minimum supported SDK, not the latest; don't bump it",
+      "matchFileNames": [
+        "global.json"
+      ],
+      "enabled": false
+    },
+    {
       "description": "Automerge non-major updates",
       "matchUpdateTypes": [
         "minor",
