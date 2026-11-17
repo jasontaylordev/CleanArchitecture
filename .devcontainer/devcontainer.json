@@ -1,25 +1,41 @@
+// For format details, see https://aka.ms/devcontainer.json
+// Based on Microsoft's maintained Aspire Dev Container: https://github.com/microsoft/aspire-devcontainer
 {
     "name": "CleanArchitecture",
-    "image": "mcr.microsoft.com/devcontainers/python:3.13-bullseye",
+    "image": "mcr.microsoft.com/devcontainers/base:3-ubuntu24.04",
     "features": {
-        // See https://containers.dev/features for list of features
-        "ghcr.io/devcontainers/features/docker-in-docker:4": {
-        }
+        "ghcr.io/devcontainers/features/dotnet:2": {
+            //#if (UseNet11)
+            "version": "11.0"
+            //#else
+            "version": "10.0"
+            //#endif
+        },
+        // Installs the Aspire CLI (aspire run, aspire deploy) and the Aspire VS Code extension
+        "ghcr.io/microsoft/aspire-devcontainer-feature/aspire:3": {},
+        // Aspire runs SQL Server and PostgreSQL as containers, locally and in the functional tests
+        "ghcr.io/devcontainers/features/docker-in-docker:4": {},
+        //#if (!UseApiOnly)
+        "ghcr.io/devcontainers/features/node:1": {
+            "version": "lts"
+        },
+        //#endif
+        // Azure Developer CLI, used by the deployment guide (azd init, azd up)
+        "ghcr.io/azure/azure-dev/azd:0": {}
     },
+    "remoteEnv": {
+        "SSL_CERT_DIR": "/usr/lib/ssl/certs:/home/vscode/.aspnet/dev-certs/trust"
+    },
+    "postStartCommand": "aspire certs trust --non-interactive",
     "customizations": {
         "vscode": {
             "extensions": [
-                "GitHub.vscode-github-actions",
-                "ms-azuretools.vscode-docker"
-                // Include other VSCode language extensions if needed
-                // Right click on an extension inside VSCode to add directly to devcontainer.json, or copy the extension ID
+                "ms-dotnettools.csdevkit",
+                "ms-azuretools.vscode-docker",
+                "GitHub.vscode-github-actions"
             ]
         }
     },
-    "forwardPorts": [
-        // Forward ports if needed for local development
-    ],
-    "postCreateCommand": "",
     "remoteUser": "vscode",
     "hostRequirements": {
         "memory": "8gb"

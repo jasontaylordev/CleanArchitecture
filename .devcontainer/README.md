@@ -17,5 +17,14 @@ If using VS Code:
 If using GitHub Codespaces:
 - Codespaces will automatically use this configuration when the workspace starts.
 
+## What's included
+- The .NET SDK for the solution's target framework
+- The Aspire CLI (`aspire run`, `aspire deploy`) and the Aspire VS Code extension
+- Docker-in-Docker, so Aspire can run SQL Server and PostgreSQL containers for local development and the functional tests
+- Node.js (LTS), when the solution includes an Angular or React client
+- The Azure Developer CLI (`azd`), used by the deployment guide
+
+The ASP.NET Core development certificate is trusted on start (`aspire certs trust`).
+
 ## Notes
 This folder has no effect on the runtime application. It is only used to configure the developer environment.
