@@ -269,6 +269,25 @@
         ]
       }
     },
+    "NswagRuntime": {
+      "type": "generated",
+      "generator": "switch",
+      "replaces": "Net100",
+      "parameters": {
+        "evaluator": "C++",
+        "datatype": "string",
+        "cases": [
+          {
+            "condition": "(Framework == \"net11.0\")",
+            "value": "Net110"
+          },
+          {
+            "condition": "",
+            "value": "Net100"
+          }
+        ]
+      }
+    },
     "ClientFramework": {
       "type": "parameter",
       "datatype": "choice",
