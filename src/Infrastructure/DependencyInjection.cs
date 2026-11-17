@@ -23,7 +23,9 @@ public static class DependencyInjection
         builder.Services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
             options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
-#if (UsePostgreSQL)
+#if (UsePostgreSQL && UseNet11)
+            options.UseNpgsql(connectionString, npgsql => npgsql.EnableRetryOnFailure());
+#elif (UsePostgreSQL)
             options.UseNpgsql(connectionString);
 #elif (UseSqlServer)
             options.UseSqlServer(connectionString);
@@ -33,7 +35,10 @@ public static class DependencyInjection
             options.ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
         });
 
-#if UsePostgreSQL
+#if (UsePostgreSQL && UseNet11)
+        // Aspire 13.6's retry setup isn't compatible with Npgsql 11 yet; use Npgsql's own retries instead.
+        builder.EnrichNpgsqlDbContext<ApplicationDbContext>(settings => settings.DisableRetry = true);
+#elif (UsePostgreSQL)
         builder.EnrichNpgsqlDbContext<ApplicationDbContext>();
 #elif (UseSqlServer)
         builder.EnrichSqlServerDbContext<ApplicationDbContext>();
