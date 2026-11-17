@@ -24,14 +24,18 @@ jobs:
     - uses: actions/checkout@v7
       name: Checkout code
 
-    # Install only this job's SDK, into a fresh folder so the runner image's preinstalled SDKs aren't
-    # visible. A .NET 11 job then can't quietly depend on the .NET 10 runtime (as NSwag's Net100 build did).
+    # Install only this job's SDK, into a fresh folder, so neither the runner image's preinstalled SDKs
+    # nor any extra runtimes are visible. A .NET 11 job then can't quietly depend on the .NET 10 runtime
+    # (as NSwag's Net100 build did). setup-dotnet added a .NET 10 runtime alongside the SDK, so use the
+    # official install script instead.
     - name: Install .NET
-      uses: actions/setup-dotnet@v6
       env:
-        DOTNET_INSTALL_DIR: ${{ runner.temp }}/dotnet
-      with:
-        dotnet-version: ${{ matrix.framework == 'net11.0' && '11.0.x' || '10.0.x' }}
+        DOTNET_CHANNEL: ${{ matrix.framework == 'net11.0' && '11.0' || '10.0' }}
+      run: |
+        curl -sSL https://dot.net/v1/dotnet-install.sh -o "$RUNNER_TEMP/dotnet-install.sh"
+        bash "$RUNNER_TEMP/dotnet-install.sh" --channel "$DOTNET_CHANNEL" --install-dir "$RUNNER_TEMP/dotnet"
+        echo "DOTNET_ROOT=$RUNNER_TEMP/dotnet" >> "$GITHUB_ENV"
+        echo "$RUNNER_TEMP/dotnet" >> "$GITHUB_PATH"
 
     - name: Show .NET SDKs and runtimes
       run: dotnet --info
