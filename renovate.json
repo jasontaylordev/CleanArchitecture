@@ -13,7 +13,21 @@
   "timezone": "Australia/Brisbane",
   "packageRules": [
     {
-      "description": "global.json holds the minimum supported SDK, not the latest; don't bump it",
+      "description": "Keep .NET 10 framework packages on 10.x",
+      "matchFileNames": [
+        "Directory.Packages.net10.0.props"
+      ],
+      "allowedVersions": "<11.0.0"
+    },
+    {
+      "description": "Keep .NET 11 framework packages on 11.x",
+      "matchFileNames": [
+        "Directory.Packages.net11.0.props"
+      ],
+      "allowedVersions": "<12.0.0"
+    },
+    {
+      "description": "global.json holds a minimum SDK version that the template replaces per framework (SdkVersion in template.json)",
       "matchFileNames": [
         "global.json"
       ],

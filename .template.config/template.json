@@ -225,6 +225,50 @@
         "value": "https://cleanarchitecture.jasontaylor.dev"
       }
     },
+    "Framework": {
+      "type": "parameter",
+      "datatype": "choice",
+      "choices": [
+        {
+          "choice": "net10.0",
+          "description": "Target .NET 10 (LTS)"
+        },
+        {
+          "choice": "net11.0",
+          "description": "Target .NET 11 (STS)"
+        }
+      ],
+      "replaces": "net10.0",
+      "defaultValue": "net10.0",
+      "description": "The target framework for the solution."
+    },
+    "UseNet10": {
+      "type": "computed",
+      "value": "(Framework == \"net10.0\")"
+    },
+    "UseNet11": {
+      "type": "computed",
+      "value": "(Framework == \"net11.0\")"
+    },
+    "SdkVersion": {
+      "type": "generated",
+      "generator": "switch",
+      "replaces": "10.0.100",
+      "parameters": {
+        "evaluator": "C++",
+        "datatype": "string",
+        "cases": [
+          {
+            "condition": "(Framework == \"net11.0\")",
+            "value": "11.0.100"
+          },
+          {
+            "condition": "",
+            "value": "10.0.100"
+          }
+        ]
+      }
+    },
     "ClientFramework": {
       "type": "parameter",
       "datatype": "choice",
@@ -354,6 +398,18 @@
           "rename": {
             "Web-webapi.http": "Web.http"
           }
+        },
+        {
+          "condition": "(UseNet10)",
+          "exclude": [
+            "Directory.Packages.net11.0.props"
+          ]
+        },
+        {
+          "condition": "(UseNet11)",
+          "exclude": [
+            "Directory.Packages.net10.0.props"
+          ]
         },
         {
           "condition": "(UsePostgreSQL)",

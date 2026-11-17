@@ -1,0 +1,25 @@
+<!-- Package versions that track .NET 11. Renovate keeps these on 11.x (see renovate.json). -->
+<Project>
+  <ItemGroup>
+    <PackageVersion Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="11.0.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="11.0.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="11.0.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="11.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="11.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="11.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.ApiDescription.Server" Version="11.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="11.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="11.0.0" />
+    <!--#if (UsePostgreSQL)-->
+    <!-- TODO: move to 11.0.0 once Npgsql ships a stable EF Core 11 provider (see NU1608 suppression in Directory.Build.props) -->
+    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="11.0.0-rc.3" />
+    <!--#endif-->
+    <!--#if (UseSqlServer)-->
+    <!-- Aspire's SQL Server integration brings in EF Core 10 transitively; pin the provider to match EF Core 11.0.0 -->
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="11.0.0" />
+    <!--#endif-->
+    <!--#if (UseSqlite)-->
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="11.0.0" />
+    <!--#endif-->
+  </ItemGroup>
+</Project>

@@ -33,7 +33,7 @@ jobs:
       uses: actions/cache@v6
       with:
         path: ~/.nuget/packages
-        key: ${{ runner.os }}-nuget-${{ hashFiles('**/Directory.Packages.props', '**/*.csproj') }}
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/Directory.Packages*.props', '**/*.csproj') }}
         restore-keys: |
           ${{ runner.os }}-nuget-
 

@@ -4,6 +4,16 @@
   "icon": "icon.png",
   "symbolInfo": [
     {
+      "id": "Framework",
+      "name": {
+        "text": "Framework"
+      },
+      "description": {
+        "text": "Select the target framework."
+      },
+      "isVisible": true
+    },
+    {
       "id": "ClientFramework",
       "name": {
         "text": "Client Framework"
