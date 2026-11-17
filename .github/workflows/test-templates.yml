@@ -10,12 +10,13 @@ permissions:
 
 jobs:
   test-template:
-    name: ${{ matrix.client-framework }}-${{ matrix.database }}
+    name: ${{ matrix.framework }}-${{ matrix.client-framework }}-${{ matrix.database }}
     runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
       matrix:
+        framework: [net10.0, net11.0]
         client-framework: [angular, react, none]
         database: [sqlite, sqlserver, postgresql]
 
@@ -25,6 +26,10 @@ jobs:
 
     - name: Install .NET
       uses: actions/setup-dotnet@v6
+      with:
+        dotnet-version: |
+          10.0.x
+          11.0.x
 
     - name: Install Node & cache npm packages
       if: matrix.client-framework != 'none'
@@ -40,7 +45,7 @@ jobs:
       uses: actions/cache@v6
       with:
         path: ~/.nuget/packages
-        key: ${{ runner.os }}-nuget-${{ matrix.client-framework }}-${{ matrix.database }}-${{ hashFiles('**/Directory.Packages.props', '**/*.csproj') }}
+        key: ${{ runner.os }}-nuget-${{ matrix.framework }}-${{ matrix.client-framework }}-${{ matrix.database }}-${{ hashFiles('**/Directory.Packages*.props', '**/*.csproj') }}
         restore-keys: |
           ${{ runner.os }}-nuget-
 
@@ -50,6 +55,7 @@ jobs:
     - name: Generate solution
       run: |
         dotnet new ca-sln \
+          --framework ${{ matrix.framework }} \
           --client-framework ${{ matrix.client-framework }} \
           --database ${{ matrix.database }} \
           --name CleanArchitecture \

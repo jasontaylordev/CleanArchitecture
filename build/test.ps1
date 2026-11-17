@@ -1,4 +1,5 @@
 param (
+    [string[]]$Framework = @("net10.0", "net11.0"),
     [string[]]$ClientFramework = @("angular", "react", "none"),
     [string[]]$Database = @("sqlite", "sqlserver", "postgresql")
 )
@@ -8,11 +9,12 @@ $results = @()
 
 function CreateAndTestProject {
     param (
+        [string]$framework,
         [string]$clientFramework,
         [string]$database
     )
 
-    $name = "$clientFramework-$database"
+    $name = "$framework-$clientFramework-$database"
     $projectPath = Join-Path $outputPath $name
 
     try {
@@ -24,7 +26,7 @@ function CreateAndTestProject {
         Write-Host "Creating project: $name"
         $startTime = Get-Date
 
-        dotnet new ca-sln --client-framework $clientFramework --database $database --name CleanArchitecture --output $projectPath --no-update-check
+        dotnet new ca-sln --framework $framework --client-framework $clientFramework --database $database --name CleanArchitecture --output $projectPath --no-update-check
         if ($LASTEXITCODE -ne 0) { throw "dotnet new ca-sln failed for $name" }
 
         $exitCode = 0
@@ -64,6 +66,7 @@ function CreateAndTestProject {
         $duration = $endTime - $startTime
 
         $script:results += [PSCustomObject]@{
+            Framework       = $framework
             ClientFramework = $clientFramework
             Database        = $database
             ExitCode        = $exitCode
@@ -74,6 +77,7 @@ function CreateAndTestProject {
         Write-Host "An error occurred while processing: $name"
         Write-Host $_.Exception.Message
         $script:results += [PSCustomObject]@{
+            Framework       = $framework
             ClientFramework = $clientFramework
             Database        = $database
             ExitCode        = -1
@@ -87,13 +91,15 @@ if (-not (Test-Path $outputPath)) {
     New-Item -ItemType Directory -Path $outputPath | Out-Null
 }
 
-foreach ($cf in $ClientFramework) {
-    foreach ($db in $Database) {
-        CreateAndTestProject -clientFramework $cf -database $db
+foreach ($fw in $Framework) {
+    foreach ($cf in $ClientFramework) {
+        foreach ($db in $Database) {
+            CreateAndTestProject -framework $fw -clientFramework $cf -database $db
+        }
     }
 }
 
-$results | Format-Table -Property ClientFramework, Database, Status, Duration -AutoSize
+$results | Format-Table -Property Framework, ClientFramework, Database, Status, Duration -AutoSize
 
 if ($results | Where-Object { $_.Status -ne "Success" }) {
     exit 1

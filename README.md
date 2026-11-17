@@ -16,7 +16,7 @@ If you find this project useful, please give it a star. Thanks! ⭐
 
 ### Prerequisites
 
-- [.NET 10.0 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) or later
+- [.NET 10.0 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) or later ([.NET 11.0 SDK](https://dotnet.microsoft.com/download/dotnet/11.0) or later to target .NET 11)
 - [Node.js](https://nodejs.org/) (LTS) — only required if you plan to use the Angular or React frontend
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) or [Podman](https://podman.io/) (or any OCI-compliant container runtime) — only required when using SQL Server or PostgreSQL. Not required when using SQLite (the default).
 
@@ -28,14 +28,15 @@ dotnet new install Clean.Architecture.Solution.Template
 
 ### Create a new solution
 
-Create a new solution using the template. Specify the client framework using `--client-framework` (`-cf`) and the database provider using `--database` (`-db`):
+Create a new solution using the template. Specify the target framework using `--framework` (`-f`), the client framework using `--client-framework` (`-cf`) and the database provider using `--database` (`-db`):
 
 ```bash
-dotnet new ca-sln --client-framework [angular|react|none] --database [postgresql|sqlite|sqlserver] --output YourProjectName
+dotnet new ca-sln --framework [net10.0|net11.0] --client-framework [angular|react|none] --database [postgresql|sqlite|sqlserver] --output YourProjectName
 ```
 
 | Option | Values | Default |
 |---|---|---|
+| `--framework` | `net10.0`, `net11.0` | `net10.0` |
 | `--client-framework` | `angular`, `react`, `none` | `angular` |
 | `--database` | `postgresql`, `sqlite`, `sqlserver` | `sqlite` |
 
@@ -90,7 +91,7 @@ To learn more, see the [Getting started](https://cleanarchitecture.jasontaylor.d
 
 ## Versions
 
-The `main` branch is on **.NET 10.0**. Previous versions are available:
+The `main` branch supports **.NET 10.0** (LTS, the default) and **.NET 11.0** (STS) — choose with `--framework`. Both are supported until November 2028. Previous versions are available:
 
 | Version | Branch |
 |---|---|
