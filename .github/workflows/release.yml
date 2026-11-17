@@ -12,6 +12,9 @@ jobs:
     name: Publish to NuGet.org
 
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write   # lets the job request the OIDC token for NuGet/login
 
     steps:
       - uses: actions/checkout@v7
@@ -58,5 +61,16 @@ jobs:
           name: nuget-package
           path: '*.nupkg'
 
+      - name: Install .NET
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.x
+
+      - name: NuGet login (OIDC)
+        id: login
+        uses: NuGet/login@v1
+        with:
+          user: JasonGT
+
       - name: Publish
-        run: nuget push *.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}} -SkipDuplicate
+        run: dotnet nuget push *.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --skip-duplicate
