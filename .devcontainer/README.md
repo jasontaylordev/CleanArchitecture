@@ -24,7 +24,10 @@ If using GitHub Codespaces:
 - Node.js (LTS), when the solution includes an Angular or React client
 - The Azure Developer CLI (`azd`), used by the deployment guide
 
-The ASP.NET Core development certificate is trusted on start (`aspire certs trust`).
+The ASP.NET Core development certificate is created and trusted inside the container on start (`aspire certs trust`).
+
+## Certificate warning in your browser
+When you open the Aspire dashboard or the app from your own browser, you may see a certificate error such as `ERR_CERT_AUTHORITY_INVALID`. This is expected: the HTTPS certificate is the development certificate created inside the container, and your computer has never been told to trust it. The certificate is issued to `localhost`, so for local development it's safe to continue past the warning.
 
 ## Notes
 This folder has no effect on the runtime application. It is only used to configure the developer environment.
