@@ -2,6 +2,15 @@
 
 The project was generated using the [Clean.Architecture.Solution.Template](caRepositoryUrl) version caPackageVersion.
 
+## Prerequisites
+
+- The [.NET SDK](https://dotnet.microsoft.com/download) for `net10.0` (`global.json` sets the minimum version)
+- [Node.js](https://nodejs.org/) (LTS), if the solution includes an Angular or React client
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) or [Podman](https://podman.io/), if the solution uses SQL Server or PostgreSQL. Aspire runs the database in a container, for local development and the functional tests.
+- The [Aspire CLI](https://aspire.dev/get-started/install-cli/) (recommended)
+
+Alternatively, open the solution in the included [Dev Container](#dev-container), which has everything installed.
+
 ## Build
 
 Run `dotnet build` to build the solution.
@@ -19,7 +28,7 @@ aspire run
 Or using the .NET CLI:
 
 ```bash
-dotnet run --project .\src\AppHost
+dotnet run --project ./src/AppHost
 ```
 
 The Aspire dashboard will open automatically, showing the application URLs and logs.
@@ -32,7 +41,7 @@ The template includes [EditorConfig](https://editorconfig.org/) support to help 
 
 The template includes support to scaffold new commands and queries.
 
-Start in the `.\src\Application\` folder.
+Start in the `./src/Application/` folder.
 
 Create a new command:
 
@@ -60,6 +69,14 @@ To run the tests:
 ```bash
 dotnet test
 ```
+
+## Dev Container
+
+The `.devcontainer` folder configures a [Dev Container](https://containers.dev/) with the .NET SDK, the Aspire CLI, Docker and (for Angular or React solutions) Node.js. In VS Code, install the Dev Containers extension and select **Reopen in Container**, or open the repository in GitHub Codespaces. See [.devcontainer/README.md](.devcontainer/README.md) for details, including the certificate warning you may see in your browser.
+
+## Deploy
+
+To deploy the solution to Azure, see the [deployment guide](caDocsUrl/docs/getting-started/deployment/).
 
 ## Architectural Decisions
 
