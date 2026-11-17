@@ -7,10 +7,11 @@ Use this guide when changing either this template repository or a solution gener
 This guide is shared by the `ca-sln` template source and the solutions generated from it.
 
 - If `.template.config` exists, you are working in the template source. Changes can affect multiple generated variants.
-- If `.template.config` does not exist, you are working in one generated solution. Follow its selected client framework and database provider, and ignore template-maintenance steps.
+- If `.template.config` does not exist, you are working in one generated solution. Follow its selected target framework, client framework and database provider, and ignore template-maintenance steps.
 
 The template supports:
 
+- .NET 10 or .NET 11 (`--framework net10.0|net11.0`)
 - Angular, React, or Web API only
 - SQLite, PostgreSQL, or SQL Server
 
@@ -50,11 +51,12 @@ Before changing an architectural boundary, read the accepted records in `docs/de
 This section applies only when `.template.config` exists.
 
 - The root template is configured in `.template.config/template.json`; the use-case item template is under `templates/ca-use-case`.
-- Template source contains all supported alternatives at once. Generated solutions contain only the selected client framework and database provider.
+- Package versions that track the target framework live in `Directory.Packages.net10.0.props` and `Directory.Packages.net11.0.props`; update both when changing them.
+- Template source contains all supported alternatives at once. Generated solutions contain only the selected target framework, client framework and database provider.
 - In this repository, Angular lives in `src/Web/ClientApp` and React in `src/Web/ClientApp-React`; the React directory is renamed to `ClientApp` in generated React solutions.
 - Keep template condition markers balanced and in their existing comment form. When adding, removing, or renaming variant-specific files, update the include, exclude, and rename rules in `.template.config/template.json`.
 - Edit template source, not files under a temporary generated-output directory. Generated output is disposable validation data.
-- For changes to template selection or conditional files, generate and validate every affected client/database combination. The full CI matrix is defined in `.github/workflows/test-templates.yml`.
+- For changes to template selection or conditional files, generate and validate every affected framework/client/database combination. The full CI matrix (18 combinations) is defined in `.github/workflows/test-templates.yml`.
 
 ## Coding conventions
 
