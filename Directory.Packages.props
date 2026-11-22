@@ -26,7 +26,7 @@
     <PackageVersion Include="Shouldly" Version="4.3.0" />
     <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.23.0" />
     <!--#if(!UseApiOnly)-->
-    <PackageVersion Include="Microsoft.Playwright" Version="1.64.1" />
+    <PackageVersion Include="Microsoft.Playwright" Version="1.65.1" />
     <PackageVersion Include="Reqnroll.NUnit" Version="3.3.4" />
     <!--#endif-->
     <!--#if (UsePostgreSQL)-->
