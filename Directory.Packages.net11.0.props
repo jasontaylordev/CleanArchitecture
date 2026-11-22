@@ -9,12 +9,12 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="11.0.0" />
     <PackageVersion Include="Microsoft.Extensions.ApiDescription.Server" Version="11.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="11.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="11.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="11.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="11.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="11.0.1" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="11.0.0" />
     <!--#if (UsePostgreSQL)-->
     <!-- TODO: move to 11.0.0 once Npgsql ships a stable EF Core 11 provider (see NU1608 suppression in Directory.Build.props) -->
-    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="11.0.0-rc.3" />
+    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="11.0.0" />
     <!--#endif-->
     <!--#if (UseSqlServer)-->
     <!-- Aspire's SQL Server integration brings in EF Core 10 transitively; pin the provider to match EF Core 11.0.0 -->
